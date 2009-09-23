@@ -1,0 +1,18 @@
+TOTAL ERRORES: 1
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+Imagenes.CargarImagenes                                 CargarImagenes.java     10      getImagen
+Grafico.Componentes                                     Componentes.java        359     getToolItems
+Grafico.Componentes                                     Componentes.java        93      agregarBarraDeHerramientas
+Grafico.Componentes                                     Componentes.java        84      agregarComponentes
+Grafico.Ventana                                         Ventana.java            871     main
+
