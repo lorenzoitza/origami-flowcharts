@@ -46,7 +46,7 @@ import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Imagenes.CargarImagenes;
 /**
- * @version Origami 1.0
+ * @version Origami 1.0.0.0.0.0.0.0.0.000.0.0.0.0.0..0.0.1
  * @author Juan Ku, Victor Rodriguez
  */
 public class Componentes {
@@ -59,7 +59,7 @@ public class Componentes {
     public final GridData diagramaData =new GridData(SWT.FILL,SWT.FILL,true,true,1,1);
     public final GridData consolaData =new GridData(SWT.FILL, SWT.FILL, false, false,2,1);
     private boolean boolTool=true;
-    private boolean boolPestañas=true;
+    private boolean boolPestaas=true;
     private boolean boolFiguras=true;
     private boolean consolaMax=false;
 	public final GridLayout layout = new GridLayout(2, false);
@@ -137,7 +137,7 @@ public class Componentes {
 			}
 			Ventana.shell.layout();
 		}
-		boolPestañas=seleccion;
+		boolPestaas=seleccion;
 	}
 	public void addBarraFiguras(boolean seleccion){
 		if(!consolaMax){
@@ -160,7 +160,7 @@ public class Componentes {
 			if(boolTool){
 				toolData.exclude=false;
 			}
-			if(boolPestañas){
+			if(boolPestaas){
 				tabData.exclude=false;
 			}
 			if(boolFiguras){
@@ -184,7 +184,7 @@ public class Componentes {
 			if(boolTool){
 				toolData.exclude=false;
 			}
-			if(boolPestañas){
+			if(boolPestaas){
 				tabData.exclude=false;
 			}
 			if(boolFiguras){
@@ -205,7 +205,7 @@ public class Componentes {
 				boolTool=false;
 			}
 			if(tabData.exclude){
-				boolPestañas=false;
+				boolPestaas=false;
 			}
 			if(figurasData.exclude){
 				boolFiguras=false;
@@ -281,7 +281,7 @@ public class Componentes {
 	    						dialog.getFileName().contains("\"")){
 	    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
 		    		messageBox.setText("Origami");
-		    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+		    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 		    		int seleccion = messageBox.open();
 		    		switch(seleccion){
 		    			case 64:
@@ -304,7 +304,7 @@ public class Componentes {
 	    			if(existe){
 	    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			    		messageBox.setText("Origami");
-			    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+			    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 			    		int seleccion = messageBox.open();
 			    		switch(seleccion){
 			    			case 64:
@@ -422,7 +422,7 @@ public class Componentes {
 			    						dialog.getFileName().contains("\"")){
 			    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
 				    		messageBox.setText("Origami");
-				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
@@ -444,7 +444,7 @@ public class Componentes {
 			    			if(existe){
 			    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 					    		messageBox.setText("Origami");
-					    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+					    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 					    		int seleccion = messageBox.open();
 					    		switch(seleccion){
 					    			case 64:
@@ -727,7 +727,7 @@ public class Componentes {
 			    						dialog.getFileName().contains("\"")){
 			    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
 				    		messageBox.setText("Origami");
-				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
@@ -749,7 +749,7 @@ public class Componentes {
 			    			if(existe){
 			    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 					    		messageBox.setText("Origami");
-					    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+					    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 					    		int seleccion = messageBox.open();
 					    		switch(seleccion){
 					    			case 64:
@@ -785,7 +785,7 @@ public class Componentes {
 			    						dialog.getFileName().contains("\"")){
 			    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
 				    		messageBox.setText("Origami");
-				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
@@ -807,7 +807,7 @@ public class Componentes {
 			    			if(existe){
 			    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 					    		messageBox.setText("Origami");
-					    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+					    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 					    		int seleccion = messageBox.open();
 					    		switch(seleccion){
 					    			case 64:
@@ -843,7 +843,7 @@ public class Componentes {
 		    						dialog.getFileName().contains("\"")){
 			    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
 				    		messageBox.setText("Origami");
-				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+				    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
@@ -865,7 +865,7 @@ public class Componentes {
 			    			if(existe){
 			    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 					    		messageBox.setText("Origami");
-					    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+					    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 					    		int seleccion = messageBox.open();
 					    		switch(seleccion){
 					    			case 64:
@@ -952,7 +952,7 @@ public class Componentes {
 		//Image imagenProceso = new Image(Ventana.display, "imagenes\\Proceso.png");
 		boton[1].setImage(CargarImagenes.getImagen("Proceso.png"));
 		boton[1].pack();
-		boton[1].setToolTipText("Expresión");
+		boton[1].setToolTipText("Expresin");
 		boton[1].addSelectionListener(new SelectionAdapter(){
 			public void widgetSelected(SelectionEvent event){
 				//String name = "imagenes\\cursorProceso.png";
@@ -970,7 +970,7 @@ public class Componentes {
 		//Image imagenIf = new Image(Ventana.display, "imagenes\\If.png");
 		boton[2].setImage(CargarImagenes.getImagen("If.png"));
 		boton[2].pack();
-		boton[2].setToolTipText("Decisión");
+		boton[2].setToolTipText("Decisin");
 		boton[2].addSelectionListener(new SelectionAdapter() {
 			 public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorIf.png";
@@ -1176,7 +1176,7 @@ public class Componentes {
 			if(diagramas.getHoja().getSizeDiagrama()==2){
 				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_INFORMATION | SWT.YES );
 				messageBox.setText("Origami");
-				messageBox.setMessage("La ejecución ha terminado.");
+				messageBox.setMessage("La ejecucin ha terminado.");
 				int selec = messageBox.open();
 				switch(selec){
 					case 0:
