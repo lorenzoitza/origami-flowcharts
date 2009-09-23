@@ -7,7 +7,7 @@ import Grafico.Ventana;
 import Grafico.Figuras.*;
 /**
  * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez, Kaka, chuuybutton,rodrigofdz, JAJAJAJAJAJA
+ * @author Juan rubi gay Ku, Victor Rodriguez, Kaka, chuuybutton,rodrigofdz, JAJAJAJAJAJA
  * PUTO JUAN
  */
 public class GenerarCodigo implements Serializable{
