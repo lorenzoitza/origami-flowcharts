@@ -13,7 +13,7 @@ import Grafico.Figuras.ellipse;
 /**
  * Esta clase administra las figuras del diagrama.
  * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez
+ * @author Juan Ku, Victor Rodriguez, hudy estuvo aqui
  */
 public class AdminDiagrama {
 	public Vector<Figura> diagrama = new Vector<Figura>();
