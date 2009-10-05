@@ -22,14 +22,14 @@ import org.eclipse.swt.widgets.Text;
  * @author Juan Ku, Victor Rodriguez
  */
 
-public class DatosFor {
+public class ForLoopDialog {
 	private Shell shell;
 	public For fig;
 	public Text text,text2,text3;
 	public EventoKey key;
 	public TabFolder tab;
 	
-	public DatosFor(TabFolder tabfolder){
+	public ForLoopDialog(TabFolder tabfolder){
 		tab = tabfolder;
 	}
 	/**

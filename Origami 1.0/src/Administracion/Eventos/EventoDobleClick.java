@@ -12,7 +12,7 @@ import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Grafico.VentanaDatos.DatosDecision;
 import Grafico.VentanaDatos.DatosEntrada;
-import Grafico.VentanaDatos.DatosFor;
+import Grafico.VentanaDatos.ForLoopDialog;
 import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
 import Grafico.VentanaDatos.WhileLoopDialog;
@@ -61,7 +61,7 @@ public class EventoDobleClick extends MouseListener.Stub{
 		}
 		else if(fig instanceof For){
 			For f = ((For)fig);
-			new DatosFor(tab).ventana(Ventana.display,f,selec);
+			new ForLoopDialog(tab).ventana(Ventana.display,f,selec);
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
