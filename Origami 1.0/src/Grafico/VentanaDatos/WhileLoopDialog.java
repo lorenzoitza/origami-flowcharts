@@ -21,21 +21,28 @@ import org.eclipse.swt.widgets.Text;
  * @author Juan Ku, Victor Rodriguez
  */
 public class WhileLoopDialog {
+	
 	private Shell shell;
+	
 	public While whileFigure;
+	
 	public Text conditionTextField ;
+	
 	public EventoKey key;
+	
 	public TabFolder tabbedPaneSelected;
 	
 	public WhileLoopDialog(TabFolder tabfolder){
 		tabbedPaneSelected = tabfolder;
 	}
+	
 	/**
 	 * Crea la ventana junto con sus componentes.
 	 * @param display
 	 * @param selectedFigure
 	 */
-	public void showDialog(Display display,While selectedFigure,AdminSeleccion selectionAdmin) {
+	public void showDialog(Display display, While selectedFigure, 
+			AdminSeleccion selectionAdmin) {
 		key = new EventoKey(selectionAdmin,tabbedPaneSelected);
 		shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		this.whileFigure = selectedFigure;
@@ -49,21 +56,24 @@ public class WhileLoopDialog {
 		
 			
 		if ((selectedFigure.instruccion.instruccion.firstElement()
-		     .getInstruccionSimple().compareTo("") != 0) 
-		       && selectedFigure.instruccion.instruccion.firstElement()
-		          .getInstruccionSimple().compareTo("null") != 0) {		
+				.getInstruccionSimple().compareTo("") != 0) 
+				&& selectedFigure.instruccion.instruccion.firstElement()
+		        .getInstruccionSimple().compareTo("null") != 0) {	
+			
 			instructionCode = selectedFigure.instruccion.instruccion
-			                  .firstElement().getInstruccionSimple();
+			                   .firstElement().getInstruccionSimple();
 			
 			for (int charIndex = 0; charIndex < instructionCode.length(); 
-			     charIndex++) {
+			charIndex++) {
 				if((charIndex > 5) && (charIndex < instructionCode.length()-2)){
 					conditionOfWhile += instructionCode.charAt(charIndex);
 				}
 			}
+			
 			conditionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
 			conditionTextField.setBounds(15, 25, 180, 20);
 			conditionTextField.setText(conditionOfWhile);
+			
 		} else {
 			conditionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
 			conditionTextField.setBounds(15, 25, 180, 20);
@@ -80,16 +90,19 @@ public class WhileLoopDialog {
 		}); 
 		
 		Label labelInfo = new Label(shell, SWT.NONE);
+		
 		labelInfo.setLocation(15,5);
 		labelInfo.setSize(250,15);
 		labelInfo.setText("Introduce la condicion");
 		
 		Label labelExampleInfo = new Label(shell, SWT.NONE);
+		
 		labelExampleInfo.setLocation(15,55);
 		labelExampleInfo.setSize(250,15);
 		labelExampleInfo.setText("EJEMPLO:  suma<=condicion");
 		
 		Button okButton = new Button(shell,SWT.FLAT);
+		
 		okButton.setBounds(25,85,75,25);
 		okButton.setText("ACEPTAR");
 		okButton.addSelectionListener(new SelectionAdapter() {
@@ -100,6 +113,7 @@ public class WhileLoopDialog {
 		});
 		
 		Button cancelButton = new Button(shell,SWT.FLAT);
+		
 		cancelButton.setBounds(135,85,75,25);
 		cancelButton.setText("CANCELAR");
 		cancelButton.addSelectionListener(new SelectionAdapter() {
@@ -118,27 +132,36 @@ public class WhileLoopDialog {
 	}
 	/**
 	 * Este metodo es el encargado de validar la informacion introducida.
-	 * @param mostrar
+	 * @param isShowed
 	 */
-	public void deleteCode(boolean mostrar){
-		boolean cambio=false;
-		if(mostrar){
+	public void deleteCode(boolean isShowed){
+		InstruccionSimple whileInstruction = new InstruccionSimple();
+		String instrutionCode = "";
+		boolean cambio = false;
+		
+		if(isShowed){
 			if(conditionTextField.getText() != ""){
-				InstruccionSimple codigo = new InstruccionSimple();
-				String instruc = "while(" + conditionTextField.getText() + "){";
-				codigo.setInstruccionSimple(instruc);
+				instrutionCode = "while(" + conditionTextField.getText() + "){";
+				whileInstruction.setInstruccionSimple(instrutionCode);
+				
 				if(whileFigure.instruccion.instruccion.size()>0){
-					if(!whileFigure.instruccion.instruccion.elementAt(0).instruccion.equals(instruc)){
+					if(!whileFigure.instruccion.instruccion.elementAt(0)
+							.instruccion.equals(instrutionCode)){
+						
 						tabbedPaneSelected.getTabItem().getSave().setSave(false);
-						tabbedPaneSelected.getTabItem().getInfo().setInformacion("/M - Se agrego o modifico una instruccion en una figura de tipo \"mientras\"\n");
-						cambio=true;
+						tabbedPaneSelected.getTabItem().getInfo()
+						  .setInformacion("/M - Se agrego o modifico una " +
+						  "instruccion en una figura de tipo " +
+						  "\"mientras\"\n");
+						cambio = true;
 					}
 				}
-				whileFigure.instruccion.instruccion.add(0, codigo);
+				whileFigure.instruccion.instruccion.add(0, whileInstruction);
 				tabbedPaneSelected.getHoja().addFigure();
 				tabbedPaneSelected.getHoja().guardarRetroceso();
-				if(cambio){
-					tabbedPaneSelected.getTabItem().getInfo().setDiagrama(tabbedPaneSelected.getHoja().getDiagrama());
+				if (cambio) {
+					tabbedPaneSelected.getTabItem().getInfo()
+						.setDiagrama(tabbedPaneSelected.getHoja().getDiagrama());
 				}
 			}
 		}

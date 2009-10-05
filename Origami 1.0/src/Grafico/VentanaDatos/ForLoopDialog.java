@@ -23,24 +23,32 @@ import org.eclipse.swt.widgets.Text;
  */
 
 public class ForLoopDialog {
+	
 	private Shell shell;
+	
 	public For forFigure;
-	public Text indexLoopTextField;
-	public Text conditionTextField;
-	public Text counterTextField;
+	
+	public Text indexExpressionTextField;
+	
+	public Text conditionExpressionTextField;
+	
+	public Text counterExpressionTextField;
+	
 	public EventoKey key;
+	
 	public TabFolder tabbedPaneSelected;
 	
 	public ForLoopDialog(TabFolder tabfolder){
 		tabbedPaneSelected = tabfolder;
 	}
+	
 	/**
 	 * Crea la ventana junto con sus componentes.
 	 * @param display
 	 * @param selectedFigure
 	 */
-	public void showDialog(Display display, For selectedFigure, AdminSeleccion selectionAdmin) {
-		
+	public void showDialog(Display display, For selectedFigure, 
+			               AdminSeleccion selectionAdmin) {
 		
 		key = new EventoKey(selectionAdmin,tabbedPaneSelected);
 		shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -49,67 +57,78 @@ public class ForLoopDialog {
 		shell.setSize(210, 280);
 		shell.setLocation(300, 200);
 		shell.setText("Datos For");
+		
 		this.forFigure = selectedFigure;
+		String instructionCode;
+		String indexExpression = "";
+		String counterExpression = "";
 		
-		String codigo = selectedFigure.instruccion.instruccion.firstElement().getInstruccionSimple();
-		codigo = codigo.replaceFirst("for","");
-		codigo = codigo.replace("(","");
-		codigo = codigo.replace(")","");
-		codigo = codigo.replace("{","");
+		instructionCode = selectedFigure.instruccion.instruccion.firstElement()
+		         		  .getInstruccionSimple();
+		instructionCode = instructionCode.replaceFirst("for","");
+		instructionCode = instructionCode.replace("(","");
+		instructionCode = instructionCode.replace(")","");
+		instructionCode = instructionCode.replace("{","");
 		
-		if(codigo.compareTo("null") != 0 && codigo.compareTo("") != 0){
-			String[] inst = selectedFigure.instruccion.instruccion.firstElement().getInstruccionSimple().split(";");
-			String correcto="";
-			for(int x=0;x<inst[0].length();x++){
-				if(x>3){
-					correcto += inst[0].charAt(x);
+		if ((instructionCode.compareTo("null") != 0) && 
+		(instructionCode.compareTo("") != 0)){
+			String[] forExpressions = selectedFigure.instruccion.instruccion
+			                .firstElement().getInstruccionSimple().split(";");
+			for (int charPositionOfIndexExpression = 0; 
+					charPositionOfIndexExpression < forExpressions[0].length(); 
+					charPositionOfIndexExpression++){
+				
+				if (charPositionOfIndexExpression > 3){
+					indexExpression += forExpressions[0]
+					                   .charAt(charPositionOfIndexExpression);
 				}
 			}
-			String correcto2="";
-			int y=inst[2].length();
-			for(int x=0;x<inst[2].length();x++){
-				if((y-2 != x) && (y-1!=x)){
-					correcto2 += inst[2].charAt(x);
+			
+			int couterExpressionLength = forExpressions[2].length();
+			for (int charPositionOfCounterExpression = 0; 
+					charPositionOfCounterExpression < forExpressions[2].length(); 
+					charPositionOfCounterExpression++){
+				
+				if(((couterExpressionLength - 2) != charPositionOfCounterExpression) 
+					&& ((couterExpressionLength - 1) != charPositionOfCounterExpression)){
+					counterExpression += forExpressions[2]
+					                   .charAt(charPositionOfCounterExpression);
 				}
 			}
-			indexLoopTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			indexLoopTextField.setBounds(15, 25, 170, 20);
-			conditionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			conditionTextField.setBounds(15, 80, 170, 20);
-			counterTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			counterTextField.setBounds(15, 130, 170, 20);
-			indexLoopTextField.setText(correcto);
-			conditionTextField.setText(inst[1]);
-			counterTextField.setText(correcto2);
+			
+			indexExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			indexExpressionTextField.setBounds(15, 25, 170, 20);
+			indexExpressionTextField.setText(indexExpression);
+			
+			conditionExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			conditionExpressionTextField.setBounds(15, 80, 170, 20);
+			conditionExpressionTextField.setText(forExpressions[1]);
+			
+			counterExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			counterExpressionTextField.setBounds(15, 130, 170, 20);
+			counterExpressionTextField.setText(counterExpression);
+		} else { 
+			indexExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			indexExpressionTextField.setBounds(15, 25, 170, 20);
+			
+			conditionExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			conditionExpressionTextField.setBounds(15, 80, 170, 20);
+			
+			counterExpressionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
+			counterExpressionTextField.setBounds(15, 130, 170, 20);
 		}
-		else{
-			indexLoopTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			indexLoopTextField.setBounds(15, 25, 170, 20);
-			conditionTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			conditionTextField.setBounds(15, 80, 170, 20);
-			counterTextField = new Text(shell,SWT.SINGLE | SWT.BORDER);
-			counterTextField.setBounds(15, 130, 170, 20);
-		}
-		indexLoopTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
+		
+		indexExpressionTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 				key.setKey(e);
-				if(key.PresentEnter()){
-					deleteCode(true);
-					shell.close();
-				}
-			}
-		}); 
-		conditionTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
-			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				key.setKey(e);
-				if(key.PresentEnter()){
+				if (key.PresentEnter()){
 					deleteCode(true);
 					shell.close();
 				}
 			}
 		}); 
 		
-		counterTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
+		conditionExpressionTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 				key.setKey(e);
 				if(key.PresentEnter()){
@@ -119,39 +138,57 @@ public class ForLoopDialog {
 			}
 		}); 
 		
-		Label label = new Label(shell, SWT.NONE);
-		label.setLocation(20,10);
-		label.setSize(50,15);
-		label.setText("Inicio");
+		counterExpressionTextField.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
+			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+				key.setKey(e);
+				if(key.PresentEnter()){
+					deleteCode(true);
+					shell.close();
+				}
+			}
+		}); 
 		
-		Label label2 = new Label(shell, SWT.NONE);
-		label2.setLocation(20,65);
-		label2.setSize(50,15);
-		label2.setText("Condición");
+		Label indexExpressionLabel = new Label(shell, SWT.NONE);
 		
-		Label label3 = new Label(shell, SWT.NONE);
-		label3.setLocation(20,115);
-		label3.setSize(50,15);
-		label3.setText("Iteración");
+		indexExpressionLabel.setLocation(20,10);
+		indexExpressionLabel.setSize(50,15);
+		indexExpressionLabel.setText("Inicio");
 		
-		Label label4 = new Label(shell, SWT.NONE);
-		label4.setLocation(30,155);
-		label4.setSize(100,45);
-		label4.setText("EJEMPLO: x=0\n                 x<=5\n                 x++");
+		Label conditionExpressionLabel = new Label(shell, SWT.NONE);
 		
-		Button boton = new Button(shell,SWT.FLAT);
-		boton.setBounds(20,215,75,25);
-		boton.setText("ACEPTAR");
-		boton.addSelectionListener(new SelectionAdapter() {
+		conditionExpressionLabel.setLocation(20,65);
+		conditionExpressionLabel.setSize(50,15);
+		conditionExpressionLabel.setText("Condición");
+		
+		Label couterExpressionLabel = new Label(shell, SWT.NONE);
+		
+		couterExpressionLabel.setLocation(20,115);
+		couterExpressionLabel.setSize(50,15);
+		couterExpressionLabel.setText("Iteración");
+		
+		Label exampleForLabel = new Label(shell, SWT.NONE);
+		
+		exampleForLabel.setLocation(30,155);
+		exampleForLabel.setSize(100,45);
+		exampleForLabel.setText("EJEMPLO: x=0\n                 " +
+				                "x<=5\n                 x++");
+		
+		Button okButton = new Button(shell,SWT.FLAT);
+		
+		okButton.setBounds(20,215,75,25);
+		okButton.setText("ACEPTAR");
+		okButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) { 
 				deleteCode(true);
 				shell.close();
 			}
 		});
-		Button boton2 = new Button(shell,SWT.FLAT);
-		boton2.setBounds(110,215,75,25);
-		boton2.setText("CANCELAR");
-		boton2.addSelectionListener(new SelectionAdapter() {
+		
+		Button cancelButton = new Button(shell,SWT.FLAT);
+		
+		cancelButton.setBounds(110,215,75,25);
+		cancelButton.setText("CANCELAR");
+		cancelButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				deleteCode(false);
 				shell.close();
@@ -167,27 +204,45 @@ public class ForLoopDialog {
 	}
 	/**
 	 * Este metodo es el encargado de validar la informacion introducida.
-	 * @param mostrar
+	 * @param isShowed
 	 */
-	public void deleteCode(boolean mostrar){
-		boolean cambio=false;
-		if(mostrar){
-			if(indexLoopTextField.getText() != "" && conditionTextField.getText() != "" && counterTextField.getText() != "" ){
-				InstruccionSimple codigo = new InstruccionSimple();
-				String instruc = "for("+indexLoopTextField.getText()+";"+conditionTextField.getText()+";"+counterTextField.getText()+"){";
-				codigo.setInstruccionSimple(instruc);
-				if(forFigure.instruccion.instruccion.size()>0){
-					if(!forFigure.instruccion.instruccion.elementAt(0).instruccion.equals(instruc)){
+	public void deleteCode(boolean isShowed){
+		InstruccionSimple forInstrution = new InstruccionSimple();
+		String instructionCode = "";
+		boolean cambio = false;
+		
+		if (isShowed) {
+			if ((indexExpressionTextField.getText() != "") && 
+				(conditionExpressionTextField.getText() != "") && 
+				(counterExpressionTextField.getText() != "")) {
+				
+				instructionCode += "for("+indexExpressionTextField.getText();
+				instructionCode += ";" + conditionExpressionTextField.getText();
+				instructionCode += ";" + counterExpressionTextField.getText();
+				instructionCode += "){";
+				
+				forInstrution.setInstruccionSimple(instructionCode);
+				
+				if (forFigure.instruccion.instruccion.size() > 0) {
+					
+					if (!forFigure.instruccion.instruccion.elementAt(0)
+							.instruccion.equals(instructionCode)) {
+						
 						tabbedPaneSelected.getTabItem().getSave().setSave(false);
-						tabbedPaneSelected.getTabItem().getInfo().setInformacion("/M Se agrego o modifico una instruccion en una figura de tipo \"para\"\n");
-						cambio=true;
+						tabbedPaneSelected.getTabItem().getInfo()
+						.setInformacion("/M Se agrego o modifico una instruccion" 
+								+"en una figura de tipo \"para\"\n");
+						
+						cambio = true;
 					}
 				}
-				forFigure.instruccion.instruccion.add(0, codigo);
+				forFigure.instruccion.instruccion.add(0, forInstrution);
 				tabbedPaneSelected.getHoja().addFigure();
 				tabbedPaneSelected.getHoja().guardarRetroceso();
-				if(cambio){
-					tabbedPaneSelected.getTabItem().getInfo().setDiagrama(tabbedPaneSelected.getHoja().getDiagrama());
+				
+				if (cambio) {
+					tabbedPaneSelected.getTabItem().getInfo()
+					.setDiagrama(tabbedPaneSelected.getHoja().getDiagrama());
 				}
 			}
 		}
