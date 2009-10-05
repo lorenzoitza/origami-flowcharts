@@ -1,4 +1,4 @@
-TOTAL ERRORES: 1
+TOTAL ERRORES: 2
 
 ****************************************************************************************************************************
 Rastreo de pila proveniente de getStackTrace:
@@ -15,4 +15,27 @@ Grafico.Componentes                                     Componentes.java        
 Grafico.Componentes                                     Componentes.java        93      agregarBarraDeHerramientas
 Grafico.Componentes                                     Componentes.java        84      agregarComponentes
 Grafico.Ventana                                         Ventana.java            871     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3884    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        159     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    26      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          377     <init>
+org.eclipse.swt.graphics.Image                          Image.java              576     <init>
+Grafico.Help.HelpWindow                                 HelpWindow.java         33      setToolBarBottons
+Grafico.Help.HelpWindow                                 HelpWindow.java         103     initToolBar
+Grafico.Help.HelpWindow                                 HelpWindow.java         179     initComponents
+Grafico.Help.HelpWindow                                 HelpWindow.java         192     createWindow
+Grafico.Help.HelpWindow                                 HelpWindow.java         27      <init>
+Grafico.Ventana$1                                       Ventana.java            184     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      228     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            913     main
 

@@ -40,8 +40,8 @@ import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.Help.Acerca;
-import Grafico.Help.VentanaHelp;
+import Grafico.Help.AboutWindow;
+import Grafico.Help.HelpWindow;
 import Imagenes.CargarImagenes;
 
 /**
@@ -181,14 +181,16 @@ public class Ventana{
 		acercaDe.setMenu(menuAyuda);
 		ayuda.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				VentanaHelp help = new VentanaHelp();
-				help.ventana();
+				HelpWindow help = new HelpWindow();
+				help.createWindow();
+				help.showWindow();
 			}
 		});
 		acerca.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				Acerca acercade = new Acerca();
-				acercade.info(display);
+				AboutWindow acercade = new AboutWindow();
+				acercade.createWindow(display);
+				acercade.showWindow();
 			}
 		});
 		pasoApaso.addSelectionListener(new SelectionAdapter() {

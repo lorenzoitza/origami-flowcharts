@@ -148,12 +148,14 @@ public class EventoKey {
 			}
 			break;
 		case 16777226:
-			VentanaHelp help = new VentanaHelp();
-			help.ventana();
+			HelpWindow help = new HelpWindow();
+			help.createWindow();
+			help.showWindow();
 			break;
 		case 16777227:
-			Acerca acercade = new Acerca();
-			acercade.info(Ventana.display);
+			AboutWindow acercade = new AboutWindow();
+			acercade.createWindow(Ventana.display);
+			acercade.showWindow();
 			break;
 		case 16777228:
 			if(!Ventana.getComponentes().isPasoAPaso){
