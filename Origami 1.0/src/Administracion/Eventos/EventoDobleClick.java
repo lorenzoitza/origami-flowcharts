@@ -65,7 +65,7 @@ public class EventoDobleClick extends MouseListener.Stub{
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
-			new DialogWhileLoop(tab).ventana(Ventana.display,f,selec);
+			new DialogWhileLoop(tab).showDialog(Ventana.display,f,selec);
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class DialogWhileLoop {
 	 * @param display
 	 * @param selectedFigure
 	 */
-	public void ventana(Display display,While selectedFigure,AdminSeleccion selectionAdmin) {
+	public void showDialog(Display display,While selectedFigure,AdminSeleccion selectionAdmin) {
 		key = new EventoKey(selectionAdmin,tabbedPaneSelected);
 		shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		this.whileFigure = selectedFigure;
