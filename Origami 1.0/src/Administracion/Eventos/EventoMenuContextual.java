@@ -949,7 +949,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof For){
 			For f = ((For)fig);
-			new ForLoopDialog(tab).ventana(Ventana.display,f,selec);
+			new ForLoopDialog(tab).showDialog(Ventana.display,f,selec);
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
