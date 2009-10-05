@@ -31,7 +31,7 @@ import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.DatosFor;
 import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
-import Grafico.VentanaDatos.DialogWhileLoop;
+import Grafico.VentanaDatos.WhileLoopDialog;
 import Imagenes.CargarImagenes;
 /**
  * 
@@ -953,7 +953,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
-			new DialogWhileLoop(tab).showDialog(Ventana.display,f,selec);
+			new WhileLoopDialog(tab).showDialog(Ventana.display,f,selec);
 		}
 	}
 	public static void Repintar(){

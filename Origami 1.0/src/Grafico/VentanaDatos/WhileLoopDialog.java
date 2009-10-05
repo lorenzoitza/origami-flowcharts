@@ -20,14 +20,14 @@ import org.eclipse.swt.widgets.Text;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class DialogWhileLoop {
+public class WhileLoopDialog {
 	private Shell shell;
 	public While whileFigure;
 	public Text conditionTextField ;
 	public EventoKey key;
 	public TabFolder tabbedPaneSelected;
 	
-	public DialogWhileLoop(TabFolder tabfolder){
+	public WhileLoopDialog(TabFolder tabfolder){
 		tabbedPaneSelected = tabfolder;
 	}
 	/**
