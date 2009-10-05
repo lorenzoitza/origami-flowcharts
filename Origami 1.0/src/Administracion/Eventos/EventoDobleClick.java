@@ -15,7 +15,7 @@ import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.DatosFor;
 import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
-import Grafico.VentanaDatos.DatosWhile;
+import Grafico.VentanaDatos.DialogWhileLoop;
 import Administracion.TabFolder;
 /**
  * Esta clase da la propiedad de doble click
@@ -65,7 +65,7 @@ public class EventoDobleClick extends MouseListener.Stub{
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
-			new DatosWhile(tab).ventana(Ventana.display,f,selec);
+			new DialogWhileLoop(tab).ventana(Ventana.display,f,selec);
 		}
 	}
 }

@@ -20,14 +20,14 @@ import org.eclipse.swt.widgets.Text;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class DatosWhile {
+public class DialogWhileLoop {
 	private Shell shell;
 	public While fig;
 	public Text text ;
 	public EventoKey key;
 	public TabFolder tab;
 	
-	public DatosWhile(TabFolder tabfolder){
+	public DialogWhileLoop(TabFolder tabfolder){
 		tab = tabfolder;
 	}
 	/**
