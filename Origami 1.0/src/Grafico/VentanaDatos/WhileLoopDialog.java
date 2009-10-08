@@ -54,7 +54,6 @@ public class WhileLoopDialog {
 		shell.setText("Datos While");
 		
 		
-			
 		if ((selectedFigure.instruccion.instruccion.firstElement()
 				.getInstruccionSimple().compareTo("") != 0) 
 				&& selectedFigure.instruccion.instruccion.firstElement()
@@ -89,23 +88,23 @@ public class WhileLoopDialog {
 			}
 		}); 
 		
-		Label labelInfo = new Label(shell, SWT.NONE);
+		Label informationLabel = new Label(shell, SWT.NONE);
 		
-		labelInfo.setLocation(15,5);
-		labelInfo.setSize(250,15);
-		labelInfo.setText("Introduce la condicion");
+		informationLabel.setLocation(15,5);
+		informationLabel.setSize(250,15);
+		informationLabel.setText("Introduce la condicion");
 		
-		Label labelExampleInfo = new Label(shell, SWT.NONE);
+		Label examplelabel = new Label(shell, SWT.NONE);
 		
-		labelExampleInfo.setLocation(15,55);
-		labelExampleInfo.setSize(250,15);
-		labelExampleInfo.setText("EJEMPLO:  suma<=condicion");
+		examplelabel.setLocation(15,55);
+		examplelabel.setSize(250,15);
+		examplelabel.setText("EJEMPLO:  suma<=condicion");
 		
-		Button okButton = new Button(shell,SWT.FLAT);
+		Button acceptButton = new Button(shell,SWT.FLAT);
 		
-		okButton.setBounds(25,85,75,25);
-		okButton.setText("ACEPTAR");
-		okButton.addSelectionListener(new SelectionAdapter() {
+		acceptButton.setBounds(25,85,75,25);
+		acceptButton.setText("ACEPTAR");
+		acceptButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) { 
 				deleteCode(true);
 				shell.close();
