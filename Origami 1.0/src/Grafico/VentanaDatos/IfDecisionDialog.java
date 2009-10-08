@@ -21,9 +21,13 @@ import org.eclipse.swt.widgets.Text;
  */
 public class IfDecisionDialog {
 	private Shell shell;
+	
 	public If ifFigure;
+	
 	public Text conditionTextField ;
+	
 	public EventoKey key;
+	
 	public TabFolder tab;
 	
 	public IfDecisionDialog(TabFolder tabfolder){
@@ -125,10 +129,10 @@ public class IfDecisionDialog {
 	 */	
 	public void deleteCode(boolean mostrar){
 		boolean cambio=false;
+		InstruccionSimple codigo = new InstruccionSimple();
 		
 		if(mostrar){
-			if(conditionTextField.getText() != ""){
-				InstruccionSimple codigo = new InstruccionSimple();			
+			if(conditionTextField.getText() != ""){	
 				String instructionCode = "if(" + conditionTextField.getText() + "){";
 				codigo.setInstruccionSimple(instructionCode);
 				
