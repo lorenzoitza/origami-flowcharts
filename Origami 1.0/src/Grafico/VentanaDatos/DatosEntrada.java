@@ -19,7 +19,7 @@ import Administracion.TabFolder;
 import Administracion.Eventos.EventoKey;
 import Grafico.Ventana;
 import Grafico.Figuras.Entrada;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 /**
  * Crea la ventana para introducir los datos de una figura de entrada.
@@ -77,7 +77,7 @@ public class DatosEntrada {
 	    button.setSize(45,40);
 	    button.setLocation(318,140);
 	    //Image imagenSuma = new Image(d, "imagenes\\suma.png");
-	    button.setImage(CargarImagenes.getImagen("suma.png"));
+	    button.setImage(ImageLoader.getImage("suma.png"));
 		button.pack();
 	    button.addSelectionListener(new SelectionAdapter() {
 	    	public void widgetSelected(SelectionEvent event){
@@ -90,7 +90,7 @@ public class DatosEntrada {
 	    		final Button botLeer = new Button(composite, SWT.PUSH);
 	    		botLeer.setBounds(255, numero*y, 20,20);
 	    		//Image imagen = new Image(d, "imagenes\\teclado.ico");
-	    		botLeer.setImage(CargarImagenes.getImagen("teclado.ico"));
+	    		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 	    		botLeer.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -108,7 +108,7 @@ public class DatosEntrada {
 	    		final Button bot = new Button(composite, SWT.PUSH);
 	    		bot.setBounds(280, numero*y, 20,20);
 	    		//Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-	    		bot.setImage(CargarImagenes.getImagen("borrar.gif"));
+	    		bot.setImage(ImageLoader.getImage("borrar.gif"));
 	    		bot.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -219,7 +219,7 @@ public class DatosEntrada {
 	    		text.setText(variables[i]);
 	    		final Button botLeer = new Button(composite, SWT.PUSH);
 	    		//Image imagen = new Image(d, "imagenes\\teclado.ico");
-	    		botLeer.setImage(CargarImagenes.getImagen("teclado.ico"));
+	    		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 	    		botLeer.setBounds(255, i*25, 20,20);
 	    		botLeer.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
@@ -237,7 +237,7 @@ public class DatosEntrada {
 	    		final Button bot = new Button(composite, SWT.PUSH);
 	    		bot.setBounds(280, i*25, 20,20);
 	    		//Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-	    		bot.setImage(CargarImagenes.getImagen("borrar.gif"));
+	    		bot.setImage(ImageLoader.getImage("borrar.gif"));
 	    		bot.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -282,7 +282,7 @@ public class DatosEntrada {
 	    			final Button botLeer = new Button(composite, SWT.PUSH);
 		    		botLeer.setBounds(255, i*25, 20,20);
 		    		//Image imagen = new Image(d, "imagenes\\teclado.ico");
-		    		botLeer.setImage(CargarImagenes.getImagen("teclado.ico"));
+		    		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 		    		botLeer.addSelectionListener(new SelectionAdapter() {
 		    	    	public void widgetSelected(SelectionEvent event){
 		    	    		for(int x=0;x<textos.length;x+=3){
@@ -299,7 +299,7 @@ public class DatosEntrada {
 	    			final Button bot = new Button(composite, SWT.PUSH);
 		    		bot.setBounds(280, i*25, 20,20);
 		    		//Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		    		bot.setImage(CargarImagenes.getImagen("borrar.gif"));
+		    		bot.setImage(ImageLoader.getImage("borrar.gif"));
 		    		bot.addSelectionListener(new SelectionAdapter() {
 		    	    	public void widgetSelected(SelectionEvent event){
 		    	    		for(int x=0;x<textos.length;x+=3){
@@ -353,7 +353,7 @@ public class DatosEntrada {
     			final Button botLeer = new Button(composite, SWT.PUSH);
 	    		botLeer.setBounds(255, textos.length/3 *25, 20,20);
 	    		//Image imagen = new Image(d, "imagenes\\teclado.ico");
-	    		botLeer.setImage(CargarImagenes.getImagen("teclado.ico"));
+	    		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 	    		botLeer.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -370,7 +370,7 @@ public class DatosEntrada {
     			final Button bot = new Button(composite, SWT.PUSH);
 	    		bot.setBounds(280, textos.length/3 *25, 20,20);
 	    		//Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-	    		bot.setImage(CargarImagenes.getImagen("borrar.gif"));
+	    		bot.setImage(ImageLoader.getImage("borrar.gif"));
 	    		bot.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -425,7 +425,7 @@ public class DatosEntrada {
 	    		final Button botLeer = new Button(composite, SWT.PUSH);
 	    		botLeer.setBounds(255, i*25, 20,20);
 	    		//Image imagen = new Image(d, "imagenes\\teclado.ico");
-	    		botLeer.setImage(CargarImagenes.getImagen("teclado.ico"));
+	    		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 	    		botLeer.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		for(int x=0;x<textos.length;x+=3){
@@ -442,7 +442,7 @@ public class DatosEntrada {
 	    		final Button bot = new Button(composite, SWT.PUSH);
 	    		bot.setBounds(280, i*25, 20,20);
 	    		//Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-	    		bot.setImage(CargarImagenes.getImagen("borrar.gif"));
+	    		bot.setImage(ImageLoader.getImage("borrar.gif"));
 	    		bot.addSelectionListener(new SelectionAdapter() {
 	    	    	public void widgetSelected(SelectionEvent event){
 	    	    		textos = composite.getChildren();
