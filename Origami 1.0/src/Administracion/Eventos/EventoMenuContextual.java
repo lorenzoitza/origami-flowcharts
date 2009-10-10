@@ -31,8 +31,8 @@ import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.ForLoopDialog;
 import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
-import Grafico.VentanaDatos.WhileLoopDialog;
-import Imagenes.CargarImagenes;
+import Grafico.VentanaDatos.WhileFigureDialog;
+import Imagenes.ImageLoader;
 /**
  * 
  * Esta clase establece la propiedad de eliminar.
@@ -668,7 +668,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					pregunta.setFont(newFont);
 					Label imagen = new Label(shell, SWT.NONE); 
 					//Image question = new Image(Ventana.display,"imagenes\\Pregunta.PNG");
-					imagen.setImage(CargarImagenes.getImagen("Pregunta.png"));
+					imagen.setImage(ImageLoader.getImage("Pregunta.png"));
 					imagen.setBounds(25,10,50,50);
 					shell.setMaximized(false);
 					shell.setMinimized(false);
@@ -833,7 +833,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			pregunta.setFont(newFont);
 			Label imagen = new Label(shell, SWT.NONE); 
 			//Image question = new Image(Ventana.display,CargarImagenes.getImagen("Pregunta.PNG"));
-			imagen.setImage(CargarImagenes.getImagen("Pregunta.png"));
+			imagen.setImage(ImageLoader.getImage("Pregunta.png"));
 			imagen.setBounds(25,10,50,50);
 			shell.setMaximized(false);
 			shell.setMinimized(false);
@@ -953,7 +953,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
-			new WhileLoopDialog(tab).showDialog(Ventana.display,f,selec);
+			new WhileFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 	}
 	public static void Repintar(){

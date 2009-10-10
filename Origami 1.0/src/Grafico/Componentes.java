@@ -44,7 +44,7 @@ import Grafico.Figuras.If;
 import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 /**
  * @version Origami 1.0.0.0.0.0.0.0.0.000.0.0.0.0.0..0.0.1
  * @author Juan Ku, Victor Rodriguez
@@ -348,7 +348,7 @@ public class Componentes {
 	public void getToolItems(ToolBar toolbar){
 		toolItem[0] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenNuevo = new Image(Ventana.display, "imagenes\\nuevo.png");
-		toolItem[0].setImage(CargarImagenes.getImagen("nuevo.png"));
+		toolItem[0].setImage(ImageLoader.getImage("nuevo.png"));
 		toolItem[0].setToolTipText("Nuevo");
 		toolItem[0].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -359,7 +359,7 @@ public class Componentes {
 		});
 		toolItem[1] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenAbrir = new Image(Ventana.display, "imagenes\\abrir.png");
-		toolItem[1].setImage(CargarImagenes.getImagen("abrir.png"));
+		toolItem[1].setImage(ImageLoader.getImage("abrir.png"));
 		toolItem[1].setToolTipText("Abrir");
 		toolItem[1].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -406,7 +406,7 @@ public class Componentes {
 		});
 		toolItem[2] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenSave = new Image(Ventana.display, "imagenes\\save.png");
-		toolItem[2].setImage(CargarImagenes.getImagen("save.png"));
+		toolItem[2].setImage(ImageLoader.getImage("save.png"));
 		toolItem[2].setToolTipText("Guardar");
 		toolItem[2].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -487,7 +487,7 @@ public class Componentes {
 		
 		toolItem[3] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenDeshacer = new Image(Ventana.display, "imagenes\\undo.png");
-		toolItem[3].setImage(CargarImagenes.getImagen("undo.png"));
+		toolItem[3].setImage(ImageLoader.getImage("undo.png"));
 		toolItem[3].setToolTipText(" Deshacer ");
 		toolItem[3].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -498,7 +498,7 @@ public class Componentes {
 		});
 		toolItem[4] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenCortar = new Image(Ventana.display, "imagenes\\cortar.ico");
-		toolItem[4].setImage(CargarImagenes.getImagen("cortar.ico"));
+		toolItem[4].setImage(ImageLoader.getImage("cortar.ico"));
 		toolItem[4].setToolTipText(" Cortar ");
 		toolItem[4].setEnabled(false);
 		toolItem[4].addSelectionListener(new SelectionAdapter() {
@@ -510,7 +510,7 @@ public class Componentes {
 		});
 		toolItem[5] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenCopiar = new Image(Ventana.display, "imagenes\\copiar.png");
-		toolItem[5].setImage(CargarImagenes.getImagen("copiar.png"));
+		toolItem[5].setImage(ImageLoader.getImage("copiar.png"));
 		toolItem[5].setToolTipText(" Copiar ");
 		toolItem[5].setEnabled(false);
 		toolItem[5].addSelectionListener(new SelectionAdapter() {
@@ -522,7 +522,7 @@ public class Componentes {
 		});
 		toolItem[6] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenPegar = new Image(Ventana.display, "imagenes\\pegar.ico");
-		toolItem[6].setImage(CargarImagenes.getImagen("pegar.ico"));
+		toolItem[6].setImage(ImageLoader.getImage("pegar.ico"));
 		toolItem[6].setToolTipText(" Pegar ");
 		toolItem[6].setEnabled(false);
 		toolItem[6].addSelectionListener(new SelectionAdapter() {
@@ -534,7 +534,7 @@ public class Componentes {
 		});
 		toolItem[7] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenEliminar = new Image(Ventana.display, "imagenes\\eliminar.png");
-		toolItem[7].setImage(CargarImagenes.getImagen("eliminar.png"));
+		toolItem[7].setImage(ImageLoader.getImage("eliminar.png"));
 		toolItem[7].setToolTipText(" Eliminar ");
 		toolItem[7].setEnabled(false);
 		toolItem[7].addSelectionListener(new SelectionAdapter() {
@@ -547,7 +547,7 @@ public class Componentes {
 		
 		toolItem[8] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenCodigo = new Image(Ventana.display, "imagenes\\codigo.png");
-		toolItem[8].setImage(CargarImagenes.getImagen("codigo.png"));
+		toolItem[8].setImage(ImageLoader.getImage("codigo.png"));
 		toolItem[8].setToolTipText("Generar Codigo");
 		toolItem[8].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -558,7 +558,7 @@ public class Componentes {
 		});
 		toolItem[9] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenCodigoCpp = new Image(Ventana.display, "imagenes\\codigoCpp.png");
-		toolItem[9].setImage(CargarImagenes.getImagen("codigoCpp.png"));
+		toolItem[9].setImage(ImageLoader.getImage("codigoCpp.png"));
 		toolItem[9].setToolTipText("Generar Codigo");
 		toolItem[9].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -571,7 +571,7 @@ public class Componentes {
 		
 		toolItem[10] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenRun = new Image(Ventana.display, "imagenes\\run.png");
-		toolItem[10].setImage(CargarImagenes.getImagen("run.png"));
+		toolItem[10].setImage(ImageLoader.getImage("run.png"));
 		toolItem[10].setToolTipText("Compilar/Ejecutar");
 		toolItem[10].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -629,7 +629,7 @@ public class Componentes {
 		});
 		toolItem[11] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenPaso = new Image(Ventana.display, "imagenes\\check.png");
-		toolItem[11].setImage(CargarImagenes.getImagen("check.png"));
+		toolItem[11].setImage(ImageLoader.getImage("check.png"));
 		toolItem[11].setToolTipText("Paso A Paso");
 		toolItem[11].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event){
@@ -682,7 +682,7 @@ public class Componentes {
 		
 		toolItem[12] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenNext = new Image(Ventana.display, "imagenes\\next.png");
-		toolItem[12].setImage(CargarImagenes.getImagen("next.png"));
+		toolItem[12].setImage(ImageLoader.getImage("next.png"));
 		toolItem[12].setEnabled(false);
 		toolItem[12].setToolTipText("Paso Siguiente");
 		toolItem[12].addSelectionListener(new SelectionAdapter() {
@@ -697,7 +697,7 @@ public class Componentes {
 		});
 		toolItem[13] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenStop = new Image(Ventana.display, "imagenes\\Stop.png");
-		toolItem[13].setImage(CargarImagenes.getImagen("Stop.png"));
+		toolItem[13].setImage(ImageLoader.getImage("Stop.png"));
 		toolItem[13].setEnabled(false);
 		toolItem[13].setToolTipText("Terminar Ejecucion");
 		toolItem[13].addSelectionListener(new SelectionAdapter() {
@@ -712,7 +712,7 @@ public class Componentes {
 		
 		toolItem[14] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenExportC = new Image(Ventana.display, "imagenes\\exportV.png");
-		toolItem[14].setImage(CargarImagenes.getImagen("exportV.png"));
+		toolItem[14].setImage(ImageLoader.getImage("exportV.png"));
 		toolItem[14].setToolTipText("Exportar a C");
 		toolItem[14].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -770,7 +770,7 @@ public class Componentes {
 		});
 		toolItem[15] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenCpp = new Image(Ventana.display, "imagenes\\cpp.png");
-		toolItem[15].setImage(CargarImagenes.getImagen("cpp.png"));
+		toolItem[15].setImage(ImageLoader.getImage("cpp.png"));
 		toolItem[15].setToolTipText("Exportar a C++");
 		toolItem[15].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -828,7 +828,7 @@ public class Componentes {
 		});
 		toolItem[16] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenExportExe = new Image(Ventana.display, "imagenes\\exportExe.png");
-		toolItem[16].setImage(CargarImagenes.getImagen("exportExe.png"));
+		toolItem[16].setImage(ImageLoader.getImage("exportExe.png"));
 		toolItem[16].setToolTipText("Exportar a .exe");
 		toolItem[16].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event){
@@ -892,7 +892,7 @@ public class Componentes {
 		
 		toolItem[17] = new ToolItem (toolbar, SWT.PUSH);
 		//Image imagenDonate = new Image(Ventana.display, "imagenes\\Donate.png");
-		toolItem[17].setImage(CargarImagenes.getImagen("Donate.png"));
+		toolItem[17].setImage(ImageLoader.getImage("Donate.png"));
 		toolItem[17].setToolTipText("Donaciones");
 		toolItem[17].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event){
@@ -932,14 +932,14 @@ public class Componentes {
 		boton[0] = new Button(toolbar, SWT.FLAT);
 		//Image imagenEntrada = new Image(Ventana.display, "imagenes\\Entrada.png");
 		//Image imagenEntrada = new Image(Ventana.display, Ventana.class.getClassLoader().getResourceAsStream("imagenes\\Entrada.png"));
-		boton[0].setImage(CargarImagenes.getImagen("Entrada.png"));
+		boton[0].setImage(ImageLoader.getImage("Entrada.png"));
 		boton[0].pack();
 		boton[0].setToolTipText("Entrada");
 		boton[0].addSelectionListener(new SelectionAdapter() {
 			 public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorEntrada.png";
 				//ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorEntrada.png").getImageData(), 0, 0);
+				cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    Entrada entrada2 = new Entrada(SWT.COLOR_DARK_BLUE);
 				entrada2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -950,14 +950,14 @@ public class Componentes {
 		});
 		boton[1] = new Button(toolbar, SWT.FLAT);
 		//Image imagenProceso = new Image(Ventana.display, "imagenes\\Proceso.png");
-		boton[1].setImage(CargarImagenes.getImagen("Proceso.png"));
+		boton[1].setImage(ImageLoader.getImage("Proceso.png"));
 		boton[1].pack();
 		boton[1].setToolTipText("Expresin");
 		boton[1].addSelectionListener(new SelectionAdapter(){
 			public void widgetSelected(SelectionEvent event){
 				//String name = "imagenes\\cursorProceso.png";
 			   //ImageData image = new ImageData(name);
-			    cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorProceso.png").getImageData(), 0, 0);
+			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 			    Proceso proceso2 = new Proceso(SWT.COLOR_DARK_BLUE);
 				proceso2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -968,14 +968,14 @@ public class Componentes {
 		});
 		boton[2] = new Button(toolbar, SWT.FLAT);
 		//Image imagenIf = new Image(Ventana.display, "imagenes\\If.png");
-		boton[2].setImage(CargarImagenes.getImagen("If.png"));
+		boton[2].setImage(ImageLoader.getImage("If.png"));
 		boton[2].pack();
 		boton[2].setToolTipText("Decisin");
 		boton[2].addSelectionListener(new SelectionAdapter() {
 			 public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorIf.png";
 			    //ImageData image = new ImageData(name);
-			    cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorIf.png").getImageData(), 0, 0);
+			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
@@ -988,14 +988,14 @@ public class Componentes {
 		});
 		boton[3] = new Button(toolbar, SWT.FLAT);
 		//Image imagenWhile = new Image(Ventana.display, "imagenes\\While.png");
-		boton[3].setImage(CargarImagenes.getImagen("While.png"));
+		boton[3].setImage(ImageLoader.getImage("While.png"));
 		boton[3].pack();
 		boton[3].setToolTipText("Ciclo Mientras");
 		boton[3].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorWhile.png";
 			    //ImageData image = new ImageData(name);
-			    cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorWhile.png").getImageData(), 0, 0);
+			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 			    While While2 = new While(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
@@ -1008,14 +1008,14 @@ public class Componentes {
 		});
 		boton[4] = new Button(toolbar, SWT.FLAT);
 		//Image imagenFor = new Image(Ventana.display, "imagenes\\For.png");
-		boton[4].setImage(CargarImagenes.getImagen("For.png"));
+		boton[4].setImage(ImageLoader.getImage("For.png"));
 		boton[4].pack();
 		boton[4].setToolTipText("Ciclo Para");
 		boton[4].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorFor.png";
 			    //ImageData image = new ImageData(name);
-			    cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorFor.png").getImageData(), 0, 0);
+			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 			    For For2 = new For(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
@@ -1028,14 +1028,14 @@ public class Componentes {
 		});
 		boton[5] = new Button(toolbar, SWT.FLAT);
 		//Image imagenSalida = new Image(Ventana.display, "imagenes\\Salida.png");
-		boton[5].setImage(CargarImagenes.getImagen("Salida.png"));
+		boton[5].setImage(ImageLoader.getImage("Salida.png"));
 		boton[5].pack();
 		boton[5].setToolTipText("Salida");
 		boton[5].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				//String name = "imagenes\\cursorSalida.png";
 			    //ImageData image = new ImageData(name);
-			    cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorSalida.png").getImageData(), 0, 0);
+			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    Imprimir salida2 = new Imprimir(SWT.COLOR_DARK_BLUE);
 				salida2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -1053,7 +1053,7 @@ public class Componentes {
 		Button botonConsola = new Button(toolbar, SWT.FLAT);
 		botonConsola.setBounds(40,600,50,30);
 		//Image imagen = new Image(Ventana.display,"imagenes\\consola.ico");
-		botonConsola.setImage(CargarImagenes.getImagen("consola.ico"));
+		botonConsola.setImage(ImageLoader.getImage("consola.ico"));
 		botonConsola.pack();
 		botonConsola.setToolTipText("Consola ");
 		botonConsola.addSelectionListener(new SelectionAdapter() {
@@ -1114,27 +1114,27 @@ public class Componentes {
 		bot.setEnabled(false);
 		bot.setToolTipText("Terminar Ejecucion");
 		//Image imagen = new Image(Ventana.display, "imagenes\\Stop.png");
-		bot.setImage(CargarImagenes.getImagen("Stop.png"));
+		bot.setImage(ImageLoader.getImage("Stop.png"));
 		//Image imagen2 = new Image(Ventana.display, "imagenes\\monitor.gif");
-		bot2.setImage(CargarImagenes.getImagen("monitor.gif"));
+		bot2.setImage(ImageLoader.getImage("monitor.gif"));
 		bot2.addSelectionListener(new SelectionAdapter(){
 			public void widgetSelected(SelectionEvent event){
 				//Image imagen3;
 				if(hide){
 					//imagen3 = new Image(Ventana.display, "imagenes\\network.gif");
-					bot2.setImage(CargarImagenes.getImagen("network.gif"));
+					bot2.setImage(ImageLoader.getImage("network.gif"));
 					hide = false;
 				}
 				else{
 					//imagen3 = new Image(Ventana.display, "imagenes\\monitor.gif");
-					bot2.setImage(CargarImagenes.getImagen("monitor.gif"));
+					bot2.setImage(ImageLoader.getImage("monitor.gif"));
 					hide=true;
 				}
 			}
 		});
 		item.setControl(text);
 		//Image i = new Image(Ventana.display,"imagenes\\consola.ico");
-		item.setImage(CargarImagenes.getImagen("consola.ico"));
+		item.setImage(ImageLoader.getImage("consola.ico"));
 	}
 	public void ejecucionDisable(){
 		if(enEjecucion){

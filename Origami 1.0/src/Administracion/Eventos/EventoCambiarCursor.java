@@ -18,7 +18,7 @@ import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Grafico.Figuras.ellipse;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 /**
  * Esta clase establece la propiedad de Drag & Drop 
@@ -235,7 +235,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					|| figuraPrincipal instanceof Imprimir || figuraPrincipal instanceof Entrada || figuraPrincipal instanceof Proceso){
 				 //String name = "cursor.PNG";
 			     //ImageData image = new ImageData(name);
-			     cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursor.PNG").getImageData(), 0, 0);
+			     cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursor.PNG").getImageData(), 0, 0);
 			     cuadro.setCursor(cursor[0]);
 			}
 		}
@@ -260,7 +260,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 				 name = "cursorProceso.png";
 			}
 			if(name != ""){
-				ImageData image = CargarImagenes.getImagen(name).getImageData();
+				ImageData image = ImageLoader.getImage(name).getImageData();
 			    image.transparentPixel = image.palette.getPixel(new RGB(255, 255, 255));
 			    cursor[0] = new Cursor(Ventana.display,image,60,35);
 			    cuadro.setCursor(cursor[0]);

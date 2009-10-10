@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
 import Grafico.Ventana;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 public class HelpWindow{
 	private Shell helpShell;
@@ -25,12 +25,13 @@ public class HelpWindow{
 	
 	public HelpWindow(){
 		createWindow();
+		initComponents();
 	}
 	
 	public void setToolBarBottons(ToolBar bar){
 		Button backButton = new Button(bar, SWT.PUSH);
 
-		backButton.setImage(CargarImagenes.getImagen("back.png"));
+		backButton.setImage(ImageLoader.getImage("back.png"));
 	    backButton.setSize(30, 30);
 	    backButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -44,7 +45,7 @@ public class HelpWindow{
 	    
 	    Button nextButton = new Button(bar, SWT.PUSH);
 	    
-	    nextButton.setImage(CargarImagenes.getImagen("next.png"));
+	    nextButton.setImage(ImageLoader.getImage("next.png"));
 	    nextButton.setBounds(30, 0, 30, 30);    
 	    nextButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
@@ -185,7 +186,7 @@ public class HelpWindow{
 		this.helpShell = new Shell(Ventana.display);
 		this.helpShell.setLayout(new FillLayout());
 		
-	    initComponents();
+	    
 	}
 	
 	public void showWindow(){

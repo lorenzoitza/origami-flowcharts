@@ -2,10 +2,7 @@ package Grafico;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.Vector;
-
-import javax.swing.ImageIcon;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseEvent;
@@ -16,7 +13,6 @@ import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -42,7 +38,7 @@ import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Grafico.Help.AboutWindow;
 import Grafico.Help.HelpWindow;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 /**
  * Esta clase es la interfaz y crea la ventana principal
@@ -771,7 +767,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorEntrada.png";
 				//ImageData image = new ImageData(name);
-				componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorEntrada.png").getImageData(), 0, 0);
+				componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    Entrada entrada2 = new Entrada(SWT.COLOR_DARK_BLUE);
 				entrada2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -784,7 +780,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorIf.png";
 			    //ImageData image = new ImageData(name);
-			    componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorIf.png").getImageData(), 0, 0);
+			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
@@ -799,7 +795,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorProceso.png";
 			   //ImageData image = new ImageData(name);
-			    componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorProceso.png").getImageData(), 0, 0);
+			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 			    Proceso proceso2 = new Proceso(SWT.COLOR_DARK_BLUE);
 				proceso2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -812,7 +808,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorSalida.png";
 			   //ImageData image = new ImageData(name);
-			    componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorSalida.png").getImageData(), 0, 0);
+			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    Imprimir salida2 = new Imprimir(SWT.COLOR_DARK_BLUE);
 				salida2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
@@ -825,7 +821,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorFor.png";
 			    //ImageData image = new ImageData(name);
-			    componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorFor.png").getImageData(), 0, 0);
+			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 			    For For2 = new For(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
@@ -840,7 +836,7 @@ public class Ventana{
 			public void widgetSelected(SelectionEvent e) {
 				//String name = "imagenes\\cursorWhile.png";
 			   // ImageData image = new ImageData(name);
-			    componentes.cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorWhile.png").getImageData(), 0, 0);
+			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 			    While While2 = new While(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
@@ -877,7 +873,7 @@ public class Ventana{
 			
 			shell.setText("Origami");
 			shell.setMaximized(true);
-			shell.setImage(CargarImagenes.getImagen("icono.GIF"));
+			shell.setImage(ImageLoader.getImage("icono.GIF"));
 			shell.addShellListener(new EventoVentana(diagramas,componentes)); 
 			new Ventana().getMenu();
 			int bandera = 0;

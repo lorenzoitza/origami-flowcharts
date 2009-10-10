@@ -18,7 +18,7 @@ import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Ventana;
 import Grafico.Figuras.*;
 import Grafico.Help.*;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -43,7 +43,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name5 = "imagenes//cursorEntrada.png";
 				//ImageData image5 = new ImageData(name5);
-				Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorEntrada.png").getImageData(), 0, 0);
+				Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    Entrada entrada2 = new Entrada(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo5 = new InstruccionSimple();
 			    codigo5.setInstruccionSimple("null");
@@ -57,7 +57,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name4 = "imagenes//cursorProceso.png";
 			    //ImageData image4 = new ImageData(name4);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorProceso.png").getImageData(), 0, 0);
+			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 			    Proceso proceso2 = new Proceso(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo4 = new InstruccionSimple();
 			    codigo4.setInstruccionSimple("null");
@@ -71,7 +71,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name = "imagenes//cursorIf.png";
 			    //ImageData image = new ImageData(name);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorIf.png").getImageData(), 0, 0);
+			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
@@ -85,7 +85,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name3 = "imagenes//cursorWhile.png";
 			    //ImageData image3 = new ImageData(name3);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorWhile.png").getImageData(), 0, 0);
+			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 			    While While2 = new While(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo3 = new InstruccionSimple();
 				codigo3.setInstruccionSimple("null");
@@ -99,7 +99,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name2 = "imagenes//cursorFor.png";
 			    //ImageData image2 = new ImageData(name2);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorFor.png").getImageData(), 0, 0);
+			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 			    For For2 = new For(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo2 = new InstruccionSimple();
 			    codigo2.setInstruccionSimple("null");
@@ -113,7 +113,7 @@ public class EventoKey {
 			if(!Ventana.getComponentes().isPasoAPaso){
 				//String name6 = "imagenes//cursorSalida.png";
 			    //ImageData image6 = new ImageData(name6);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, CargarImagenes.getImagen("cursorSalida.png").getImageData(), 0, 0);
+			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    Imprimir salida2 = new Imprimir(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo6 = new InstruccionSimple();
 				codigo6.setInstruccionSimple("null");

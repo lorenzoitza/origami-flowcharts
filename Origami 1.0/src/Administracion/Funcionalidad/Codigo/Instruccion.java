@@ -23,7 +23,7 @@ import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Grafico.Figuras.ellipse;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 /**
  * Esta clase es la base administra el codigo 
@@ -101,7 +101,7 @@ public class Instruccion implements Serializable{
 		bar.setBounds(0,320,500,40);
 		Button boton = new Button(bar, SWT.FLAT);
 		//Image imagenExport = new Image(d, "imagenes\\export.png");
-		boton.setImage(CargarImagenes.getImagen("export.png"));
+		boton.setImage(ImageLoader.getImage("export.png"));
 		boton.setBounds(0,0,33,33);
 		boton.setToolTipText("Exportar a C");
 		boton.addSelectionListener(new SelectionAdapter() {
@@ -117,7 +117,7 @@ public class Instruccion implements Serializable{
 		});
 		Button boton2 = new Button(bar, SWT.FLAT);
 		//Image imagenIf = new Image(d, "imagenes\\export.png");
-		boton2.setImage(CargarImagenes.getImagen("export.png"));
+		boton2.setImage(ImageLoader.getImage("export.png"));
 		boton2.setBounds(35,0,33,33);
 		boton2.setText(".cpp");
 		boton2.setToolTipText("Exportar a C++");

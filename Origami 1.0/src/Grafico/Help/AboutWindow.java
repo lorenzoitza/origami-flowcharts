@@ -2,7 +2,7 @@ package Grafico.Help;
 
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
-import Imagenes.CargarImagenes;
+import Imagenes.ImageLoader;
 
 /**
  * Esta clase crea la ventana informacion
@@ -23,7 +23,7 @@ public class AboutWindow{
 		aboutShell.setSize(300, 400);
 		aboutShell.setLocation(300, 200);
 		aboutShell.setText("Acerca de Origami");
-		aboutShell.setImage(CargarImagenes.getImagen("icono.GIF"));
+		aboutShell.setImage(ImageLoader.getImage("icono.GIF"));
 		
 		createInfoLabels();
 	}
