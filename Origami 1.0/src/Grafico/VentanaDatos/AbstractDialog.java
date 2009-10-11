@@ -26,6 +26,7 @@ public abstract class AbstractDialog<Figure> {
 		this.abstractFigure = figura;
 		this.selectionAdmin = selectionAdmin;
 		this.key = new EventoKey(selectionAdmin,tabFolder);
+		
 		this.create();
 		this.initComponents();
 	}

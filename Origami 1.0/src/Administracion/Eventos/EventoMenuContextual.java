@@ -28,7 +28,7 @@ import Grafico.Figuras.While;
 import Grafico.Figuras.ellipse;
 import Grafico.VentanaDatos.DatosDecision;
 import Grafico.VentanaDatos.DatosEntrada;
-import Grafico.VentanaDatos.ForLoopDialog;
+import Grafico.VentanaDatos.ForFigureDialog;
 import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
 import Grafico.VentanaDatos.WhileFigureDialog;
@@ -949,7 +949,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof For){
 			For f = ((For)fig);
-			new ForLoopDialog(tab).showDialog(Ventana.display,f,selec);
+			new ForFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
