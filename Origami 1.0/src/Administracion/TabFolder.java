@@ -2,29 +2,20 @@ package Administracion;
 
 import java.util.Vector;
 
-import org.eclipse.draw2d.ScrollBar;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabFolder2Adapter;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseWheelListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Widget;
-
 import Administracion.Eventos.EventoKey;
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.Serializar;
 import Grafico.Ventana;
-import Grafico.Figuras.InicioFin;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez

@@ -11,7 +11,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
 import Administracion.AdminSeleccion;
@@ -27,6 +26,7 @@ import Imagenes.ImageLoader;
  * @author Juan Ku, Victor Rodriguez
  */
 public class DatosEntrada {
+    
 	private Shell shell;
 	private Entrada fig;
 	private Control[] textos;
@@ -44,7 +44,10 @@ public class DatosEntrada {
 	 */
 	public void ventana(final Display d, Entrada fig,AdminSeleccion selec) {
 		key = new EventoKey(selec,tab);
-		shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		
+		shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM |
+			SWT.APPLICATION_MODAL);
+		
 		shell.setSize(370, 214);
 		shell.setText("Datos Entrada");
 		shell.setLocation(380, 230);

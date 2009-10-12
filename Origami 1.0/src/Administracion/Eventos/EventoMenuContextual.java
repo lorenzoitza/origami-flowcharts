@@ -9,9 +9,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
-import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.*;
-
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
 import Administracion.TabFolder;
@@ -26,12 +24,12 @@ import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
 import Grafico.Figuras.ellipse;
-import Grafico.VentanaDatos.DatosDecision;
 import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.ForFigureDialog;
-import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
+import Grafico.VentanaDatos.SentenceFigureDialog;
 import Grafico.VentanaDatos.WhileFigureDialog;
+import Grafico.VentanaDatos.IfDecisionDialog;
 import Imagenes.ImageLoader;
 /**
  * 
@@ -933,11 +931,11 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	public void agregar(Figura fig){
 		if(fig instanceof Proceso){
 			Proceso f = (Proceso)fig;
-			new DatosProceso(tab).ventana(Ventana.display,f,selec);
+			new SentenceFigureDialog(tab).ventana(Ventana.display,f,selec);
 		}
 		else if(fig instanceof If){
 			If f = ((If)fig);
-			new DatosDecision(tab).ventana(Ventana.display,f,selec);
+			new IfDecisionDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof Entrada){
 			Entrada f = ((Entrada)fig);

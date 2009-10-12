@@ -10,11 +10,11 @@ import Grafico.Figuras.If;
 import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.VentanaDatos.DatosDecision;
 import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.ForFigureDialog;
-import Grafico.VentanaDatos.DatosProceso;
 import Grafico.VentanaDatos.DatosSalida;
+import Grafico.VentanaDatos.IfDecisionDialog;
+import Grafico.VentanaDatos.SentenceFigureDialog;
 import Grafico.VentanaDatos.WhileFigureDialog;
 import Administracion.TabFolder;
 /**
@@ -45,11 +45,11 @@ public class EventoDobleClick extends MouseListener.Stub{
 		Figura fig = ((Figura) e.getSource());
 		if(fig instanceof Proceso){
 			Proceso f = (Proceso)fig;
-			new DatosProceso(tab).ventana(Ventana.display,f,selec);
+			new SentenceFigureDialog(tab).ventana(Ventana.display,f,selec);
 		}
 		else if(fig instanceof If){
 			If f = ((If)fig);
-			new DatosDecision(tab).ventana(Ventana.display,f,selec);
+			new IfDecisionDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof Entrada){
 			Entrada f = ((Entrada)fig);
@@ -65,7 +65,6 @@ public class EventoDobleClick extends MouseListener.Stub{
 		}
 		else if(fig instanceof While){
 			While f = ((While)fig);
-			//new WhileLoopDialog(tab).showDialog(Ventana.display,f,selec);
 			new WhileFigureDialog(Ventana.shell,tab,f,selec).open();
 			
 		}
