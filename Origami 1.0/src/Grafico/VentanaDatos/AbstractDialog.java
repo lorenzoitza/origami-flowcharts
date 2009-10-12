@@ -16,7 +16,7 @@ public abstract class AbstractDialog<Figure> {
 	protected Display display;
 	protected Figure abstractFigure;
 	protected AdminSeleccion selectionAdmin;
-	protected Button okButton;
+	protected Button acceptButton;
 	protected Button cancelButton;
 	
 	public AbstractDialog(Shell shell,TabFolder tabFolder,Figure figura,

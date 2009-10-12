@@ -110,12 +110,12 @@ public class ForFigureDialog extends AbstractDialog<For>{
 	    Label conditionExpressionLabel = new Label(dialog, SWT.NONE);
 	    conditionExpressionLabel.setLocation(20,65);
 	    conditionExpressionLabel.setSize(50,15);
-	    conditionExpressionLabel.setText("Condición");
+	    conditionExpressionLabel.setText("Condiciï¿½n");
 		
 	    Label couterExpressionLabel = new Label(dialog, SWT.NONE);
 	    couterExpressionLabel.setLocation(20,115);
 	    couterExpressionLabel.setSize(50,15);
-	    couterExpressionLabel.setText("Iteración");
+	    couterExpressionLabel.setText("Iteraciï¿½n");
 		
 	    Label exampleForLabel = new Label(dialog, SWT.NONE);
 	    exampleForLabel.setLocation(30,155);
@@ -123,12 +123,12 @@ public class ForFigureDialog extends AbstractDialog<For>{
 	    exampleForLabel.setText("EJEMPLO: x=0\n                 " +
 		    			"x<=5\n                 x++");
 		
-	    Button okButton = new Button(dialog,SWT.FLAT);
-	    okButton.setBounds(20,215,75,25);
-	    okButton.setText("ACEPTAR");
-	    addSelectionListener(okButton,true);
+	    acceptButton = new Button(dialog,SWT.FLAT);
+	    acceptButton.setBounds(20,215,75,25);
+	    acceptButton.setText("ACEPTAR");
+	    addSelectionListener(acceptButton,true);
 		
-	    Button cancelButton = new Button(dialog,SWT.FLAT);
+	    cancelButton = new Button(dialog,SWT.FLAT);
 	    cancelButton.setBounds(110,215,75,25);
 	    cancelButton.setText("CANCELAR");
 	    addSelectionListener(cancelButton,false);

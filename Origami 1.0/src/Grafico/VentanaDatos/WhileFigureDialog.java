@@ -59,12 +59,12 @@ public class WhileFigureDialog extends AbstractDialog<While> {
 	    examplelabel.setSize(250,15);
 	    examplelabel.setText("EJEMPLO:  suma<=condicion");
 		
-	    Button okButton = new Button(dialog,SWT.FLAT);
-	    okButton.setBounds(25,85,75,25);
-	    okButton.setText("ACEPTAR");
-	    addSelectionListener(okButton,true);
+	    acceptButton = new Button(dialog,SWT.FLAT);
+	    acceptButton.setBounds(25,85,75,25);
+	    acceptButton.setText("ACEPTAR");
+	    addSelectionListener(acceptButton,true);
 		
-	    Button cancelButton = new Button(dialog,SWT.FLAT);
+	    cancelButton = new Button(dialog,SWT.FLAT);
 	    cancelButton.setBounds(135,85,75,25);
 	    cancelButton.setText("CANCELAR");
 	    addSelectionListener(cancelButton,false);
