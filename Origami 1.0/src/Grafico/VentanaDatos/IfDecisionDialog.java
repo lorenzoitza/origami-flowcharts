@@ -90,7 +90,7 @@ public class IfDecisionDialog extends AbstractDialog<If>{
 
 	@Override
 	protected void validate(boolean band) {	    
-	    boolean cambio=false;
+	    boolean isChanged=false;
 	    
 	    InstruccionSimple codigo = new InstruccionSimple();
 		
@@ -111,13 +111,13 @@ public class IfDecisionDialog extends AbstractDialog<If>{
 			    tabbedPaneSelected.getTabItem().getInfo().
 			    setInformacion("/M - Se agrego" + " o modifico una " +
 			    		"instruccion en una figura de tipo \"si\"\n");
-			    cambio=true;
+			    isChanged=true;
 			}
 		    }
 		    abstractFigure.instruccion.instruccion.add(0, codigo);
 		    tabbedPaneSelected.getHoja().addFigure();
 		    tabbedPaneSelected.getHoja().guardarRetroceso();
-		    if(cambio){
+		    if(isChanged){
 			tabbedPaneSelected.getTabItem().getInfo().
 				setDiagrama(tabbedPaneSelected.getHoja().
 					getDiagrama());

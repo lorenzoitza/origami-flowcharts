@@ -931,7 +931,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	public void agregar(Figura fig){
 		if(fig instanceof Proceso){
 			Proceso f = (Proceso)fig;
-			new SentenceFigureDialog(tab).ventana(Ventana.display,f,selec);
+			new SentenceFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof If){
 			If f = ((If)fig);

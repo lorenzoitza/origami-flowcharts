@@ -45,7 +45,7 @@ public class EventoDobleClick extends MouseListener.Stub{
 		Figura fig = ((Figura) e.getSource());
 		if(fig instanceof Proceso){
 			Proceso f = (Proceso)fig;
-			new SentenceFigureDialog(tab).ventana(Ventana.display,f,selec);
+			new SentenceFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof If){
 			If f = ((If)fig);
