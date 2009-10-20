@@ -21,18 +21,11 @@ import Imagenes.ImageLoader;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class DatosEntrada extends AbstractDialog<Entrada> {
-    private Control[] textos;
-
-    private String[] variables = new String[50];
-
+public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
     private Label informationLabel;
     
     private Label information2Label;
     
-    private ScrolledComposite sComposite;
-    
-    private Composite composite;
     
     public DatosEntrada(Shell shell, TabFolder tabFolder, Entrada figura,
 	    AdminSeleccion selectionAdmin) {
@@ -164,7 +157,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 				    total++;
 				}
 			    }
-			    guardarCodigo(true, total);
+			    validate(true, total);
 			    dialog.close();
 			}
 		    }
@@ -209,7 +202,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 			}
 		    }
 		}
-		guardarCodigo(true, total);
+		validate(true, total);
 		dialog.close();
 	    }
 	});
@@ -218,7 +211,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 	boton2.setText("CANCELAR");
 	boton2.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		guardarCodigo(false, 0);
+		validate(false, 0);
 		dialog.close();
 	    }
 	});
@@ -237,10 +230,32 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 	}
     }
     @Override
-    protected void validate(boolean band) {
-	// TODO Auto-generated method stub
-	
+    protected void validate(boolean band,int total) {
+	boolean cambio = false;
+	if (band) {
+	    String codigo = "";
+	    for (int x = 0; x < total; x++) {
+		codigo = codigo + variables[x] + ";";
+	    }
+	    if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
+		tabbedPaneSelected.getTabItem().getSave().setSave(false);
+		tabbedPaneSelected
+			.getTabItem()
+			.getInfo()
+			.setInformacion(
+				"/M - Se agrego o modifico una instruccion en una figura de tipo \"entrada\"\n");
+		cambio = true;
+	    }
+	    abstractFigure.instruccion.setInstruccionSimple(codigo);
+	    tabbedPaneSelected.getHoja().addFigure();
+	    tabbedPaneSelected.getHoja().guardarRetroceso();
+	    if (cambio) {
+		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
+			tabbedPaneSelected.getHoja().getDiagrama());
+	    }
+	}
     }
+    @Override
     public void cargarCodigo(Entrada fig, final Composite composite,
 	    final Display d) {
 	if (fig.instruccion.getInstruccionSimple().compareTo("null") != 0
@@ -303,7 +318,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 				    total++;
 				}
 			    }
-			    guardarCodigo(true, total);
+			    validate(true, total);
 			    dialog.close();
 			}
 		    }
@@ -386,7 +401,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 						total++;
 					    }
 					}
-					guardarCodigo(true, total);
+					validate(true, total);
 					dialog.close();
 				    }
 				}
@@ -461,7 +476,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 				    total++;
 				}
 			    }
-			    guardarCodigo(true, total);
+			    validate(true, total);
 			    dialog.close();
 			}
 		    }
@@ -538,7 +553,7 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 				    total++;
 				}
 			    }
-			    guardarCodigo(true, total);
+			    validate(true, total);
 			    dialog.close();
 			}
 		    }
@@ -561,35 +576,8 @@ public class DatosEntrada extends AbstractDialog<Entrada> {
 	}
 	return texto;
     }
-
-    /**
-     * Este metodo es el encargado de validar la informacion introducida.
-     * 
-     * @param mostrar
-     */
-    public void guardarCodigo(boolean mostrar, int total) {
-	boolean cambio = false;
-	if (mostrar) {
-	    String codigo = "";
-	    for (int x = 0; x < total; x++) {
-		codigo = codigo + variables[x] + ";";
-	    }
-	    if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
-		tabbedPaneSelected.getTabItem().getSave().setSave(false);
-		tabbedPaneSelected
-			.getTabItem()
-			.getInfo()
-			.setInformacion(
-				"/M - Se agrego o modifico una instruccion en una figura de tipo \"entrada\"\n");
-		cambio = true;
-	    }
-	    abstractFigure.instruccion.setInstruccionSimple(codigo);
-	    tabbedPaneSelected.getHoja().addFigure();
-	    tabbedPaneSelected.getHoja().guardarRetroceso();
-	    if (cambio) {
-		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			tabbedPaneSelected.getHoja().getDiagrama());
-	    }
-	}
+    @Override
+    protected void validate(boolean band) {
+	// TODO Auto-generated method stub	
     }
 }
