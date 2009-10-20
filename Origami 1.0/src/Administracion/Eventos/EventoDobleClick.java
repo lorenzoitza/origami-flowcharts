@@ -13,7 +13,7 @@ import Grafico.Figuras.While;
 import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.ForFigureDialog;
 import Grafico.VentanaDatos.DatosSalida;
-import Grafico.VentanaDatos.IfDecisionDialog;
+import Grafico.VentanaDatos.DecisionFigureDialog;
 import Grafico.VentanaDatos.SentenceFigureDialog;
 import Grafico.VentanaDatos.WhileFigureDialog;
 import Administracion.TabFolder;
@@ -49,11 +49,11 @@ public class EventoDobleClick extends MouseListener.Stub{
 		}
 		else if(fig instanceof If){
 			If f = ((If)fig);
-			new IfDecisionDialog(Ventana.shell,tab,f,selec).open();
+			new DecisionFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof Entrada){
 			Entrada f = ((Entrada)fig);
-			new DatosEntrada(tab).ventana(Ventana.display,f,selec);
+			new DatosEntrada(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof Imprimir){
 			Imprimir f = ((Imprimir)fig);

@@ -9,13 +9,13 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class IfDecisionDialog extends AbstractDialog<If> {
+public class DecisionFigureDialog extends AbstractDialog<If> {
 
     private Text conditionTextField;
     
     private Label informationLabel;
 
-    public IfDecisionDialog(Shell shell, TabFolder tabFolder, If figura,
+    public DecisionFigureDialog(Shell shell, TabFolder tabFolder, If figura,
 	    AdminSeleccion selectionAdmin) {
 
 	super(shell, tabFolder, figura, selectionAdmin);

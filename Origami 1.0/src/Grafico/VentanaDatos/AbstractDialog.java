@@ -23,7 +23,7 @@ public abstract class AbstractDialog<Figure> {
     protected Display display;
 
     protected Figure abstractFigure;
-
+    
     protected AdminSeleccion selectionAdmin;
 
     protected Button acceptButton;

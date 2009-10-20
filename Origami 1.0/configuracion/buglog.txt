@@ -1,4 +1,4 @@
-TOTAL ERRORES: 2
+TOTAL ERRORES: 12
 
 ****************************************************************************************************************************
 Rastreo de pila proveniente de getStackTrace:
@@ -38,4 +38,76 @@ org.eclipse.swt.widgets.Widget                          Widget.java             
 org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
 org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
 Grafico.Ventana                                         Ventana.java            913     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             463     error
+org.eclipse.swt.widgets.Widget                          Widget.java             273     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             146     <init>
+org.eclipse.swt.widgets.Control                         Control.java            105     <init>
+org.eclipse.swt.widgets.Label                           Label.java              102     <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       74      initLabels
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     74      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       46      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       216     initTextFields
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     75      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       38      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       217     initTextFields
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     75      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       39      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+
+
+
+
+
 

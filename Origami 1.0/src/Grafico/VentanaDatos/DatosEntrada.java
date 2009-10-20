@@ -1,23 +1,18 @@
 package Grafico.VentanaDatos;
 
-//cursores de seleccionar feos
-//el cursor cuesta trabajo seleleccionar botones
-//mejorar ventanas de compilacion
-//quitar seleccionar figura cuando el cursor es figura
-//ventana donate
-//bounds para resoluciones mas grandes
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
+
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoKey;
 import Grafico.Ventana;
 import Grafico.Figuras.Entrada;
+import Grafico.Figuras.If;
 import Imagenes.ImageLoader;
 
 /**
@@ -26,76 +21,80 @@ import Imagenes.ImageLoader;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class DatosEntrada {
-
-    private Shell shell;
-
-    private Entrada fig;
-
+public class DatosEntrada extends AbstractDialog<Entrada> {
     private Control[] textos;
 
     private String[] variables = new String[50];
 
-    public EventoKey key;
+    private Label informationLabel;
+    
+    private Label information2Label;
+    
+    private ScrolledComposite sComposite;
+    
+    private Composite composite;
+    
+    public DatosEntrada(Shell shell, TabFolder tabFolder, Entrada figura,
+	    AdminSeleccion selectionAdmin) {
+	super(shell, tabFolder, figura, selectionAdmin);
+	
 
-    public TabFolder tab;
-
-    public DatosEntrada(TabFolder tabfolder) {
-	tab = tabfolder;
     }
-
-    /**
-     * Crea la ventana junto con sus componentes.
-     * 
-     * @param d
-     * @param fig
-     */
-    public void ventana(final Display d, Entrada fig, AdminSeleccion selec) {
-	key = new EventoKey(selec, tab);
-
-	shell =
-		new Shell(Ventana.shell, SWT.DIALOG_TRIM
-			| SWT.APPLICATION_MODAL);
-
-	shell.setSize(370, 214);
-	shell.setText("Datos Entrada");
-	shell.setLocation(380, 230);
-	this.fig = fig;
-
-	final ScrolledComposite sComposite =
-		new ScrolledComposite(shell, SWT.BORDER | SWT.H_SCROLL
+    protected void initComponents() {
+	sComposite =
+		new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
 			| SWT.V_SCROLL);
 	GridData grid = new GridData(GridData.FILL_VERTICAL);
 	grid.grabExcessHorizontalSpace = true;
 	grid.grabExcessVerticalSpace = true;
 	sComposite.setLayoutData(grid);
-	final Composite composite = new Composite(sComposite, SWT.NONE);
+	composite = new Composite(sComposite, SWT.NONE);
 	composite.setLayoutData(grid);
-	cargarCodigo(fig, composite, d);
+	cargarCodigo(abstractFigure, composite, display);
 	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
 		false));
-
-	Label label = new Label(shell, SWT.HORIZONTAL);
-	label.setText("AGREGAR UNA VARIABLE MÁS");
-	label.setSize(150, 30);
-	label.setLocation(165, 155);
-	Label label2 = new Label(shell, SWT.HORIZONTAL);
-	label2.setText("ESCRIBE LAS VARIABLES DESEADAS");
-	label2.setSize(180, 30);
-	label2.setLocation(20, 5);
-	Label label3 = new Label(shell, SWT.HORIZONTAL);
-	label3.setText("EJEMPLO:   int x");
-	label3.setSize(180, 30);
-	label3.setLocation(220, 5);
-
-	Button button = new Button(shell, SWT.PUSH);
+	
+	initLabels();
+	
+	//initButtons();
+	
+	initTextFields();
+    }
+    @Override
+    public void close() {
+	dialog.close();
+    }
+    @Override
+    protected void create() {
+	dialog.setSize(370, 214);
+	dialog.setText("Datos Entrada");
+	dialog.setLocation(380, 230);
+    }
+    @Override
+    public void initLabels() {
+	informationLabel = new Label(dialog, SWT.HORIZONTAL);
+	informationLabel.setText("AGREGAR UNA VARIABLE MÁS");
+	informationLabel.setSize(150, 30);
+	informationLabel.setLocation(165, 155);
+	
+	information2Label= new Label(dialog, SWT.HORIZONTAL);
+	information2Label.setText("ESCRIBE LAS VARIABLES DESEADAS");
+	information2Label.setSize(180, 30);
+	information2Label.setLocation(20, 5);
+	
+	exampleLabel = new Label(dialog, SWT.HORIZONTAL);
+	exampleLabel.setText("EJEMPLO:   int x");
+	exampleLabel.setSize(180, 30);
+	exampleLabel.setLocation(220, 5);
+    }
+    @Override
+    public void initTextFields() {
+	Button button = new Button(dialog, SWT.PUSH);
 	button.setSize(45, 40);
 	button.setLocation(318, 140);
-	// Image imagenSuma = new Image(d, "imagenes\\suma.png");
 	button.setImage(ImageLoader.getImage("suma.png"));
 	button.pack();
 	button.addSelectionListener(new SelectionAdapter() {
-
 	    public void widgetSelected(SelectionEvent event) {
 		textos = composite.getChildren();
 		int numero = textos.length / 3;
@@ -166,7 +165,7 @@ public class DatosEntrada {
 				}
 			    }
 			    guardarCodigo(true, total);
-			    shell.close();
+			    dialog.close();
 			}
 		    }
 		});
@@ -176,7 +175,7 @@ public class DatosEntrada {
 	    }
 	});
 
-	Button boton = new Button(shell, SWT.FLAT);
+	Button boton = new Button(dialog, SWT.FLAT);
 	boton.setBounds(5, 145, 70, 25);
 	boton.setText("ACEPTAR");
 	boton.addSelectionListener(new SelectionAdapter() {
@@ -211,30 +210,37 @@ public class DatosEntrada {
 		    }
 		}
 		guardarCodigo(true, total);
-		shell.close();
+		dialog.close();
 	    }
 	});
-	Button boton2 = new Button(shell, SWT.FLAT);
+	Button boton2 = new Button(dialog, SWT.FLAT);
 	boton2.setBounds(85, 145, 70, 25);
 	boton2.setText("CANCELAR");
 	boton2.addSelectionListener(new SelectionAdapter() {
-
 	    public void widgetSelected(SelectionEvent e) {
 		guardarCodigo(false, 0);
-		shell.close();
+		dialog.close();
 	    }
 	});
 	sComposite.setContent(composite);
 	sComposite.setExpandHorizontal(true);
 	sComposite.setExpandVertical(true);
 	sComposite.setBounds(0, 20, 325, 120);
-	shell.open();
-	while (!shell.isDisposed()) {
-	    if (!d.readAndDispatch())
-		d.sleep();
+    }
+    @Override
+    public void open() {
+	dialog.open();
+	while (!dialog.isDisposed()) {
+	    if (!display.readAndDispatch()) {
+		display.sleep();
+	    }
 	}
     }
-
+    @Override
+    protected void validate(boolean band) {
+	// TODO Auto-generated method stub
+	
+    }
     public void cargarCodigo(Entrada fig, final Composite composite,
 	    final Display d) {
 	if (fig.instruccion.getInstruccionSimple().compareTo("null") != 0
@@ -250,7 +256,6 @@ public class DatosEntrada {
 		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 		botLeer.setBounds(255, i * 25, 20, 20);
 		botLeer.addSelectionListener(new SelectionAdapter() {
-
 		    public void widgetSelected(SelectionEvent event) {
 			for (int x = 0; x < textos.length; x += 3) {
 			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
@@ -299,7 +304,7 @@ public class DatosEntrada {
 				}
 			    }
 			    guardarCodigo(true, total);
-			    shell.close();
+			    dialog.close();
 			}
 		    }
 		});
@@ -382,7 +387,7 @@ public class DatosEntrada {
 					    }
 					}
 					guardarCodigo(true, total);
-					shell.close();
+					dialog.close();
 				    }
 				}
 			    });
@@ -457,7 +462,7 @@ public class DatosEntrada {
 				}
 			    }
 			    guardarCodigo(true, total);
-			    shell.close();
+			    dialog.close();
 			}
 		    }
 		});
@@ -534,7 +539,7 @@ public class DatosEntrada {
 				}
 			    }
 			    guardarCodigo(true, total);
-			    shell.close();
+			    dialog.close();
 			}
 		    }
 		});
@@ -569,21 +574,21 @@ public class DatosEntrada {
 	    for (int x = 0; x < total; x++) {
 		codigo = codigo + variables[x] + ";";
 	    }
-	    if (!fig.instruccion.instruccion.equals(codigo)) {
-		tab.getTabItem().getSave().setSave(false);
-		tab
+	    if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
+		tabbedPaneSelected.getTabItem().getSave().setSave(false);
+		tabbedPaneSelected
 			.getTabItem()
 			.getInfo()
 			.setInformacion(
 				"/M - Se agrego o modifico una instruccion en una figura de tipo \"entrada\"\n");
 		cambio = true;
 	    }
-	    fig.instruccion.setInstruccionSimple(codigo);
-	    tab.getHoja().addFigure();
-	    tab.getHoja().guardarRetroceso();
+	    abstractFigure.instruccion.setInstruccionSimple(codigo);
+	    tabbedPaneSelected.getHoja().addFigure();
+	    tabbedPaneSelected.getHoja().guardarRetroceso();
 	    if (cambio) {
-		tab.getTabItem().getInfo().setDiagrama(
-			tab.getHoja().getDiagrama());
+		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
+			tabbedPaneSelected.getHoja().getDiagrama());
 	    }
 	}
     }

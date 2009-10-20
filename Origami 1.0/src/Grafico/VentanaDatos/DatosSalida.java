@@ -78,7 +78,7 @@ public class DatosSalida {
 	label3.setText("EJEMPLO: \"El valor de x es:\", x");
 	label3.setSize(180, 40);
 	label3.setLocation(195, 5);
-
+	
 	Button button = new Button(shell, SWT.PUSH);
 	button.setSize(45, 40);
 	button.setLocation(318, 140);
