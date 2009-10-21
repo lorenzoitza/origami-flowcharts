@@ -222,6 +222,39 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	    }
 	}
     }
+    public void addReadButton(int i){
+	final Button botLeer = new Button(composite, SWT.PUSH);
+	botLeer.setImage(ImageLoader.getImage("teclado.ico"));
+	botLeer.setBounds(255, i * 25, 20, 20);
+	botLeer.addSelectionListener(new SelectionAdapter() {
+	    public void widgetSelected(SelectionEvent event) {
+		for (int x = 0; x < textos.length; x += 3) {
+		    if (textos[x].getBounds().y == botLeer.getBounds().y) {
+			Text text = (Text) textos[x];
+			String texto = limpiarString(text.getText());
+			text.setText(texto);
+			text.setSelection(texto.length());
+			text.setFocus();
+		    }
+		}
+	    }
+	});
+    }
+    public void addDeleteButton(int i){
+	final Button bot = new Button(composite, SWT.PUSH);
+	bot.setBounds(280, i * 25, 20, 20);
+	bot.setImage(ImageLoader.getImage("borrar.gif"));
+	bot.addSelectionListener(new SelectionAdapter() {
+	    public void widgetSelected(SelectionEvent event) {
+		for (int x = 0; x < textos.length; x += 3) {
+		    if (textos[x].getBounds().y == bot.getBounds().y) {
+			Text text = (Text) textos[x];
+			text.setText("");
+		    }
+		}
+	    }
+	});
+    }
     @Override
     public void cargarCodigo(Entrada fig, final Composite composite,
 	    final Display d) {
@@ -233,46 +266,13 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text.setBounds(0, 0 + i * 25, 250, 20);
 		text.setText(variables[i]);
-		final Button botLeer = new Button(composite, SWT.PUSH);
-		// Image imagen = new Image(d, "imagenes\\teclado.ico");
-		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-		botLeer.setBounds(255, i * 25, 20, 20);
-		botLeer.addSelectionListener(new SelectionAdapter() {
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
-				Text text = (Text) textos[x];
-				String texto = limpiarString(text.getText());
-				text.setText(texto);
-				text.setSelection(texto.length());
-				text.setFocus();
-			    }
-			}
-		    }
-		});
-		final Button bot = new Button(composite, SWT.PUSH);
-		bot.setBounds(280, i * 25, 20, 20);
-		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		bot.setImage(ImageLoader.getImage("borrar.gif"));
-		bot.addSelectionListener(new SelectionAdapter() {
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == bot.getBounds().y) {
-				Text text = (Text) textos[x];
-				text.setText("");
-			    }
-			}
-		    }
-		});
-		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
-			    validate(true);
-			    dialog.close();
-			}
-		    }
-		});
+
+		addReadButton(i);
+		
+		addDeleteButton(i);
+		
+		addKeyListener(text);
+
 	    }
 	    if (variables.length < 4) {
 		int i;
@@ -281,40 +281,11 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
 		    text2.setBounds(0, 0 + i * 25, 250, 20);
 		    text2.setText("Escribe aqui");
-		    final Button botLeer = new Button(composite, SWT.PUSH);
-		    botLeer.setBounds(255, i * 25, 20, 20);
-		    // Image imagen = new Image(d, "imagenes\\teclado.ico");
-		    botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-		    botLeer.addSelectionListener(new SelectionAdapter() {
-
-			public void widgetSelected(SelectionEvent event) {
-			    for (int x = 0; x < textos.length; x += 3) {
-				if (textos[x].getBounds().y == botLeer
-					.getBounds().y) {
-				    Text text = (Text) textos[x];
-				    String texto =
-					    limpiarString(text.getText());
-				    text.setText(texto);
-				    text.setSelection(texto.length());
-				    text.setFocus();
-				}
-			    }
-			}
-		    });
-		    final Button bot = new Button(composite, SWT.PUSH);
-		    bot.setBounds(280, i * 25, 20, 20);
-		    // Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		    bot.setImage(ImageLoader.getImage("borrar.gif"));
-		    bot.addSelectionListener(new SelectionAdapter() {
-			public void widgetSelected(SelectionEvent event) {
-			    for (int x = 0; x < textos.length; x += 3) {
-				if (textos[x].getBounds().y == bot.getBounds().y) {
-				    Text text = (Text) textos[x];
-				    text.setText("");
-				}
-			    }
-			}
-		    });
+		    			 
+		    addReadButton(i);
+		    
+		    addDeleteButton(i);
+		    
 		    text2.addListener(SWT.FocusIn, new Listener() {
 			public void handleEvent(Event e) {
 			    if (text2.getText().startsWith("Escribe")) {
@@ -322,16 +293,8 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 			    }
 			}
 		    });
-		    text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-				public void keyPressed(
-					org.eclipse.swt.events.KeyEvent e) {
-				    key.setKey(e);
-				    if (key.PresentEnter()) {
-					validate(true);
-					dialog.close();
-				    }
-				}
-			    });
+		    
+		    addKeyListener(text2);
 		}
 		textos = composite.getChildren();
 		final Text text = (Text) textos[variables.length * 3];
@@ -341,39 +304,11 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text2.setBounds(0, 0 + textos.length / 3 * 25, 250, 20);
 		text2.setText("Escribe aqui");
-		final Button botLeer = new Button(composite, SWT.PUSH);
-		botLeer.setBounds(255, textos.length / 3 * 25, 20, 20);
-		// Image imagen = new Image(d, "imagenes\\teclado.ico");
-		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-		botLeer.addSelectionListener(new SelectionAdapter() {
+		
+		addReadButton(textos.length / 3);
+		
+		addDeleteButton(textos.length / 3);
 
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
-				Text text = (Text) textos[x];
-				String texto = limpiarString(text.getText());
-				text.setText(texto);
-				text.setSelection(texto.length());
-				text.setFocus();
-			    }
-			}
-		    }
-		});
-		final Button bot = new Button(composite, SWT.PUSH);
-		bot.setBounds(280, textos.length / 3 * 25, 20, 20);
-		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		bot.setImage(ImageLoader.getImage("borrar.gif"));
-		bot.addSelectionListener(new SelectionAdapter() {
-
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == bot.getBounds().y) {
-				Text text = (Text) textos[x];
-				text.setText("");
-			    }
-			}
-		    }
-		});
 		text2.addListener(SWT.FocusIn, new Listener() {
 
 		    public void handleEvent(Event e) {
@@ -382,16 +317,9 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 			}
 		    }
 		});
-		text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
+		
+		addKeyListener(text2);
 
-		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
-			    validate(true);
-			    dialog.close();
-			}
-		    }
-		});
 		textos = composite.getChildren();
 		final Text text = (Text) textos[textos.length - 3];
 		text.forceFocus();
@@ -402,58 +330,26 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		final Text text = new Text(composite, SWT.BORDER);
 		text.setBounds(0, 0 + i * 25, 250, 20);
 		text.setText("Escribe aqui");
-		final Button botLeer = new Button(composite, SWT.PUSH);
-		botLeer.setBounds(255, i * 25, 20, 20);
-		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-		botLeer.addSelectionListener(new SelectionAdapter() {
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
-				Text text = (Text) textos[x];
-				String texto = limpiarString(text.getText());
-				text.setText(texto);
-				text.setSelection(texto.length());
-				text.setFocus();
-			    }
-			}
-		    }
-		});
-		final Button bot = new Button(composite, SWT.PUSH);
-		bot.setBounds(280, i * 25, 20, 20);
-		bot.setImage(ImageLoader.getImage("borrar.gif"));
-		bot.addSelectionListener(new SelectionAdapter() {
-		    public void widgetSelected(SelectionEvent event) {
-			textos = composite.getChildren();
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == bot.getBounds().y) {
-				Text text = (Text) textos[x];
-				text.setText("");
-			    }
-			}
-		    }
-		});
-		text.addListener(SWT.FocusIn, new Listener() {
+		
+		addReadButton(i);
+		
+		addDeleteButton(i);
 
+		text.addListener(SWT.FocusIn, new Listener() {
 		    public void handleEvent(Event e) {
 			if (text.getText().startsWith("Escribe")) {
 			    text.setText("");
 			}
 		    }
 		});
-		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
-			    validate(true);
-			    dialog.close();
-			}
-		    }
-		});
+
+		addKeyListener(text);
+		
 		textos = composite.getChildren();
 	    }
 	}
     }
-
+    
     public String limpiarString(String texto) {
 	while (texto.startsWith(" ")) {
 	    texto = texto.replaceFirst(" ", "");

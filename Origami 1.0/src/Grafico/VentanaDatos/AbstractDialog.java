@@ -82,12 +82,11 @@ public abstract class AbstractDialog<Figure> {
     protected abstract void validate(boolean band);
 
     protected void addKeyListener(Text textField) {
-	textField.addKeyListener(getKeyListerner());
+	textField.addKeyListener(getKeyListener());
     }
 
-    private KeyAdapter getKeyListerner() {
+    private KeyAdapter getKeyListener() {
 	return new org.eclipse.swt.events.KeyAdapter() {
-
 	    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 		key.setKey(e);
 		if (key.PresentEnter()) {

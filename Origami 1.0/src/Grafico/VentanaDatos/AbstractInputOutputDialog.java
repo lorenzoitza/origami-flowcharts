@@ -2,6 +2,7 @@ package Grafico.VentanaDatos;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
@@ -80,4 +81,18 @@ public abstract class AbstractInputOutputDialog<Figure> extends AbstractDialog<F
     }
     protected abstract void cargarCodigo(Figure fig, final Composite composite,
 	    final Display d);
+    
+    protected void addTextListener(Text textField) {
+	textField.addListener(SWT.FocusIn,getFocusListener(textField));
+    }
+    
+    private Listener getFocusListener(final Text text) {
+	return new Listener(){
+	    public void handleEvent(Event e) {
+		if(text.getText().startsWith("Escribe")) {
+		    text.setText("");
+		}
+	    }
+	};
+    }
 }
