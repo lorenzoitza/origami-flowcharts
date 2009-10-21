@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Text;
 
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
+import Administracion.Eventos.EventoKey;
 import Grafico.Figuras.Entrada;
 import Grafico.Figuras.If;
 import Imagenes.ImageLoader;
@@ -32,28 +33,46 @@ public abstract class AbstractInputOutputDialog<Figure> extends AbstractDialog<F
     
     protected Composite composite;
     
+    protected Button addTextFieldButton;
+    
+    
     public AbstractInputOutputDialog(Shell shell, TabFolder tabFolder,
 	    Figure figura, AdminSeleccion selectionAdmin) {
-	super(shell, tabFolder, figura, selectionAdmin);
+	super();
+	this.dialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+
+	this.tabbedPaneSelected = tabFolder;
+
+	this.display = shell.getDisplay();
+
+	this.abstractFigure = figura;
+
+	this.selectionAdmin = selectionAdmin;
+
+	this.key = new EventoKey(selectionAdmin, tabFolder);
+	
+	this.sComposite = new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
+		| SWT.V_SCROLL);
+	
+	this.composite = new Composite(sComposite, SWT.NONE);
+	
+	this.create();
+	this.initComponents();
     }
     protected void initComponents() {
-	
 	initScrollComposite();
 	
 	initLabels();
 	
-	//initButtons();
+	initButtons();
 	
 	initTextFields();
     }
     protected void initScrollComposite(){
-	sComposite = new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
-			| SWT.V_SCROLL);
 	GridData grid = new GridData(GridData.FILL_VERTICAL);
 	grid.grabExcessHorizontalSpace = true;
 	grid.grabExcessVerticalSpace = true;
 	sComposite.setLayoutData(grid);
-	composite = new Composite(sComposite, SWT.NONE);
 	composite.setLayoutData(grid);
 	cargarCodigo(abstractFigure, composite, display);
 	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
@@ -63,4 +82,17 @@ public abstract class AbstractInputOutputDialog<Figure> extends AbstractDialog<F
 	    final Display d);
     
     protected abstract void validate(boolean band, int total);
+    
+    protected void addSelectionListener(Button confirmButton, boolean band, int total) {
+	confirmButton.addSelectionListener(getSelectionAdapter(band, total));
+    }
+
+    private SelectionAdapter getSelectionAdapter(final boolean band, final int total) {
+	return new SelectionAdapter() {
+	    public void widgetSelected(SelectionEvent e) {
+		validate(band,total);
+		dialog.close();
+	    }
+	};
+    }
 }

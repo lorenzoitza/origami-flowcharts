@@ -30,28 +30,6 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
     public DatosEntrada(Shell shell, TabFolder tabFolder, Entrada figura,
 	    AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figura, selectionAdmin);
-	
-
-    }
-    protected void initComponents() {
-	sComposite =
-		new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
-			| SWT.V_SCROLL);
-	GridData grid = new GridData(GridData.FILL_VERTICAL);
-	grid.grabExcessHorizontalSpace = true;
-	grid.grabExcessVerticalSpace = true;
-	sComposite.setLayoutData(grid);
-	composite = new Composite(sComposite, SWT.NONE);
-	composite.setLayoutData(grid);
-	cargarCodigo(abstractFigure, composite, display);
-	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
-		false));
-	
-	initLabels();
-	
-	//initButtons();
-	
-	initTextFields();
     }
     @Override
     public void close() {
@@ -81,6 +59,62 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	exampleLabel.setLocation(220, 5);
     }
     @Override
+    protected void initButtons() {
+	acceptButton = new Button(dialog, SWT.FLAT);
+	acceptButton.setBounds(5, 145, 70, 25);
+	acceptButton.setText("ACEPTAR");
+	addSelectionListener(acceptButton, true);
+	
+	
+	Button boton = new Button(dialog, SWT.FLAT);
+	boton.setBounds(5, 145, 70, 25);
+	boton.setText("ACEPTAR");
+	boton.addSelectionListener(new SelectionAdapter() {
+	    public void widgetSelected(SelectionEvent e) {
+		textos = composite.getChildren();
+		int total = 0;
+		variables = new String[50];
+		for (int x = 0; x < textos.length; x += 3) {
+		    Text text = (Text) textos[x];
+		    String copia = text.getText();
+		    while (copia.startsWith(" ")) {
+			copia = copia.replaceFirst(" ", "");
+		    }
+		    if (!copia.startsWith("Escribe") && copia != "null"
+			    && copia != "") {
+			if (copia.startsWith("Leer:")
+				|| copia.startsWith("leer:")) {
+			    String copia2 = copia.substring(5);
+			    while (copia2.startsWith(" ")) {
+				copia2 = copia2.replaceFirst(" ", "");
+			    }
+			    if (copia2.length() > 0) {
+				copia = "Leer: " + copia2;
+				variables[total] = copia;
+				total++;
+			    }
+			} else {
+			    variables[total] = copia;
+			    total++;
+			}
+		    }
+		}
+		validate(true, total);
+		dialog.close();
+	    }
+	});
+	
+	
+	cancelButton = new Button(dialog, SWT.FLAT);
+	cancelButton.setBounds(85, 145, 70, 25);
+	cancelButton.setText("CANCELAR");
+	addSelectionListener(cancelButton, false, 0);
+	
+	
+	
+	//addTextFieldButton
+    }
+    @Override
     public void initTextFields() {
 	Button button = new Button(dialog, SWT.PUSH);
 	button.setSize(45, 40);
@@ -97,7 +131,6 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		text2.setText("Escribe aqui");
 		final Button botLeer = new Button(composite, SWT.PUSH);
 		botLeer.setBounds(255, numero * y, 20, 20);
-		// Image imagen = new Image(d, "imagenes\\teclado.ico");
 		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 		botLeer.addSelectionListener(new SelectionAdapter() {
 
@@ -168,53 +201,8 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	    }
 	});
 
-	Button boton = new Button(dialog, SWT.FLAT);
-	boton.setBounds(5, 145, 70, 25);
-	boton.setText("ACEPTAR");
-	boton.addSelectionListener(new SelectionAdapter() {
+	
 
-	    public void widgetSelected(SelectionEvent e) {
-		textos = composite.getChildren();
-		int total = 0;
-		variables = new String[50];
-		for (int x = 0; x < textos.length; x += 3) {
-		    Text text = (Text) textos[x];
-		    String copia = text.getText();
-		    while (copia.startsWith(" ")) {
-			copia = copia.replaceFirst(" ", "");
-		    }
-		    if (!copia.startsWith("Escribe") && copia != "null"
-			    && copia != "") {
-			if (copia.startsWith("Leer:")
-				|| copia.startsWith("leer:")) {
-			    String copia2 = copia.substring(5);
-			    while (copia2.startsWith(" ")) {
-				copia2 = copia2.replaceFirst(" ", "");
-			    }
-			    if (copia2.length() > 0) {
-				copia = "Leer: " + copia2;
-				variables[total] = copia;
-				total++;
-			    }
-			} else {
-			    variables[total] = copia;
-			    total++;
-			}
-		    }
-		}
-		validate(true, total);
-		dialog.close();
-	    }
-	});
-	Button boton2 = new Button(dialog, SWT.FLAT);
-	boton2.setBounds(85, 145, 70, 25);
-	boton2.setText("CANCELAR");
-	boton2.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent e) {
-		validate(false, 0);
-		dialog.close();
-	    }
-	});
 	sComposite.setContent(composite);
 	sComposite.setExpandHorizontal(true);
 	sComposite.setExpandVertical(true);
@@ -493,10 +481,8 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		text.setText("Escribe aqui");
 		final Button botLeer = new Button(composite, SWT.PUSH);
 		botLeer.setBounds(255, i * 25, 20, 20);
-		// Image imagen = new Image(d, "imagenes\\teclado.ico");
 		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
 		botLeer.addSelectionListener(new SelectionAdapter() {
-
 		    public void widgetSelected(SelectionEvent event) {
 			for (int x = 0; x < textos.length; x += 3) {
 			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
@@ -511,10 +497,8 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		});
 		final Button bot = new Button(composite, SWT.PUSH);
 		bot.setBounds(280, i * 25, 20, 20);
-		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
 		bot.setImage(ImageLoader.getImage("borrar.gif"));
 		bot.addSelectionListener(new SelectionAdapter() {
-
 		    public void widgetSelected(SelectionEvent event) {
 			textos = composite.getChildren();
 			for (int x = 0; x < textos.length; x += 3) {
@@ -534,7 +518,6 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    }
 		});
 		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			key.setKey(e);
 			if (key.PresentEnter()) {

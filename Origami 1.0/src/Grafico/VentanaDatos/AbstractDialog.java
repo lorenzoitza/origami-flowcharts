@@ -29,7 +29,10 @@ public abstract class AbstractDialog<Figure> {
     protected Button acceptButton;
 
     protected Button cancelButton;
-
+    
+    public AbstractDialog() {
+    }
+    
     public AbstractDialog(Shell shell, TabFolder tabFolder, Figure figura,
 	    AdminSeleccion selectionAdmin) {
 	this.dialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
@@ -101,7 +104,6 @@ public abstract class AbstractDialog<Figure> {
 
     private SelectionAdapter getSelectionAdapter(final boolean band) {
 	return new SelectionAdapter() {
-
 	    public void widgetSelected(SelectionEvent e) {
 		validate(band);
 		dialog.close();
