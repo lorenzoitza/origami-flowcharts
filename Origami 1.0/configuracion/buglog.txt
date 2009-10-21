@@ -1,4 +1,4 @@
-TOTAL ERRORES: 16
+TOTAL ERRORES: 17
 
 ****************************************************************************************************************************
 Rastreo de pila proveniente de getStackTrace:
@@ -103,6 +103,7 @@ org.eclipse.swt.widgets.Widget                          Widget.java             
 org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
 org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
 Grafico.Ventana                                         Ventana.java            909     main
+
 
 
 

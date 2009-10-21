@@ -80,19 +80,4 @@ public abstract class AbstractInputOutputDialog<Figure> extends AbstractDialog<F
     }
     protected abstract void cargarCodigo(Figure fig, final Composite composite,
 	    final Display d);
-    
-    protected abstract void validate(boolean band, int total);
-    
-    protected void addSelectionListener(Button confirmButton, boolean band, int total) {
-	confirmButton.addSelectionListener(getSelectionAdapter(band, total));
-    }
-
-    private SelectionAdapter getSelectionAdapter(final boolean band, final int total) {
-	return new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent e) {
-		validate(band,total);
-		dialog.close();
-	    }
-	};
-    }
 }

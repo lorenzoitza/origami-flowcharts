@@ -65,50 +65,13 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	acceptButton.setText("ACEPTAR");
 	addSelectionListener(acceptButton, true);
 	
-	
-	Button boton = new Button(dialog, SWT.FLAT);
-	boton.setBounds(5, 145, 70, 25);
-	boton.setText("ACEPTAR");
-	boton.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent e) {
-		textos = composite.getChildren();
-		int total = 0;
-		variables = new String[50];
-		for (int x = 0; x < textos.length; x += 3) {
-		    Text text = (Text) textos[x];
-		    String copia = text.getText();
-		    while (copia.startsWith(" ")) {
-			copia = copia.replaceFirst(" ", "");
-		    }
-		    if (!copia.startsWith("Escribe") && copia != "null"
-			    && copia != "") {
-			if (copia.startsWith("Leer:")
-				|| copia.startsWith("leer:")) {
-			    String copia2 = copia.substring(5);
-			    while (copia2.startsWith(" ")) {
-				copia2 = copia2.replaceFirst(" ", "");
-			    }
-			    if (copia2.length() > 0) {
-				copia = "Leer: " + copia2;
-				variables[total] = copia;
-				total++;
-			    }
-			} else {
-			    variables[total] = copia;
-			    total++;
-			}
-		    }
-		}
-		validate(true, total);
-		dialog.close();
-	    }
-	});
+
 	
 	
 	cancelButton = new Button(dialog, SWT.FLAT);
 	cancelButton.setBounds(85, 145, 70, 25);
 	cancelButton.setText("CANCELAR");
-	addSelectionListener(cancelButton, false, 0);
+	addSelectionListener(cancelButton, false);
 	
 	
 	
@@ -171,26 +134,10 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    }
 		});
 		text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			key.setKey(e);
 			if (key.PresentEnter()) {
-			    textos = composite.getChildren();
-			    int total = 0;
-			    variables = new String[50];
-			    for (int x = 0; x < textos.length; x += 3) {
-				Text text = (Text) textos[x];
-				String copia = text.getText();
-				while (copia.startsWith(" ")) {
-				    copia = copia.replaceFirst(" ", "");
-				}
-				if (!copia.startsWith("Escribe")
-					&& copia != "null" && copia != "") {
-				    variables[total] = copia;
-				    total++;
-				}
-			    }
-			    validate(true, total);
+			    validate(true);
 			    dialog.close();
 			}
 		    }
@@ -218,7 +165,39 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	}
     }
     @Override
-    protected void validate(boolean band,int total) {
+    protected void validate(boolean band) {
+	int total = 0;
+	if(band){
+		textos = composite.getChildren();
+		variables = new String[50];
+		for (int x = 0; x < textos.length; x += 3) {
+		    Text text = (Text) textos[x];
+		    String copia = text.getText();
+		    while (copia.startsWith(" ")) {
+			copia = copia.replaceFirst(" ", "");
+		    }
+		    if (!copia.startsWith("Escribe") && copia != "null"
+			    && copia != "") {
+			if (copia.startsWith("Leer:")
+				|| copia.startsWith("leer:")) {
+			    String copia2 = copia.substring(5);
+			    while (copia2.startsWith(" ")) {
+				copia2 = copia2.replaceFirst(" ", "");
+			    }
+			    if (copia2.length() > 0) {
+				copia = "Leer: " + copia2;
+				variables[total] = copia;
+				total++;
+			    }
+			} else {
+			    variables[total] = copia;
+			    total++;
+			}
+		    }
+		}
+	}
+
+	
 	boolean cambio = false;
 	if (band) {
 	    String codigo = "";
@@ -276,7 +255,6 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
 		bot.setImage(ImageLoader.getImage("borrar.gif"));
 		bot.addSelectionListener(new SelectionAdapter() {
-
 		    public void widgetSelected(SelectionEvent event) {
 			for (int x = 0; x < textos.length; x += 3) {
 			    if (textos[x].getBounds().y == bot.getBounds().y) {
@@ -287,26 +265,10 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    }
 		});
 		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			key.setKey(e);
 			if (key.PresentEnter()) {
-			    textos = composite.getChildren();
-			    int total = 0;
-			    variables = new String[50];
-			    for (int x = 0; x < textos.length; x += 3) {
-				Text text = (Text) textos[x];
-				String copia = text.getText();
-				while (copia.startsWith(" ")) {
-				    copia = copia.replaceFirst(" ", "");
-				}
-				if (!copia.startsWith("Escribe")
-					&& copia != "null" && copia != "") {
-				    variables[total] = copia;
-				    total++;
-				}
-			    }
-			    validate(true, total);
+			    validate(true);
 			    dialog.close();
 			}
 		    }
@@ -316,8 +278,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		int i;
 		for (i = variables.length; i < 4; i++) {
 		    textos = composite.getChildren();
-		    final Text text2 =
-			    new Text(composite, SWT.FLAT | SWT.BORDER);
+		    final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
 		    text2.setBounds(0, 0 + i * 25, 250, 20);
 		    text2.setText("Escribe aqui");
 		    final Button botLeer = new Button(composite, SWT.PUSH);
@@ -345,7 +306,6 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    // Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
 		    bot.setImage(ImageLoader.getImage("borrar.gif"));
 		    bot.addSelectionListener(new SelectionAdapter() {
-
 			public void widgetSelected(SelectionEvent event) {
 			    for (int x = 0; x < textos.length; x += 3) {
 				if (textos[x].getBounds().y == bot.getBounds().y) {
@@ -356,40 +316,18 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 			}
 		    });
 		    text2.addListener(SWT.FocusIn, new Listener() {
-
 			public void handleEvent(Event e) {
 			    if (text2.getText().startsWith("Escribe")) {
 				text2.setText("");
 			    }
 			}
 		    });
-		    text2
-			    .addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-
+		    text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
 				public void keyPressed(
 					org.eclipse.swt.events.KeyEvent e) {
 				    key.setKey(e);
 				    if (key.PresentEnter()) {
-					textos = composite.getChildren();
-					int total = 0;
-					variables = new String[50];
-					for (int x = 0; x < textos.length; x +=
-						3) {
-					    Text text = (Text) textos[x];
-					    String copia = text.getText();
-					    while (copia.startsWith(" ")) {
-						copia =
-							copia.replaceFirst(" ",
-								"");
-					    }
-					    if (!copia.startsWith("Escribe")
-						    && copia != "null"
-						    && copia != "") {
-						variables[total] = copia;
-						total++;
-					    }
-					}
-					validate(true, total);
+					validate(true);
 					dialog.close();
 				    }
 				}
@@ -449,22 +387,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			key.setKey(e);
 			if (key.PresentEnter()) {
-			    textos = composite.getChildren();
-			    int total = 0;
-			    variables = new String[50];
-			    for (int x = 0; x < textos.length; x += 3) {
-				Text text = (Text) textos[x];
-				String copia = text.getText();
-				while (copia.startsWith(" ")) {
-				    copia = copia.replaceFirst(" ", "");
-				}
-				if (!copia.startsWith("Escribe")
-					&& copia != "null" && copia != "") {
-				    variables[total] = copia;
-				    total++;
-				}
-			    }
-			    validate(true, total);
+			    validate(true);
 			    dialog.close();
 			}
 		    }
@@ -521,22 +444,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
 			key.setKey(e);
 			if (key.PresentEnter()) {
-			    textos = composite.getChildren();
-			    int total = 0;
-			    variables = new String[50];
-			    for (int x = 0; x < textos.length; x += 3) {
-				Text text = (Text) textos[x];
-				String copia = text.getText();
-				while (copia.startsWith(" ")) {
-				    copia = copia.replaceFirst(" ", "");
-				}
-				if (!copia.startsWith("Escribe")
-					&& copia != "null" && copia != "") {
-				    variables[total] = copia;
-				    total++;
-				}
-			    }
-			    validate(true, total);
+			    validate(true);
 			    dialog.close();
 			}
 		    }
@@ -558,9 +466,5 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	    }
 	}
 	return texto;
-    }
-    @Override
-    protected void validate(boolean band) {
-	// TODO Auto-generated method stub	
     }
 }
