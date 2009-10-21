@@ -65,26 +65,17 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	acceptButton.setText("ACEPTAR");
 	addSelectionListener(acceptButton, true);
 	
-
-	
-	
 	cancelButton = new Button(dialog, SWT.FLAT);
 	cancelButton.setBounds(85, 145, 70, 25);
 	cancelButton.setText("CANCELAR");
 	addSelectionListener(cancelButton, false);
 	
-	
-	
-	//addTextFieldButton
-    }
-    @Override
-    public void initTextFields() {
-	Button button = new Button(dialog, SWT.PUSH);
-	button.setSize(45, 40);
-	button.setLocation(318, 140);
-	button.setImage(ImageLoader.getImage("suma.png"));
-	button.pack();
-	button.addSelectionListener(new SelectionAdapter() {
+	addTextFieldButton = new Button(dialog, SWT.PUSH);
+	addTextFieldButton.setSize(45, 40);
+	addTextFieldButton.setLocation(318, 140);
+	addTextFieldButton.setImage(ImageLoader.getImage("suma.png"));
+	addTextFieldButton.pack();
+	addTextFieldButton.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent event) {
 		textos = composite.getChildren();
 		int numero = textos.length / 3;
@@ -92,63 +83,25 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text2.setBounds(0, numero * y, 250, 20);
 		text2.setText("Escribe aqui");
-		final Button botLeer = new Button(composite, SWT.PUSH);
-		botLeer.setBounds(255, numero * y, 20, 20);
-		botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-		botLeer.addSelectionListener(new SelectionAdapter() {
+		
+		
+		addReadButton(numero);
+		
+		addDeleteButton(numero);
+		
+		addTextListener(text2);
+		    
+		addKeyListener(text2);
 
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == botLeer.getBounds().y) {
-				Text text = (Text) textos[x];
-				String texto = limpiarString(text.getText());
-				text.setText(texto);
-				text.setSelection(texto.length());
-				text.setFocus();
-			    }
-			}
 
-		    }
-		});
-		final Button bot = new Button(composite, SWT.PUSH);
-		bot.setBounds(280, numero * y, 20, 20);
-		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		bot.setImage(ImageLoader.getImage("borrar.gif"));
-		bot.addSelectionListener(new SelectionAdapter() {
-
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 3) {
-			    if (textos[x].getBounds().y == bot.getBounds().y) {
-				Text text = (Text) textos[x];
-				text.setText("");
-			    }
-			}
-		    }
-		});
-		text2.addListener(SWT.FocusIn, new Listener() {
-
-		    public void handleEvent(Event e) {
-			if (text2.getText().startsWith("Escribe")) {
-			    text2.setText("");
-			}
-		    }
-		});
-		text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
-			    validate(true);
-			    dialog.close();
-			}
-		    }
-		});
 		textos = composite.getChildren();
 		sComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
 			SWT.DEFAULT, false));
 	    }
 	});
-
-	
+    }
+    @Override
+    public void initTextFields() {
 
 	sComposite.setContent(composite);
 	sComposite.setExpandHorizontal(true);
@@ -266,7 +219,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text.setBounds(0, 0 + i * 25, 250, 20);
 		text.setText(variables[i]);
-
+		
 		addReadButton(i);
 		
 		addDeleteButton(i);
@@ -286,13 +239,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		    
 		    addDeleteButton(i);
 		    
-		    text2.addListener(SWT.FocusIn, new Listener() {
-			public void handleEvent(Event e) {
-			    if (text2.getText().startsWith("Escribe")) {
-				text2.setText("");
-			    }
-			}
-		    });
+		    addTextListener(text2);
 		    
 		    addKeyListener(text2);
 		}
@@ -309,14 +256,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		
 		addDeleteButton(textos.length / 3);
 
-		text2.addListener(SWT.FocusIn, new Listener() {
-
-		    public void handleEvent(Event e) {
-			if (text2.getText().startsWith("Escribe")) {
-			    text2.setText("");
-			}
-		    }
-		});
+		addTextListener(text2);
 		
 		addKeyListener(text2);
 
@@ -335,13 +275,7 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 		
 		addDeleteButton(i);
 
-		text.addListener(SWT.FocusIn, new Listener() {
-		    public void handleEvent(Event e) {
-			if (text.getText().startsWith("Escribe")) {
-			    text.setText("");
-			}
-		    }
-		});
+		addTextListener(text);
 
 		addKeyListener(text);
 		
