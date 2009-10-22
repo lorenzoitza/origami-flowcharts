@@ -362,7 +362,7 @@ public class Conexion extends Figure{
 				
 				i=j+4;	
 			}
-			else if(diagrama.elementAt(i+1) instanceof ellipse){
+			else if(diagrama.elementAt(i+1) instanceof Elipse){
 				conector.setTargetAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
 				conexion.addElement(conector);
 				return i+1;

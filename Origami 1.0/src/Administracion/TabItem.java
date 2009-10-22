@@ -54,8 +54,8 @@ public class TabItem extends CTabItem{
 			if(diagrama.elementAt(i) instanceof If){
 				If copia = new If(SWT.COLOR_BLUE);
 				If actual = (If)diagrama.elementAt(i);
-				for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-					copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+				for(int j=0; j<actual.instruction.instruccion.size(); j++){
+					copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 				}
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}

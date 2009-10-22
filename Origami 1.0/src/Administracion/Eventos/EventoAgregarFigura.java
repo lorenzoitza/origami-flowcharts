@@ -8,11 +8,11 @@ import Administracion.AdminSeleccion;
 import Administracion.Figura;
 import Administracion.TabFolder;
 import Grafico.*;
-import Grafico.Figuras.FinDelIf;
+import Grafico.Figuras.IfEnd;
 import Grafico.Figuras.For;
 import Grafico.Figuras.If;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 
 /**
  * Esta clase establece la propiedad de Drag & Drop 
@@ -116,7 +116,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ellipse){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
@@ -128,7 +128,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			}
 			x=z;
 			z++;
-			if(tab.getHoja().getFigureIndexOf(z) instanceof FinDelIf){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof IfEnd){
 				break;
 			}
 		}
@@ -159,7 +159,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ellipse){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
@@ -188,7 +188,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 	 * @return boolean
 	 */
 	public boolean Verificar(int i,int j,Figura fig){
-		if(tab.getHoja().getFigureIndexOf(i) instanceof ellipse && tab.getHoja().getFigureIndexOf(j) instanceof ellipse){
+		if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse && tab.getHoja().getFigureIndexOf(j) instanceof Elipse){
 			if(start.x >= tab.getHoja().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getHoja().getFigureIndexOf(i).getBounds().x+15 && 
 					start.y >= tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y <= tab.getHoja().getFigureIndexOf(j).getBounds().y){
 				tab.getHoja().getAdminDiagrama().ordenar(i, fig);
@@ -216,7 +216,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			bandera = true;
 			return true;
 		}
-		else if(tab.getHoja().getFigureIndexOf(i) instanceof ellipse ){ 
+		else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse ){ 
 			if(start.x>=tab.getHoja().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getHoja().getFigureIndexOf(i).getBounds().x+75 
 					&& start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y<=tab.getHoja().getFigureIndexOf(j).getBounds().y){
 				tab.getHoja().getAdminDiagrama().ordenar(i, fig);

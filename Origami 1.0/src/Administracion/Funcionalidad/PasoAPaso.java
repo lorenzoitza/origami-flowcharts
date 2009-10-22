@@ -367,7 +367,7 @@ public class PasoAPaso extends Ejecutar{
 					else{
 						if((figuraAnterior+1==i && (tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For 
 								|| tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While)) 
-								|| (i>=2 && tab.getHoja().getDiagrama().elementAt(i-2) instanceof FinDelIf)){
+								|| (i>=2 && tab.getHoja().getDiagrama().elementAt(i-2) instanceof IfEnd)){
 							obtieneContCiclos(figuraAnterior,figuraAnterior);
 							conexion=i-1+contCiclos;
 						}
@@ -710,20 +710,20 @@ public class PasoAPaso extends Ejecutar{
 			else if(tab.getHoja().getFigureIndexOf(i) instanceof If){
 				tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
 				cont++;
-				if(tab.getHoja().getFigureIndexOf(i+1) instanceof ellipse && tab.getHoja().getFigureIndexOf(i+2) instanceof ellipse){
+				if(tab.getHoja().getFigureIndexOf(i+1) instanceof Elipse && tab.getHoja().getFigureIndexOf(i+2) instanceof Elipse){
 					casoA = false;
 				}
 				else{
 					casoA = true;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof FinDelIf){
+			else if(tab.getHoja().getFigureIndexOf(i) instanceof IfEnd){
 				cont++;
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof ellipse){
+			else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse){
 				contadorDeLlaves = 1;
 				i++;
-				while(tab.getHoja().getFigureIndexOf(i) instanceof ellipse){
+				while(tab.getHoja().getFigureIndexOf(i) instanceof Elipse){
 					contadorDeLlaves++;
 					i++;
 					if(contadorDeLlaves==6){

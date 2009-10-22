@@ -31,7 +31,7 @@ public class Exportar {
 				If ellipse = new If(SWT.COLOR_DARK_BLUE);
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				If figuras = (If)diagrama.elementAt(x);
-				ellipse.instruccion = figuras.instruccion;
+				ellipse.instruction = figuras.instruction;
 				diag.add(ellipse);
 			}
 			else if(diagrama.elementAt(x) instanceof For ){
@@ -76,13 +76,13 @@ public class Exportar {
 				ellipse.setMensaje(figuras.getMensaje());
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof ellipse){
-				ellipse ellipse = new ellipse();
+			else if(diagrama.elementAt(x) instanceof Elipse){
+				Elipse ellipse = new Elipse();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				diag.add(ellipse);
 			}	
-			else if(diagrama.elementAt(x) instanceof FinDelIf){
-				FinDelIf ellipse = new FinDelIf();
+			else if(diagrama.elementAt(x) instanceof IfEnd){
+				IfEnd ellipse = new IfEnd();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				diag.add(ellipse);
 			}	

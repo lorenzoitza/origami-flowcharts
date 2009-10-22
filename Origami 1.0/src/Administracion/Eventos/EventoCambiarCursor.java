@@ -17,7 +17,7 @@ import Grafico.Figuras.If;
 import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 import Imagenes.ImageLoader;
 
 /**
@@ -132,7 +132,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ellipse){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
@@ -175,7 +175,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ellipse){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
@@ -205,7 +205,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	 */
 	public boolean Verificar(int i,int j){ 
 		bandera = false;
-		if(tab.getHoja().getFigureIndexOf(i) instanceof ellipse && tab.getHoja().getFigureIndexOf(j) instanceof ellipse){
+		if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse && tab.getHoja().getFigureIndexOf(j) instanceof Elipse){
 			if(start.x >= tab.getHoja().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getHoja().getFigureIndexOf(i).getBounds().x+15 && 
 					start.y >= tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y <= tab.getHoja().getFigureIndexOf(j).getBounds().y){
 				Remarcar(true);
@@ -219,7 +219,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			bandera = true;
 			return true;
 		}
-		else if(tab.getHoja().getFigureIndexOf(i) instanceof ellipse ){ 
+		else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse ){ 
 			if(start.x>=tab.getHoja().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getHoja().getFigureIndexOf(i).getBounds().x+75 
 					&& start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y<=tab.getHoja().getFigureIndexOf(j).getBounds().y){
 				Remarcar(true);
@@ -274,10 +274,10 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 		for(int k=0; k<diagrama.diagrama.size(); k++){
 			if(diagrama.diagrama.elementAt(k) instanceof If){
 				If a = (If)diagrama.diagrama.elementAt(k);
-				dato = a.instruccion.instruccion.elementAt(0).instruccion;
+				dato = a.instruction.instruccion.elementAt(0).instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instruccion.instruccion.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instruction.instruccion.size() > 1){
 					subStr=subStr.substring(2,subStr.length());
 					subStr="Si"+subStr;
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));

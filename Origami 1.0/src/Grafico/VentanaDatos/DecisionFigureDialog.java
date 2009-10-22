@@ -57,9 +57,9 @@ public class DecisionFigureDialog extends AbstractDialog<If> {
 
 		codigo.setInstruccionSimple(instructionCode);
 
-		if (abstractFigure.instruccion.instruccion.size() > 0) {
+		if (abstractFigure.instruction.instruccion.size() > 0) {
 
-		    if (!abstractFigure.instruccion.instruccion.elementAt(0).
+		    if (!abstractFigure.instruction.instruccion.elementAt(0).
 			    instruccion.equals(instructionCode)) {
 
 			tabbedPaneSelected.getTabItem().getSave().setSave(false);
@@ -70,7 +70,7 @@ public class DecisionFigureDialog extends AbstractDialog<If> {
 			isChanged = true;
 		    }
 		}
-		abstractFigure.instruccion.instruccion.add(0, codigo);
+		abstractFigure.instruction.instruccion.add(0, codigo);
 		tabbedPaneSelected.getHoja().addFigure();
 		tabbedPaneSelected.getHoja().guardarRetroceso();
 		if (isChanged) {
@@ -97,7 +97,7 @@ public class DecisionFigureDialog extends AbstractDialog<If> {
     @Override
     public void initTextFields() {
 	String conditionIfFigure =
-		abstractFigure.instruccion.instruccion.firstElement()
+		abstractFigure.instruction.instruccion.firstElement()
 			.getInstruccionSimple();
 
 	if ((conditionIfFigure.compareTo("null") != 0)

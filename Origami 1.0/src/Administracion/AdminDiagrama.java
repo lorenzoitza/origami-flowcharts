@@ -4,11 +4,11 @@ import java.util.Vector;
 
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Grafico.Ventana;
-import Grafico.Figuras.FinDelIf;
+import Grafico.Figuras.IfEnd;
 import Grafico.Figuras.For;
 import Grafico.Figuras.If;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 
 /**
  * Esta clase administra las figuras del diagrama.
@@ -47,10 +47,10 @@ public class AdminDiagrama {
 		selec.setFiguraSeleccionada(x);
 		x++;
 		if(diagrama.elementAt(x-1) instanceof If){
-			ellipse punto1= new ellipse();
-			ellipse punto2= new ellipse();
-			ellipse punto3= new ellipse();
-			ellipse punto4= new ellipse();
+			Elipse punto1= new Elipse();
+			Elipse punto2= new Elipse();
+			Elipse punto3= new Elipse();
+			Elipse punto4= new Elipse();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);
@@ -59,19 +59,19 @@ public class AdminDiagrama {
 			x++;
 			diagrama.add(x,punto4);
 			x++;
-			diagrama.add(x,new FinDelIf());
+			diagrama.add(x,new IfEnd());
 			x++;
 			for(int u=x;u<temporal.size()+6;u++){
 				diagrama.add(u,temporal.elementAt(u-6));
 			}
 		}
 		else if(diagrama.elementAt(x-1) instanceof For){	
-			ellipse punto1= new ellipse();
-			ellipse punto2= new ellipse();
-			ellipse punto3= new ellipse();
-			ellipse punto4= new ellipse();
-			ellipse punto5= new ellipse();
-			ellipse punto6= new ellipse();
+			Elipse punto1= new Elipse();
+			Elipse punto2= new Elipse();
+			Elipse punto3= new Elipse();
+			Elipse punto4= new Elipse();
+			Elipse punto5= new Elipse();
+			Elipse punto6= new Elipse();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);
@@ -89,12 +89,12 @@ public class AdminDiagrama {
 			}
 		}
 		else if(diagrama.elementAt(x-1) instanceof While){
-			ellipse punto1= new ellipse();
-			ellipse punto2= new ellipse();
-			ellipse punto3= new ellipse();
-			ellipse punto4= new ellipse();
-			ellipse punto5= new ellipse();
-			ellipse punto6= new ellipse();
+			Elipse punto1= new Elipse();
+			Elipse punto2= new Elipse();
+			Elipse punto3= new Elipse();
+			Elipse punto4= new Elipse();
+			Elipse punto5= new Elipse();
+			Elipse punto6= new Elipse();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);

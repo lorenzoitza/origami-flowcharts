@@ -76,7 +76,7 @@ public class Informacion implements Serializable{
 		for(int i=0; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof If){
 				If aux = (If)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -153,8 +153,8 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
-				if(diagrama.elementAt(i+1) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof Elipse){
+				if(diagrama.elementAt(i+1) instanceof IfEnd){
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
 					}
@@ -183,7 +183,7 @@ public class Informacion implements Serializable{
 		for(int i=posicion; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof If){
 				If aux = (If)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -258,8 +258,8 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
-				if(diagrama.elementAt(i+1) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof Elipse){
+				if(diagrama.elementAt(i+1) instanceof IfEnd){
 					
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
@@ -290,7 +290,7 @@ public class Informacion implements Serializable{
 		for(int i=posicion; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof If){
 				If aux = (If)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -365,15 +365,15 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
-				if(diagrama.elementAt(i+1) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
+				if(diagrama.elementAt(i+1) instanceof Elipse){
 					//informacion = informacion +tab+"\n}";
 					i++;
 					this.aux=i;
 					i= diagrama.size()+1;
 					break;
 				}
-				else if(diagrama.elementAt(i+1) instanceof FinDelIf){
+				else if(diagrama.elementAt(i+1) instanceof IfEnd){
 					//informacion = informacion +tab+"\n}";
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);

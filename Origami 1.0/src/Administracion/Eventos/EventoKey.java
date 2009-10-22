@@ -75,7 +75,7 @@ public class EventoKey {
 			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
-				decision2.instruccion.instruccion.add(0,codigo);
+				decision2.instruction.instruccion.add(0,codigo);
 				Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = decision2;
 			    Ventana.bandera = false;

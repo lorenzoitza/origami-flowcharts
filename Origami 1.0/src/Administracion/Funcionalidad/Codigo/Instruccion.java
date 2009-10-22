@@ -16,7 +16,7 @@ import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 import Imagenes.ImageLoader;
 
 /**
@@ -499,7 +499,7 @@ public class Instruccion implements Serializable{
 				If f = (If)diagrama.elementAt(x);
 				contIf++;
 				u = ciclos(contIf);
-				f.instruccion.instruccion.removeAllElements();
+				f.instruction.instruccion.removeAllElements();
 				for(int m=0;m<codigo.size();m++){
 					if(m>=u[0] && m<=u[1]){
 						InstruccionSimple inst = new InstruccionSimple();
@@ -513,7 +513,7 @@ public class Instruccion implements Serializable{
 						}
 						codigo.setElementAt(copia, m);
 						inst.setInstruccionSimple(codigo.elementAt(m));
-						f.instruccion.instruccion.add(inst);
+						f.instruction.instruccion.add(inst);
 					}
 				}
 				diagrama.setElementAt(f, x);
@@ -600,9 +600,9 @@ public class Instruccion implements Serializable{
 		while(true){		
 			if(diagrama.elementAt(x) instanceof If){
 				If f = (If)diagrama.elementAt(x);
-				if(f.instruccion.instruccion.elementAt(0) != null){
-					if(f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
-						codigo.add(espacio + f.instruccion.instruccion.elementAt(0).getInstruccionSimple());
+				if(f.instruction.instruccion.elementAt(0) != null){
+					if(f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
+						codigo.add(espacio + f.instruction.instruccion.elementAt(0).getInstruccionSimple());
 						tabula(4);
 						x = recorrido(diagrama,x+2);
 						tabula(-4);
@@ -732,7 +732,7 @@ public class Instruccion implements Serializable{
 					codigo.add(espacio + f.instruccion.getInstruccionSimple());
 				}
 			}
-			else if(diagrama.elementAt(x) instanceof ellipse){
+			else if(diagrama.elementAt(x) instanceof Elipse){
 				break;
 			}
 			else if(diagrama.elementAt(x) instanceof InicioFin){

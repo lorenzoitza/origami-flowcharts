@@ -16,14 +16,14 @@ import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.*;
 import Grafico.Figuras.Entrada;
-import Grafico.Figuras.FinDelIf;
+import Grafico.Figuras.IfEnd;
 import Grafico.Figuras.For;
 import Grafico.Figuras.If;
 import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 import Grafico.VentanaDatos.DatosEntrada;
 import Grafico.VentanaDatos.ForFigureDialog;
 import Grafico.VentanaDatos.DatosSalida;
@@ -121,7 +121,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				If decision = new If(SWT.COLOR_DARK_BLUE);
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
-				decision.instruccion.instruccion.add(0,codigo);
+				decision.instruction.instruccion.add(0,codigo);
 				Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = decision;
 			    insertarFigura(decision);
@@ -316,7 +316,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					If decision = new If(SWT.COLOR_DARK_BLUE);
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
-					decision.instruccion.instruccion.add(0,codigo);
+					decision.instruction.instruccion.add(0,codigo);
 					Ventana.figuraPrincipal = null;
 				    Ventana.figuraPrincipal = decision;
 				    insertarFigura(decision);
@@ -452,8 +452,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						if(tab.getHoja().getFigureIndexOf(x) instanceof If){
 							If copia = new If(SWT.COLOR_BLUE);
 							If actual = (If)tab.getHoja().getFigureIndexOf(x);
-							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+							for(int j=0; j<actual.instruction.instruccion.size(); j++){
+								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -506,8 +506,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						if(tab.getHoja().getFigureIndexOf(x) instanceof If){
 							If copia = new If(SWT.COLOR_BLUE);
 							If actual = (If)tab.getHoja().getFigureIndexOf(x);
-							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+							for(int j=0; j<actual.instruction.instruccion.size(); j++){
+								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -583,21 +583,21 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		final Shell shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		if(!Ventana.isCortar){
 			for(int i=0; i<Ventana.diagramaEnMemoria.diagrama.size(); i++){
-				if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof ellipse){
-					ellipse nueva = new ellipse();
+				if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof Elipse){
+					Elipse nueva = new Elipse();
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof FinDelIf){
-					FinDelIf nueva = new FinDelIf();
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof IfEnd){
+					IfEnd nueva = new IfEnd();
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
 				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof If){
 					If nueva = new If(SWT.COLOR_DARK_BLUE);
 					If aux = (If)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
-					for(int x=0;x<aux.instruccion.instruccion.size(); x++){
-						nueva.instruccion.instruccion.add(x,aux.instruccion.instruccion.elementAt(x));
+					for(int x=0;x<aux.instruction.instruccion.size(); x++){
+						nueva.instruction.instruccion.add(x,aux.instruction.instruccion.elementAt(x));
 					}
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
@@ -943,7 +943,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof Imprimir){
 			Imprimir f = ((Imprimir)fig);
-			new DatosSalida(Ventana.shell,tab,f,selec).open();
+			new DatosSalida(tab).ventana(Ventana.display,f,selec);
 		}
 		else if(fig instanceof For){
 			For f = ((For)fig);
@@ -975,7 +975,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		int y=diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2;
 		i++;
 		while(true){
-			if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
+			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
 				break;
 			}
 			i++;
@@ -998,7 +998,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		int y=diagrama.elementAt(i-1).getBounds().y;
 		i++;
 		while(true){
-			if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
+			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
 				break;
 			}
 			i++;
@@ -1020,8 +1020,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
         int y=diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2;;
         i++;
         while(true){
-            if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x
-                    && diagrama.elementAt(i+1) instanceof ellipse && diagrama.elementAt(i+2) instanceof ellipse
+            if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x
+                    && diagrama.elementAt(i+1) instanceof Elipse && diagrama.elementAt(i+2) instanceof Elipse
                     && diagrama.elementAt(i+1).getBounds().y == diagrama.elementAt(i).getBounds().y
                     && diagrama.elementAt(i+2).getBounds().y == y ){
                 break;

@@ -11,14 +11,14 @@ import Administracion.Eventos.EventoSeleccionar;
 import Grafico.*;
 import Grafico.Figuras.CuadroSeleccion;
 import Grafico.Figuras.Entrada;
-import Grafico.Figuras.FinDelIf;
+import Grafico.Figuras.IfEnd;
 import Grafico.Figuras.For;
 import Grafico.Figuras.If;
 import Grafico.Figuras.Imprimir;
 import Grafico.Figuras.InicioFin;
 import Grafico.Figuras.Proceso;
 import Grafico.Figuras.While;
-import Grafico.Figuras.ellipse;
+import Grafico.Figuras.Elipse;
 
 /**
  * Esta clase es el area en el que se dibuja el diagrama y 
@@ -96,7 +96,7 @@ public class DibujarDiagrama extends Figure{
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
-				if(diagrama.elementAt(i-1) instanceof ellipse){
+				if(diagrama.elementAt(i-1) instanceof Elipse){
 					x = diagrama.elementAt(i-1).getBounds().x-40;
 				}
 				else{
@@ -139,7 +139,7 @@ public class DibujarDiagrama extends Figure{
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
-				if(diagrama.elementAt(i-1) instanceof ellipse){
+				if(diagrama.elementAt(i-1) instanceof Elipse){
 					x = diagrama.elementAt(i-1).getBounds().x-40;
 				}
 				else{
@@ -169,7 +169,7 @@ public class DibujarDiagrama extends Figure{
 	public int anidarIf(Vector<Figura> diagrama,Figure chart,int i){
 		int pda,pia,x,der2=0,der3=0,masDerecha,masIzquierda,total;
 		while(true){
-			if(diagrama.elementAt(i-1) instanceof ellipse){
+			if(diagrama.elementAt(i-1) instanceof Elipse){
 				x = diagrama.elementAt(i-1).getBounds().x-40;
 			}
 			else{
@@ -192,7 +192,7 @@ public class DibujarDiagrama extends Figure{
 				}
 
 				//derecha abajo
-				if(diagrama.elementAt(pda-1) instanceof ellipse){
+				if(diagrama.elementAt(pda-1) instanceof Elipse){
 					punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(pda-1).getBounds().y+diagrama.elementAt(pda-1).getBounds().height+70);
 					diagrama.elementAt(pda).setLocation(punto);
 					chart.add(diagrama.elementAt(pda));
@@ -215,7 +215,7 @@ public class DibujarDiagrama extends Figure{
 				}
 				
 				//izquierda abajo
-				if(diagrama.elementAt(pia-1) instanceof ellipse){
+				if(diagrama.elementAt(pia-1) instanceof Elipse){
 					punto.setLocation(diagrama.elementAt(i).getBounds().x-40,diagrama.elementAt(pia-1).getBounds().y+diagrama.elementAt(pia-1).getBounds().height+70);
 					diagrama.elementAt(pia).setLocation(punto);
 					chart.add(diagrama.elementAt(pia));
@@ -299,7 +299,7 @@ public class DibujarDiagrama extends Figure{
 			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
 				i = anidarFW(diagrama,chart,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				break;
 			}
 			else{
@@ -323,7 +323,7 @@ public class DibujarDiagrama extends Figure{
 	public int anidarFW(Vector<Figura> diagrama,Figure chart,int i){
 		int x,pda;
 		while(true){
-			if(diagrama.elementAt(i-1) instanceof ellipse){
+			if(diagrama.elementAt(i-1) instanceof Elipse){
 				x = diagrama.elementAt(i-1).getBounds().x-40;
 			}
 			else{
@@ -421,7 +421,7 @@ public class DibujarDiagrama extends Figure{
 			else if(diagrama.elementAt(i) instanceof If){
 				i = anidarIf(diagrama,chart,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				break;
 			}
 			else{
@@ -470,12 +470,12 @@ public class DibujarDiagrama extends Figure{
 				cont-=1;
 				bandera = false;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				if(cont>cont2){
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof IfEnd){
 				cont--;
 			}
 			if(i==fin){
@@ -498,12 +498,12 @@ public class DibujarDiagrama extends Figure{
 				i = recorridoCiclo3(diagrama,i)+5;
 				cont-=35;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				if(cont>cont2){
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof IfEnd){
 			}
 			if(i==fin){
 				break;
@@ -543,13 +543,13 @@ public class DibujarDiagrama extends Figure{
 				}
 				cont-=1;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				//i = recorridoCiclo2(diagrama,i+1);
 				if(cont>cont2){
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof IfEnd){
 				cont--;
 			}	
 			i++;
@@ -575,13 +575,13 @@ public class DibujarDiagrama extends Figure{
 				}
 				i = recorridoCiclo3(diagrama,i)+5;
 			}
-			else if(diagrama.elementAt(i) instanceof ellipse){
+			else if(diagrama.elementAt(i) instanceof Elipse){
 				if(cont>cont2){
 					cont2=cont;  
 				}
 				//i = recorridoCiclo2(diagrama,i+1);
 			}
-			else if(diagrama.elementAt(i) instanceof FinDelIf){
+			else if(diagrama.elementAt(i) instanceof IfEnd){
 			}	
 			i++;
 		}
@@ -602,7 +602,7 @@ public class DibujarDiagrama extends Figure{
 		int y=diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2;
 		i++;
 		while(true){
-			if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
+			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
 				break;
 			}
 			i++;
@@ -625,7 +625,7 @@ public class DibujarDiagrama extends Figure{
 		int y=diagrama.elementAt(i-1).getBounds().y;
 		i++;
 		while(true){
-			if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
+			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
 				break;
 			}
 			i++;
@@ -647,8 +647,8 @@ public class DibujarDiagrama extends Figure{
         int y=diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2;;
         i++;
         while(true){
-            if(diagrama.elementAt(i) instanceof ellipse && diagrama.elementAt(i).getBounds().x==x
-                    && diagrama.elementAt(i+1) instanceof ellipse && diagrama.elementAt(i+2) instanceof ellipse
+            if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x
+                    && diagrama.elementAt(i+1) instanceof Elipse && diagrama.elementAt(i+2) instanceof Elipse
                     && diagrama.elementAt(i+1).getBounds().y == diagrama.elementAt(i).getBounds().y
                     && diagrama.elementAt(i+2).getBounds().y == y ){
                 break;
@@ -812,7 +812,7 @@ public class DibujarDiagrama extends Figure{
 					If figuras = (If)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					If figura = new If(SWT.COLOR_DARK_BLUE);
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -912,7 +912,7 @@ public class DibujarDiagrama extends Figure{
 					If figuras = (If)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					If figura = new If(SWT.COLOR_DARK_BLUE);
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -999,7 +999,7 @@ public class DibujarDiagrama extends Figure{
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
-				if(diagrama.elementAt(i-1) instanceof ellipse){
+				if(diagrama.elementAt(i-1) instanceof Elipse){
 					x = diagrama.elementAt(i-1).getBounds().x-40;
 				}
 				else{
