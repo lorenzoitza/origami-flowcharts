@@ -943,7 +943,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 		else if(fig instanceof Imprimir){
 			Imprimir f = ((Imprimir)fig);
-			new DatosSalida(tab).ventana(Ventana.display,f,selec);
+			new DatosSalida(Ventana.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof For){
 			For f = ((For)fig);

@@ -22,14 +22,12 @@ import Imagenes.ImageLoader;
  * @author Juan Ku, Victor Rodriguez
  */
 public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
-    private Label informationLabel;
-    
-    private Label information2Label;
-    
-    
+
     public DatosEntrada(Shell shell, TabFolder tabFolder, Entrada figura,
 	    AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figura, selectionAdmin);
+	
+	numHorizComponents=3;
     }
     @Override
     public void close() {
@@ -59,54 +57,45 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	exampleLabel.setLocation(220, 5);
     }
     @Override
-    protected void initButtons() {
-	acceptButton = new Button(dialog, SWT.FLAT);
-	acceptButton.setBounds(5, 145, 70, 25);
-	acceptButton.setText("ACEPTAR");
-	addSelectionListener(acceptButton, true);
-	
-	cancelButton = new Button(dialog, SWT.FLAT);
-	cancelButton.setBounds(85, 145, 70, 25);
-	cancelButton.setText("CANCELAR");
-	addSelectionListener(cancelButton, false);
-	
-	addTextFieldButton = new Button(dialog, SWT.PUSH);
-	addTextFieldButton.setSize(45, 40);
-	addTextFieldButton.setLocation(318, 140);
-	addTextFieldButton.setImage(ImageLoader.getImage("suma.png"));
-	addTextFieldButton.pack();
-	addTextFieldButton.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent event) {
-		textos = composite.getChildren();
-		int numero = textos.length / 3;
-		int y = 25;
-		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text2.setBounds(0, numero * y, 250, 20);
-		text2.setText("Escribe aqui");
-		
-		
-		addReadButton(numero);
-		
-		addDeleteButton(numero);
-		
-		addTextListener(text2);
-		    
-		addKeyListener(text2);
-
-
-		textos = composite.getChildren();
-		sComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
-			SWT.DEFAULT, false));
-	    }
-	});
-    }
-    @Override
     public void initTextFields() {
+	if (abstractFigure.instruccion.getInstruccionSimple().compareTo("null") != 0
+		&& abstractFigure.instruccion.getInstruccionSimple().compareTo("") != 0) {
+	    variables = abstractFigure.instruccion.getInstruccionSimple().split(";");
+	    for (int i = 0; i < variables.length; i++) {
+		textos = composite.getChildren();
+		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
+		text.setBounds(0, 0 + i * 25, 250, 20);
+		text.setText(variables[i]);
+		
+		addReadButton(i);
+		
+		addDeleteButton(i);
+		
+		addKeyListener(text);
 
-	sComposite.setContent(composite);
-	sComposite.setExpandHorizontal(true);
-	sComposite.setExpandVertical(true);
-	sComposite.setBounds(0, 20, 325, 120);
+	    }
+	    if (variables.length < 4) {
+		int i;
+		for (i = variables.length; i < 4; i++) {
+		    addTextComponent(i);
+		}
+		textos = composite.getChildren();
+		Text text = (Text) textos[variables.length * numHorizComponents];
+		text.forceFocus();
+	    } else {		
+		addTextComponent(textos.length / numHorizComponents);
+
+		textos = composite.getChildren();
+		Text text = (Text) textos[textos.length - numHorizComponents];
+		text.forceFocus();
+	    }
+	} else {
+	    for (int i = 0; i <= 3; i++) {
+		addTextComponent(i);
+		
+		textos = composite.getChildren();
+	    }
+	}
     }
     @Override
     public void open() {
@@ -175,16 +164,16 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	    }
 	}
     }
-    public void addReadButton(int i){
-	final Button botLeer = new Button(composite, SWT.PUSH);
-	botLeer.setImage(ImageLoader.getImage("teclado.ico"));
-	botLeer.setBounds(255, i * 25, 20, 20);
-	botLeer.addSelectionListener(new SelectionAdapter() {
+    public void addReadButton(int location){
+	final Button readButton = new Button(composite, SWT.PUSH);
+	readButton.setImage(ImageLoader.getImage("teclado.ico"));
+	readButton.setBounds(255, location * 25, 20, 20);
+	readButton.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent event) {
-		for (int x = 0; x < textos.length; x += 3) {
-		    if (textos[x].getBounds().y == botLeer.getBounds().y) {
+		for (int x = 0; x < textos.length; x += numHorizComponents) {
+		    if (textos[x].getBounds().y == readButton.getBounds().y) {
 			Text text = (Text) textos[x];
-			String texto = limpiarString(text.getText());
+			String texto = addReadString(text.getText());
 			text.setText(texto);
 			text.setSelection(texto.length());
 			text.setFocus();
@@ -193,108 +182,26 @@ public class DatosEntrada extends AbstractInputOutputDialog<Entrada> {
 	    }
 	});
     }
-    public void addDeleteButton(int i){
-	final Button bot = new Button(composite, SWT.PUSH);
-	bot.setBounds(280, i * 25, 20, 20);
-	bot.setImage(ImageLoader.getImage("borrar.gif"));
-	bot.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent event) {
-		for (int x = 0; x < textos.length; x += 3) {
-		    if (textos[x].getBounds().y == bot.getBounds().y) {
-			Text text = (Text) textos[x];
-			text.setText("");
-		    }
-		}
+
+    private String addReadString(String textString) {
+	while (textString.startsWith(" ")) {
+	    textString = textString.replaceFirst(" ", "");
+	}
+	if (!textString.startsWith("Leer:") || (textString.compareTo("") == 0)) {
+	    if (textString.startsWith("Escribe")) {
+		textString = "Leer: ";
+	    } else {
+		textString = "Leer: " + textString;
 	    }
-	});
+	}
+	return textString;
     }
     @Override
-    public void cargarCodigo(Entrada fig, final Composite composite,
-	    final Display d) {
-	if (fig.instruccion.getInstruccionSimple().compareTo("null") != 0
-		&& fig.instruccion.getInstruccionSimple().compareTo("") != 0) {
-	    variables = fig.instruccion.getInstruccionSimple().split(";");
-	    for (int i = 0; i < variables.length; i++) {
-		textos = composite.getChildren();
-		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(variables[i]);
-		
-		addReadButton(i);
-		
-		addDeleteButton(i);
-		
-		addKeyListener(text);
-
-	    }
-	    if (variables.length < 4) {
-		int i;
-		for (i = variables.length; i < 4; i++) {
-		    textos = composite.getChildren();
-		    final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		    text2.setBounds(0, 0 + i * 25, 250, 20);
-		    text2.setText("Escribe aqui");
-		    			 
-		    addReadButton(i);
-		    
-		    addDeleteButton(i);
-		    
-		    addTextListener(text2);
-		    
-		    addKeyListener(text2);
-		}
-		textos = composite.getChildren();
-		final Text text = (Text) textos[variables.length * 3];
-		text.forceFocus();
-	    } else {
-		textos = composite.getChildren();
-		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text2.setBounds(0, 0 + textos.length / 3 * 25, 250, 20);
-		text2.setText("Escribe aqui");
-		
-		addReadButton(textos.length / 3);
-		
-		addDeleteButton(textos.length / 3);
-
-		addTextListener(text2);
-		
-		addKeyListener(text2);
-
-		textos = composite.getChildren();
-		final Text text = (Text) textos[textos.length - 3];
-		text.forceFocus();
-	    }
-	} else {
-	    for (int i = 0; i <= 3; i++) {
-		textos = composite.getChildren();
-		final Text text = new Text(composite, SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText("Escribe aqui");
-		
-		addReadButton(i);
-		
-		addDeleteButton(i);
-
-		addTextListener(text);
-
-		addKeyListener(text);
-		
-		textos = composite.getChildren();
-	    }
-	}
-    }
-    
-    public String limpiarString(String texto) {
-	while (texto.startsWith(" ")) {
-	    texto = texto.replaceFirst(" ", "");
-	}
-	if (!texto.startsWith("Leer:") || (texto.compareTo("") == 0)) {
-	    if (texto.startsWith("Escribe")) {
-		texto = "Leer: ";
-	    } else {
-		texto = "Leer: " + texto;
-	    }
-	}
-	return texto;
+    protected void addTextComponent(int position) {
+	addTextField(position);
+	
+	addReadButton(position);
+	
+	addDeleteButton(position);
     }
 }

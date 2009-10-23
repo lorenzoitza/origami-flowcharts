@@ -78,13 +78,13 @@ public abstract class AbstractDialog<Figure> {
 	initTextFields();
 	initButtons();
     }
-
+    
     protected abstract void validate(boolean band);
 
     protected void addKeyListener(Text textField) {
 	textField.addKeyListener(getKeyListener());
     }
-
+    
     private KeyAdapter getKeyListener() {
 	return new org.eclipse.swt.events.KeyAdapter() {
 	    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
@@ -96,11 +96,11 @@ public abstract class AbstractDialog<Figure> {
 	    }
 	};
     }
-
+    
     protected void addSelectionListener(Button confirmButton, boolean band) {
 	confirmButton.addSelectionListener(getSelectionAdapter(band));
     }
-
+    
     private SelectionAdapter getSelectionAdapter(final boolean band) {
 	return new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {

@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
+
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoKey;
@@ -21,102 +22,11 @@ import Imagenes.ImageLoader;
  * @author Juan Ku, Victor Rodriguez
  */
 public class DatosSalida extends AbstractInputOutputDialog<Imprimir>{
-
     public DatosSalida(Shell shell, TabFolder tabFolder, Imprimir figura,
 	    AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figura, selectionAdmin);
-	// TODO Auto-generated constructor stub
-    }
-    
-    public void addDeleteButton(int i){
-	final Button bot = new Button(composite, SWT.PUSH);
-	bot.setBounds(280, i * 25, 20, 20);
-	bot.setImage(ImageLoader.getImage("borrar.gif"));
-	bot.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent event) {
-		for (int x = 0; x < textos.length; x += 2) {
-		    if (textos[x].getBounds().y == bot.getBounds().y) {
-			Text text = (Text) textos[x];
-			text.setText("");
-		    }
-		}
-	    }
-	});
-    }
-    @Override
-    protected void cargarCodigo(Imprimir fig, Composite composite, Display d) {
-	// TODO Auto-generated method stub
-	if (fig.instruccion.getInstruccionSimple().compareTo("null") != 0
-		&& fig.instruccion.getInstruccionSimple().compareTo("") != 0) {
-	    variables = fig.instruccion.getInstruccionSimple().split(";");
-	    limpiar();
-	    int cont = 0;
-	    for (int i = 0; i < variables.length
-		    && variables[i].compareTo("") != 0; i++) {
-		textos = composite.getChildren();
-		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(variables[i]);
-		
-		addDeleteButton(i);
-		
-		addKeyListener(text);
-		
-		cont++;
-	    }
-	    if (cont < 4) {
-		int i;
-		for (i = cont; i < 4; i++) {
-		    textos = composite.getChildren();
-		    final Text text2 =
-			    new Text(composite, SWT.FLAT | SWT.BORDER);
-		    text2.setBounds(0, 0 + i * 25, 250, 20);
-		    text2.setText("Escribe aqui");
-		   
-		    
-		    addDeleteButton(i);
-		    
-		    addTextListener(text2);
-		   
-		    addKeyListener(text2);
-		}
-		textos = composite.getChildren();
-		final Text text = (Text) textos[cont * 2];
-		text.forceFocus();
-	    } else {
-		textos = composite.getChildren();
-		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text2.setBounds(0, 0 + textos.length / 2 * 25, 250, 20);
-		text2.setText("Escribe aqui");
 
-		
-		addDeleteButton(textos.length / 2);
-		
-		addTextListener(text2);
-		
-		addKeyListener(text2);
-		
-		textos = composite.getChildren();
-		final Text text = (Text) textos[textos.length - 2];
-		text.forceFocus();
-	    }
-	} else {
-	    for (int i = 0; i <= 3; i++) {
-		textos = composite.getChildren();
-		final Text text = new Text(composite, SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText("Escribe aqui");
-		
-		addDeleteButton(i);
-		
-		addTextListener(text);
-		
-		addKeyListener(text);
-		
-		textos = composite.getChildren();
-	    }
-	}
-	
+	numHorizComponents=2;
     }
 
     @Override
@@ -136,125 +46,81 @@ public class DatosSalida extends AbstractInputOutputDialog<Imprimir>{
     @Override
     public void initLabels() {
 	// TODO Auto-generated method stub
-	Label label = new Label(dialog, SWT.HORIZONTAL);
-	label.setText("AGREGAR UNA VARIABLE MÁS");
-	label.setSize(150, 30);
-	label.setLocation(165, 155);
+	informationLabel = new Label(dialog, SWT.HORIZONTAL);
+	informationLabel.setText("AGREGAR UNA VARIABLE MÁS");
+	informationLabel.setSize(150, 30);
+	informationLabel.setLocation(165, 155);
 	
-	Label label2 = new Label(dialog, SWT.HORIZONTAL);
-	label2.setText("ESCRIBE LAS VARIABLES DESEADAS");
-	label2.setSize(180, 30);
-	label2.setLocation(5, 5);
+	information2Label = new Label(dialog, SWT.HORIZONTAL);
+	information2Label.setText("ESCRIBE LAS VARIABLES DESEADAS");
+	information2Label.setSize(180, 30);
+	information2Label.setLocation(5, 5);
 	
-	Label label3 = new Label(dialog, SWT.HORIZONTAL);
-	label3.setText("EJEMPLO: \"El valor de x es:\", x");
-	label3.setSize(180, 40);
-	label3.setLocation(195, 5);
-    }
-    @Override
-    protected void initButtons() {
-	acceptButton = new Button(dialog, SWT.FLAT);
-	acceptButton.setBounds(5, 145, 70, 25);
-	acceptButton.setText("ACEPTAR");
-	addSelectionListener(acceptButton, true);
-	
-	cancelButton = new Button(dialog, SWT.FLAT);
-	cancelButton.setBounds(85, 145, 70, 25);
-	cancelButton.setText("CANCELAR");
-	addSelectionListener(cancelButton, false);
-	
-	addTextFieldButton = new Button(dialog, SWT.PUSH);
-	addTextFieldButton.setSize(45, 40);
-	addTextFieldButton.setLocation(318, 140);
-	addTextFieldButton.setImage(ImageLoader.getImage("suma.png"));
-	addTextFieldButton.pack();
-	addTextFieldButton.addSelectionListener(new SelectionAdapter() {
-	    public void widgetSelected(SelectionEvent event) {
-		textos = composite.getChildren();
-		int numero = textos.length / 2;
-		int y = 25;
-		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text2.setBounds(0, numero * y, 250, 20);
-		text2.setText("Escribe aqui");
-		
-	
-		
-		addDeleteButton(numero);
-		
-		addTextListener(text2);
-		    
-		addKeyListener(text2);
-
-
-		textos = composite.getChildren();
-		sComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
-			SWT.DEFAULT, false));
-	    }
-	});
+	exampleLabel = new Label(dialog, SWT.HORIZONTAL);
+	exampleLabel.setText("EJEMPLO: \"El valor de x es:\", x");
+	exampleLabel.setSize(180, 40);
+	exampleLabel.setLocation(195, 5);
     }
     @Override
     public void initTextFields() {
-	// TODO Auto-generated method stub
-	Button button = new Button(dialog, SWT.PUSH);
-	button.setSize(45, 40);
-	button.setLocation(318, 140);
-	// Image imagenSuma = new Image(d, "imagenes\\suma.png");
-	button.setImage(ImageLoader.getImage("suma.png"));
-	button.pack();
-	button.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent event) {
+	if (abstractFigure.instruccion.getInstruccionSimple().compareTo("null") != 0
+		&& abstractFigure.instruccion.getInstruccionSimple().compareTo("") != 0) {
+	    variables = abstractFigure.instruccion.getInstruccionSimple().split(";");
+	    cleanTextField();
+	    int cont = 0;
+	    for (int i = 0; i < variables.length 
+	    		&& variables[i].compareTo("") != 0; i++) {
 		textos = composite.getChildren();
-		int numero = textos.length / 2;
-		int y = 25;
-		final Text text2 = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text2.setBounds(0, numero * y, 250, 20);
-		text2.setText("Escribe aqui");
-		final Button bot = new Button(composite, SWT.PUSH);
-		bot.setBounds(280, numero * y, 20, 20);
-		// Image imagenBorrar = new Image(d,"imagenes\\borrar.gif");
-		bot.setImage(ImageLoader.getImage("borrar.gif"));
-		bot.addSelectionListener(new SelectionAdapter() {
-
-		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < textos.length; x += 2) {
-			    if (textos[x].getBounds().y == bot.getBounds().y) {
-				Text text = (Text) textos[x];
-				text.setText("");
-			    }
-			}
-		    }
-		});
-		text2.addListener(SWT.FocusIn, new Listener() {
-
-		    public void handleEvent(Event e) {
-			if (text2.getText().startsWith("Escribe")) {
-			    text2.setText("");
-			}
-		    }
-		});
-		text2.addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-
-		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
-			    validate(true);
-			    dialog.close();
-			}
-		    }
-		});
-		textos = composite.getChildren();
-		sComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
-			SWT.DEFAULT, false));
+		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
+		text.setBounds(0, 0 + i * 25, 250, 20);
+		text.setText(variables[i]);
+		
+		addDeleteButton(i);
+		
+		addKeyListener(text);
+		
+		cont++;
 	    }
-	});
-	
+	    if (cont < 4) {
+		int i;
+		for (i = cont; i < 4; i++) {
+		    addTextComponent(i);
+		}
+		textos = composite.getChildren();
+		Text text = (Text) textos[cont * 2];
+		text.forceFocus();
+	    } else {
+		addTextComponent(composite.getChildren().length / numHorizComponents);
+		
+		textos = composite.getChildren();
+		Text text = (Text) textos[textos.length - numHorizComponents];
+		text.forceFocus();
+	    }
+	} else {
+	    for (int i = 0; i <= 3; i++) {
+		addTextComponent(i);
+		
+		textos = composite.getChildren();
+	    }
+	}
+    }
+    @Override
+    protected void initScrollComposite(){
+	GridData grid = new GridData(GridData.FILL_VERTICAL);
+	grid.grabExcessHorizontalSpace = true;
+	grid.grabExcessVerticalSpace = true;
+	sComposite.setLayoutData(grid);
+	composite.setLayoutData(grid);
+
 	sComposite.setContent(composite);
 	sComposite.setExpandHorizontal(true);
 	sComposite.setExpandVertical(true);
 	sComposite.setBounds(0, 20, 345, 120);
+	
+	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
+		false));
     }
-
+   
     @Override
     public void open() {
 	// TODO Auto-generated method stub
@@ -317,8 +183,7 @@ public class DatosSalida extends AbstractInputOutputDialog<Imprimir>{
 	    }
 	}
     }
-    
-    public void limpiar() {
+    private void cleanTextField() {
 	String[] variables2 = new String[50];
 	int cont = 0;
 	for (int x = 0; x < variables.length; x++) {
@@ -334,5 +199,11 @@ public class DatosSalida extends AbstractInputOutputDialog<Imprimir>{
 		variables[x] = variables2[x];
 	    }
 	}
+    }
+    @Override
+    protected void addTextComponent(int position) {
+	addTextField(position);
+	
+	addDeleteButton(position);
     }
 }
