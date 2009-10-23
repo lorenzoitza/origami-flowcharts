@@ -69,9 +69,16 @@ public abstract class AbstractDialog<Figure> {
 
     protected abstract void create();
 
-    public abstract void open();
-
-    public abstract void close();
+    public void open(){
+	dialog.open();
+	while (!dialog.isDisposed()) {
+	    
+	    if (!display.readAndDispatch()) {
+		
+		display.sleep();
+	    }
+	}
+    }
 
     protected void initComponents() {
 	initLabels();

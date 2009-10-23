@@ -23,12 +23,6 @@ public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
 
 	numHorizComponents = 3;
     }
-
-    @Override
-    public void close() {
-	dialog.close();
-    }
-
     @Override
     protected void create() {
 	dialog.setSize(370, 214);
@@ -43,10 +37,10 @@ public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
 	addVariableLabel.setSize(150, 30);
 	addVariableLabel.setLocation(165, 155);
 
-	writeVariablesLabel = new Label(dialog, SWT.HORIZONTAL);
-	writeVariablesLabel.setText("ESCRIBE LAS VARIABLES DESEADAS");
-	writeVariablesLabel.setSize(180, 30);
-	writeVariablesLabel.setLocation(20, 5);
+	writeVariableLabel = new Label(dialog, SWT.HORIZONTAL);
+	writeVariableLabel.setText("ESCRIBE LAS VARIABLES DESEADAS");
+	writeVariableLabel.setSize(180, 30);
+	writeVariableLabel.setLocation(20, 5);
 
 	exampleLabel = new Label(dialog, SWT.HORIZONTAL);
 	exampleLabel.setText("EJEMPLO:   int x");
@@ -64,127 +58,48 @@ public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
     public void initTextFields() {
 	if (isInstruction()) {
 
-	    variables = abstractFigure.instruccion.getInstruccionSimple().split(";");
+	    textBoxContent = abstractFigure.instruccion.getInstruccionSimple().split(";");
 
-	    for (int i = 0; i < variables.length; i++) {
+	    for (int i = 0; i < textBoxContent.length; i++) {
 
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 
 		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(variables[i]);
+		text.setText(textBoxContent[i]);
 
 		addReadButton(i);
 		addDeleteButton(i);
 		addKeyListener(text);
 	    }
-	    if (variables.length < 4) {
+	    if (textBoxContent.length < 4) {
 
-		for (int i = variables.length; i < 4; i++) {
+		for (int i = textBoxContent.length; i < 4; i++) {
 
 		    addTextComponent(i);
 		}
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 
 		Text text =
-			(Text) textos[variables.length * numHorizComponents];
+			(Text) scrolledCompositeContent[textBoxContent.length * numHorizComponents];
 		text.forceFocus();
 	    } else {
-		addTextComponent(textos.length / numHorizComponents);
-		textos = composite.getChildren();
+		addTextComponent(scrolledCompositeContent.length / numHorizComponents);
+		scrolledCompositeContent = composite.getChildren();
 
-		Text text = (Text) textos[textos.length - numHorizComponents];
+		Text text = (Text) scrolledCompositeContent[scrolledCompositeContent.length - numHorizComponents];
 		text.forceFocus();
 	    }
 	} else {
 	    for (int i = 0; i <= 3; i++) {
 		addTextComponent(i);
 
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 	    }
 	}
     }
 
-    @Override
-    public void open() {
-	dialog.open();
-	while (!dialog.isDisposed()) {
-	    
-	    if (!display.readAndDispatch()) {
-		
-		display.sleep();
-	    }
-	}
-    }
-
-    private boolean isChange(int total) {
-	boolean cambio = false;
-	
-	String codigo = "";
-	
-	for (int x = 0; x < total; x++) {
-	    codigo = codigo + variables[x] + ";";
-	}
-	if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
-	    
-	    tabbedPaneSelected.getTabItem().getSave().setSave(false);
-	    tabbedPaneSelected.getTabItem().getInfo().setInformacion("/M - Se " +
-	    		"agrego o modifico una instruccion en una" +
-	    		" figura de tipo \"entrada\"\n");
-	    cambio = true;
-	}
-	abstractFigure.instruccion.setInstruccionSimple(codigo);
-	tabbedPaneSelected.getHoja().addFigure();
-	tabbedPaneSelected.getHoja().guardarRetroceso();
-	return cambio;
-    }
     
-    @Override
-    protected void validate(boolean band) {
-	int total = 0;
-	
-	if (band) {
-	    textos = composite.getChildren();
-
-	    variables = new String[50];
-
-	    for (int x = 0; x < textos.length; x += 3) {
-
-		String copia = ((Text) textos[x]).getText();
-
-		while (copia.startsWith(" ")) {
-		    
-		    copia = copia.replaceFirst(" ", "");
-		}
-		if (!copia.startsWith("Escribe") && copia != "null"
-			&& copia != "") {
-
-		    if (copia.compareToIgnoreCase("leer:")==0) {
-			
-			String copia2 = copia.substring(5);
-			
-			while (copia2.startsWith(" ")) {
-			    copia2 = copia2.replaceFirst(" ", "");
-			}
-			if (copia2.length() > 0) {
-			    
-			    copia = "Leer: " + copia2;
-			    variables[total] = copia;
-			    total++;
-			}
-		    } else {
-			variables[total] = copia;
-			total++;
-		    }
-		}
-	    }
-	    if (isChange(total)) {
-		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			tabbedPaneSelected.getHoja().getDiagrama());
-	    }
-	}
-    }
-
     public void addReadButton(int location) {
 	final Button readButton = new Button(composite, SWT.PUSH);
 	readButton.setImage(ImageLoader.getImage("teclado.ico"));
@@ -192,9 +107,9 @@ public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
 	readButton.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		for (int x = 0; x < textos.length; x += numHorizComponents) {
-		    if (textos[x].getBounds().y == readButton.getBounds().y) {
-			Text text = (Text) textos[x];
+		for (int x = 0; x < scrolledCompositeContent.length; x += numHorizComponents) {
+		    if (scrolledCompositeContent[x].getBounds().y == readButton.getBounds().y) {
+			Text text = (Text) scrolledCompositeContent[x];
 			String texto = addReadString(text.getText());
 			text.setText(texto);
 			text.setSelection(texto.length());
@@ -227,4 +142,73 @@ public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
 
 	addDeleteButton(position);
     }
+    
+    private boolean isChange(int total) {
+	boolean cambio = false;
+	
+	String codigo = "";
+	
+	for (int x = 0; x < total; x++) {
+	    codigo = codigo + textBoxContent[x] + ";";
+	}
+	if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
+	    
+	    tabbedPaneSelected.getTabItem().getSave().setSave(false);
+	    tabbedPaneSelected.getTabItem().getInfo().setInformacion("/M - Se " +
+	    		"agrego o modifico una instruccion en una" +
+	    		" figura de tipo \"entrada\"\n");
+	    cambio = true;
+	}
+	abstractFigure.instruccion.setInstruccionSimple(codigo);
+	tabbedPaneSelected.getHoja().addFigure();
+	tabbedPaneSelected.getHoja().guardarRetroceso();
+	return cambio;
+    }
+    
+    @Override
+    protected void validate(boolean band) {
+	int total = 0;
+	
+	if (band) {
+	    scrolledCompositeContent = composite.getChildren();
+
+	    textBoxContent = new String[50];
+
+	    for (int x = 0; x < scrolledCompositeContent.length; x += 3) {
+
+		String copia = ((Text) scrolledCompositeContent[x]).getText();
+
+		while (copia.startsWith(" ")) {
+		    
+		    copia = copia.replaceFirst(" ", "");
+		}
+		if (!copia.startsWith("Escribe") && copia != "null"
+			&& copia != "") {
+
+		    if (copia.compareToIgnoreCase("leer:")==0) {
+			
+			String copia2 = copia.substring(5);
+			
+			while (copia2.startsWith(" ")) {
+			    copia2 = copia2.replaceFirst(" ", "");
+			}
+			if (copia2.length() > 0) {
+			    
+			    copia = "Leer: " + copia2;
+			    textBoxContent[total] = copia;
+			    total++;
+			}
+		    } else {
+			textBoxContent[total] = copia;
+			total++;
+		    }
+		}
+	    }
+	    if (isChange(total)) {
+		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
+			tabbedPaneSelected.getHoja().getDiagrama());
+	    }
+	}
+    }
+
 }

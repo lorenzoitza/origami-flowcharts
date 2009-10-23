@@ -23,16 +23,6 @@ public class SentenceFigureDialog extends AbstractDialog<Proceso> {
     }
 
     @Override
-    public void close() {
-	dialog.close();
-    }
-
-    @Override
-    public void open() {
-	dialog.open();
-    }
-
-    @Override
     public void validate(boolean band) {
 	boolean isChanged = false;
 

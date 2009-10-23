@@ -21,13 +21,13 @@ import Imagenes.ImageLoader;
 public abstract class AbstractInputOutputDialog<Figure> extends
 	AbstractDialog<Figure> {
 
-    protected Control[] textos;
-
-    protected String[] variables = new String[50];
-
-    protected ScrolledComposite sComposite;
+    protected ScrolledComposite scrolledComposite;
 
     protected Composite composite;
+    
+    protected Control[] scrolledCompositeContent;
+
+    protected String[] textBoxContent = new String[50];
 
     protected Button addTextFieldButton;
 
@@ -35,7 +35,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 
     protected Label addVariableLabel;
 
-    protected Label writeVariablesLabel;
+    protected Label writeVariableLabel;
 
     public AbstractInputOutputDialog(Shell shell, TabFolder tabFolder,
 	    Figure figura, AdminSeleccion selectionAdmin) {
@@ -52,11 +52,11 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 
 	this.key = new EventoKey(selectionAdmin, tabFolder);
 
-	this.sComposite =
+	this.scrolledComposite =
 		new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
 			| SWT.V_SCROLL);
 
-	this.composite = new Composite(sComposite, SWT.NONE);
+	this.composite = new Composite(scrolledComposite, SWT.NONE);
 
 	this.create();
 	this.initComponents();
@@ -76,15 +76,15 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	GridData grid = new GridData(GridData.FILL_VERTICAL);
 	grid.grabExcessHorizontalSpace = true;
 	grid.grabExcessVerticalSpace = true;
-	sComposite.setLayoutData(grid);
+	scrolledComposite.setLayoutData(grid);
 	composite.setLayoutData(grid);
 
-	sComposite.setContent(composite);
-	sComposite.setExpandHorizontal(true);
-	sComposite.setExpandVertical(true);
-	sComposite.setBounds(0, 20, 325, 120);
+	scrolledComposite.setContent(composite);
+	scrolledComposite.setExpandHorizontal(true);
+	scrolledComposite.setExpandVertical(true);
+	scrolledComposite.setBounds(0, 20, 325, 120);
 
-	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
+	scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
 		false));
     }
 
@@ -130,9 +130,9 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	deleteButton.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		for (int x = 0; x < textos.length; x += numHorizComponents) {
-		    if (textos[x].getBounds().y == deleteButton.getBounds().y) {
-			Text text = (Text) textos[x];
+		for (int x = 0; x < scrolledCompositeContent.length; x += numHorizComponents) {
+		    if (scrolledCompositeContent[x].getBounds().y == deleteButton.getBounds().y) {
+			Text text = (Text) scrolledCompositeContent[x];
 			text.setText("");
 		    }
 		}
@@ -163,8 +163,8 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	    public void widgetSelected(SelectionEvent e) {
 		addTextComponent(composite.getChildren().length
 			/ numHorizComponents);
-		textos = composite.getChildren();
-		sComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
+		scrolledCompositeContent = composite.getChildren();
+		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
 			SWT.DEFAULT, false));
 	    }
 	};

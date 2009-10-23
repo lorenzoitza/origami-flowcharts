@@ -20,27 +20,11 @@ public class DecisionFigureDialog extends AbstractDialog<If> {
 
 	super(shell, tabFolder, figura, selectionAdmin);
     }
-
-    @Override
-    public void close() {
-	dialog.close();
-    }
-
     @Override
     protected void create() {
 	dialog.setSize(250, 150);
 	dialog.setLocation(300, 200);
 	dialog.setText("Datos Decision");
-    }
-
-    @Override
-    public void open() {
-	dialog.open();
-	while (!dialog.isDisposed()) {
-	    if (!display.readAndDispatch()) {
-		display.sleep();
-	    }
-	}
     }
 
     @Override

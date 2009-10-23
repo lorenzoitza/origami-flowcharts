@@ -24,11 +24,6 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
     }
 
     @Override
-    public void close() {
-	dialog.close();
-    }
-
-    @Override
     protected void create() {
 	dialog.setSize(370, 214);
 	dialog.setText("Datos Imprimir");
@@ -42,10 +37,10 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 	addVariableLabel.setSize(150, 30);
 	addVariableLabel.setLocation(165, 155);
 
-	writeVariablesLabel = new Label(dialog, SWT.HORIZONTAL);
-	writeVariablesLabel.setText("ESCRIBE LAS VARIABLES DESEADAS");
-	writeVariablesLabel.setSize(180, 30);
-	writeVariablesLabel.setLocation(5, 5);
+	writeVariableLabel = new Label(dialog, SWT.HORIZONTAL);
+	writeVariableLabel.setText("ESCRIBE LAS VARIABLES DESEADAS");
+	writeVariableLabel.setSize(180, 30);
+	writeVariableLabel.setLocation(5, 5);
 
 	exampleLabel = new Label(dialog, SWT.HORIZONTAL);
 	exampleLabel.setText("EJEMPLO: \"El valor de x es:\", x");
@@ -63,19 +58,19 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
     public void initTextFields() {
 	if (isInstruction()) {
 
-	    variables = abstractFigure.instruccion.getInstruccionSimple().split(";");
+	    textBoxContent = abstractFigure.instruccion.getInstruccionSimple().split(";");
 
 	    cleanTextField();
 	    int cont = 0;
 
-	    for (int i = 0; i < variables.length
-		    && variables[i].compareTo("") != 0; i++) {
+	    for (int i = 0; i < textBoxContent.length
+		    && textBoxContent[i].compareTo("") != 0; i++) {
 
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 
 		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
 		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(variables[i]);
+		text.setText(textBoxContent[i]);
 
 		addDeleteButton(i);
 		addKeyListener(text);
@@ -87,22 +82,22 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 		    
 		    addTextComponent(i);
 		}
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 
-		Text text = (Text) textos[cont * 2];
+		Text text = (Text) scrolledCompositeContent[cont * 2];
 		text.forceFocus();
 	    } else {
 		addTextComponent(composite.getChildren().length / numHorizComponents);
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 
-		Text text = (Text) textos[textos.length - numHorizComponents];
+		Text text = (Text) scrolledCompositeContent[scrolledCompositeContent.length - numHorizComponents];
 		text.forceFocus();
 	    }
 	} else {
 	    for (int i = 0; i <= 3; i++) {
 
 		addTextComponent(i);
-		textos = composite.getChildren();
+		scrolledCompositeContent = composite.getChildren();
 	    }
 	}
     }
@@ -112,37 +107,57 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 	GridData grid = new GridData(GridData.FILL_VERTICAL);
 	grid.grabExcessHorizontalSpace = true;
 	grid.grabExcessVerticalSpace = true;
-	sComposite.setLayoutData(grid);
+	scrolledComposite.setLayoutData(grid);
 	composite.setLayoutData(grid);
 
-	sComposite.setContent(composite);
-	sComposite.setExpandHorizontal(true);
-	sComposite.setExpandVertical(true);
-	sComposite.setBounds(0, 20, 345, 120);
+	scrolledComposite.setContent(composite);
+	scrolledComposite.setExpandHorizontal(true);
+	scrolledComposite.setExpandVertical(true);
+	scrolledComposite.setBounds(0, 20, 345, 120);
 
-	sComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
+	scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT, SWT.DEFAULT,
 		false));
     }
 
-    @Override
-    public void open() {
-	dialog.open();
-	while (!dialog.isDisposed()) {
-
-	    if (!display.readAndDispatch()) {
-
-		display.sleep();
+    private void cleanTextField() {
+	String[] variables2 = new String[50];
+	
+	int cont = 0;
+	
+	for (int x = 0; x < textBoxContent.length; x++) {
+	    
+	    textBoxContent[x] = textBoxContent[x].replace("\\", "");
+	    textBoxContent[x] = textBoxContent[x].replaceFirst("p", "");
+	    
+	    if (textBoxContent[x].compareTo("") != 0) {
+		
+		variables2[cont] = textBoxContent[x];
+		cont++;
+	    }
+	}
+	for (int x = 0; x < cont; x++) {
+	    
+	    if (variables2[x].compareTo("") != 0) {
+		
+		textBoxContent[x] = variables2[x];
 	    }
 	}
     }
 
+    @Override
+    protected void addTextComponent(int position) {
+	addTextField(position);
+	addDeleteButton(position);
+    }
+    
+    
     private boolean isChange(int total) {
 	boolean cambio = false;
 
 	String codigo = "";
 
 	for (int x = 0; x < total; x++) {
-	    codigo = codigo + variables[x] + ";";
+	    codigo = codigo + textBoxContent[x] + ";";
 	}
 	if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
 
@@ -163,13 +178,13 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 	int total = 0;
 	
 	if (band) {
-	    textos = composite.getChildren();
+	    scrolledCompositeContent = composite.getChildren();
 
-	    variables = new String[50];
+	    textBoxContent = new String[50];
 
-	    for (int x = 0; x < textos.length; x += 2) {
+	    for (int x = 0; x < scrolledCompositeContent.length; x += 2) {
 
-		String copia = ((Text) textos[x]).getText();
+		String copia = ((Text) scrolledCompositeContent[x]).getText();
 
 		while (copia.startsWith(" ")) {
 
@@ -178,7 +193,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 		if (!copia.startsWith("Escribe") && copia != "null"
 			&& copia != "") {
 
-		    variables[total] = copia;
+		    textBoxContent[total] = copia;
 		    total++;
 		}
 	    }
@@ -190,34 +205,4 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
 	}
     }
 
-    private void cleanTextField() {
-	String[] variables2 = new String[50];
-	
-	int cont = 0;
-	
-	for (int x = 0; x < variables.length; x++) {
-	    
-	    variables[x] = variables[x].replace("\\", "");
-	    variables[x] = variables[x].replaceFirst("p", "");
-	    
-	    if (variables[x].compareTo("") != 0) {
-		
-		variables2[cont] = variables[x];
-		cont++;
-	    }
-	}
-	for (int x = 0; x < cont; x++) {
-	    
-	    if (variables2[x].compareTo("") != 0) {
-		
-		variables[x] = variables2[x];
-	    }
-	}
-    }
-
-    @Override
-    protected void addTextComponent(int position) {
-	addTextField(position);
-	addDeleteButton(position);
-    }
 }

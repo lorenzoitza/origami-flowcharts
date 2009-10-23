@@ -42,27 +42,12 @@ public class ForFigureDialog extends AbstractDialog<For> {
 	cancelButton.setText("CANCELAR");
 	addSelectionListener(cancelButton, false);
     }
-    
-    @Override
-    public void close() {
-	dialog.close();
-    }
 
     @Override
     protected void create() {
 	dialog.setSize(210, 280);
 	dialog.setLocation(300, 200);
 	dialog.setText("Datos For");
-    }
-
-    @Override
-    public void open() {
-	dialog.open();
-	while (!dialog.isDisposed()) {
-	    if (!display.readAndDispatch()) {
-		display.sleep();
-	    }
-	}
     }
 
     @Override
