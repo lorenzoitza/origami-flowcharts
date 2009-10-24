@@ -157,7 +157,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 	String codigo = "";
 
 	for (int x = 0; x < total; x++) {
-	    codigo = codigo + textBoxContent[x] + ";";
+	    codigo = codigo + "\\" + "p"+ textBoxContent[x] + ";";
 	}
 	if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
 
