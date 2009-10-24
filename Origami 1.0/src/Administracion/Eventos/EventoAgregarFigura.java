@@ -8,10 +8,10 @@ import Administracion.AdminSeleccion;
 import Administracion.Figura;
 import Administracion.TabFolder;
 import Grafico.*;
-import Grafico.Figuras.IfEnd;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.While;
+import Grafico.Figuras.DecisionFigureEnd;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 
 /**
@@ -66,14 +66,14 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 				if(Verificar(z,z+1,fig)){
 					break;
 				}
-				if(tab.getHoja().getFigureIndexOf(z+1) instanceof If){
+				if(tab.getHoja().getFigureIndexOf(z+1) instanceof DecisionFigure){
 					a = verificarDerecha(z+1,fig);
 					z = verificarDerecha(a,fig); 
 					if(bandera){
 						break;
 					}
 			 	 }
-				if(tab.getHoja().getFigureIndexOf(z+1) instanceof For || tab.getHoja().getFigureIndexOf(z+1) instanceof While){
+				if(tab.getHoja().getFigureIndexOf(z+1) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z+1) instanceof WhileFigure){
 					a = verificarAbajo(z+1,fig);
 					z=a+4;
 					if(bandera){
@@ -109,7 +109,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			if(Verificar(x,z,fig)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof If){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z,fig);
 				z = verificarDerecha(a,fig)+1;
 				if(bandera){
@@ -119,7 +119,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z,fig);
 				z=a+5;
 				if(bandera){
@@ -128,7 +128,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			}
 			x=z;
 			z++;
-			if(tab.getHoja().getFigureIndexOf(z) instanceof IfEnd){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigureEnd){
 				break;
 			}
 		}
@@ -152,7 +152,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			if(Verificar(x,z,fig)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof If){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z,fig);
 				z = verificarDerecha(a,fig)+1;
 				if(bandera){
@@ -162,7 +162,7 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z,fig);
 				z=a+4;
 				x=z;

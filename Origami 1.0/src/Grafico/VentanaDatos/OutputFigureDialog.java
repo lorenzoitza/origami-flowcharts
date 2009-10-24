@@ -6,7 +6,7 @@ import org.eclipse.swt.widgets.*;
 
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
-import Grafico.Figuras.Imprimir;
+import Grafico.Figuras.OutputFigure;
 
 /**
  * Crea la ventana para introducir los datos de una figura de salida.
@@ -14,10 +14,10 @@ import Grafico.Figuras.Imprimir;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class OutputFigureDialog extends AbstractInputOutputDialog<Imprimir> {
+public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> {
 
     public OutputFigureDialog(Shell shell, TabFolder tabFolder,
-	    Imprimir figura, AdminSeleccion selectionAdmin) {
+	    OutputFigure figura, AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figura, selectionAdmin);
 
 	numHorizComponents = 2;

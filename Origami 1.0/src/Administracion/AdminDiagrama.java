@@ -2,12 +2,10 @@ package Administracion;
 
 import java.util.Vector;
 
-import Administracion.Funcionalidad.Codigo.Instruccion;
-import Grafico.Ventana;
-import Grafico.Figuras.IfEnd;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.While;
+import Grafico.Figuras.DecisionFigureEnd;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 
 /**
@@ -46,7 +44,7 @@ public class AdminDiagrama {
 		diagrama.add(x,figura);
 		selec.setFiguraSeleccionada(x);
 		x++;
-		if(diagrama.elementAt(x-1) instanceof If){
+		if(diagrama.elementAt(x-1) instanceof DecisionFigure){
 			Elipse punto1= new Elipse();
 			Elipse punto2= new Elipse();
 			Elipse punto3= new Elipse();
@@ -59,13 +57,13 @@ public class AdminDiagrama {
 			x++;
 			diagrama.add(x,punto4);
 			x++;
-			diagrama.add(x,new IfEnd());
+			diagrama.add(x,new DecisionFigureEnd());
 			x++;
 			for(int u=x;u<temporal.size()+6;u++){
 				diagrama.add(u,temporal.elementAt(u-6));
 			}
 		}
-		else if(diagrama.elementAt(x-1) instanceof For){	
+		else if(diagrama.elementAt(x-1) instanceof ForFigure){	
 			Elipse punto1= new Elipse();
 			Elipse punto2= new Elipse();
 			Elipse punto3= new Elipse();
@@ -88,7 +86,7 @@ public class AdminDiagrama {
 				diagrama.add(u,temporal.elementAt(u-7));
 			}
 		}
-		else if(diagrama.elementAt(x-1) instanceof While){
+		else if(diagrama.elementAt(x-1) instanceof WhileFigure){
 			Elipse punto1= new Elipse();
 			Elipse punto2= new Elipse();
 			Elipse punto3= new Elipse();

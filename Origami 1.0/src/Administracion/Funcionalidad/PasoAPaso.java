@@ -220,12 +220,12 @@ public class PasoAPaso extends Ejecutar{
 			sendNext();							
 		}
 		else{
-			if(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof If){
+			if(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof DecisionFigure){
 				if(!revisaFin(i)){
 					tab.getHoja().paso(i);
 					int fig=tab.getHoja().getDibujarDiagrama().recorridoCiclo2(tab.getHoja().getDiagrama(),tab.getHoja().getDibujarDiagrama().recorridoCiclo(tab.getHoja().getDiagrama(),figuraAnterior))+1;
 					//IF VACIO
-					if(i>fig || (i<figuraAnterior && (tab.getHoja().getDiagrama().elementAt(i) instanceof While || tab.getHoja().getDiagrama().elementAt(i) instanceof For))){
+					if(i>fig || (i<figuraAnterior && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure))){
 						colaDiagramas.push(figuraAnterior);
 						if(colaFinDiagramas.size()!=0 && tab.getHoja().getDiagrama().elementAt(figuraAnterior).getPosicion().elementAt(0)+1==colaFinDiagramas.get(0)){
 							colaConexiones.add(conexion);
@@ -244,7 +244,7 @@ public class PasoAPaso extends Ejecutar{
 							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							dibujaFinIf(fig-2,blue);
 						}
-						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof While || tab.getHoja().getDiagrama().elementAt(i) instanceof For)){
+						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure)){
 							colaConexiones.add(conexion);
 							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
@@ -285,7 +285,7 @@ public class PasoAPaso extends Ejecutar{
 							tab.getHoja().getConexion().getConexion().elementAt(conexion).setForegroundColor(blue);
 						}
 						dibujaFinIf(fig,blue);
-						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof While || tab.getHoja().getDiagrama().elementAt(i) instanceof For)){
+						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure)){
 							colaConexiones.add(conexion);
 							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
@@ -295,8 +295,8 @@ public class PasoAPaso extends Ejecutar{
 						}
 						contCiclos++;
 					}//CUANDO SALE DE UN CICLO FOR O WHILE Y REGRESA EN UN CICLO FOR O WHILE (ANIDADO)
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While) && 
-							(tab.getHoja().getDiagrama().elementAt(i) instanceof For || tab.getHoja().getDiagrama().elementAt(i) instanceof While) && i<figuraAnterior){
+					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && 
+							(tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior){
 						int lastFig = tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+3;
 						obtieneContCiclos(lastFig,lastFig);	
 						conexion=lastFig-1+contCiclos;
@@ -317,9 +317,9 @@ public class PasoAPaso extends Ejecutar{
 						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						contCiclos++;
 					}//CUANDO REGRESA EN UN CICLO FOR O WHILE
-					else if(((tab.getHoja().getDiagrama().elementAt(i) instanceof For || tab.getHoja().getDiagrama().elementAt(i) instanceof While) && i<figuraAnterior)
-							|| ((tab.getHoja().getDiagrama().elementAt(i) instanceof For || tab.getHoja().getDiagrama().elementAt(i) instanceof While) && 
-									(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While)
+					else if(((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior)
+							|| ((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && 
+									(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
 									&& i==figuraAnterior)){
 						colaConexiones.add(conexion);
 						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
@@ -329,13 +329,13 @@ public class PasoAPaso extends Ejecutar{
 						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
 						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
-						if(((tab.getHoja().getDiagrama().elementAt(i) instanceof For || tab.getHoja().getDiagrama().elementAt(i) instanceof While) && 
-								(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While)
+						if(((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && 
+								(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
 								&& i==figuraAnterior)){
 							conexion-=4;
 						}
 					}//CUANDO SALE DE UN CICLO FOR O WHILE
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While) && i==tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6){
+					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && i==tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6){
 						obtieneContCiclos(i,i);
 						conexion=i-4+contCiclos;
 						colaConexiones.add(conexion);
@@ -347,7 +347,7 @@ public class PasoAPaso extends Ejecutar{
 						colaConexiones.add(conexion);
 						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 					}//CUANDO SALE DE UN CICLO FOR O WHILE AL FINAL DE UN IF
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While) && (colaDiagramas.size()!=0) 
+					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && (colaDiagramas.size()!=0) 
 							&& ((tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6 == tab.getHoja().getDibujarDiagrama().recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-1)
 									|| (tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6 == tab.getHoja().getDibujarDiagrama().recorridoCiclo2(tab.getHoja().getDiagrama(),tab.getHoja().getDibujarDiagrama().recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))))
 									&& i>=tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6){
@@ -365,9 +365,9 @@ public class PasoAPaso extends Ejecutar{
 						dibujaFinIf(tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+5,blue);
 					}//CUANDO SE CONECTAN DOS FIGURAS SIMPLES
 					else{
-						if((figuraAnterior+1==i && (tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof For 
-								|| tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof While)) 
-								|| (i>=2 && tab.getHoja().getDiagrama().elementAt(i-2) instanceof IfEnd)){
+						if((figuraAnterior+1==i && (tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure 
+								|| tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)) 
+								|| (i>=2 && tab.getHoja().getDiagrama().elementAt(i-2) instanceof DecisionFigureEnd)){
 							obtieneContCiclos(figuraAnterior,figuraAnterior);
 							conexion=i-1+contCiclos;
 						}
@@ -466,14 +466,14 @@ public class PasoAPaso extends Ejecutar{
 	private void obtieneContCiclos(int distancia,int var){
 		contCiclos=0;
 		for(int element=0;element<=distancia;element++){
-			if(tab.getHoja().getDiagrama().elementAt(element) instanceof If){
+			if(tab.getHoja().getDiagrama().elementAt(element) instanceof DecisionFigure){
 				int finCicloIf=tab.getHoja().getDibujarDiagrama().recorridoCiclo2(tab.getHoja().getDiagrama(),tab.getHoja().getDibujarDiagrama().recorridoCiclo(tab.getHoja().getDiagrama(),element))+1;
 				if(var>=finCicloIf){
 					contCiclos++;
 				}
 			}
-			else if(tab.getHoja().getDiagrama().elementAt(element) instanceof While ||
-					tab.getHoja().getDiagrama().elementAt(element) instanceof For){
+			else if(tab.getHoja().getDiagrama().elementAt(element) instanceof WhileFigure ||
+					tab.getHoja().getDiagrama().elementAt(element) instanceof ForFigure){
 				int finCicloFW = tab.getHoja().getDibujarDiagrama().recorridoCiclo3(tab.getHoja().getDiagrama(),element);
 				if(var>=finCicloFW){
 					contCiclos++;
@@ -659,8 +659,8 @@ public class PasoAPaso extends Ejecutar{
 			tab.getHoja().getFigureIndexOf(i).getPosicion().removeAllElements();
 		}
 		for(int i=0; i<fin;i++){
-			if(tab.getHoja().getFigureIndexOf(i) instanceof Entrada){
-				Entrada entrada = (Entrada)tab.getHoja().getFigureIndexOf(i);
+			if(tab.getHoja().getFigureIndexOf(i) instanceof InputFigure){
+				InputFigure entrada = (InputFigure)tab.getHoja().getFigureIndexOf(i);
 				String str = entrada.instruccion.instruccion;
 				int pos=str.indexOf(aux);
 				while(true){
@@ -692,8 +692,8 @@ public class PasoAPaso extends Ejecutar{
 					}
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof Imprimir){
-				Imprimir salida = (Imprimir)tab.getHoja().getFigureIndexOf(i);
+			else if(tab.getHoja().getFigureIndexOf(i) instanceof OutputFigure){
+				OutputFigure salida = (OutputFigure)tab.getHoja().getFigureIndexOf(i);
 				String str = salida.instruccion.instruccion;		
 				int pos=str.indexOf(aux);
 				while(true){
@@ -707,7 +707,7 @@ public class PasoAPaso extends Ejecutar{
 					}
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof If){
+			else if(tab.getHoja().getFigureIndexOf(i) instanceof DecisionFigure){
 				tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
 				cont++;
 				if(tab.getHoja().getFigureIndexOf(i+1) instanceof Elipse && tab.getHoja().getFigureIndexOf(i+2) instanceof Elipse){
@@ -717,7 +717,7 @@ public class PasoAPaso extends Ejecutar{
 					casoA = true;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof IfEnd){
+			else if(tab.getHoja().getFigureIndexOf(i) instanceof DecisionFigureEnd){
 				cont++;
 			}
 			else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse){
@@ -783,7 +783,7 @@ public class PasoAPaso extends Ejecutar{
 				contadorDeLlaves=0;
 			}
 			else{
-				if(tab.getHoja().getFigureIndexOf(i) instanceof InicioFin){
+				if(tab.getHoja().getFigureIndexOf(i) instanceof TerminationFigure){
 					tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
 					cont++;
 					/**

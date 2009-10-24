@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Text;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Figuras.For;
+import Grafico.Figuras.ForFigure;
 
-public class ForFigureDialog extends AbstractDialog<For> {
+public class ForFigureDialog extends AbstractDialog<ForFigure> {
     
     private Label indexExpressionLabel;
 
@@ -24,7 +24,7 @@ public class ForFigureDialog extends AbstractDialog<For> {
 
     private Text counterExpressionTextField;
 
-    public ForFigureDialog(Shell shell, TabFolder tabFolder, For figura,
+    public ForFigureDialog(Shell shell, TabFolder tabFolder, ForFigure figura,
 	    AdminSeleccion selectionAdmin) {
 
 	super(shell, tabFolder, figura, selectionAdmin);

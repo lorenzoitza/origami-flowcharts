@@ -15,14 +15,14 @@ import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.*;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.IfEnd;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.InicioFin;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.DecisionFigureEnd;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 import Grafico.VentanaDatos.InputFigureDialog;
 import Grafico.VentanaDatos.ForFigureDialog;
@@ -118,7 +118,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		salida.setText("Impresion");
 		decision.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				If decision = new If(SWT.COLOR_DARK_BLUE);
+				DecisionFigure decision = new DecisionFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision.instruction.instruccion.add(0,codigo);
@@ -131,7 +131,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		});
 		proceso.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				 Proceso proceso = new Proceso(SWT.COLOR_DARK_BLUE);
+				 SentenceFigure proceso = new SentenceFigure();
 				 InstruccionSimple codigo = new InstruccionSimple();
 				 codigo.setInstruccionSimple("null");
 				 proceso.instruccion.instruccion = "null";
@@ -143,7 +143,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		});
 		entrada.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				 Entrada entrada = new Entrada(SWT.COLOR_DARK_BLUE);
+				 InputFigure entrada = new InputFigure();
 				 InstruccionSimple codigo = new InstruccionSimple();
 				 codigo.setInstruccionSimple("null");
 				 entrada.instruccion.instruccion = "null";
@@ -155,7 +155,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		});
 		salida.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				Imprimir salida = new Imprimir(SWT.COLOR_DARK_BLUE);
+				OutputFigure salida = new OutputFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				salida.instruccion.instruccion = "null";
@@ -167,7 +167,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		});
 		para.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				For For = new For(SWT.COLOR_DARK_BLUE);
+				ForFigure For = new ForFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
 			    For.instruccion.instruccion.add(0,codigo);
@@ -179,7 +179,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		});
 		mientras.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				While While = new While(SWT.COLOR_DARK_BLUE);
+				WhileFigure While = new WhileFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				While.instruccion.instruccion.add(0,codigo);
@@ -193,7 +193,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	}
 	public void menuDisponibleFigura(){
 		if(selec.getFiguraSeleccionada() != -1){
-			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof InicioFin){
+			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof TerminationFigure){
 				if(Ventana.diagramaEnMemoria.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}
@@ -271,7 +271,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					agregar(fig);
 				}
 			});
-			if(fig instanceof InicioFin){
+			if(fig instanceof TerminationFigure){
 				if(Ventana.diagramaEnMemoria.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}
@@ -313,7 +313,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			salida.setText("Impresion");
 			decision.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					If decision = new If(SWT.COLOR_DARK_BLUE);
+					DecisionFigure decision = new DecisionFigure();
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					decision.instruction.instruccion.add(0,codigo);
@@ -326,7 +326,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			});
 			proceso.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					 Proceso proceso = new Proceso(SWT.COLOR_DARK_BLUE);
+					 SentenceFigure proceso = new SentenceFigure();
 					 InstruccionSimple codigo = new InstruccionSimple();
 					 codigo.setInstruccionSimple("null");
 					 proceso.instruccion.instruccion = "null";
@@ -338,7 +338,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			});
 			entrada.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					 Entrada entrada = new Entrada(SWT.COLOR_DARK_BLUE);
+					 InputFigure entrada = new InputFigure();
 					 InstruccionSimple codigo = new InstruccionSimple();
 					 codigo.setInstruccionSimple("null");
 					 entrada.instruccion.instruccion = "null";
@@ -350,7 +350,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			});
 			salida.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					Imprimir salida = new Imprimir(SWT.COLOR_DARK_BLUE);
+					OutputFigure salida = new OutputFigure();
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					salida.instruccion.instruccion = "null";
@@ -362,7 +362,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			});
 			para.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					For For = new For(SWT.COLOR_DARK_BLUE);
+					ForFigure For = new ForFigure();
 				    InstruccionSimple codigo = new InstruccionSimple();
 				    codigo.setInstruccionSimple("null");
 				    For.instruccion.instruccion.add(0,codigo);
@@ -374,7 +374,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			});
 			mientras.addSelectionListener(new SelectionAdapter() {
 				public void widgetSelected(SelectionEvent e) {
-					While While = new While(SWT.COLOR_DARK_BLUE);
+					WhileFigure While = new WhileFigure();
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					While.instruccion.instruccion.add(0,codigo);
@@ -392,7 +392,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			if(x == selec.getFiguraSeleccionada()){
 				int y=0,x2=0,cont=0;
 				Ventana.diagramaEnMemoria.diagrama.removeAllElements();
-				if(fig instanceof If){
+				if(fig instanceof DecisionFigure){
 					y = recorridoCiclo(tab.getHoja().getDiagrama(),x);
 					y = recorridoCiclo2(tab.getHoja().getDiagrama(),y);
 					x2=y-x;
@@ -403,7 +403,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						index++;
 					}
 				} 
-				else if(fig instanceof For){
+				else if(fig instanceof ForFigure){
 					y = recorridoCiclo3(tab.getHoja().getDiagrama(),x);
 					x2=y-x;
 					while(cont<x2+6){
@@ -413,7 +413,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						index++;
 					}
 				}
-				else if(fig instanceof While){
+				else if(fig instanceof WhileFigure){
 					y = recorridoCiclo3(tab.getHoja().getDiagrama(),x);
 					x2=y-x;
 					while(cont<x2+6){
@@ -444,50 +444,50 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			if(x == selec.getFiguraSeleccionada()){
 				int y=0,x2=0,cont=0;
 				Ventana.diagramaEnMemoria.diagrama.removeAllElements();
-				if(fig instanceof If){
+				if(fig instanceof DecisionFigure){
 					y = recorridoCiclo(tab.getHoja().getDiagrama(),x);
 					y = recorridoCiclo2(tab.getHoja().getDiagrama(),y);
 					x2=y-x;
 					while(cont<x2+2){
-						if(tab.getHoja().getFigureIndexOf(x) instanceof If){
-							If copia = new If(SWT.COLOR_BLUE);
-							If actual = (If)tab.getHoja().getFigureIndexOf(x);
+						if(tab.getHoja().getFigureIndexOf(x) instanceof DecisionFigure){
+							DecisionFigure copia = new DecisionFigure();
+							DecisionFigure actual = (DecisionFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruction.instruccion.size(); j++){
 								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof For){
-							For copia = new For(SWT.COLOR_BLUE);
-							For actual = (For)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof ForFigure){
+							ForFigure copia = new ForFigure();
+							ForFigure actual = (ForFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof While){
-							While copia = new While(SWT.COLOR_BLUE);
-							While actual = (While)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof WhileFigure){
+							WhileFigure copia = new WhileFigure();
+							WhileFigure actual = (WhileFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Proceso){
-							Proceso copia = new Proceso(SWT.COLOR_BLUE);
-							Proceso actual = (Proceso)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof SentenceFigure){
+							SentenceFigure copia = new SentenceFigure();
+							SentenceFigure actual = (SentenceFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Entrada){
-							Entrada copia = new Entrada(SWT.COLOR_BLUE);
-							Entrada actual = (Entrada)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof InputFigure){
+							InputFigure copia = new InputFigure();
+							InputFigure actual = (InputFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Imprimir){
-							Imprimir copia = new Imprimir(SWT.COLOR_BLUE);
-							Imprimir actual = (Imprimir)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof OutputFigure){
+							OutputFigure copia = new OutputFigure();
+							OutputFigure actual = (OutputFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -499,49 +499,49 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						x++;
 					}
 				} 
-				else if(fig instanceof For || fig instanceof While){
+				else if(fig instanceof ForFigure || fig instanceof WhileFigure){
 					y = recorridoCiclo3(tab.getHoja().getDiagrama(),x);
 					x2=y-x;
 					while(cont<x2+6){
-						if(tab.getHoja().getFigureIndexOf(x) instanceof If){
-							If copia = new If(SWT.COLOR_BLUE);
-							If actual = (If)tab.getHoja().getFigureIndexOf(x);
+						if(tab.getHoja().getFigureIndexOf(x) instanceof DecisionFigure){
+							DecisionFigure copia = new DecisionFigure();
+							DecisionFigure actual = (DecisionFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruction.instruccion.size(); j++){
 								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof For){
-							For copia = new For(SWT.COLOR_BLUE);
-							For actual = (For)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof ForFigure){
+							ForFigure copia = new ForFigure();
+							ForFigure actual = (ForFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof While){
-							While copia = new While(SWT.COLOR_BLUE);
-							While actual = (While)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof WhileFigure){
+							WhileFigure copia = new WhileFigure();
+							WhileFigure actual = (WhileFigure)tab.getHoja().getFigureIndexOf(x);
 							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Proceso){
-							Proceso copia = new Proceso(SWT.COLOR_BLUE);
-							Proceso actual = (Proceso)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof SentenceFigure){
+							SentenceFigure copia = new SentenceFigure();
+							SentenceFigure actual = (SentenceFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Entrada){
-							Entrada copia = new Entrada(SWT.COLOR_BLUE);
-							Entrada actual = (Entrada)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof InputFigure){
+							InputFigure copia = new InputFigure();
+							InputFigure actual = (InputFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
-						else if(tab.getHoja().getFigureIndexOf(x) instanceof Imprimir){
-							Imprimir copia = new Imprimir(SWT.COLOR_BLUE);
-							Imprimir actual = (Imprimir)tab.getHoja().getFigureIndexOf(x);
+						else if(tab.getHoja().getFigureIndexOf(x) instanceof OutputFigure){
+							OutputFigure copia = new OutputFigure();
+							OutputFigure actual = (OutputFigure)tab.getHoja().getFigureIndexOf(x);
 							copia.instruccion.instruccion = actual.instruccion.instruccion;
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -554,22 +554,22 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					}
 				}
 				else{
-					if(tab.getHoja().getFigureIndexOf(x) instanceof Entrada){
-						Entrada figura = new Entrada(SWT.COLOR_DARK_BLUE);
-						Entrada figura2 = (Entrada)tab.getHoja().getFigureIndexOf( x );
+					if(tab.getHoja().getFigureIndexOf(x) instanceof InputFigure){
+						InputFigure figura = new InputFigure();
+						InputFigure figura2 = (InputFigure)tab.getHoja().getFigureIndexOf( x );
 						figura.instruccion.instruccion = figura2.instruccion.instruccion;
 						Ventana.diagramaEnMemoria.diagrama.add(index,figura);
 					}
-					else if(tab.getHoja().getFigureIndexOf(x) instanceof Imprimir){
-						Imprimir figura = new Imprimir(SWT.COLOR_DARK_BLUE);
-						Imprimir figura2 = (Imprimir)tab.getHoja().getFigureIndexOf(x );
+					else if(tab.getHoja().getFigureIndexOf(x) instanceof OutputFigure){
+						OutputFigure figura = new OutputFigure();
+						OutputFigure figura2 = (OutputFigure)tab.getHoja().getFigureIndexOf(x );
 						figura.instruccion.instruccion = figura2.instruccion.instruccion;
 						Ventana.diagramaEnMemoria.diagrama.add(index,figura);
 
 					}
 					else{
-						Proceso figura = new Proceso(SWT.COLOR_DARK_BLUE);
-						Proceso figura2 = (Proceso)tab.getHoja().getFigureIndexOf( x);
+						SentenceFigure figura = new SentenceFigure();
+						SentenceFigure figura2 = (SentenceFigure)tab.getHoja().getFigureIndexOf( x);
 						figura.instruccion.instruccion = figura2.instruccion.instruccion;
 						Ventana.diagramaEnMemoria.diagrama.add(index,figura);
 					}
@@ -588,55 +588,55 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof IfEnd){
-					IfEnd nueva = new IfEnd();
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof DecisionFigureEnd){
+					DecisionFigureEnd nueva = new DecisionFigureEnd();
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof If){
-					If nueva = new If(SWT.COLOR_DARK_BLUE);
-					If aux = (If)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof DecisionFigure){
+					DecisionFigure nueva = new DecisionFigure();
+					DecisionFigure aux = (DecisionFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					for(int x=0;x<aux.instruction.instruccion.size(); x++){
 						nueva.instruction.instruccion.add(x,aux.instruction.instruccion.elementAt(x));
 					}
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof For){
-					For nueva = new For(SWT.COLOR_DARK_BLUE);
-					For aux = (For)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof ForFigure){
+					ForFigure nueva = new ForFigure();
+					ForFigure aux = (ForFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					for(int x=0;x<aux.instruccion.instruccion.size(); x++){
 						nueva.instruccion.instruccion.add(x,aux.instruccion.instruccion.elementAt(x));
 					}
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof While){
-					While nueva = new While(SWT.COLOR_DARK_BLUE);
-					While aux = (While)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof WhileFigure){
+					WhileFigure nueva = new WhileFigure();
+					WhileFigure aux = (WhileFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					for(int x=0;x<aux.instruccion.instruccion.size(); x++){
 						nueva.instruccion.instruccion.add(x,aux.instruccion.instruccion.elementAt(x));
 					}
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof Imprimir){
-					Imprimir nueva = new Imprimir(SWT.COLOR_DARK_BLUE);
-					Imprimir aux = (Imprimir)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof OutputFigure){
+					OutputFigure nueva = new OutputFigure();
+					OutputFigure aux = (OutputFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					nueva.instruccion.instruccion=aux.instruccion.instruccion;
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof Entrada){
-					Entrada nueva = new Entrada(SWT.COLOR_DARK_BLUE);
-					Entrada aux = (Entrada)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof InputFigure){
+					InputFigure nueva = new InputFigure();
+					InputFigure aux = (InputFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					nueva.instruccion.instruccion=aux.instruccion.instruccion;
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
 				}
-				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof Proceso){
-					Proceso nueva = new Proceso(SWT.COLOR_DARK_BLUE);
-					Proceso aux = (Proceso)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
+				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof SentenceFigure){
+					SentenceFigure nueva = new SentenceFigure();
+					SentenceFigure aux = (SentenceFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
 					nueva.instruccion.instruccion=aux.instruccion.instruccion;
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);
@@ -646,7 +646,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		Vector<Figura> temporal = new Vector<Figura>();
 		for(int x=0;x<tab.getHoja().getSizeDiagrama();x++){
 			if(x == selec.getFiguraSeleccionada()){
-				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof If){
+				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof DecisionFigure){
 					shell.setBounds(315, 260, 300, 140);
 					Button izquierda = new Button(shell,SWT.PUSH);
 					izquierda.setBounds(5, 75, 75, 25);
@@ -810,7 +810,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	}
 	public static void insertarFigura(final Figura inser){
 		final int i = selec.getFiguraSeleccionada();
-		if(tab.getHoja().getAdminDiagrama().diagrama.elementAt(i) instanceof If){
+		if(tab.getHoja().getAdminDiagrama().diagrama.elementAt(i) instanceof DecisionFigure){
 			final Shell shell = new Shell(Ventana.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
 			shell.setBounds(315, 260, 400, 140);
 			Button izquierda = new Button(shell,SWT.PUSH);
@@ -880,7 +880,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		for(int x=0;x<tab.getHoja().getSizeDiagrama();x++){
 			if(x == selec.getFiguraSeleccionada()){
 				int y=0,x2=0,cont=0;
-				if(fig instanceof If){
+				if(fig instanceof DecisionFigure){
 					tipo="si";
 					y = recorridoCiclo(tab.getHoja().getDiagrama(),x);
 					y = recorridoCiclo2(tab.getHoja().getDiagrama(),y);
@@ -890,7 +890,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						cont++;
 					}
 				} 
-				else if(fig instanceof For){
+				else if(fig instanceof ForFigure){
 					tipo="para";
 					y = recorridoCiclo3(tab.getHoja().getDiagrama(),x);
 					x2=y-x;
@@ -899,7 +899,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						cont++;
 					}
 				}
-				else if(fig instanceof While){
+				else if(fig instanceof WhileFigure){
 					tipo="mientras";
 					y = recorridoCiclo3(tab.getHoja().getDiagrama(),x);
 					x2=y-x;
@@ -910,10 +910,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				}
 				else{
 					tab.getHoja().removeFigureIndexOf(x);
-					if(fig instanceof Imprimir){
+					if(fig instanceof OutputFigure){
 						tipo="Salida";
 					}
-					else if(fig instanceof Entrada){
+					else if(fig instanceof InputFigure){
 						tipo="Entrada";
 					}
 					else{
@@ -929,28 +929,28 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 	}
 	public void agregar(Figura fig){
-		if(fig instanceof Proceso){
-			Proceso f = (Proceso)fig;
+		if(fig instanceof SentenceFigure){
+			SentenceFigure f = (SentenceFigure)fig;
 			new SentenceFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
-		else if(fig instanceof If){
-			If f = ((If)fig);
+		else if(fig instanceof DecisionFigure){
+			DecisionFigure f = ((DecisionFigure)fig);
 			new DecisionFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
-		else if(fig instanceof Entrada){
-			Entrada f = ((Entrada)fig);
+		else if(fig instanceof InputFigure){
+			InputFigure f = ((InputFigure)fig);
 			new InputFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
-		else if(fig instanceof Imprimir){
-			Imprimir f = ((Imprimir)fig);
+		else if(fig instanceof OutputFigure){
+			OutputFigure f = ((OutputFigure)fig);
 			new OutputFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
-		else if(fig instanceof For){
-			For f = ((For)fig);
+		else if(fig instanceof ForFigure){
+			ForFigure f = ((ForFigure)fig);
 			new ForFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
-		else if(fig instanceof While){
-			While f = ((While)fig);
+		else if(fig instanceof WhileFigure){
+			WhileFigure f = ((WhileFigure)fig);
 			new WhileFigureDialog(Ventana.shell,tab,f,selec).open();
 		}
 	}

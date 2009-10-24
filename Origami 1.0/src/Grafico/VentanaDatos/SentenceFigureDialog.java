@@ -4,9 +4,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
-import Grafico.Figuras.Proceso;
+import Grafico.Figuras.SentenceFigure;
 
-public class SentenceFigureDialog extends AbstractDialog<Proceso> {
+public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 
     private Text variableTextField;
 
@@ -17,7 +17,7 @@ public class SentenceFigureDialog extends AbstractDialog<Proceso> {
     private Label equalOperator;
 
     public SentenceFigureDialog(Shell shell, TabFolder tabFolder,
-	    Proceso figure, AdminSeleccion selectionAdmin) {
+	    SentenceFigure figure, AdminSeleccion selectionAdmin) {
 
 	super(shell, tabFolder, figure, selectionAdmin);
     }

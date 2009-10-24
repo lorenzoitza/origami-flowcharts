@@ -9,15 +9,15 @@ import Administracion.Eventos.EventoDobleClick;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoSeleccionar;
 import Grafico.*;
-import Grafico.Figuras.CuadroSeleccion;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.IfEnd;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.InicioFin;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.SelectionSquare;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.DecisionFigureEnd;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 
 /**
@@ -89,10 +89,10 @@ public class DibujarDiagrama extends Figure{
 		diagrama.firstElement().setSeleccion(false);
 		chart.add(diagrama.firstElement());
 		for(int i=1;i<diagrama.size();i++){
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				i= anidarIf(diagrama,chart,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
@@ -102,7 +102,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof InicioFin){
+				if(diagrama.elementAt(i) instanceof TerminationFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}
@@ -132,10 +132,10 @@ public class DibujarDiagrama extends Figure{
 		diagrama.firstElement().getBounds().y = alt;
 		chart.add(diagrama.firstElement());
 		for(int i=1;i<diagrama.size();i++){
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				i= anidarIf(diagrama,chart,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
@@ -145,7 +145,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof InicioFin){
+				if(diagrama.elementAt(i) instanceof TerminationFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}
@@ -175,7 +175,7 @@ public class DibujarDiagrama extends Figure{
 			else{
 				x = diagrama.elementAt(i-1).getBounds().x;
 			}		
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				pda= i+2;
 				punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 				diagrama.elementAt(i).setLocation(punto);
@@ -186,8 +186,8 @@ public class DibujarDiagrama extends Figure{
 				diagrama.elementAt(i+1).setLocation(punto);
 				chart.add(diagrama.elementAt(i+1));
 				
-				while(diagrama.elementAt(pda) instanceof Entrada || diagrama.elementAt(pda) instanceof Proceso || diagrama.elementAt(pda) instanceof Imprimir ||
-						diagrama.elementAt(pda) instanceof While || diagrama.elementAt(pda) instanceof For || diagrama.elementAt(pda) instanceof If){
+				while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
+						diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
 					pda = anidarIf(diagrama,chart,pda); 
 				}
 
@@ -209,8 +209,8 @@ public class DibujarDiagrama extends Figure{
 				chart.add(diagrama.elementAt(pda+1));
 				
 				pia = pda+2; 
-				while(diagrama.elementAt(pia) instanceof Entrada || diagrama.elementAt(pia) instanceof Proceso || diagrama.elementAt(pia) instanceof Imprimir ||
-						diagrama.elementAt(pia) instanceof While || diagrama.elementAt(pia) instanceof For || diagrama.elementAt(pia) instanceof If){
+				while(diagrama.elementAt(pia) instanceof InputFigure || diagrama.elementAt(pia) instanceof SentenceFigure || diagrama.elementAt(pia) instanceof OutputFigure ||
+						diagrama.elementAt(pia) instanceof WhileFigure || diagrama.elementAt(pia) instanceof ForFigure || diagrama.elementAt(pia) instanceof DecisionFigure){
 					pia = anidarIf(diagrama,chart,pia); 
 				}
 				
@@ -283,20 +283,20 @@ public class DibujarDiagrama extends Figure{
 					diagrama.elementAt(pia).setLocation(punto);
 					chart.add(diagrama.elementAt(pia));
 					pda=i+2;
-					while(diagrama.elementAt(pda) instanceof Entrada || diagrama.elementAt(pda) instanceof Proceso || diagrama.elementAt(pda) instanceof Imprimir ||
-							diagrama.elementAt(pda) instanceof While || diagrama.elementAt(pda) instanceof For || diagrama.elementAt(pda) instanceof If){
+					while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
+							diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
 						pda = anidarIf(diagrama,chart,pda); 
 					}
 					pia = pda+2; 
-					while(diagrama.elementAt(pia) instanceof Entrada || diagrama.elementAt(pia) instanceof Proceso || diagrama.elementAt(pia) instanceof Imprimir ||
-							diagrama.elementAt(pia) instanceof While || diagrama.elementAt(pia) instanceof For || diagrama.elementAt(pia) instanceof If){
+					while(diagrama.elementAt(pia) instanceof InputFigure || diagrama.elementAt(pia) instanceof SentenceFigure || diagrama.elementAt(pia) instanceof OutputFigure ||
+							diagrama.elementAt(pia) instanceof WhileFigure || diagrama.elementAt(pia) instanceof ForFigure || diagrama.elementAt(pia) instanceof DecisionFigure){
 						pia = anidarIf(diagrama,chart,pia); 
 					}
 				}
 				i=pia+2;
 				break;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				i = anidarFW(diagrama,chart,i)-1;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
@@ -329,14 +329,14 @@ public class DibujarDiagrama extends Figure{
 			else{
 				x = diagrama.elementAt(i-1).getBounds().x;
 			}	
-			if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				pda=i+1;
 				punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 				diagrama.elementAt(i).setLocation(punto);
 				chart.add(diagrama.elementAt(i));
 				
-				while(diagrama.elementAt(pda) instanceof Entrada || diagrama.elementAt(pda) instanceof Proceso || diagrama.elementAt(pda) instanceof Imprimir ||
-						diagrama.elementAt(pda) instanceof While || diagrama.elementAt(pda) instanceof For || diagrama.elementAt(pda) instanceof If){
+				while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
+						diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
 					pda = anidarFW(diagrama,chart,pda);
 				}
 				
@@ -418,7 +418,7 @@ public class DibujarDiagrama extends Figure{
 				i= pda+6;
 				break;
 			}
-			else if(diagrama.elementAt(i) instanceof If){
+			else if(diagrama.elementAt(i) instanceof DecisionFigure){
 				i = anidarIf(diagrama,chart,i)-1;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
@@ -457,11 +457,11 @@ public class DibujarDiagrama extends Figure{
 		int cont=0,cont2=0;
 		boolean bandera = true;
 		while(true){	
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont++;
 				i=recorridoCiclo(diagrama,i);
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While && bandera){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
 				i=recorridoCiclo3(diagrama,i)+4;
 				if(cont>cont2){
@@ -475,7 +475,7 @@ public class DibujarDiagrama extends Figure{
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof IfEnd){
+			else if(diagrama.elementAt(i) instanceof DecisionFigureEnd){
 				cont--;
 			}
 			if(i==fin){
@@ -488,12 +488,12 @@ public class DibujarDiagrama extends Figure{
 	public int ifIzquierda2(Vector<Figura> diagrama,int i,int fin){
 		int cont=0,cont2=0;
 		while(true){	
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont =cont + diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
 				i=recorridoCiclo(diagrama,i);
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				cont =cont + diagrama.elementAt(recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				i = recorridoCiclo3(diagrama,i)+5;
 				cont-=35;
@@ -503,7 +503,7 @@ public class DibujarDiagrama extends Figure{
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof IfEnd){
+			else if(diagrama.elementAt(i) instanceof DecisionFigureEnd){
 			}
 			if(i==fin){
 				break;
@@ -530,11 +530,11 @@ public class DibujarDiagrama extends Figure{
 			if(i==fin){
 				break;
 			}
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont++;
 				i++;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While && bandera){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
 				i=recorridoCiclo3(diagrama,i)+5;
 				bandera = false;
@@ -549,7 +549,7 @@ public class DibujarDiagrama extends Figure{
 					cont2=cont;  
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof IfEnd){
+			else if(diagrama.elementAt(i) instanceof DecisionFigureEnd){
 				cont--;
 			}	
 			i++;
@@ -562,12 +562,12 @@ public class DibujarDiagrama extends Figure{
 			if(i==fin){
 				break;
 			}
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont =cont + diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
 				i++;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				cont =cont + diagrama.elementAt(recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
 				if(cont>cont2){
@@ -581,7 +581,7 @@ public class DibujarDiagrama extends Figure{
 				}
 				//i = recorridoCiclo2(diagrama,i+1);
 			}
-			else if(diagrama.elementAt(i) instanceof IfEnd){
+			else if(diagrama.elementAt(i) instanceof DecisionFigureEnd){
 			}	
 			i++;
 		}
@@ -778,7 +778,7 @@ public class DibujarDiagrama extends Figure{
 		width = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().width;
 		
 		for(int i=0; i<4; i++){
-			CuadroSeleccion uno = new CuadroSeleccion(false,SWT.COLOR_DARK_GRAY);
+			SelectionSquare uno = new SelectionSquare(false,SWT.COLOR_DARK_GRAY);
 			Ventana.seleccion.insertElementAt(uno, i);
 		}
 		Ventana.seleccion.elementAt(0).setLocation(new Point(x-8,y-10));
@@ -807,11 +807,11 @@ public class DibujarDiagrama extends Figure{
 				new EventoSeleccionar(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
-				if(diagrama.elementAt(x) instanceof If){
+				if(diagrama.elementAt(x) instanceof DecisionFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					If figuras = (If)diagrama.elementAt(x);
+					DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					If figura = new If(SWT.COLOR_DARK_BLUE);
+					DecisionFigure figura = new DecisionFigure();
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -823,11 +823,11 @@ public class DibujarDiagrama extends Figure{
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
 				}
-				else if(diagrama.elementAt(x) instanceof For){
+				else if(diagrama.elementAt(x) instanceof ForFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					For figuras = (For)diagrama.elementAt(x);
+					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					For figura = new For(SWT.COLOR_DARK_BLUE);
+					ForFigure figura = new ForFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -839,11 +839,11 @@ public class DibujarDiagrama extends Figure{
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
 				}
-				else if(diagrama.elementAt(x) instanceof While){
+				else if(diagrama.elementAt(x) instanceof WhileFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					While figuras = (While)diagrama.elementAt(x);
+					WhileFigure figuras = (WhileFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					While figura = new While(SWT.COLOR_DARK_BLUE);
+					WhileFigure figura = new WhileFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -855,11 +855,11 @@ public class DibujarDiagrama extends Figure{
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
 				}
-				else if(diagrama.elementAt(x) instanceof Entrada){
+				else if(diagrama.elementAt(x) instanceof InputFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Entrada figuras = (Entrada)diagrama.elementAt(x);
+					InputFigure figuras = (InputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Entrada figura = new Entrada(SWT.COLOR_DARK_BLUE);
+					InputFigure figura = new InputFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -871,11 +871,11 @@ public class DibujarDiagrama extends Figure{
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
 				}
-				else if(diagrama.elementAt(x) instanceof Imprimir){
+				else if(diagrama.elementAt(x) instanceof OutputFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Imprimir figuras = (Imprimir)diagrama.elementAt(x);
+					OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Imprimir figura = new Imprimir(SWT.COLOR_DARK_BLUE);
+					OutputFigure figura = new OutputFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -887,11 +887,11 @@ public class DibujarDiagrama extends Figure{
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
 				}
-				else if(diagrama.elementAt(x) instanceof Proceso){
+				else if(diagrama.elementAt(x) instanceof SentenceFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Proceso figuras = (Proceso)diagrama.elementAt(x);
+					SentenceFigure figuras = (SentenceFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Proceso figura = new Proceso(SWT.COLOR_DARK_BLUE);
+					SentenceFigure figura = new SentenceFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -907,78 +907,78 @@ public class DibujarDiagrama extends Figure{
 		}
 		else{
 			for(int x =0;x<diagrama.size();x++ ){
-				if(diagrama.elementAt(x) instanceof If){
+				if(diagrama.elementAt(x) instanceof DecisionFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					If figuras = (If)diagrama.elementAt(x);
+					DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					If figura = new If(SWT.COLOR_DARK_BLUE);
+					DecisionFigure figura = new DecisionFigure();
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof For){
+				else if(diagrama.elementAt(x) instanceof ForFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					For figuras = (For)diagrama.elementAt(x);
+					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					For figura = new For(SWT.COLOR_DARK_BLUE);
+					ForFigure figura = new ForFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof While){
+				else if(diagrama.elementAt(x) instanceof WhileFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					While figuras = (While)diagrama.elementAt(x);
+					WhileFigure figuras = (WhileFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					While figura = new While(SWT.COLOR_DARK_BLUE);
+					WhileFigure figura = new WhileFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof Entrada){
+				else if(diagrama.elementAt(x) instanceof InputFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Entrada figuras = (Entrada)diagrama.elementAt(x);
+					InputFigure figuras = (InputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Entrada figura = new Entrada(SWT.COLOR_DARK_BLUE);
+					InputFigure figura = new InputFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof Imprimir){
+				else if(diagrama.elementAt(x) instanceof OutputFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Imprimir figuras = (Imprimir)diagrama.elementAt(x);
+					OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Imprimir figura = new Imprimir(SWT.COLOR_DARK_BLUE);
+					OutputFigure figura = new OutputFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof Proceso){
+				else if(diagrama.elementAt(x) instanceof SentenceFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					Proceso figuras = (Proceso)diagrama.elementAt(x);
+					SentenceFigure figuras = (SentenceFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					Proceso figura = new Proceso(SWT.COLOR_DARK_BLUE);
+					SentenceFigure figura = new SentenceFigure();
 					figura.instruccion = figuras.instruccion;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof InicioFin){
+				else if(diagrama.elementAt(x) instanceof TerminationFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					InicioFin fig = (InicioFin)diagrama.elementAt(x);
+					TerminationFigure fig = (TerminationFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					InicioFin ini = new InicioFin();
-					ini.setMensaje(fig.getMensaje());
+					TerminationFigure ini = new TerminationFigure();
+					ini.setMensagge(fig.getMensagge());
 					ini.setListaPosicion(fig.getPosicion());
 					ini.setLocation(pt);
 					diagrama.insertElementAt(ini,x);
@@ -992,10 +992,10 @@ public class DibujarDiagrama extends Figure{
 		chart.removeAll();
 		chart.add(diagrama.firstElement());
 		for(int i=1;i<diagrama.size();i++){
-			if(diagrama.elementAt(i) instanceof If){
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				i= anidarIf(diagrama,chart,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				i= anidarFW(diagrama,chart,i)-1;
 			}
 			else{
@@ -1005,7 +1005,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof InicioFin){
+				if(diagrama.elementAt(i) instanceof TerminationFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}

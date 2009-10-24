@@ -3,19 +3,19 @@ package Grafico.VentanaDatos;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.*;
-import Grafico.Figuras.If;
+import Grafico.Figuras.DecisionFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-public class DecisionFigureDialog extends AbstractDialog<If> {
+public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 
     private Text conditionTextField;
     
     private Label informationLabel;
 
-    public DecisionFigureDialog(Shell shell, TabFolder tabFolder, If figura,
+    public DecisionFigureDialog(Shell shell, TabFolder tabFolder, DecisionFigure figura,
 	    AdminSeleccion selectionAdmin) {
 
 	super(shell, tabFolder, figura, selectionAdmin);

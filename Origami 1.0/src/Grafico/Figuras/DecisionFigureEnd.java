@@ -9,11 +9,11 @@ import org.eclipse.swt.widgets.Display;
 import Administracion.*;
 import Grafico.Ventana;
 
-public class IfEnd extends Figura {
+public class DecisionFigureEnd extends Figura {
 
     private Rectangle rectangle;
 
-    public IfEnd() {
+    public DecisionFigureEnd() {
 	setBounds(new Rectangle(475, 50, 80, 40));
 	rectangle = bounds;
     }
@@ -26,25 +26,22 @@ public class IfEnd extends Figura {
 
     private void drawPaths(Graphics graphics) {
 	if (!isPasoAPaso()) {
-	    graphics.setForegroundColor(Display.getCurrent().getSystemColor(
-		    SWT.COLOR_DARK_BLUE));
+	    
+	    graphics.setForegroundColor(DARKBLUE);
 	    graphics.drawPolygon(getLeftPath());
 	    graphics.drawPolygon(getRigthPath());
 	} else {
 	    graphics.setLineWidth(1);
 	    graphics.setLineStyle(SWT.LINE_CUSTOM);
-	    graphics.setForegroundColor(Ventana.display
-		    .getSystemColor(SWT.COLOR_RED));
+	    graphics.setForegroundColor(RED);
 	    if (isDerIzqFin()) {
 
 		graphics.drawPolygon(getRigthPath());
-		graphics.setForegroundColor(Display.getCurrent()
-			.getSystemColor(SWT.COLOR_DARK_BLUE));
+		graphics.setForegroundColor(DARKBLUE);
 		graphics.drawPolygon(getLeftPath());
 	    } else {
 		graphics.drawPolygon(getLeftPath());
-		graphics.setForegroundColor(Display.getCurrent()
-			.getSystemColor(SWT.COLOR_DARK_BLUE));
+		graphics.setForegroundColor(DARKBLUE);
 		graphics.drawPolygon(getRigthPath());
 	    }
 	}

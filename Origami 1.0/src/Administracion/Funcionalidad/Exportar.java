@@ -27,53 +27,53 @@ public class Exportar {
 	public Vector<Figura> getFiguras(Vector<Figura> diagrama){
 		Vector<Figura> diag = new Vector<Figura>();
 		for(int x =0;x<diagrama.size();x++){
-			if(diagrama.elementAt(x) instanceof If){
-				If ellipse = new If(SWT.COLOR_DARK_BLUE);
+			if(diagrama.elementAt(x) instanceof DecisionFigure){
+				DecisionFigure ellipse = new DecisionFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				If figuras = (If)diagrama.elementAt(x);
+				DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
 				ellipse.instruction = figuras.instruction;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof For ){
-				For ellipse = new For(SWT.COLOR_DARK_BLUE);
+			else if(diagrama.elementAt(x) instanceof ForFigure ){
+				ForFigure ellipse = new ForFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				For figuras = (For)diagrama.elementAt(x);
+				ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof While){
-				While ellipse = new While(SWT.COLOR_DARK_BLUE);
+			else if(diagrama.elementAt(x) instanceof WhileFigure){
+				WhileFigure ellipse = new WhileFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				While figuras = (While)diagrama.elementAt(x);
+				WhileFigure figuras = (WhileFigure)diagrama.elementAt(x);
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof Proceso){
-				Proceso ellipse = new Proceso(SWT.COLOR_DARK_BLUE);
+			else if(diagrama.elementAt(x) instanceof SentenceFigure){
+				SentenceFigure ellipse = new SentenceFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				Proceso figuras = (Proceso)diagrama.elementAt(x);
+				SentenceFigure figuras = (SentenceFigure)diagrama.elementAt(x);
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof Entrada){
-				Entrada ellipse = new Entrada(SWT.COLOR_DARK_BLUE);
+			else if(diagrama.elementAt(x) instanceof InputFigure){
+				InputFigure ellipse = new InputFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				Entrada figuras = (Entrada)diagrama.elementAt(x);
+				InputFigure figuras = (InputFigure)diagrama.elementAt(x);
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof Imprimir){
-				Imprimir ellipse = new Imprimir(SWT.COLOR_DARK_BLUE);
+			else if(diagrama.elementAt(x) instanceof OutputFigure){
+				OutputFigure ellipse = new OutputFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				Imprimir figuras = (Imprimir)diagrama.elementAt(x);
+				OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof InicioFin){
-				InicioFin ellipse = new InicioFin();
+			else if(diagrama.elementAt(x) instanceof TerminationFigure){
+				TerminationFigure ellipse = new TerminationFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				InicioFin figuras = (InicioFin)diagrama.elementAt(x);
-				ellipse.setMensaje(figuras.getMensaje());
+				TerminationFigure figuras = (TerminationFigure)diagrama.elementAt(x);
+				ellipse.setMensagge(figuras.getMensagge());
 				diag.add(ellipse);
 			}
 			else if(diagrama.elementAt(x) instanceof Elipse){
@@ -81,8 +81,8 @@ public class Exportar {
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				diag.add(ellipse);
 			}	
-			else if(diagrama.elementAt(x) instanceof IfEnd){
-				IfEnd ellipse = new IfEnd();
+			else if(diagrama.elementAt(x) instanceof DecisionFigureEnd){
+				DecisionFigureEnd ellipse = new DecisionFigureEnd();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				diag.add(ellipse);
 			}	

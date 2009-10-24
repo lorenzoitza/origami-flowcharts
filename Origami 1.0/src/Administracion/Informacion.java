@@ -44,27 +44,27 @@ public class Informacion implements Serializable{
 		info.add(information);
 	}
 	public void setFigura(Figura figura){
-		if(figura instanceof If){
+		if(figura instanceof DecisionFigure){
 			info.add("La figura agregada de tipo \"si\"");
 			//System.out.println("La figura agregada de tipo \"si\"");
 		}
-		else if(figura instanceof For){
+		else if(figura instanceof ForFigure){
 			info.add("La figura agregada de tipo \"para\"");
 			//System.out.println("La figura agregada de tipo \"para\"");
 		}
-		else if(figura instanceof While){
+		else if(figura instanceof WhileFigure){
 			info.add("La figura agregada de tipo \"mientras\"");
 			//System.out.println("La figura agregada de tipo \"mientras\"");
 		}
-		else if(figura instanceof Entrada){
+		else if(figura instanceof InputFigure){
 			info.add("La figura agregada de tipo \"entrada\"");
 			//System.out.println("La figura agregada de tipo \"entrada\"");
 		}
-		else if(figura instanceof Imprimir){
+		else if(figura instanceof OutputFigure){
 			info.add("La figura agregada de tipo \"salida\"");
 			//System.out.println("La figura agregada de tipo \"salida\"");
 		}
-		else if(figura instanceof Proceso){
+		else if(figura instanceof SentenceFigure){
 			info.add("La figura agregada de tipo \"proceso\"");
 			//System.out.println("La figura agregada de tipo \"proceso\"");
 		}
@@ -74,8 +74,8 @@ public class Informacion implements Serializable{
 		String instruccion;
 		String tab="";
 		for(int i=0; i<diagrama.size(); i++){
-			if(diagrama.elementAt(i) instanceof If){
-				If aux = (If)diagrama.elementAt(i);
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
+				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
 				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
@@ -93,8 +93,8 @@ public class Informacion implements Serializable{
 				informacion = informacion +"\n"+tab+"}\n"+tab+"Else{";
 				tab=tab+"	";
 			}
-			else if(diagrama.elementAt(i) instanceof For){
-				For aux = (For)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof ForFigure){
+				ForFigure aux = (ForFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
@@ -111,8 +111,8 @@ public class Informacion implements Serializable{
 				informacion = informacion +"\n"+tab+"}";
 				tab="";
 			}
-			else if(diagrama.elementAt(i) instanceof While){
-				While aux = (While)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof WhileFigure){
+				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
@@ -129,24 +129,24 @@ public class Informacion implements Serializable{
 				informacion = informacion +"\n"+tab+"}";
 				tab="";
 			}
-			else if(diagrama.elementAt(i) instanceof Proceso){
-				Proceso aux = (Proceso)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof SentenceFigure){
+				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Proceso( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Entrada){
-				Entrada aux = (Entrada)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof InputFigure){
+				InputFigure aux = (InputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Entrada( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Imprimir){
-				Imprimir aux = (Imprimir)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof OutputFigure){
+				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
@@ -154,7 +154,7 @@ public class Informacion implements Serializable{
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
-				if(diagrama.elementAt(i+1) instanceof IfEnd){
+				if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
 					}
@@ -163,7 +163,7 @@ public class Informacion implements Serializable{
 					tab = "";
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof InicioFin){
+			else if(diagrama.elementAt(i) instanceof TerminationFigure){
 				if(i==0){
 					informacion = informacion+"\n\nInicio";
 				}
@@ -181,8 +181,8 @@ public class Informacion implements Serializable{
 		String tab = tabulacion;
 		String instruccion;
 		for(int i=posicion; i<diagrama.size(); i++){
-			if(diagrama.elementAt(i) instanceof If){
-				If aux = (If)diagrama.elementAt(i);
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
+				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
 				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
@@ -200,8 +200,8 @@ public class Informacion implements Serializable{
 				informacion = informacion +"\n"+tab+"}\n"+tab+"Else{";
 				tab=tab+"	";
 			}
-			else if(diagrama.elementAt(i) instanceof For){
-				For aux = (For)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof ForFigure){
+				ForFigure aux = (ForFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
@@ -217,8 +217,8 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion +"\n"+tab+"}";
 			}
-			else if(diagrama.elementAt(i) instanceof While){
-				While aux = (While)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof WhileFigure){
+				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
@@ -234,24 +234,24 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion +"\n"+tab+"}";
 			}
-			else if(diagrama.elementAt(i) instanceof Proceso){
-				Proceso aux = (Proceso)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof SentenceFigure){
+				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Proceso( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Entrada){
-				Entrada aux = (Entrada)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof InputFigure){
+				InputFigure aux = (InputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Entrada( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Imprimir){
-				Imprimir aux = (Imprimir)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof OutputFigure){
+				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
@@ -259,7 +259,7 @@ public class Informacion implements Serializable{
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
-				if(diagrama.elementAt(i+1) instanceof IfEnd){
+				if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
 					
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
@@ -288,8 +288,8 @@ public class Informacion implements Serializable{
 		String tab = tabulacion;
 		String instruccion;
 		for(int i=posicion; i<diagrama.size(); i++){
-			if(diagrama.elementAt(i) instanceof If){
-				If aux = (If)diagrama.elementAt(i);
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
+				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
 				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
@@ -307,8 +307,8 @@ public class Informacion implements Serializable{
 				informacion = informacion +"\n"+tab+"}\n"+tab+"Else{";
 				tab=tab+"	";
 			}
-			else if(diagrama.elementAt(i) instanceof For){
-				For aux = (For)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof ForFigure){
+				ForFigure aux = (ForFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
@@ -324,8 +324,8 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion +"\n"+tab+"}";
 			}
-			else if(diagrama.elementAt(i) instanceof While){
-				While aux = (While)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof WhileFigure){
+				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
@@ -341,24 +341,24 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion +"\n"+tab+"}";
 			}
-			else if(diagrama.elementAt(i) instanceof Proceso){
-				Proceso aux = (Proceso)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof SentenceFigure){
+				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Proceso( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Entrada){
-				Entrada aux = (Entrada)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof InputFigure){
+				InputFigure aux = (InputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
 				informacion = informacion+"\n"+tab+"Entrada( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Imprimir){
-				Imprimir aux = (Imprimir)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof OutputFigure){
+				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
 				instruccion = aux.instruccion.instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
@@ -373,7 +373,7 @@ public class Informacion implements Serializable{
 					i= diagrama.size()+1;
 					break;
 				}
-				else if(diagrama.elementAt(i+1) instanceof IfEnd){
+				else if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
 					//informacion = informacion +tab+"\n}";
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);

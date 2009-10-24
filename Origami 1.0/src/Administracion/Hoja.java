@@ -20,7 +20,7 @@ import Administracion.Eventos.EventoCambiarCursor;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.Serializar;
 import Grafico.Ventana;
-import Grafico.Figuras.InicioFin;
+import Grafico.Figuras.TerminationFigure;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -100,10 +100,10 @@ public class Hoja{
 			 chart.elementAt(k).setOpaque(false);
 		}
 		if(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.size()==0){
-			InicioFin inicio = new InicioFin();
-			inicio.setMensaje(" Inicio");
-			InicioFin fin = new InicioFin();
-			fin.setMensaje("  Fin");
+			TerminationFigure inicio = new TerminationFigure();
+			inicio.setMensagge(" Inicio");
+			TerminationFigure fin = new TerminationFigure();
+			fin.setMensagge("  Fin");
 			diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.add(inicio);
 			diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.add(fin);
 			new EventoMenuContextual(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0),tab,seleccion);
@@ -254,8 +254,8 @@ public class Hoja{
 		this.scaledPane = scaledPane;
 	}
 	public void cambiarInicio(){
-		InicioFin inicio = new InicioFin();
-		inicio.setMensaje(" Inicio");
+		TerminationFigure inicio = new TerminationFigure();
+		inicio.setMensagge(" Inicio");
 		inicio.setLocation(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0).getLocation());
 		diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeElementAt(0);
 		diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.insertElementAt(inicio,0);

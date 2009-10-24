@@ -4,10 +4,8 @@ import java.util.Vector;
 import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import Grafico.Figuras.*;
-import Grafico.Ventana;
 /**
  * Esta clase establece las conexiones
  * entre las figuras.
@@ -33,7 +31,7 @@ public class Conexion extends Figure{
 		int pda,pia,j;
 		conexion.removeAllElements();
 		for(int i=0;i<tab.getHoja().getSizeDiagrama()-1;i++){	
-			if(diagrama.elementAt(i+1) instanceof InicioFin){
+			if(diagrama.elementAt(i+1) instanceof TerminationFigure){
 				PolylineConnection coneccion = new PolylineConnection();
 				coneccion.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i)));
@@ -51,7 +49,7 @@ public class Conexion extends Figure{
 			PolylineConnection coneccion = new PolylineConnection();
 			coneccion.setForegroundColor(Display.getCurrent().getSystemColor(color));
 			coneccion.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i)));
-			if(diagrama.elementAt(i+1) instanceof If){
+			if(diagrama.elementAt(i+1) instanceof DecisionFigure){
 				PolylineConnection coneccionpunto1 = new PolylineConnection();
 				coneccionpunto1.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				PolylineConnection coneccionpunto2 = new PolylineConnection();
@@ -120,7 +118,7 @@ public class Conexion extends Figure{
 				conexion.addElement(coneccionpunto1);
 				conexion.addElement(coneccionpunto2);
 			}
-			else if(diagrama.elementAt(i+1) instanceof For || diagrama.elementAt(i+1) instanceof While){
+			else if(diagrama.elementAt(i+1) instanceof ForFigure || diagrama.elementAt(i+1) instanceof WhileFigure){
 				PolygonDecoration decoration = new PolygonDecoration();
 				PointList decorationPointList = new PointList();
 				decorationPointList.addPoint(0,0);
@@ -218,14 +216,14 @@ public class Conexion extends Figure{
 			PolylineConnection conector = new PolylineConnection();
 			conector.setForegroundColor(Display.getCurrent().getSystemColor(color));
 			conector.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i)));
-			if(diagrama.elementAt(i) instanceof For || diagrama.elementAt(i) instanceof While){
+			if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				ConnectionEndpointLocator localizacion2 = new ConnectionEndpointLocator(conector, true);
 				localizacion2.setVDistance(10);
 				localizacion2.setUDistance(30);
 				Label mensaje2 = new Label("Si");
 				conector.add(mensaje2, localizacion2);
 			}
-			if(diagrama.elementAt(i+1) instanceof If){
+			if(diagrama.elementAt(i+1) instanceof DecisionFigure){
 				PolygonDecoration decoration = new PolygonDecoration();
 				PointList decorationPointList = new PointList();
 				decorationPointList.addPoint(0,0);
@@ -293,7 +291,7 @@ public class Conexion extends Figure{
 				conexion.addElement(coneccionpunto1);
 				conexion.addElement(coneccionpunto2);
 			}
-			else if(diagrama.elementAt(i+1) instanceof For || diagrama.elementAt(i+1) instanceof While){
+			else if(diagrama.elementAt(i+1) instanceof ForFigure || diagrama.elementAt(i+1) instanceof WhileFigure){
 				PolygonDecoration decoration = new PolygonDecoration();
 				PointList decorationPointList = new PointList();
 				decorationPointList.addPoint(0,0);

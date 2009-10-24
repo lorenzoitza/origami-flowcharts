@@ -6,7 +6,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
-import Grafico.Figuras.Entrada;
+import Grafico.Figuras.InputFigure;
 import Imagenes.ImageLoader;
 
 /**
@@ -15,9 +15,9 @@ import Imagenes.ImageLoader;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class InputFigureDialog extends AbstractInputOutputDialog<Entrada> {
+public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 
-    public InputFigureDialog(Shell shell, TabFolder tabFolder, Entrada figura,
+    public InputFigureDialog(Shell shell, TabFolder tabFolder, InputFigure figura,
 	    AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figura, selectionAdmin);
 

@@ -28,14 +28,14 @@ import Administracion.Funcionalidad.Exportar;
 import Administracion.Funcionalidad.Serializar;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Figuras.CuadroSeleccion;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.InicioFin;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.SelectionSquare;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Help.AboutWindow;
 import Grafico.Help.HelpWindow;
 import Imagenes.ImageLoader;
@@ -55,7 +55,7 @@ public class Ventana{
 	public static Serializar ser = new Serializar();
 	public static boolean bandera = false;
 	public static boolean isCortar = false;
-	public static Vector<CuadroSeleccion> seleccion = new Vector<CuadroSeleccion>();
+	public static Vector<SelectionSquare> seleccion = new Vector<SelectionSquare>();
 	public static AdminSeleccion selec = new AdminSeleccion();
 	public static TabFolder diagramas;
 	public static EventoKey key;
@@ -532,9 +532,9 @@ public class Ventana{
 				for(int y=diagramas.getHoja().getSizeDiagrama()-1;y>0;y--){
 					diagramas.getHoja().removeFigureIndexOf(y);
 				}
-				InicioFin fin = new InicioFin();
+				TerminationFigure fin = new TerminationFigure();
 				diagramas.getHoja().getDiagrama().add(fin);
-				fin.setMensaje("  Fin");
+				fin.setMensagge("  Fin");
 				diagramas.getHoja().resetScrollBar();
 				diagramas.getHoja().addFigure();
 				diagramas.getHoja().guardarRetroceso();
@@ -768,7 +768,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorEntrada.png";
 				//ImageData image = new ImageData(name);
 				componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-			    Entrada entrada2 = new Entrada(SWT.COLOR_DARK_BLUE);
+			    InputFigure entrada2 = new InputFigure();
 				entrada2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
 				Ventana.figuraPrincipal = entrada2;
@@ -781,7 +781,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorIf.png";
 			    //ImageData image = new ImageData(name);
 			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
-			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
+			    DecisionFigure decision2 = new DecisionFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision2.instruction.instruccion.add(0,codigo);
@@ -796,7 +796,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorProceso.png";
 			   //ImageData image = new ImageData(name);
 			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
-			    Proceso proceso2 = new Proceso(SWT.COLOR_DARK_BLUE);
+			    SentenceFigure proceso2 = new SentenceFigure();
 				proceso2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
 				Ventana.figuraPrincipal = proceso2;
@@ -809,7 +809,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorSalida.png";
 			   //ImageData image = new ImageData(name);
 			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-			    Imprimir salida2 = new Imprimir(SWT.COLOR_DARK_BLUE);
+			    OutputFigure salida2 = new OutputFigure();
 				salida2.instruccion.instruccion = "null";
 				Ventana.figuraPrincipal = null;
 				Ventana.figuraPrincipal = salida2;
@@ -822,7 +822,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorFor.png";
 			    //ImageData image = new ImageData(name);
 			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
-			    For For2 = new For(SWT.COLOR_DARK_BLUE);
+			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
 			    For2.instruccion.instruccion.add(0,codigo);
@@ -837,7 +837,7 @@ public class Ventana{
 				//String name = "imagenes\\cursorWhile.png";
 			   // ImageData image = new ImageData(name);
 			    componentes.cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
-			    While While2 = new While(SWT.COLOR_DARK_BLUE);
+			    WhileFigure While2 = new WhileFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				While2.instruccion.instruccion.add(0,codigo);
@@ -856,7 +856,7 @@ public class Ventana{
 	}
 	public void cargarImagenes(){
 		InputStream iconStream = this.getClass().getResourceAsStream("");
-		Image a = new Image(display, iconStream);
+		Image image = new Image(display, iconStream);
 	}
 	/**
 	 * Este metodo crea la ventana de inicio.

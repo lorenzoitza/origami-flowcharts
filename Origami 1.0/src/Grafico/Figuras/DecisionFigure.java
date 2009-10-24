@@ -4,25 +4,19 @@ import org.eclipse.draw2d.Graphics;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
 import Grafico.Ventana;
-
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 
-public class If extends Figura {
-
-    private Rectangle rectangle = bounds;
-
-    private int color;
+public class DecisionFigure extends Figura {
 
     public InstruccionCompuesta instruction = new InstruccionCompuesta();
 
-    public If(int color) {
+    public DecisionFigure() {
 	setBounds(new Rectangle(100, 100, 80, 40));
-	this.color = color;
+	this.rectangle = bounds;
     }
 
     public void paint(Graphics graphics) {
@@ -32,32 +26,24 @@ public class If extends Figura {
     }
 
     private PointList getPolygon(Graphics graphics) {
-	PointList polygon = new PointList();
-	polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y);
-	polygon.addPoint(rectangle.x + rectangle.width, rectangle.y
+	PointList _polygon = new PointList();
+	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y);
+	_polygon.addPoint(rectangle.x + rectangle.width, rectangle.y
 		+ rectangle.height / 2);
-	polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y
+	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y
 		+ rectangle.height);
-	polygon.addPoint(rectangle.x, rectangle.y + rectangle.height / 2);
-	return polygon;
-    }
-
-    private Font getDefaultFont() {
-	return new Font(Ventana.display, "Arial", 10, SWT.ITALIC);
-    }
-
-    private Color getDefaultTextColor() {
-	return new Color(null, 6, 93, 6);
+	_polygon.addPoint(rectangle.x, rectangle.y + rectangle.height / 2);
+	return _polygon;
     }
 
     private void defaultInstruction(Graphics graphics) {
-	graphics.setFont(getDefaultFont());
-	graphics.setForegroundColor(getDefaultTextColor());
+	graphics.setFont(DEFAULT_FONT);
+	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
 	graphics.drawText("Decision", rectangle.x - 22 + rectangle.width / 2,
 		rectangle.y + 13);
     }
 
-    private int maxDisplayChars(String instruction) {
+    private int maxDisplayCharacters(String instruction) {
 	return instruction.length() - 2;
     }
 
@@ -74,10 +60,10 @@ public class If extends Figura {
     private void putInstruction(Graphics graphics) {
 	if (isInstruction()) {
 
-	    if (maxDisplayChars(baseInstruction()) <= 8) {
+	    if (maxDisplayCharacters(baseInstruction()) <= 8) {
 
 		graphics.drawText(baseInstruction().substring(3,
-			maxDisplayChars(baseInstruction())), rectangle.x - 16
+			maxDisplayCharacters(baseInstruction())), rectangle.x - 16
 			+ rectangle.width / 2, rectangle.y + 13);
 	    } else {
 		graphics.drawText(baseInstruction().substring(3, 8) + "....",
@@ -86,28 +72,6 @@ public class If extends Figura {
 	    }
 	} else {
 	    defaultInstruction(graphics);
-	}
-    }
-
-    private void selectLineTipe(Graphics graphics) {
-	if (isPasoAPaso()) {
-
-	    graphics.setLineWidth(3);
-	    graphics.setLineStyle(SWT.LINE_CUSTOM);
-	    graphics.setForegroundColor(Ventana.display.
-		    getSystemColor(SWT.COLOR_RED));
-	} else {
-	    if (seleccion) {
-
-		graphics.setLineWidth(3);
-		graphics.setLineStyle(SWT.LINE_DASH);
-		graphics.setForegroundColor(Ventana.display.
-			getSystemColor(SWT.COLOR_GRAY));
-	    } else {
-		graphics.setLineWidth(2);
-		graphics.setForegroundColor(Display.getCurrent()
-			.getSystemColor(color));
-	    }
 	}
     }
 }

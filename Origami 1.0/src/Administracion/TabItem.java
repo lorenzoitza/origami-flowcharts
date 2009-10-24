@@ -7,12 +7,12 @@ import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 
 import Administracion.Funcionalidad.Guardar;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -51,45 +51,45 @@ public class TabItem extends CTabItem{
 		retroseso.add(new AdminDiagrama(selec));
 		retroseso.elementAt(posicionRetroceso).diagrama.removeAllElements();
 		for(int i=0; i<diagrama.size(); i++){
-			if(diagrama.elementAt(i) instanceof If){
-				If copia = new If(SWT.COLOR_BLUE);
-				If actual = (If)diagrama.elementAt(i);
+			if(diagrama.elementAt(i) instanceof DecisionFigure){
+				DecisionFigure copia = new DecisionFigure();
+				DecisionFigure actual = (DecisionFigure)diagrama.elementAt(i);
 				for(int j=0; j<actual.instruction.instruccion.size(); j++){
 					copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 				}
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
-			else if(diagrama.elementAt(i) instanceof For){
-				For copia = new For(SWT.COLOR_BLUE);
-				For actual = (For)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof ForFigure){
+				ForFigure copia = new ForFigure();
+				ForFigure actual = (ForFigure)diagrama.elementAt(i);
 				for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 					copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 				}
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
-			else if(diagrama.elementAt(i) instanceof While){
-				While copia = new While(SWT.COLOR_BLUE);
-				While actual = (While)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof WhileFigure){
+				WhileFigure copia = new WhileFigure();
+				WhileFigure actual = (WhileFigure)diagrama.elementAt(i);
 				for(int j=0; j<actual.instruccion.instruccion.size(); j++){
 					copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
 				}
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
-			else if(diagrama.elementAt(i) instanceof Proceso){
-				Proceso copia = new Proceso(SWT.COLOR_BLUE);
-				Proceso actual = (Proceso)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof SentenceFigure){
+				SentenceFigure copia = new SentenceFigure();
+				SentenceFigure actual = (SentenceFigure)diagrama.elementAt(i);
 				copia.instruccion.instruccion = actual.instruccion.instruccion;
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
-			else if(diagrama.elementAt(i) instanceof Entrada){
-				Entrada copia = new Entrada(SWT.COLOR_BLUE);
-				Entrada actual = (Entrada)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof InputFigure){
+				InputFigure copia = new InputFigure();
+				InputFigure actual = (InputFigure)diagrama.elementAt(i);
 				copia.instruccion.instruccion = actual.instruccion.instruccion;
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
-			else if(diagrama.elementAt(i) instanceof Imprimir){
-				Imprimir copia = new Imprimir(SWT.COLOR_BLUE);
-				Imprimir actual = (Imprimir)diagrama.elementAt(i);
+			else if(diagrama.elementAt(i) instanceof OutputFigure){
+				OutputFigure copia = new OutputFigure();
+				OutputFigure actual = (OutputFigure)diagrama.elementAt(i);
 				copia.instruccion.instruccion = actual.instruccion.instruccion;
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}

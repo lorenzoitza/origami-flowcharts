@@ -5,18 +5,16 @@ import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.*;
-
 import Administracion.AdminDiagrama;
 import Administracion.Figura;
 import Administracion.TabFolder;
 import Grafico.*;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 import Imagenes.ImageLoader;
 
@@ -66,7 +64,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			if(Verificar(z,z+1)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z+1) instanceof If){
+			if(tab.getHoja().getFigureIndexOf(z+1) instanceof DecisionFigure){
 				a = verificarDerecha(z+1);
 				if(bandera){
 					break;
@@ -76,7 +74,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					break;
 				}
 		 	 }
-			if(tab.getHoja().getFigureIndexOf(z+1) instanceof For || tab.getHoja().getFigureIndexOf(z+1) instanceof While){
+			if(tab.getHoja().getFigureIndexOf(z+1) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z+1) instanceof WhileFigure){
 				a = verificarAbajo(z+1);
 				z=a+4;
 				if(bandera){
@@ -122,7 +120,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			if(Verificar(x,z)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof If){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z);
 				if(bandera){
 					break;
@@ -135,7 +133,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z);
 				z=a+5;
 				if(bandera){
@@ -165,7 +163,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			if(Verificar(x,z)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof If){
+			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z);
 				if(bandera){
 					break;
@@ -178,7 +176,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof For || tab.getHoja().getFigureIndexOf(z) instanceof While){
+			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z);
 				z=a+4;
 				x=z;
@@ -231,8 +229,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	}
 	public void Remarcar(boolean remarcar){
 		if(remarcar){
-			if(figuraPrincipal instanceof If || figuraPrincipal instanceof For || figuraPrincipal instanceof While
-					|| figuraPrincipal instanceof Imprimir || figuraPrincipal instanceof Entrada || figuraPrincipal instanceof Proceso){
+			if(figuraPrincipal instanceof DecisionFigure || figuraPrincipal instanceof ForFigure || figuraPrincipal instanceof WhileFigure
+					|| figuraPrincipal instanceof OutputFigure || figuraPrincipal instanceof InputFigure || figuraPrincipal instanceof SentenceFigure){
 				 //String name = "cursor.PNG";
 			     //ImageData image = new ImageData(name);
 			     cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursor.PNG").getImageData(), 0, 0);
@@ -241,22 +239,22 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 		}
 		else{
 			String name = "";
-			if(figuraPrincipal instanceof If){
+			if(figuraPrincipal instanceof DecisionFigure){
 				 name =  "cursorIf.png";
 			}
-			else if(figuraPrincipal instanceof For){
+			else if(figuraPrincipal instanceof ForFigure){
 				 name = "cursorFor.png";
 			}
-			else if(figuraPrincipal instanceof While){
+			else if(figuraPrincipal instanceof WhileFigure){
 				 name = "cursorWhile.png";
 			}
-			else if(figuraPrincipal instanceof Imprimir){
+			else if(figuraPrincipal instanceof OutputFigure){
 				 name = "cursorSalida.png";
 			}
-			else if(figuraPrincipal instanceof Entrada){
+			else if(figuraPrincipal instanceof InputFigure){
 				 name = "cursorEntrada.png";
 			}
-			else if(figuraPrincipal instanceof Proceso){
+			else if(figuraPrincipal instanceof SentenceFigure){
 				 name = "cursorProceso.png";
 			}
 			if(name != ""){
@@ -272,8 +270,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 		String subStr;
 		int i;		
 		for(int k=0; k<diagrama.diagrama.size(); k++){
-			if(diagrama.diagrama.elementAt(k) instanceof If){
-				If a = (If)diagrama.diagrama.elementAt(k);
+			if(diagrama.diagrama.elementAt(k) instanceof DecisionFigure){
+				DecisionFigure a = (DecisionFigure)diagrama.diagrama.elementAt(k);
 				dato = a.instruction.instruccion.elementAt(0).instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
@@ -286,8 +284,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof For){
-				For a = (For)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagrama.elementAt(k) instanceof ForFigure){
+				ForFigure a = (ForFigure)diagrama.diagrama.elementAt(k);
 				dato = a.instruccion.instruccion.elementAt(0).instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
@@ -300,8 +298,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof While){
-				While a = (While)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagrama.elementAt(k) instanceof WhileFigure){
+				WhileFigure a = (WhileFigure)diagrama.diagrama.elementAt(k);
 				dato = a.instruccion.instruccion.elementAt(0).instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
@@ -314,8 +312,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof Proceso){
-				Proceso a = (Proceso)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagrama.elementAt(k) instanceof SentenceFigure){
+				SentenceFigure a = (SentenceFigure)diagrama.diagrama.elementAt(k);
 				dato = a.instruccion.instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
@@ -326,8 +324,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof Imprimir){
-				Imprimir a = (Imprimir)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagrama.elementAt(k) instanceof OutputFigure){
+				OutputFigure a = (OutputFigure)diagrama.diagrama.elementAt(k);
 				dato = "";
 				String[] variables2 = new String[50];
 				String[] variables = new String[50];
@@ -360,8 +358,8 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof Entrada){
-				Entrada a = (Entrada)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagrama.elementAt(k) instanceof InputFigure){
+				InputFigure a = (InputFigure)diagrama.diagrama.elementAt(k);
 				dato = a.instruccion.instruccion;
 				dato = dato.replaceAll(";", ",");
 				if(dato.length()>0){

@@ -6,12 +6,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
-
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.Compilar;
-import Administracion.Funcionalidad.Exportar;
 import Administracion.Funcionalidad.Serializar;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
@@ -44,7 +42,7 @@ public class EventoKey {
 				//String name5 = "imagenes//cursorEntrada.png";
 				//ImageData image5 = new ImageData(name5);
 				Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-			    Entrada entrada2 = new Entrada(SWT.COLOR_DARK_BLUE);
+			    InputFigure entrada2 = new InputFigure();
 			    InstruccionSimple codigo5 = new InstruccionSimple();
 			    codigo5.setInstruccionSimple("null");
 				entrada2.instruccion.instruccion = "null";
@@ -58,7 +56,7 @@ public class EventoKey {
 				//String name4 = "imagenes//cursorProceso.png";
 			    //ImageData image4 = new ImageData(name4);
 			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
-			    Proceso proceso2 = new Proceso(SWT.COLOR_DARK_BLUE);
+			    SentenceFigure proceso2 = new SentenceFigure();
 			    InstruccionSimple codigo4 = new InstruccionSimple();
 			    codigo4.setInstruccionSimple("null");
 				proceso2.instruccion.instruccion = "null";
@@ -72,7 +70,7 @@ public class EventoKey {
 				//String name = "imagenes//cursorIf.png";
 			    //ImageData image = new ImageData(name);
 			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
-			    If decision2 = new If(SWT.COLOR_DARK_BLUE);
+			    DecisionFigure decision2 = new DecisionFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision2.instruction.instruccion.add(0,codigo);
@@ -86,7 +84,7 @@ public class EventoKey {
 				//String name3 = "imagenes//cursorWhile.png";
 			    //ImageData image3 = new ImageData(name3);
 			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
-			    While While2 = new While(SWT.COLOR_DARK_BLUE);
+			    WhileFigure While2 = new WhileFigure();
 			    InstruccionSimple codigo3 = new InstruccionSimple();
 				codigo3.setInstruccionSimple("null");
 				While2.instruccion.instruccion.add(0,codigo3);
@@ -100,7 +98,7 @@ public class EventoKey {
 				//String name2 = "imagenes//cursorFor.png";
 			    //ImageData image2 = new ImageData(name2);
 			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
-			    For For2 = new For(SWT.COLOR_DARK_BLUE);
+			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo2 = new InstruccionSimple();
 			    codigo2.setInstruccionSimple("null");
 			    For2.instruccion.instruccion.add(0,codigo2);
@@ -114,7 +112,7 @@ public class EventoKey {
 				//String name6 = "imagenes//cursorSalida.png";
 			    //ImageData image6 = new ImageData(name6);
 			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-			    Imprimir salida2 = new Imprimir(SWT.COLOR_DARK_BLUE);
+			    OutputFigure salida2 = new OutputFigure();
 			    InstruccionSimple codigo6 = new InstruccionSimple();
 				codigo6.setInstruccionSimple("null");
 				salida2.instruccion.instruccion = "null";
@@ -140,7 +138,7 @@ public class EventoKey {
 	       break;
 		case 127:
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof InicioFin){
+				if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof TerminationFigure){
 				}
 				else{
 					EventoMenuContextual.Eliminar(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()));
@@ -162,10 +160,10 @@ public class EventoKey {
 				for(int y=tab.getHoja().getSizeDiagrama()-1;y>0;y--){
 					tab.getHoja().removeFigureIndexOf(y);
 				}
-				InicioFin fin = new InicioFin();
+				TerminationFigure fin = new TerminationFigure();
 				selec.setFiguraSeleccionada(0);
 				tab.getHoja().getDiagrama().add(fin);
-				fin.setMensaje("  Fin");
+				fin.setMensagge("  Fin");
 				tab.getHoja().resetScrollBar();
 				tab.getHoja().addFigure();
 				tab.getHoja().guardarRetroceso();
@@ -322,7 +320,7 @@ public class EventoKey {
 		}
 		else if(key+key2 == 262264){
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof InicioFin || selec.getFiguraSeleccionada() == -1){
+				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof TerminationFigure || selec.getFiguraSeleccionada() == -1){
 				}
 				else{
 					EventoMenuContextual.Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
@@ -332,7 +330,7 @@ public class EventoKey {
 		}
 		else if(key+key2 == 262243){
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof InicioFin || selec.getFiguraSeleccionada() == -1){
+				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof TerminationFigure || selec.getFiguraSeleccionada() == -1){
 				}
 				else{
 					EventoMenuContextual.Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));

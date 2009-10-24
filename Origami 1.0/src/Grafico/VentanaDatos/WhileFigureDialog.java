@@ -5,15 +5,15 @@ import org.eclipse.swt.widgets.*;
 import Administracion.*;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Figuras.While;
+import Grafico.Figuras.WhileFigure;
 
-public class WhileFigureDialog extends AbstractDialog<While> {
+public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
     private Text conditionTextField;
     
     private Label informationLabel;
 
-    public WhileFigureDialog(Shell shell, TabFolder tabFolder, While figure,
+    public WhileFigureDialog(Shell shell, TabFolder tabFolder, WhileFigure figure,
 	    AdminSeleccion selectionAdmin) {
 	super(shell, tabFolder, figure, selectionAdmin);
     }

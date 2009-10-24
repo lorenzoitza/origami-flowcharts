@@ -9,13 +9,13 @@ import org.eclipse.swt.widgets.*;
 import Administracion.Figura;
 import Administracion.Funcionalidad.Exportar;
 import Grafico.*;
-import Grafico.Figuras.Entrada;
-import Grafico.Figuras.For;
-import Grafico.Figuras.If;
-import Grafico.Figuras.Imprimir;
-import Grafico.Figuras.InicioFin;
-import Grafico.Figuras.Proceso;
-import Grafico.Figuras.While;
+import Grafico.Figuras.InputFigure;
+import Grafico.Figuras.ForFigure;
+import Grafico.Figuras.DecisionFigure;
+import Grafico.Figuras.OutputFigure;
+import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.SentenceFigure;
+import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
 import Imagenes.ImageLoader;
 
@@ -495,8 +495,8 @@ public class Instruccion implements Serializable{
 		int x=1,contIf=0,contFor=0,contWhile=0;
 		int[] u= new int[2];
 		while(true){		
-			if(diagrama.elementAt(x) instanceof If){
-				If f = (If)diagrama.elementAt(x);
+			if(diagrama.elementAt(x) instanceof DecisionFigure){
+				DecisionFigure f = (DecisionFigure)diagrama.elementAt(x);
 				contIf++;
 				u = ciclos(contIf);
 				f.instruction.instruccion.removeAllElements();
@@ -518,8 +518,8 @@ public class Instruccion implements Serializable{
 				}
 				diagrama.setElementAt(f, x);
 			}
-			else if(diagrama.elementAt(x) instanceof For){
-				For f = (For)diagrama.elementAt(x);
+			else if(diagrama.elementAt(x) instanceof ForFigure){
+				ForFigure f = (ForFigure)diagrama.elementAt(x);
 				contFor++;
 				u = ciclosF(contFor);
 				f.instruccion.instruccion.removeAllElements();
@@ -541,8 +541,8 @@ public class Instruccion implements Serializable{
 				}
 				diagrama.setElementAt(f, x);
 			}
-			else if(diagrama.elementAt(x) instanceof While){
-				While f = (While)diagrama.elementAt(x);
+			else if(diagrama.elementAt(x) instanceof WhileFigure){
+				WhileFigure f = (WhileFigure)diagrama.elementAt(x);
 				contWhile++;
 				u = ciclosW(contWhile);
 				f.instruccion.instruccion.removeAllElements();
@@ -564,7 +564,7 @@ public class Instruccion implements Serializable{
 				}
 				diagrama.setElementAt(f, x);
 			}
-			else if(diagrama.elementAt(x) instanceof InicioFin){
+			else if(diagrama.elementAt(x) instanceof TerminationFigure){
 				break;
 			}
 			else{
@@ -598,8 +598,8 @@ public class Instruccion implements Serializable{
 	 */
 	public int recorrido(Vector<Figura> diagrama,int x){
 		while(true){		
-			if(diagrama.elementAt(x) instanceof If){
-				If f = (If)diagrama.elementAt(x);
+			if(diagrama.elementAt(x) instanceof DecisionFigure){
+				DecisionFigure f = (DecisionFigure)diagrama.elementAt(x);
 				if(f.instruction.instruccion.elementAt(0) != null){
 					if(f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
 						codigo.add(espacio + f.instruction.instruccion.elementAt(0).getInstruccionSimple());
@@ -635,8 +635,8 @@ public class Instruccion implements Serializable{
 					}
 				}
 			}
-			else if(diagrama.elementAt(x) instanceof For){
-				For f = (For)diagrama.elementAt(x);
+			else if(diagrama.elementAt(x) instanceof ForFigure){
+				ForFigure f = (ForFigure)diagrama.elementAt(x);
 				if(f.instruccion.instruccion.elementAt(0) != null){
 					if(f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
 						codigo.add(espacio + f.instruccion.instruccion.elementAt(0).getInstruccionSimple());
@@ -655,8 +655,8 @@ public class Instruccion implements Serializable{
 				}
 				x += 5;
 			}
-			else if(diagrama.elementAt(x) instanceof While){
-				While f = (While)diagrama.elementAt(x);
+			else if(diagrama.elementAt(x) instanceof WhileFigure){
+				WhileFigure f = (WhileFigure)diagrama.elementAt(x);
 				if(f.instruccion.instruccion.elementAt(0) != null){
 					if(f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
 						codigo.add(espacio + f.instruccion.instruccion.elementAt(0).getInstruccionSimple());
@@ -675,8 +675,8 @@ public class Instruccion implements Serializable{
 				}
 				x += 5;
 			}
-			else if(diagrama.elementAt(x) instanceof Imprimir){
-				Imprimir f = ((Imprimir)diagrama.elementAt(x));
+			else if(diagrama.elementAt(x) instanceof OutputFigure){
+				OutputFigure f = ((OutputFigure)diagrama.elementAt(x));
 				if(f.instruccion.getInstruccionSimple() != null){
 					String[] ins = new String[3];
 					String inst = f.instruccion.getInstruccionSimple();
@@ -689,8 +689,8 @@ public class Instruccion implements Serializable{
 					}
 				}
 			}
-			else if(diagrama.elementAt(x) instanceof Entrada){
-				Entrada f = ((Entrada)diagrama.elementAt(x));
+			else if(diagrama.elementAt(x) instanceof InputFigure){
+				InputFigure f = ((InputFigure)diagrama.elementAt(x));
 				if(f.instruccion.getInstruccionSimple() != null){
 					String[] ins;
 					String inst = f.instruccion.getInstruccionSimple();
@@ -726,8 +726,8 @@ public class Instruccion implements Serializable{
 					}
 				}
 			}
-			else if(diagrama.elementAt(x) instanceof Proceso){
-				Proceso f = (Proceso)diagrama.elementAt(x);
+			else if(diagrama.elementAt(x) instanceof SentenceFigure){
+				SentenceFigure f = (SentenceFigure)diagrama.elementAt(x);
 				if(f.instruccion.getInstruccionSimple() != null){
 					codigo.add(espacio + f.instruccion.getInstruccionSimple());
 				}
@@ -735,7 +735,7 @@ public class Instruccion implements Serializable{
 			else if(diagrama.elementAt(x) instanceof Elipse){
 				break;
 			}
-			else if(diagrama.elementAt(x) instanceof InicioFin){
+			else if(diagrama.elementAt(x) instanceof TerminationFigure){
 				break;
 			}
 			else{

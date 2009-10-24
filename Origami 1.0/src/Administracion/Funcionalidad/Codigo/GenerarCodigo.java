@@ -2,9 +2,6 @@ package Administracion.Funcionalidad.Codigo;
 
 import java.io.Serializable;
 import java.util.Vector;
-import Administracion.Figura;
-import Grafico.Ventana;
-import Grafico.Figuras.*;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
