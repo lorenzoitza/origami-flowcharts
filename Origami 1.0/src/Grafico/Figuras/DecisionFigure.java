@@ -3,12 +3,8 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
-import Grafico.Ventana;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
 
 public class DecisionFigure extends Figura {
 
@@ -21,11 +17,11 @@ public class DecisionFigure extends Figura {
 
     public void paint(Graphics graphics) {
 	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygon(graphics));
-	putInstruction(graphics);
+	graphics.drawPolygon(getPolygonPoints());
+	drawInstruction(graphics);
     }
 
-    private PointList getPolygon(Graphics graphics) {
+    private PointList getPolygonPoints() {
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y);
 	_polygon.addPoint(rectangle.x + rectangle.width, rectangle.y
@@ -57,7 +53,7 @@ public class DecisionFigure extends Figura {
 		getInstruccionSimple().compareTo("null") != 0;
     }
 
-    private void putInstruction(Graphics graphics) {
+    private void drawInstruction(Graphics graphics) {
 	if (isInstruction()) {
 
 	    if (maxDisplayCharacters(baseInstruction()) <= 8) {

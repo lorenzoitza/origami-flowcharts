@@ -3,13 +3,7 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Ventana;
-
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de Proceso.
@@ -33,8 +27,9 @@ public class SentenceFigure extends Figura {
      */
     public void paint(Graphics g) {
 	selectLineTipe(g);
-	g.drawRectangle(rectangle.x + 1, rectangle.y + 1, rectangle.width - 2, rectangle.height - 2);
-	putInstruction(g);
+	g.drawRectangle(rectangle.x + 1, rectangle.y + 1, rectangle.width - 2,
+		rectangle.height - 2);
+	drawInstruction(g);
     }
 
     private void defaultInstruction(Graphics graphics) {
@@ -49,7 +44,7 @@ public class SentenceFigure extends Figura {
 		&& instruccion.instruccion.compareTo("null") != 0;
     }
 
-    private void putInstruction(Graphics graphics) {
+    private void drawInstruction(Graphics graphics) {
 	if (isInstruction()) {
 	    
 	    String _instruction = instruccion.instruccion;

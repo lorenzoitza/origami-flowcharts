@@ -3,14 +3,8 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
-
 import Administracion.Figura;
 import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
-import Grafico.Ventana;
 
 /**
  * Esta clase es la que crea y dibujar la figura del For.
@@ -34,11 +28,11 @@ public class ForFigure extends Figura {
      */
     public void paint(Graphics graphics) {
 	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygon());
-	putInstruction(graphics);
+	graphics.drawPolygon(getPolygonPoints());
+	drawInstruction(graphics);
     }
 
-    private PointList getPolygon() {
+    private PointList getPolygonPoints() {
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + (rectangle.width / 16 * 3),
 		rectangle.y + 5);
@@ -62,7 +56,7 @@ public class ForFigure extends Figura {
 		rectangle.y + 13);
     }
 
-    private void putInstruction(Graphics g) {
+    private void drawInstruction(Graphics g) {
 	String _code =
 		instruccion.instruccion.firstElement().getInstruccionSimple();
 	_code = _code.replaceFirst("for", "");

@@ -3,13 +3,8 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 import Administracion.Figura;
 import Administracion.Funcionalidad.Codigo.*;
-import Grafico.Ventana;
 
 /**
  * Esta clase es la que crea y dibujar a la figura del While.
@@ -33,8 +28,8 @@ public class WhileFigure extends Figura {
      */
     public void paint(Graphics graphics) {
 	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygon());
-	putInstruction(graphics);
+	graphics.drawPolygon(getPolygonPoints());
+	drawInstruction(graphics);
     }
 
     private void defaultInstruction(Graphics graphics) {
@@ -50,7 +45,7 @@ public class WhileFigure extends Figura {
 			.getInstruccionSimple().compareTo("null") != 0;
     }
 
-    private PointList getPolygon() {
+    private PointList getPolygonPoints() {
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y);
 	_polygon.addPoint(rectangle.x + rectangle.width, rectangle.y
@@ -61,7 +56,7 @@ public class WhileFigure extends Figura {
 	return _polygon;
     }
 
-    private void putInstruction(Graphics graphics) {
+    private void drawInstruction(Graphics graphics) {
 	if (isInstruction()) {
 	    String _instruction = instruccion.instruccion.elementAt(0).getInstruccionSimple();
 

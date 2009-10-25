@@ -3,14 +3,8 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
-
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Ventana;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de entrada.
@@ -34,11 +28,11 @@ public class InputFigure extends Figura {
      */
     public void paint(Graphics graphics) {
 	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygon());
-	putInstruction(graphics);
+	graphics.drawPolygon(getPointsOfPolygon());
+	drawInstruction(graphics);
     }
 
-    private PointList getPolygon() {
+    private PointList getPointsOfPolygon() {
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + 25, rectangle.y + 1);
 	_polygon.addPoint(rectangle.x + rectangle.width, rectangle.y + 1);
@@ -56,11 +50,11 @@ public class InputFigure extends Figura {
     private void defaultInstruction(Graphics graphics) {
 	graphics.setFont(DEFAULT_FONT);
 	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
-	graphics.drawText("Decision", rectangle.x - 24 + rectangle.width / 2,
+	graphics.drawText("Entrada", rectangle.x - 24 + rectangle.width / 2,
 		rectangle.y + 13);
     }
 
-    private void putInstruction(Graphics g) {
+    private void drawInstruction(Graphics g) {
 	if (isInstruction()) {
 
 	    String _variables = instruccion.instruccion;

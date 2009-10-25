@@ -26,7 +26,7 @@ public class SelectionSquare extends Figura {
 	this.rectangle=bounds;
     }
 
-    private PointList getPolygon(){
+    private PointList getPolygonPoints(){
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + (rectangle.width / 16 * 3),
 		rectangle.y + 5);
@@ -55,6 +55,6 @@ public class SelectionSquare extends Figura {
 	}
 	graphics.setForegroundColor(Display.getCurrent().getSystemColor(color));
 	
-	graphics.drawPolygon(getPolygon());
+	graphics.drawPolygon(getPolygonPoints());
     }
 }

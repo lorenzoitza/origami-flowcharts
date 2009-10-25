@@ -4,10 +4,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-
 import Administracion.*;
-import Grafico.Ventana;
 
 public class DecisionFigureEnd extends Figura {
 

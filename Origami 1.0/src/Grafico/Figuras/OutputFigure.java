@@ -3,13 +3,8 @@ package Grafico.Figuras;
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Ventana;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.widgets.Display;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de imprimir.
@@ -33,11 +28,11 @@ public class OutputFigure extends Figura {
      */
     public void paint(Graphics graphics) {
 	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygon());
-	putInstruction(graphics, getVariables());
+	graphics.drawPolygon(getPolygonPoints());
+	drawInstruction(graphics, getVariables());
     }
 
-    private PointList getPolygon() {
+    private PointList getPolygonPoints() {
 	PointList _polygon = new PointList();
 	_polygon.addPoint(rectangle.x + 1, rectangle.y + 1);
 	_polygon.addPoint(rectangle.x + (rectangle.width / 5) * 3,
@@ -96,7 +91,7 @@ public class OutputFigure extends Figura {
 	return _variables;
     }
 
-    private void putInstruction(Graphics graphics, String[] variables) {
+    private void drawInstruction(Graphics graphics, String[] variables) {
 	if (isInstruction()) {
 
 	    String[] _allVariables = instruccion.instruccion.split(";");
