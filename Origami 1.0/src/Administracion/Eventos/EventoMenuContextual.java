@@ -170,7 +170,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				ForFigure For = new ForFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
-			    For.instruccion.instruccion.add(0,codigo);
+			    For.instruction.instruccion.add(0,codigo);
 			    Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = For;
 			    insertarFigura(For);
@@ -365,7 +365,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					ForFigure For = new ForFigure();
 				    InstruccionSimple codigo = new InstruccionSimple();
 				    codigo.setInstruccionSimple("null");
-				    For.instruccion.instruccion.add(0,codigo);
+				    For.instruction.instruccion.add(0,codigo);
 				    Ventana.figuraPrincipal = null;
 				    Ventana.figuraPrincipal = For;
 				    insertarFigura(For);
@@ -460,8 +460,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						else if(tab.getHoja().getFigureIndexOf(x) instanceof ForFigure){
 							ForFigure copia = new ForFigure();
 							ForFigure actual = (ForFigure)tab.getHoja().getFigureIndexOf(x);
-							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+							for(int j=0; j<actual.instruction.instruccion.size(); j++){
+								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -514,8 +514,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
 						else if(tab.getHoja().getFigureIndexOf(x) instanceof ForFigure){
 							ForFigure copia = new ForFigure();
 							ForFigure actual = (ForFigure)tab.getHoja().getFigureIndexOf(x);
-							for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-								copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+							for(int j=0; j<actual.instruction.instruccion.size(); j++){
+								copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 							}
 							Ventana.diagramaEnMemoria.diagrama.add(index,copia);
 						}
@@ -605,8 +605,8 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				else if(Ventana.diagramaEnMemoria.diagrama.elementAt(i) instanceof ForFigure){
 					ForFigure nueva = new ForFigure();
 					ForFigure aux = (ForFigure)Ventana.diagramaEnMemoria.diagrama.elementAt(i);
-					for(int x=0;x<aux.instruccion.instruccion.size(); x++){
-						nueva.instruccion.instruccion.add(x,aux.instruccion.instruccion.elementAt(x));
+					for(int x=0;x<aux.instruction.instruccion.size(); x++){
+						nueva.instruction.instruccion.add(x,aux.instruction.instruccion.elementAt(x));
 					}
 					Ventana.diagramaEnMemoria.diagrama.remove(i);
 					Ventana.diagramaEnMemoria.diagrama.insertElementAt(nueva,i);

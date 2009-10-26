@@ -522,7 +522,7 @@ public class Instruccion implements Serializable{
 				ForFigure f = (ForFigure)diagrama.elementAt(x);
 				contFor++;
 				u = ciclosF(contFor);
-				f.instruccion.instruccion.removeAllElements();
+				f.instruction.instruccion.removeAllElements();
 				for(int m=0;m<codigo.size();m++){
 					if(m>=u[0] && m<=u[1]){
 						InstruccionSimple inst = new InstruccionSimple();
@@ -536,7 +536,7 @@ public class Instruccion implements Serializable{
 						}
 						codigo.setElementAt(copia, m);
 						inst.setInstruccionSimple(codigo.elementAt(m));
-						f.instruccion.instruccion.add(inst);
+						f.instruction.instruccion.add(inst);
 					}
 				}
 				diagrama.setElementAt(f, x);
@@ -637,9 +637,9 @@ public class Instruccion implements Serializable{
 			}
 			else if(diagrama.elementAt(x) instanceof ForFigure){
 				ForFigure f = (ForFigure)diagrama.elementAt(x);
-				if(f.instruccion.instruccion.elementAt(0) != null){
-					if(f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruccion.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
-						codigo.add(espacio + f.instruccion.instruccion.elementAt(0).getInstruccionSimple());
+				if(f.instruction.instruccion.elementAt(0) != null){
+					if(f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("null") != 0 && f.instruction.instruccion.firstElement().getInstruccionSimple().compareTo("") != 0){
+						codigo.add(espacio + f.instruction.instruccion.elementAt(0).getInstruccionSimple());
 						tabula(4);
 						x = recorrido(diagrama,x+1);
 						tabula(-4);

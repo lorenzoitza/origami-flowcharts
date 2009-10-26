@@ -828,7 +828,7 @@ public class DibujarDiagrama extends Figure{
 					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					ForFigure figura = new ForFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -923,7 +923,7 @@ public class DibujarDiagrama extends Figure{
 					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					ForFigure figura = new ForFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());

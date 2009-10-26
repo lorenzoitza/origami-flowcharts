@@ -286,10 +286,10 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof ForFigure){
 				ForFigure a = (ForFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruccion.instruccion.elementAt(0).instruccion;
+				dato = a.instruction.instruccion.elementAt(0).instruccion;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instruccion.instruccion.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instruction.instruccion.size() > 1){
 					subStr=subStr.substring(3,subStr.length());
 					subStr="Para"+subStr;
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));

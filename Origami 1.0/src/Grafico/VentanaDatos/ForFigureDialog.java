@@ -67,9 +67,9 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 		instructionCode += ";" + counterExpressionTextField.getText();
 		instructionCode += "){";
 		forInstrution.setInstruccionSimple(instructionCode);
-		if (abstractFigure.instruccion.instruccion.size() > 0) {
+		if (abstractFigure.instruction.instruccion.size() > 0) {
 
-		    if (!abstractFigure.instruccion.instruccion.elementAt(0).
+		    if (!abstractFigure.instruction.instruccion.elementAt(0).
 			    instruccion.equals(instructionCode)) {
 
 			tabbedPaneSelected.getTabItem().getSave()
@@ -83,7 +83,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 			cambio = true;
 		    }
 		}
-		abstractFigure.instruccion.instruccion.add(0, forInstrution);
+		abstractFigure.instruction.instruccion.add(0, forInstrution);
 		tabbedPaneSelected.getHoja().addFigure();
 		tabbedPaneSelected.getHoja().guardarRetroceso();
 		if (cambio) {
@@ -126,7 +126,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	String counterExpression = "";
 
 	instructionCode =
-		abstractFigure.instruccion.instruccion.firstElement()
+		abstractFigure.instruction.instruccion.firstElement()
 			.getInstruccionSimple();
 	instructionCode = instructionCode.replaceFirst("for", "");
 	instructionCode = instructionCode.replace("(", "");
@@ -136,7 +136,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	if ((instructionCode.compareTo("null") != 0)
 		&& (instructionCode.compareTo("") != 0)) {
 	    String[] forExpressions =
-		    abstractFigure.instruccion.instruccion.firstElement()
+		    abstractFigure.instruction.instruccion.firstElement()
 			    .getInstruccionSimple().split(";");
 	    for (int charPositionOfIndexExpression = 0; 
 	    	charPositionOfIndexExpression < forExpressions[0].length(); 

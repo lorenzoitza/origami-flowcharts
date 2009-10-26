@@ -38,7 +38,7 @@ public class Exportar {
 				ForFigure ellipse = new ForFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				ForFigure figuras = (ForFigure)diagrama.elementAt(x);
-				ellipse.instruccion = figuras.instruccion;
+				ellipse.instruction = figuras.instruction;
 				diag.add(ellipse);
 			}
 			else if(diagrama.elementAt(x) instanceof WhileFigure){

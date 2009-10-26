@@ -95,7 +95,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
@@ -202,7 +202,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
@@ -309,7 +309,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}

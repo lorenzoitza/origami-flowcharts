@@ -101,7 +101,7 @@ public class EventoKey {
 			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo2 = new InstruccionSimple();
 			    codigo2.setInstruccionSimple("null");
-			    For2.instruccion.instruccion.add(0,codigo2);
+			    For2.instruction.instruccion.add(0,codigo2);
 			    Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = For2;
 			    Ventana.bandera = false;

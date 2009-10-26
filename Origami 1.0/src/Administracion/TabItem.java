@@ -62,8 +62,8 @@ public class TabItem extends CTabItem{
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure copia = new ForFigure();
 				ForFigure actual = (ForFigure)diagrama.elementAt(i);
-				for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-					copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+				for(int j=0; j<actual.instruction.instruccion.size(); j++){
+					copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
 				}
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}

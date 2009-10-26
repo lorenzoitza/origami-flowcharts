@@ -825,7 +825,7 @@ public class Ventana{
 			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
-			    For2.instruccion.instruccion.add(0,codigo);
+			    For2.instruction.instruccion.add(0,codigo);
 			    Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = For2;
 			    Ventana.bandera = false;
