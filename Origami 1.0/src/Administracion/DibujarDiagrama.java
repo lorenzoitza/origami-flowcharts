@@ -5,7 +5,7 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.SWT;
 
-import Administracion.Eventos.EventoDobleClick;
+import Administracion.Eventos.DoubleClickEvent;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoSeleccionar;
 import Grafico.*;
@@ -34,7 +34,7 @@ public class DibujarDiagrama extends Figure{
 	public TabFolder tab;
 	
     /**
-     * Define varias propiedades como el color y tamaño
+     * Define varias propiedades como el color y tamaï¿½o
      * de la clase Cuadro.
      */
 	public DibujarDiagrama(AdminSeleccion selecc,TabFolder tabfolder){
@@ -818,7 +818,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
@@ -834,7 +834,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
@@ -850,7 +850,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
@@ -866,7 +866,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
@@ -882,7 +882,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
@@ -898,7 +898,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!Ventana.getComponentes().isPasoAPaso){
-						new EventoDobleClick(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
 					}
