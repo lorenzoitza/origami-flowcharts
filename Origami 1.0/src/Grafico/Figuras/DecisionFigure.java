@@ -17,7 +17,9 @@ public class DecisionFigure extends Figura {
 
     public void paint(Graphics graphics) {
 		selectLineTipe(graphics);
+		
 		PointList polygonPoints = constructPolygonPoints();
+		
 		graphics.drawPolygon(polygonPoints);
 		drawInstruction(graphics);
     }
@@ -46,52 +48,62 @@ public class DecisionFigure extends Figura {
     }
 
     private void drawDefaultInstruction(Graphics graphics) {
-    	int textXCoord = rectangle.x - 22 + rectangle.width / 2;
+	String defaultInstrutionText = "Decision";
+	
+	int xCoord = rectangle.x - 22 + rectangle.width / 2;
     	
-    	int textYCoord = rectangle.y + 13;
+    	int yCoord = rectangle.y + 13;
     	
-		graphics.setFont(DEFAULT_FONT);
-		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
-		graphics.drawText("Decision", textXCoord, textYCoord);
+	graphics.setFont(DEFAULT_FONT);
+	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
+	graphics.drawText(defaultInstrutionText, xCoord, yCoord);
     }
 
-    private int maxDisplayCharacters(String instruction) {
-    	return instruction.length() - 2;
+    private void drawInstruction(Graphics graphics) {
+    	if (isInstruction()) {
+    	    int xCoord = rectangle.x - 16 + rectangle.width / 2;
+    	
+    	    int yCoord = rectangle.y + 13;
+    	
+    	    String instructionCode = getInstructionCode();
+    	    
+    	    int maxLenght = 8;
+    	    
+    	    int instructionLenght = getInstructionLenght();
+    	    
+    	    int beginIndex = 3;
+    	    
+    	    String instructionText;
+    	    
+    	    if (instructionLenght <= maxLenght) {
+    		
+    		instructionText = instructionCode.substring(beginIndex, instructionLenght);
+	
+		graphics.drawText(instructionText, xCoord, yCoord);
+				
+    	    } else {
+    		instructionText = instructionCode.substring(beginIndex, maxLenght) + "....";
+		    	
+		graphics.drawText(instructionText, xCoord, yCoord);
+    	    }
+    	} else {
+    	    drawDefaultInstruction(graphics);
+	}
+    }
+    
+    private int getInstructionLenght() {
+    	return getInstructionCode().length() - 2;
     }
 
-    private String getBaseInstruction() {
+    private String getInstructionCode() {
     	return instruction.instruccion.elementAt(0).getInstruccionSimple();
     }
 
     private boolean isInstruction() {
-		return (instruction.instruccion.size() > 1) && (instruction.instruccion
-			.firstElement().getInstruccionSimple().compareTo("null") != 0);
-    }
-
-    private void drawInstruction(Graphics graphics) {
-    	int instructionXCoord = rectangle.x - 16 + rectangle.width / 2;
-    	
-    	int instructionYCoord = rectangle.y + 13;
-    	
-    	String _instructionCode;
-    	
-    	if (isInstruction()) {
-			
-	    	
-		    if (maxDisplayCharacters(getBaseInstruction()) <= 8) {
-		    	
-		    	_instructionCode = getBaseInstruction().substring(3,
-						maxDisplayCharacters(getBaseInstruction()));
+	boolean isNull = instruction.instruccion.firstElement().getInstruccionSimple() == null;
 	
-				graphics.drawText(_instructionCode, instructionXCoord, instructionYCoord);
-				
-		    } else {
-		    	_instructionCode = getBaseInstruction().substring(3, 8) + "....";
-		    	
-				graphics.drawText(_instructionCode, instructionXCoord, instructionYCoord);
-		    }
-		} else {
-		    drawDefaultInstruction(graphics);
-		}
+	boolean isEmpty = instruction.instruccion.size() < 1;
+	
+	return (!isEmpty) && (!isNull);
     }
 }
