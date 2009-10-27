@@ -783,7 +783,7 @@ public class PasoAPaso extends Ejecutar{
 				contadorDeLlaves=0;
 			}
 			else{
-				if(tab.getHoja().getFigureIndexOf(i) instanceof TerminationFigure){
+				if(tab.getHoja().getFigureIndexOf(i) instanceof CircleFigure){
 					tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
 					cont++;
 					/**

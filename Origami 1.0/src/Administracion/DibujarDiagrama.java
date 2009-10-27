@@ -15,7 +15,7 @@ import Grafico.Figuras.DecisionFigureEnd;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.SentenceFigure;
 import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
@@ -102,7 +102,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof TerminationFigure){
+				if(diagrama.elementAt(i) instanceof CircleFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}
@@ -145,7 +145,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof TerminationFigure){
+				if(diagrama.elementAt(i) instanceof CircleFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}
@@ -973,11 +973,11 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
 				}
-				else if(diagrama.elementAt(x) instanceof TerminationFigure){
+				else if(diagrama.elementAt(x) instanceof CircleFigure){
 					pt = diagrama.elementAt(x).getLocation();
-					TerminationFigure fig = (TerminationFigure)diagrama.elementAt(x);
+					CircleFigure fig = (CircleFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
-					TerminationFigure ini = new TerminationFigure();
+					CircleFigure ini = new CircleFigure();
 					ini.setMensagge(fig.getMensagge());
 					ini.setListaPosicion(fig.getPosicion());
 					ini.setLocation(pt);
@@ -1005,7 +1005,7 @@ public class DibujarDiagrama extends Figure{
 				else{
 					x = diagrama.elementAt(i-1).getBounds().x;
 				}
-				if(diagrama.elementAt(i) instanceof TerminationFigure){
+				if(diagrama.elementAt(i) instanceof CircleFigure){
 					punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 					diagrama.elementAt(i).setBounds(new Rectangle(punto.x, punto.y,80,50));
 				}

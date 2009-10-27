@@ -1,5 +1,7 @@
 package Grafico.Figuras;
 
+import java.awt.Point;
+
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -39,40 +41,39 @@ public class ForFigure extends Figura {
     private PointList constructPolygonPoints() {
 		PointList _polygonPoints = new PointList();
 		
-		int x1_coord = rectangle.x + (rectangle.width / 16 * 3);
+		int x1Coord = rectangle.x + (rectangle.width / 16 * 3);
 		
-		int x2_coord = rectangle.x + rectangle.width 
-			- (rectangle.width / 16 * 3);
+		int x2Coord = rectangle.x + rectangle.width - (rectangle.width / 16 * 3);
 		
-		int x3_coord = rectangle.x + rectangle.width;
+		int x3Coord = rectangle.x + rectangle.width;
 		
-		int y1_coord = rectangle.y + 5;
+		int y1Coord = rectangle.y + 5;
 		
-		int y2_coord = rectangle.y + rectangle.height / 2;
+		int y2Coord = rectangle.y + (rectangle.height / 2);
 		
-		int y3_coord = rectangle.y + rectangle.height - 5;
+		int y3Coord = rectangle.y + rectangle.height - 5;
 		
 		
-		_polygonPoints.addPoint(x1_coord, y1_coord);
-		_polygonPoints.addPoint(x2_coord, y1_coord);
-		_polygonPoints.addPoint(x3_coord, y2_coord);
-		_polygonPoints.addPoint(x2_coord, y3_coord);
-		_polygonPoints.addPoint(x1_coord, y3_coord);
-		_polygonPoints.addPoint(rectangle.x, y2_coord);
+		_polygonPoints.addPoint(x1Coord, y1Coord);
+		_polygonPoints.addPoint(x2Coord, y1Coord);
+		_polygonPoints.addPoint(x3Coord, y2Coord);
+		_polygonPoints.addPoint(x2Coord, y3Coord);
+		_polygonPoints.addPoint(x1Coord, y3Coord);
+		_polygonPoints.addPoint(rectangle.x, y2Coord);
 		
 		return _polygonPoints;
     }
     
     
     private void drawDefaultInstruction(Graphics graphics) {
-    	int textXCoord = rectangle.x - 13 + rectangle.width / 2;
+    	int xCoord = rectangle.x - 13 + rectangle.width / 2;
     	int textYCoord = rectangle.y + 13;
     	
 		graphics.setFont(DEFAULT_FONT);
 		
 		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
 		
-		graphics.drawText("Para", textXCoord, textYCoord);
+		graphics.drawText("Para", xCoord, textYCoord);
     }
 
     private void drawInstruction(Graphics g) {
@@ -93,18 +94,18 @@ public class ForFigure extends Figura {
 		    
 			String _subInstruction = "";
 			
-			int subInstructionXCoord = rectangle.x + rectangle.width / 5;
+			int xCoord = rectangle.x + rectangle.width / 5;
 			
-			int subInstructionYCoord = rectangle.y + 13;
+			int yCoord = rectangle.y + 13;
 	
 		    if ((_code.length() - 7) <= 2) {
-				for (int indexOfVariable = 0; indexOfVariable < 3; indexOfVariable++) {
-				    _subInstruction = _subInstruction + _variables[indexOfVariable] + ";";
+				for (int index = 0; index < 3; index++) {
+				    _subInstruction = _subInstruction + _variables[index] + ";";
 				}
-				g.drawText(_subInstruction, subInstructionXCoord, subInstructionYCoord);
+				g.drawText(_subInstruction, xCoord, yCoord);
 		    } else {
 				_subInstruction = _code.substring(0, _code.length() - 7) + "...";
-				g.drawText(_subInstruction , subInstructionXCoord, subInstructionYCoord);
+				g.drawText(_subInstruction , xCoord, yCoord);
 		    }
 		} else {
 		    drawDefaultInstruction(g);

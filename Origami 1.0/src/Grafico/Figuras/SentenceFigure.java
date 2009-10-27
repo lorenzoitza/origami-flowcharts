@@ -16,8 +16,8 @@ public class SentenceFigure extends Figura {
     public InstruccionSimple instruccion = new InstruccionSimple();
 
     public SentenceFigure() {
-	setBounds(new Rectangle(100, 100, 80, 40));
-	this.rectangle = bounds;
+		setBounds(new Rectangle(100, 100, 80, 40));
+		this.rectangle = bounds;
     }
     
     /**
@@ -25,43 +25,61 @@ public class SentenceFigure extends Figura {
      * 
      * @param Graphics
      */
-    public void paint(Graphics g) {
-	selectLineTipe(g);
-	g.drawRectangle(rectangle.x + 1, rectangle.y + 1, rectangle.width - 2,
-		rectangle.height - 2);
-	drawInstruction(g);
+    public void paint(Graphics graphics) {
+		selectLineTipe(graphics);
+		drawRectangleFigure(graphics);
+		drawInstruction(graphics);
+    }
+    
+    private void drawRectangleFigure(Graphics graphics){
+    	int rectangleArg0 = rectangle.x + 1;
+    	
+    	int rectangleArg1 = rectangle.y + 1;
+    	
+    	int rectangleArg2 = rectangle.width - 2;
+    	
+    	int rectangleArg3 = rectangle.height - 2;
+    	
+    	graphics.drawRectangle(rectangleArg0, rectangleArg1, rectangleArg2, rectangleArg3);
     }
 
-    private void defaultInstruction(Graphics graphics) {
-	graphics.setFont(DEFAULT_FONT);
-	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
-	graphics.drawText("Expresión", rectangle.x - 26 + rectangle.width / 2,
-		    rectangle.y + 13);
+    private void drawDefaultInstruction(Graphics graphics) {
+		int xCoord = rectangle.x - 26 + rectangle.width / 2;
+		
+		int yCoord = rectangle.y + 13;
+		
+		String text = "Expresión";
+    	
+    	graphics.setFont(DEFAULT_FONT);
+		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
+		graphics.drawText(text, xCoord, yCoord);
     }
 
     private boolean isInstruction() {
-	return instruccion.instruccion != "null"
-		&& instruccion.instruccion.compareTo("null") != 0;
+		return instruccion.instruccion != "null"
+			&& instruccion.instruccion.compareTo("null") != 0;
     }
 
     private void drawInstruction(Graphics graphics) {
-	if (isInstruction()) {
-	    
-	    String _instruction = instruccion.instruccion;
-	    
-	    if (_instruction.length() <= 10) {
-		String subStr = _instruction.substring(0, _instruction.length() - 1);
-		graphics.drawText(subStr, rectangle.x + rectangle.width / 8,
-			rectangle.y + 15);
-	    } else {
-		int maxDisplayCharacters = _instruction.length() - 9;
-		String subStr = _instruction.substring(0, _instruction.length() -
-			maxDisplayCharacters);
-		graphics.drawText(subStr + "...", rectangle.x +
-			rectangle.width / 8, rectangle.y + 15);
-	    }
-	} else {
-	    	defaultInstruction(graphics);
-	}
+		if (isInstruction()) {
+		    
+		    String _instruction = instruccion.instruccion;
+		    
+		    int xCoord = rectangle.x + rectangle.width / 8;
+		    
+		    int yCoord = rectangle.y + 15;
+		    
+		    if (_instruction.length() <= 10) {
+				String subStr = _instruction.substring(0, _instruction.length() - 1);
+				graphics.drawText(subStr, xCoord, yCoord);
+			    } else {
+				int maxDisplayCharacters = _instruction.length() - 9;
+				String subStr = _instruction.substring(0, _instruction.length() -
+					maxDisplayCharacters);
+				graphics.drawText(subStr + "...", xCoord, yCoord);
+		    }
+		} else {
+		    	drawDefaultInstruction(graphics);
+		}
     }
 }

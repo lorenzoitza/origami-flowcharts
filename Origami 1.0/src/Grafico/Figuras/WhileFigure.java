@@ -17,8 +17,8 @@ public class WhileFigure extends Figura {
     public InstruccionCompuesta instruccion = new InstruccionCompuesta();
 
     public WhileFigure() {
-	setBounds(new Rectangle(100, 100, 80, 40));
-	this.rectangle = bounds;
+		setBounds(new Rectangle(100, 100, 80, 40));
+		this.rectangle = bounds;
     }
     
     /**
@@ -27,53 +27,70 @@ public class WhileFigure extends Figura {
      * @param Graphics
      */
     public void paint(Graphics graphics) {
-	selectLineTipe(graphics);
-	graphics.drawPolygon(getPolygonPoints());
-	drawInstruction(graphics);
+		selectLineTipe(graphics);
+		graphics.drawPolygon(constructPolygonPoints());
+		drawInstruction(graphics);
     }
 
-    private void defaultInstruction(Graphics graphics) {
-	graphics.setFont(DEFAULT_FONT);
-	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
-	graphics.drawText("Mientras", rectangle.x - 22 + rectangle.width / 2,
-		rectangle.y + 13);
+    private void drawDefaultInstruction(Graphics graphics) {
+		String defaultText = "Mientras";
+		
+		int xCoord = rectangle.x - 22 + rectangle.width / 2;
+		
+		int yCoord = rectangle.y + 13;
+		
+    	graphics.setFont(DEFAULT_FONT);
+		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
+		graphics.drawText(defaultText, xCoord, yCoord);
     }
 
     private boolean isInstruction() {
-	return instruccion.instruccion.size() > 1
-		&& instruccion.instruccion.firstElement()
-			.getInstruccionSimple().compareTo("null") != 0;
+    	boolean isNull = instruccion.instruccion.firstElement().getInstruccionSimple() == null;
+    	
+    	//boolean variable qu necesito saber exactamente para que querian.
+		return instruccion.instruccion.size() > 1 && (!isNull);
     }
 
-    private PointList getPolygonPoints() {
-	PointList _polygon = new PointList();
-	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y);
-	_polygon.addPoint(rectangle.x + rectangle.width, rectangle.y
-		+ rectangle.height / 2);
-	_polygon.addPoint(rectangle.x + rectangle.width / 2, rectangle.y
-		+ rectangle.height);
-	_polygon.addPoint(rectangle.x, rectangle.y + rectangle.height / 2);
-	return _polygon;
+    private PointList constructPolygonPoints() {
+		PointList _polygonPoints = new PointList();
+		
+		int x1Coord = rectangle.x + rectangle.width / 2;
+		
+		int x2Coord = rectangle.x + rectangle.width;
+		
+		int x3Coord = rectangle.x;
+		
+		int y1Coord = rectangle.y;
+		
+		int y2Coord = rectangle.y + rectangle.height / 2;
+		
+		int y3Coord = rectangle.y + rectangle.height;
+		
+		_polygonPoints.addPoint(x1Coord, y1Coord);
+		_polygonPoints.addPoint(x2Coord, y2Coord);
+		_polygonPoints.addPoint(x1Coord, y3Coord);
+		_polygonPoints.addPoint(x3Coord, y2Coord);
+		return _polygonPoints;
     }
 
     private void drawInstruction(Graphics graphics) {
-	if (isInstruction()) {
-	    String _instruction = instruccion.instruccion.elementAt(0).getInstruccionSimple();
-
-	    if (_instruction.length() <= 11) {
-
-		String _subInstruction = _instruction.substring(6,
-			_instruction.length() - 2);
-		graphics.drawText(_subInstruction, rectangle.x - 16 + rectangle.width
-			/ 2, rectangle.y + 13);
-	    } else {
-		String _subInstruction = _instruction.substring(6, 9);
-		graphics.drawText(_subInstruction + "...", rectangle.x - 16
-			+ rectangle.width / 2, rectangle.y + 13);
-	    }
-
-	} else {
-	    defaultInstruction(graphics);
-	}
+		if (isInstruction()) {
+		    String _instruction = instruccion.instruccion.elementAt(0).getInstruccionSimple();
+	
+		    if (_instruction.length() <= 11) {
+	
+			String _subInstruction = _instruction.substring(6,
+				_instruction.length() - 2);
+			graphics.drawText(_subInstruction, rectangle.x - 16 + rectangle.width
+				/ 2, rectangle.y + 13);
+		    } else {
+			String _subInstruction = _instruction.substring(6, 9);
+			graphics.drawText(_subInstruction + "...", rectangle.x - 16
+				+ rectangle.width / 2, rectangle.y + 13);
+		    }
+	
+		} else {
+		    drawDefaultInstruction(graphics);
+		}
     }
 }

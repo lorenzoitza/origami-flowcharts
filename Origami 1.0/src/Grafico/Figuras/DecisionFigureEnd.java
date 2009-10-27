@@ -22,52 +22,74 @@ public class DecisionFigureEnd extends Figura {
     }
 
     private void drawPaths(Graphics graphics) {
-		if (!isPasoAPaso()) {
+		PointList rigthPathPoints = constructRigthPathPoints();
+		
+		PointList leftPathPoints = constructLeftPathPoints();
+		
+		PointList downPathPoints = constructDownPathPoints();
+    	
+    	
+    	if (!isPasoAPaso()) {
 		    
 		    graphics.setForegroundColor(DARKBLUE);
-		    graphics.drawPolygon(getLeftPath());
-		    graphics.drawPolygon(getRigthPath());
+		    graphics.drawPolygon(leftPathPoints);
+		    graphics.drawPolygon(rigthPathPoints);
 		} else {
 		    graphics.setLineWidth(1);
 		    graphics.setLineStyle(SWT.LINE_CUSTOM);
 		    graphics.setForegroundColor(RED);
+		    
 		    if (isDerIzqFin()) {
-	
-			graphics.drawPolygon(getRigthPath());
-			graphics.setForegroundColor(DARKBLUE);
-			graphics.drawPolygon(getLeftPath());
+		
+				graphics.drawPolygon(rigthPathPoints);
+				graphics.setForegroundColor(DARKBLUE);
+				graphics.drawPolygon(leftPathPoints);
 		    } else {
-			graphics.drawPolygon(getLeftPath());
-			graphics.setForegroundColor(DARKBLUE);
-			graphics.drawPolygon(getRigthPath());
+				graphics.drawPolygon(leftPathPoints);
+				graphics.setForegroundColor(DARKBLUE);
+				graphics.drawPolygon(rigthPathPoints);
 		    }
 		}
-		graphics.drawPolygon(getDonwnPath());
+		graphics.drawPolygon(downPathPoints);
     }
 
-    private PointList getRigthPath() {
+    private PointList constructRigthPathPoints() {
 		PointList rigthPath = new PointList();
-		rigthPath.addPoint(rectangle.x + 3 * rectangle.width / 4, rectangle.y
-			+ rectangle.height / 2);
-		rigthPath.addPoint(rectangle.x + rectangle.width, rectangle.y
-			+ rectangle.height / 2);
+		
+		int x1Coord = rectangle.x + 3 * rectangle.width / 4;
+		
+		int x2Coord = rectangle.x + rectangle.width;
+		
+		int y1Coord = rectangle.y + rectangle.height / 2;
+		
+		rigthPath.addPoint(x1Coord, y1Coord);
+		rigthPath.addPoint(x2Coord, y1Coord);
 		return rigthPath;
     }
 
-    private PointList getLeftPath() {
+    private PointList constructLeftPathPoints() {
 		PointList leftPath = new PointList();
-		leftPath.addPoint(rectangle.x, rectangle.y + rectangle.height / 2);
-		leftPath.addPoint(rectangle.x + rectangle.width / 4, rectangle.y
-			+ rectangle.height / 2);
+		
+		int x1Coord = rectangle.x + rectangle.width / 4;
+		
+		int y1Coord = rectangle.y + rectangle.height / 2;
+		
+		leftPath.addPoint(rectangle.x, y1Coord);
+		leftPath.addPoint(x1Coord, y1Coord);
 		return leftPath;
     }
 
-    private PointList getDonwnPath() {
+    private PointList constructDownPathPoints() {
 		PointList downPath = new PointList();
-		downPath.addPoint(rectangle.x + rectangle.width / 2, 1 + rectangle.y
-			+ 3 * rectangle.height / 4);
-		downPath.addPoint(rectangle.x + rectangle.width / 2, rectangle.y
-			+ rectangle.height);
+		
+		int x1Coord = rectangle.x + rectangle.width / 2;
+		
+		int y1Coord = 1 + rectangle.y + 3 * rectangle.height / 4;
+		
+		int y2Coord = rectangle.y + rectangle.height;
+		
+		downPath.addPoint(x1Coord, y1Coord);
+		downPath.addPoint(x1Coord, y2Coord);
 		return downPath;
     }
 

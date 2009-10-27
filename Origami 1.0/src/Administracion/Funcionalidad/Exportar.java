@@ -69,10 +69,10 @@ public class Exportar {
 				ellipse.instruccion = figuras.instruccion;
 				diag.add(ellipse);
 			}
-			else if(diagrama.elementAt(x) instanceof TerminationFigure){
-				TerminationFigure ellipse = new TerminationFigure();
+			else if(diagrama.elementAt(x) instanceof CircleFigure){
+				CircleFigure ellipse = new CircleFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				TerminationFigure figuras = (TerminationFigure)diagrama.elementAt(x);
+				CircleFigure figuras = (CircleFigure)diagrama.elementAt(x);
 				ellipse.setMensagge(figuras.getMensagge());
 				diag.add(ellipse);
 			}

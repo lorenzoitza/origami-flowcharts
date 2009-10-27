@@ -33,7 +33,7 @@ import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.SentenceFigure;
 import Grafico.Figuras.WhileFigure;
 import Grafico.Help.AboutWindow;
@@ -532,7 +532,7 @@ public class Ventana{
 				for(int y=diagramas.getHoja().getSizeDiagrama()-1;y>0;y--){
 					diagramas.getHoja().removeFigureIndexOf(y);
 				}
-				TerminationFigure fin = new TerminationFigure();
+				CircleFigure fin = new CircleFigure();
 				diagramas.getHoja().getDiagrama().add(fin);
 				fin.setMensagge("  Fin");
 				diagramas.getHoja().resetScrollBar();

@@ -20,7 +20,7 @@ import Grafico.Figuras.DecisionFigureEnd;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.SentenceFigure;
 import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
@@ -193,7 +193,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	}
 	public void menuDisponibleFigura(){
 		if(selec.getFiguraSeleccionada() != -1){
-			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof TerminationFigure){
+			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof CircleFigure){
 				if(Ventana.diagramaEnMemoria.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}
@@ -271,7 +271,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					agregar(fig);
 				}
 			});
-			if(fig instanceof TerminationFigure){
+			if(fig instanceof CircleFigure){
 				if(Ventana.diagramaEnMemoria.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}

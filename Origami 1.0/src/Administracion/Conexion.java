@@ -31,7 +31,7 @@ public class Conexion extends Figure{
 		int pda,pia,j;
 		conexion.removeAllElements();
 		for(int i=0;i<tab.getHoja().getSizeDiagrama()-1;i++){	
-			if(diagrama.elementAt(i+1) instanceof TerminationFigure){
+			if(diagrama.elementAt(i+1) instanceof CircleFigure){
 				PolylineConnection coneccion = new PolylineConnection();
 				coneccion.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i)));

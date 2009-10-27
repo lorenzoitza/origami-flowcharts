@@ -13,7 +13,7 @@ import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.TerminationFigure;
+import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.SentenceFigure;
 import Grafico.Figuras.WhileFigure;
 import Grafico.Figuras.Elipse;
@@ -564,7 +564,7 @@ public class Instruccion implements Serializable{
 				}
 				diagrama.setElementAt(f, x);
 			}
-			else if(diagrama.elementAt(x) instanceof TerminationFigure){
+			else if(diagrama.elementAt(x) instanceof CircleFigure){
 				break;
 			}
 			else{
@@ -735,7 +735,7 @@ public class Instruccion implements Serializable{
 			else if(diagrama.elementAt(x) instanceof Elipse){
 				break;
 			}
-			else if(diagrama.elementAt(x) instanceof TerminationFigure){
+			else if(diagrama.elementAt(x) instanceof CircleFigure){
 				break;
 			}
 			else{

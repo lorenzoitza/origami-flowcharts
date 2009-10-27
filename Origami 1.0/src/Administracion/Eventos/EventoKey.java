@@ -138,7 +138,7 @@ public class EventoKey {
 	       break;
 		case 127:
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof TerminationFigure){
+				if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof CircleFigure){
 				}
 				else{
 					EventoMenuContextual.Eliminar(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()));
@@ -160,7 +160,7 @@ public class EventoKey {
 				for(int y=tab.getHoja().getSizeDiagrama()-1;y>0;y--){
 					tab.getHoja().removeFigureIndexOf(y);
 				}
-				TerminationFigure fin = new TerminationFigure();
+				CircleFigure fin = new CircleFigure();
 				selec.setFiguraSeleccionada(0);
 				tab.getHoja().getDiagrama().add(fin);
 				fin.setMensagge("  Fin");
@@ -320,7 +320,7 @@ public class EventoKey {
 		}
 		else if(key+key2 == 262264){
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof TerminationFigure || selec.getFiguraSeleccionada() == -1){
+				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
 				}
 				else{
 					EventoMenuContextual.Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
@@ -330,7 +330,7 @@ public class EventoKey {
 		}
 		else if(key+key2 == 262243){
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof TerminationFigure || selec.getFiguraSeleccionada() == -1){
+				if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
 				}
 				else{
 					EventoMenuContextual.Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));

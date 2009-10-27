@@ -163,7 +163,7 @@ public class Informacion implements Serializable{
 					tab = "";
 				}
 			}
-			else if(diagrama.elementAt(i) instanceof TerminationFigure){
+			else if(diagrama.elementAt(i) instanceof CircleFigure){
 				if(i==0){
 					informacion = informacion+"\n\nInicio";
 				}

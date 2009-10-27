@@ -138,14 +138,14 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	    String[] forExpressions =
 		    abstractFigure.instruction.instruccion.firstElement()
 			    .getInstruccionSimple().split(";");
-	    for (int charPositionOfIndexExpression = 0; 
-	    	charPositionOfIndexExpression < forExpressions[0].length(); 
-	    	charPositionOfIndexExpression++) {
+	    for (int charIndex = 0; 
+	    	charIndex < forExpressions[0].length(); 
+	    	charIndex++) {
 
-		if (charPositionOfIndexExpression > 3) {
+		if (charIndex > 3) {
 
 		    indexExpression += forExpressions[0].
-		    			charAt(charPositionOfIndexExpression);
+		    			charAt(charIndex);
 		}
 	    }
 	    int couterExpressionLength = forExpressions[2].length();
