@@ -21,9 +21,9 @@ public class CircleFigure extends Figura {
     private String mesagge;
 
     public CircleFigure() {
-		seleccion = false;
-		setBounds(new Rectangle(1090, 100, 80, 50));
-		this.rectangle = bounds;
+	seleccion = false;
+	setBounds(new Rectangle(1090, 100, 80, 50));
+	this.rectangle = bounds;
     }
 
     /**
@@ -48,11 +48,11 @@ public class CircleFigure extends Figura {
      */
     public void paint(Graphics graphics) {
     	
-		selectLineTipe(graphics);
+	selectLineTipe(graphics);
 		
-		drawCircle(graphics);
+	drawCircle(graphics);
 		
-		drawTextLabel(graphics);
+	drawTextLabel(graphics);
 		
     }
     

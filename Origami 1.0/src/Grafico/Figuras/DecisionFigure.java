@@ -11,42 +11,76 @@ public class DecisionFigure extends Figura {
     public InstruccionCompuesta instruction = new InstruccionCompuesta();
 
     public DecisionFigure() {
-		setBounds(new Rectangle(100, 100, 80, 40));
-		this.rectangle = bounds;
+	setBounds(new Rectangle(100, 100, 80, 40));
+	this.rectangle = bounds;
     }
 
     public void paint(Graphics graphics) {
-		selectLineTipe(graphics);
+	selectLineTipe(graphics);
 		
-		PointList polygonPoints = constructPolygonPoints();
+	PointList polygonPoints = constructPolygonPoints();
 		
-		graphics.drawPolygon(polygonPoints);
-		drawInstruction(graphics);
+	graphics.drawPolygon(polygonPoints);
+	drawInstruction(graphics);
     }
 
     private PointList constructPolygonPoints() {
-		PointList _polygonPoints = new PointList();
+	PointList polygonPoints = new PointList();
 		
-		int x1Coord = rectangle.x + (rectangle.width / 2);
+	int x1Coord = rectangle.x + (rectangle.width / 2);
 		
-		int x2Coord = rectangle.x + rectangle.width;
+	int x2Coord = rectangle.x + rectangle.width;
 		
-		int x3Coord = rectangle.x;
+	int x3Coord = rectangle.x;
 		
-		int y1Coord = rectangle.y;
+	int y1Coord = rectangle.y;
 		
-		int y2Coord = rectangle.y + (rectangle.height / 2);
+	int y2Coord = rectangle.y + (rectangle.height / 2);
 		
-		int y3Coord = rectangle.y + rectangle.height;
+	int y3Coord = rectangle.y + rectangle.height;
 		
-		_polygonPoints.addPoint(x1Coord, y1Coord);
-		_polygonPoints.addPoint(x2Coord, y2Coord);
-		_polygonPoints.addPoint(x1Coord, y3Coord);
-		_polygonPoints.addPoint(x3Coord, y2Coord);
+	polygonPoints.addPoint(x1Coord, y1Coord);
+	polygonPoints.addPoint(x2Coord, y2Coord);
+	polygonPoints.addPoint(x1Coord, y3Coord);
+	polygonPoints.addPoint(x3Coord, y2Coord);
 		
-		return _polygonPoints;
+	return polygonPoints;
     }
 
+    private void drawInstruction(Graphics graphics) {
+    	if (isInstruction()) {
+    	    int xCoord = rectangle.x - 16 + rectangle.width / 2;
+    	
+    	    int yCoord = rectangle.y + 13;
+    	    
+    	    String instructionText = constructInstructionText();
+    	    
+    	    graphics.drawText(instructionText, xCoord, yCoord);
+    	} else {
+    	    drawDefaultInstruction(graphics);
+	}
+    }
+    
+    private String constructInstructionText(){
+	 int maxLenght = 8;
+ 	    
+ 	 int instructionLenght = getInstructionLenght();
+ 	    
+ 	 int beginIndex = 3;
+ 	
+ 	 String instructionCode = getInstructionCode();
+ 	    
+ 	 String instructionText;
+ 	    
+ 	 if (instructionLenght <= maxLenght) {
+ 	     instructionText = instructionCode.substring(beginIndex, instructionLenght);		
+ 	 } else {
+ 	     instructionText = instructionCode.substring(beginIndex, maxLenght) + "....";
+ 	 }
+ 	 
+ 	 return instructionText;
+    }
+    
     private void drawDefaultInstruction(Graphics graphics) {
 	String defaultInstrutionText = "Decision";
 	
@@ -58,51 +92,19 @@ public class DecisionFigure extends Figura {
 	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
 	graphics.drawText(defaultInstrutionText, xCoord, yCoord);
     }
-
-    private void drawInstruction(Graphics graphics) {
-    	if (isInstruction()) {
-    	    int xCoord = rectangle.x - 16 + rectangle.width / 2;
-    	
-    	    int yCoord = rectangle.y + 13;
-    	
-    	    String instructionCode = getInstructionCode();
-    	    
-    	    int maxLenght = 8;
-    	    
-    	    int instructionLenght = getInstructionLenght();
-    	    
-    	    int beginIndex = 3;
-    	    
-    	    String instructionText;
-    	    
-    	    if (instructionLenght <= maxLenght) {
-    		
-    		instructionText = instructionCode.substring(beginIndex, instructionLenght);
-	
-		graphics.drawText(instructionText, xCoord, yCoord);
-				
-    	    } else {
-    		instructionText = instructionCode.substring(beginIndex, maxLenght) + "....";
-		    	
-		graphics.drawText(instructionText, xCoord, yCoord);
-    	    }
-    	} else {
-    	    drawDefaultInstruction(graphics);
-	}
-    }
     
     private int getInstructionLenght() {
     	return getInstructionCode().length() - 2;
     }
 
     private String getInstructionCode() {
-    	return instruction.instruccion.elementAt(0).getInstruccionSimple();
+    	return instruction.instruccion.firstElement().getInstruccionSimple();
     }
 
     private boolean isInstruction() {
-	boolean isNull = instruction.instruccion.firstElement().getInstruccionSimple() == null;
+	boolean isNull = getInstructionCode() == null;
 	
-	boolean isEmpty = instruction.instruccion.size() < 1;
+	boolean isEmpty = instruction.instruccion.size() <= 1;
 	
 	return (!isEmpty) && (!isNull);
     }

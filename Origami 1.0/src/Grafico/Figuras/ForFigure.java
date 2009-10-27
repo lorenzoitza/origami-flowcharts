@@ -29,86 +29,118 @@ public class ForFigure extends Figura {
      * @param Graphics
      */
     public void paint(Graphics graphics) {
-		selectLineTipe(graphics);
+	selectLineTipe(graphics);
 		
-		PointList polygonPoints = constructPolygonPoints();
+	PointList polygonPoints = constructPolygonPoints();
 		
-		graphics.drawPolygon(polygonPoints);
+	graphics.drawPolygon(polygonPoints);
 		
-		drawInstruction(graphics);
+	drawInstruction(graphics);
     }
 
     private PointList constructPolygonPoints() {
-		PointList _polygonPoints = new PointList();
+	PointList polygonPoints = new PointList();
 		
-		int x1Coord = rectangle.x + (rectangle.width / 16 * 3);
+	int x1Coord = rectangle.x + (rectangle.width / 16 * 3);
 		
-		int x2Coord = rectangle.x + rectangle.width - (rectangle.width / 16 * 3);
+	int x2Coord = rectangle.x + rectangle.width - (rectangle.width / 16 * 3);
 		
-		int x3Coord = rectangle.x + rectangle.width;
+	int x3Coord = rectangle.x + rectangle.width;
 		
-		int y1Coord = rectangle.y + 5;
+	int y1Coord = rectangle.y + 5;
 		
-		int y2Coord = rectangle.y + (rectangle.height / 2);
+	int y2Coord = rectangle.y + (rectangle.height / 2);
 		
-		int y3Coord = rectangle.y + rectangle.height - 5;
+	int y3Coord = rectangle.y + rectangle.height - 5;
 		
 		
-		_polygonPoints.addPoint(x1Coord, y1Coord);
-		_polygonPoints.addPoint(x2Coord, y1Coord);
-		_polygonPoints.addPoint(x3Coord, y2Coord);
-		_polygonPoints.addPoint(x2Coord, y3Coord);
-		_polygonPoints.addPoint(x1Coord, y3Coord);
-		_polygonPoints.addPoint(rectangle.x, y2Coord);
+	polygonPoints.addPoint(x1Coord, y1Coord);
+	polygonPoints.addPoint(x2Coord, y1Coord);
+	polygonPoints.addPoint(x3Coord, y2Coord);
+	polygonPoints.addPoint(x2Coord, y3Coord);
+	polygonPoints.addPoint(x1Coord, y3Coord);
+	polygonPoints.addPoint(rectangle.x, y2Coord);
 		
-		return _polygonPoints;
+	return polygonPoints;
     }
     
     
     private void drawDefaultInstruction(Graphics graphics) {
-    	int xCoord = rectangle.x - 13 + rectangle.width / 2;
-    	int textYCoord = rectangle.y + 13;
+    	String defaultInstructionText = "Para";
     	
-		graphics.setFont(DEFAULT_FONT);
+	int xCoord = rectangle.x - 13 + rectangle.width / 2;
+    	
+	int yCoord = rectangle.y + 13;
+    	
+	graphics.setFont(DEFAULT_FONT);
 		
-		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
+	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
 		
-		graphics.drawText("Para", xCoord, textYCoord);
+	graphics.drawText(defaultInstructionText, xCoord, yCoord);
     }
 
     private void drawInstruction(Graphics g) {
-		String _code =
-			instruction.instruccion.firstElement().getInstruccionSimple();
+	if (isInstruction()) {
+	    int xCoord = rectangle.x + rectangle.width / 5;
 		
-		_code = _code.replaceFirst("for", "");
-		
-		_code = _code.replace("(", "");
-		
-		_code = _code.replace(")", "");
-		
-		_code = _code.replace("{", "");
-		
-		if ((_code.compareTo("null") != 0) && (_code.compareTo("") != 0)) {
-		    
-			String[] _variables = _code.split(";");
-		    
-			String _subInstruction = "";
-			
-			int xCoord = rectangle.x + rectangle.width / 5;
-			
-			int yCoord = rectangle.y + 13;
+	    int yCoord = rectangle.y + 13;
+	    
+	    String instructionText = constructInstructionTex();
+	    
+	    g.drawText(instructionText, xCoord, yCoord); 
+	} else {
+	    drawDefaultInstruction(g);
+	}
+    }
+    
+    private String constructInstructionTex(){
+	String instructionCode = getInstructionCode();
+
+	instructionCode = formatInstructionCode(instructionCode);
 	
-		    if ((_code.length() - 7) <= 2) {
-				for (int index = 0; index < 3; index++) {
-				    _subInstruction = _subInstruction + _variables[index] + ";";
-				}
-				g.drawText(_subInstruction, xCoord, yCoord);
-		    } else {
-				_subInstruction = _code.substring(0, _code.length() - 7) + "...";
-				g.drawText(_subInstruction , xCoord, yCoord);
-		    }
-		} else {
-		    drawDefaultInstruction(g);
-		}
+	String [] variables = instructionCode.split(";");
+	    
+	String instructionText = "";
+	
+	int instructionLenght = instructionCode.length() - 7;
+	
+	int maxLenght = 2;
+	
+	int maxVariables= 3;
+	
+	if (instructionLenght <= maxLenght) {
+	    for (int index = 0; index < maxVariables; index++) {
+		instructionText = instructionText + variables[index] + ";";
+	    }
+	} else {
+		instructionText = instructionCode.substring(0, instructionCode.length() - 7) + "...";
+	}
+	
+	return instructionText;
+    }
+    
+    private String getInstructionCode(){
+	return instruction.instruccion.firstElement().getInstruccionSimple();
+    }
+    
+    
+    private boolean isInstruction(){
+	boolean isNull = getInstructionCode().compareTo("null")  == 0;
+	
+	boolean isEmpty = getInstructionCode().isEmpty();
+	
+	return (!isNull) && (!isEmpty);
+    }
+    
+    private String formatInstructionCode(String instructionCode){
+	instructionCode = instructionCode.replaceFirst("for", "");
+	
+	instructionCode = instructionCode.replace("(", "");
+	
+	instructionCode = instructionCode.replace(")", "");
+	
+	instructionCode = instructionCode.replace("{", "");
+	
+	return instructionCode;
     }
 }
