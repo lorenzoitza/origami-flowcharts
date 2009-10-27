@@ -71,8 +71,8 @@ public class CircleFigure extends Figura {
     private void drawTextLabel(Graphics graphics){
     	int xCoord = rectangle.x + rectangle.width / 4 + 5;
 		
-		int yCoord = rectangle.y + rectangle.height / 3;
+	int yCoord = rectangle.y + rectangle.height / 3;
 		
-		graphics.drawText(mesagge, xCoord, yCoord);
+	graphics.drawText(mesagge, xCoord, yCoord);
     }
 }
