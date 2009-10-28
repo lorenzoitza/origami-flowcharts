@@ -75,22 +75,38 @@ public class WhileFigure extends Figura {
 
     private void drawInstruction(Graphics graphics) {
 		if (isInstruction()) {
-		    String _instruction = instruccion.instruccion.elementAt(0).getInstruccionSimple();
-	
-		    if (_instruction.length() <= 11) {
-	
-			String _subInstruction = _instruction.substring(6,
-				_instruction.length() - 2);
-			graphics.drawText(_subInstruction, rectangle.x - 16 + rectangle.width
-				/ 2, rectangle.y + 13);
-		    } else {
-			String _subInstruction = _instruction.substring(6, 9);
-			graphics.drawText(_subInstruction + "...", rectangle.x - 16
-				+ rectangle.width / 2, rectangle.y + 13);
-		    }
-	
+		    int xCoord = rectangle.x - 16 + rectangle.width / 2;
+		    	
+		    int yCoord = rectangle.y + 13;
+		    
+		    String instructionText = constructInstructionText();
+			
+			graphics.drawText(instructionText, xCoord, yCoord);
 		} else {
 		    drawDefaultInstruction(graphics);
 		}
+    }
+    
+    private String constructInstructionText(){
+    	String instructionCode = instruccion.instruccion.firstElement().getInstruccionSimple();
+    	
+    	int maxLenght = 11;
+    	
+    	int beginIndex = 6;
+    	
+    	int endIndex = 9;
+    	
+    	int instructionLenght = instructionCode.length();
+    	
+    	String instructionText = "";
+	    
+    	if (instructionLenght <= maxLenght) {
+    		instructionText = instructionCode.substring(beginIndex, instructionLenght - 2);
+	    } else {
+	    	instructionText = instructionCode.substring(beginIndex, endIndex);
+	    }
+	    
+	    return instructionText;
+	    
     }
 }
