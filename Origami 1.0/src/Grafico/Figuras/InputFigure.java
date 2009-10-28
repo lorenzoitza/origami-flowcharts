@@ -14,7 +14,7 @@ import Administracion.Funcionalidad.Codigo.InstruccionSimple;
  */
 public class InputFigure extends Figura {
 
-    public InstruccionSimple instruccion = new InstruccionSimple();
+    public InstruccionSimple instruction = new InstruccionSimple();
 
     public InputFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));
@@ -55,8 +55,11 @@ public class InputFigure extends Figura {
     }
 
     private boolean isInstruction() {
-		return instruccion.getInstruccionSimple().compareTo("null") != 0
-			&& instruccion.getInstruccionSimple().compareTo("") != 0;
+    	boolean isNull = instruction.getInstruccionSimple() == null;
+    	
+    	boolean isEmpty = instruction.getInstruccionSimple().isEmpty();
+    	
+		return  (!isNull) && (!isEmpty);
     }
 
     private void drawDefaultInstruction(Graphics graphics) {
@@ -72,31 +75,37 @@ public class InputFigure extends Figura {
     private void drawInstruction(Graphics g) {
 		if (isInstruction()) {
 	
-		    String _variables = instruccion.instruccion;
-	
-		    String [] _allVariables = instruccion.instruccion.split(";");
-	
-		    int _number = _variables.indexOf(";");
-	
-		    String _subInstruction = _variables.substring(0, _number);
-		    
-		    int xCoord = rectangle.x + 10 + rectangle.width / 5;
+			int xCoord = rectangle.x + 10 + rectangle.width / 5;
 		    
 		    int yCoord = rectangle.y + 8;
+		    
+		    String instructionText = constructInstructionText();
 	
-		    if (_allVariables[0].length() > 6) {
-	
-				_subInstruction = _allVariables[0].substring(0, 5) + "...";
-				g.drawText(_subInstruction , xCoord, yCoord);
-		    } else if (_allVariables.length > 1) {
-	
-				_subInstruction = _allVariables[0] + "...";
-				g.drawText(_subInstruction , xCoord, yCoord);
-		    } else {
-				g.drawText(_subInstruction, xCoord, yCoord);
-		    }
+			g.drawText(instructionText, xCoord, yCoord);
 		} else {
+			
 		    drawDefaultInstruction(g);
 		}
+    }
+    
+    private String constructInstructionText(){
+    	String instructionCode = instruction.getInstruccionSimple();
+    	
+    	String [] variables = instructionCode.split(";");
+    	
+	    int number = instructionCode.indexOf(";");
+
+	    String _subInstruction = instructionCode.substring(0, number);
+	    
+	    
+	    if (variables[0].length() > 6) {
+
+			_subInstruction = variables[0].substring(0, 5) + "...";
+	    } else if (variables.length > 1) {
+
+			_subInstruction = variables[0] + "...";
+	    } 
+	    
+	    return _subInstruction;
     }
 }

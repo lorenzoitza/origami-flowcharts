@@ -49,8 +49,8 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     }
 
     private boolean isInstruction() {
-	return (abstractFigure.instruccion.getInstruccionSimple().compareTo(
-		"null") != 0 && abstractFigure.instruccion
+	return (abstractFigure.instruction.getInstruccionSimple().compareTo(
+		"null") != 0 && abstractFigure.instruction
 		.getInstruccionSimple().compareTo("") != 0);
     }
 
@@ -58,7 +58,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     public void initTextFields() {
 	if (isInstruction()) {
 
-	    textBoxContent = abstractFigure.instruccion.getInstruccionSimple().split(";");
+	    textBoxContent = abstractFigure.instruction.getInstruccionSimple().split(";");
 
 	    for (int i = 0; i < textBoxContent.length; i++) {
 
@@ -151,7 +151,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 	for (int x = 0; x < total; x++) {
 	    codigo = codigo + textBoxContent[x] + ";";
 	}
-	if (!abstractFigure.instruccion.instruccion.equals(codigo)) {
+	if (!abstractFigure.instruction.instruccion.equals(codigo)) {
 	    
 	    tabbedPaneSelected.getTabItem().getSave().setSave(false);
 	    tabbedPaneSelected.getTabItem().getInfo().setInformacion("/M - Se " +
@@ -159,7 +159,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 	    		" figura de tipo \"entrada\"\n");
 	    cambio = true;
 	}
-	abstractFigure.instruccion.setInstruccionSimple(codigo);
+	abstractFigure.instruction.setInstruccionSimple(codigo);
 	tabbedPaneSelected.getHoja().addFigure();
 	tabbedPaneSelected.getHoja().guardarRetroceso();
 	return cambio;

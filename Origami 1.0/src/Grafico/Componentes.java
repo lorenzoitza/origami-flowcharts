@@ -935,7 +935,7 @@ public class Componentes {
 				//ImageData image = new ImageData(name);
 				cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    InputFigure entrada2 = new InputFigure();
-				entrada2.instruccion.instruccion = "null";
+				entrada2.instruction.instruccion = "null";
 				Ventana.figuraPrincipal = null;
 				Ventana.figuraPrincipal = entrada2;
 				Ventana.bandera = false;
@@ -1031,7 +1031,7 @@ public class Componentes {
 			    //ImageData image = new ImageData(name);
 			    cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    OutputFigure salida2 = new OutputFigure();
-				salida2.instruccion.instruccion = "null";
+				salida2.instruction.instruccion = "null";
 				Ventana.figuraPrincipal = null;
 				Ventana.figuraPrincipal = salida2;
 				Ventana.bandera = false;

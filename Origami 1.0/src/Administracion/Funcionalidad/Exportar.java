@@ -59,14 +59,14 @@ public class Exportar {
 				InputFigure ellipse = new InputFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				InputFigure figuras = (InputFigure)diagrama.elementAt(x);
-				ellipse.instruccion = figuras.instruccion;
+				ellipse.instruction = figuras.instruction;
 				diag.add(ellipse);
 			}
 			else if(diagrama.elementAt(x) instanceof OutputFigure){
 				OutputFigure ellipse = new OutputFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
 				OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
-				ellipse.instruccion = figuras.instruccion;
+				ellipse.instruction = figuras.instruction;
 				diag.add(ellipse);
 			}
 			else if(diagrama.elementAt(x) instanceof CircleFigure){

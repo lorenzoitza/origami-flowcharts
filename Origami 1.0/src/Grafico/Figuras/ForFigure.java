@@ -29,94 +29,94 @@ public class ForFigure extends Figura {
      * @param Graphics
      */
     public void paint(Graphics graphics) {
-	selectLineTipe(graphics);
-		
-	PointList polygonPoints = constructPolygonPoints();
-		
-	graphics.drawPolygon(polygonPoints);
-		
-	drawInstruction(graphics);
+		selectLineTipe(graphics);
+			
+		PointList polygonPoints = constructPolygonPoints();
+			
+		graphics.drawPolygon(polygonPoints);
+			
+		drawInstruction(graphics);
     }
 
     private PointList constructPolygonPoints() {
-	PointList polygonPoints = new PointList();
-		
-	int x1Coord = rectangle.x + (rectangle.width / 16 * 3);
-		
-	int x2Coord = rectangle.x + rectangle.width - (rectangle.width / 16 * 3);
-		
-	int x3Coord = rectangle.x + rectangle.width;
-		
-	int y1Coord = rectangle.y + 5;
-		
-	int y2Coord = rectangle.y + (rectangle.height / 2);
-		
-	int y3Coord = rectangle.y + rectangle.height - 5;
-		
-		
-	polygonPoints.addPoint(x1Coord, y1Coord);
-	polygonPoints.addPoint(x2Coord, y1Coord);
-	polygonPoints.addPoint(x3Coord, y2Coord);
-	polygonPoints.addPoint(x2Coord, y3Coord);
-	polygonPoints.addPoint(x1Coord, y3Coord);
-	polygonPoints.addPoint(rectangle.x, y2Coord);
-		
-	return polygonPoints;
+		PointList polygonPoints = new PointList();
+			
+		int x1Coord = rectangle.x + (rectangle.width / 16 * 3);
+			
+		int x2Coord = rectangle.x + rectangle.width - (rectangle.width / 16 * 3);
+			
+		int x3Coord = rectangle.x + rectangle.width;
+			
+		int y1Coord = rectangle.y + 5;
+			
+		int y2Coord = rectangle.y + (rectangle.height / 2);
+			
+		int y3Coord = rectangle.y + rectangle.height - 5;
+			
+			
+		polygonPoints.addPoint(x1Coord, y1Coord);
+		polygonPoints.addPoint(x2Coord, y1Coord);
+		polygonPoints.addPoint(x3Coord, y2Coord);
+		polygonPoints.addPoint(x2Coord, y3Coord);
+		polygonPoints.addPoint(x1Coord, y3Coord);
+		polygonPoints.addPoint(rectangle.x, y2Coord);
+			
+		return polygonPoints;
     }
     
     
     private void drawDefaultInstruction(Graphics graphics) {
     	String defaultInstructionText = "Para";
     	
-	int xCoord = rectangle.x - 13 + rectangle.width / 2;
-    	
-	int yCoord = rectangle.y + 13;
-    	
-	graphics.setFont(DEFAULT_FONT);
-		
-	graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
-		
-	graphics.drawText(defaultInstructionText, xCoord, yCoord);
-    }
-
-    private void drawInstruction(Graphics g) {
-	if (isInstruction()) {
-	    int xCoord = rectangle.x + rectangle.width / 5;
-		
-	    int yCoord = rectangle.y + 13;
-	    
-	    String instructionText = constructInstructionTex();
-	    
-	    g.drawText(instructionText, xCoord, yCoord); 
-	} else {
-	    drawDefaultInstruction(g);
-	}
+		int xCoord = rectangle.x - 13 + rectangle.width / 2;
+	    	
+		int yCoord = rectangle.y + 13;
+	    	
+		graphics.setFont(DEFAULT_FONT);
+			
+		graphics.setForegroundColor(DEFAULT_TEXTCOLOR);
+			
+		graphics.drawText(defaultInstructionText, xCoord, yCoord);
+	    }
+	
+	    private void drawInstruction(Graphics g) {
+		if (isInstruction()) {
+		    int xCoord = rectangle.x + rectangle.width / 5;
+			
+		    int yCoord = rectangle.y + 13;
+		    
+		    String instructionText = constructInstructionText();
+		    
+		    g.drawText(instructionText, xCoord, yCoord); 
+		} else {
+		    drawDefaultInstruction(g);
+		}
     }
     
-    private String constructInstructionTex(){
-	String instructionCode = getInstructionCode();
-
-	instructionCode = formatInstructionCode(instructionCode);
+    private String constructInstructionText(){
+		String instructionCode = getInstructionCode();
 	
-	String [] variables = instructionCode.split(";");
-	    
-	String instructionText = "";
+		instructionCode = formatInstructionCode(instructionCode);
+		
+		String [] variables = instructionCode.split(";");
+		    
+		String instructionText = "";
+		
+		int instructionLenght = instructionCode.length() - 7;
+		
+		int maxLenght = 2;
+		
+		int maxVariables= 3;
+		
+		if (instructionLenght <= maxLenght) {
+		    for (int index = 0; index < maxVariables; index++) {
+			instructionText = instructionText + variables[index] + ";";
+		    }
+		} else {
+			instructionText = instructionCode.substring(0, instructionLenght) + "...";
+		}
 	
-	int instructionLenght = instructionCode.length() - 7;
-	
-	int maxLenght = 2;
-	
-	int maxVariables= 3;
-	
-	if (instructionLenght <= maxLenght) {
-	    for (int index = 0; index < maxVariables; index++) {
-		instructionText = instructionText + variables[index] + ";";
-	    }
-	} else {
-		instructionText = instructionCode.substring(0, instructionCode.length() - 7) + "...";
-	}
-	
-	return instructionText;
+		return instructionText;
     }
     
     private String getInstructionCode(){

@@ -84,13 +84,13 @@ public class TabItem extends CTabItem{
 			else if(diagrama.elementAt(i) instanceof InputFigure){
 				InputFigure copia = new InputFigure();
 				InputFigure actual = (InputFigure)diagrama.elementAt(i);
-				copia.instruccion.instruccion = actual.instruccion.instruccion;
+				copia.instruction.instruccion = actual.instruction.instruccion;
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
 			else if(diagrama.elementAt(i) instanceof OutputFigure){
 				OutputFigure copia = new OutputFigure();
 				OutputFigure actual = (OutputFigure)diagrama.elementAt(i);
-				copia.instruccion.instruccion = actual.instruccion.instruccion;
+				copia.instruction.instruccion = actual.instruction.instruccion;
 				retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
 			}
 			else{

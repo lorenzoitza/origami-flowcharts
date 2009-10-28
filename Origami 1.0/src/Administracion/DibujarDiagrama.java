@@ -860,7 +860,7 @@ public class DibujarDiagrama extends Figure{
 					InputFigure figuras = (InputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					InputFigure figura = new InputFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -876,7 +876,7 @@ public class DibujarDiagrama extends Figure{
 					OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					OutputFigure figura = new OutputFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -945,7 +945,7 @@ public class DibujarDiagrama extends Figure{
 					InputFigure figuras = (InputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					InputFigure figura = new InputFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -956,7 +956,7 @@ public class DibujarDiagrama extends Figure{
 					OutputFigure figuras = (OutputFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					OutputFigure figura = new OutputFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());

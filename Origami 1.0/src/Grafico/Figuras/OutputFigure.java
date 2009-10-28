@@ -14,7 +14,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class OutputFigure extends Figura {
 
-    public InstruccionSimple instruccion = new InstruccionSimple();
+    public InstruccionSimple instruction = new InstruccionSimple();
 
     public OutputFigure() {
 	setBounds(new Rectangle(100, 100, 80, 40));
@@ -31,7 +31,7 @@ public class OutputFigure extends Figura {
 		
 		PointList polygonPoints = constructPolygonPoints();
 		graphics.drawPolygon(polygonPoints);
-		drawInstruction(graphics, unformatOutputVariables());
+		drawInstruction(graphics);
     }
 
     private PointList constructPolygonPoints() {
@@ -58,8 +58,8 @@ public class OutputFigure extends Figura {
     }
 
     private boolean isInstruction() {
-		return instruccion.getInstruccionSimple().compareTo("null") != 0
-			&& instruccion.getInstruccionSimple().compareTo("") != 0;
+		return instruction.getInstruccionSimple().compareTo("null") != 0
+			&& instruction.getInstruccionSimple().compareTo("") != 0;
     }
 
     private void drawDefaultInstruction(Graphics graphics) {
@@ -76,7 +76,7 @@ public class OutputFigure extends Figura {
     private String[] unformatOutputVariables() {
 		String[] _variables = new String[50];
 	
-		_variables = instruccion.getInstruccionSimple().split(";");
+		_variables = instruction.getInstruccionSimple().split(";");
 	
 		String[] _finalVariables = new String[50];
 	
@@ -107,32 +107,55 @@ public class OutputFigure extends Figura {
 		return _variables;
     }
 
-    private void drawInstruction(Graphics graphics, String[] variables) {
+    private void drawInstruction(Graphics graphics) {
 		if (isInstruction()) {
-	
-		    String[] _allVariables = instruccion.instruccion.split(";");
-	
-		    String _instruction;
-	
-		    int _letters = variables[0].length();
-	
-		    if (variables[0].length() > 6 || _allVariables.length > 1) {
-	
-			if (_letters > 5) {
-	
-			    _instruction = variables[0].substring(0, 5);
-			} else {
-			    _instruction = variables[0].substring(0, _letters);
-			}
-			graphics.drawText(_instruction + "...", rectangle.x +
-				rectangle.width / 8, rectangle.y + 8);
-		    } else {
-			_instruction = variables[0].substring(0, _letters);
-			graphics.drawText(_instruction, rectangle.x + rectangle.width / 8,
-				rectangle.y + 8);
-		    }
+			
+			int xCoord = rectangle.x + rectangle.width / 8;
+			
+			int yCoord = rectangle.y + 8;
+			
+			String instructionText = constructInstructionText();
+			graphics.drawText(instructionText, xCoord, yCoord);
+			
 		} else {
 		   drawDefaultInstruction(graphics);
 		}
+    }
+    
+    private String constructInstructionText(){
+    	String [] unformatInstructions = unformatOutputVariables();
+    	
+	    String[] outputInstructions = instruction.instruccion.split(";");
+
+	    String instructionText;
+
+	    int instructionLenght = unformatInstructions[0].length();
+	    
+	    int maxLenght = 6;
+	    
+	    //int maxLenght = 5;
+	    
+	    /**
+	     * Checar esto!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	     * porque usas el 6 para saber si es mayor que 6 luego si es mayor que 5
+	     * que pedo? si entra es porque es mayor que 6! debe ser mayor que 5
+	     * aunque no se cumpa la segunda condicion porque es un "or"
+	     * hay que poner el nombre si es que se conservan los numeros de las variables.
+	     */
+	    
+	    int minLenght = 1;
+
+	    if ( instructionLenght > maxLenght || outputInstructions.length > minLenght) {
+
+			if (instructionLenght > 5) {
+	
+			    instructionText = unformatInstructions[0].substring(0, 5);
+			} else {
+			    instructionText = unformatInstructions[0].substring(0, instructionLenght);
+			}
+	    } else {
+	    	instructionText = unformatInstructions[0].substring(0, instructionLenght);
+	    }
+	    return instructionText;
     }
 }

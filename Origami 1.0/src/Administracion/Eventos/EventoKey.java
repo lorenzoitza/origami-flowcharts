@@ -45,7 +45,7 @@ public class EventoKey {
 			    InputFigure entrada2 = new InputFigure();
 			    InstruccionSimple codigo5 = new InstruccionSimple();
 			    codigo5.setInstruccionSimple("null");
-				entrada2.instruccion.instruccion = "null";
+				entrada2.instruction.instruccion = "null";
 			    Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = entrada2;
 			    Ventana.bandera = false;
@@ -115,7 +115,7 @@ public class EventoKey {
 			    OutputFigure salida2 = new OutputFigure();
 			    InstruccionSimple codigo6 = new InstruccionSimple();
 				codigo6.setInstruccionSimple("null");
-				salida2.instruccion.instruccion = "null";
+				salida2.instruction.instruccion = "null";
 			    Ventana.figuraPrincipal = null;
 			    Ventana.figuraPrincipal = salida2;
 			    Ventana.bandera = false;

@@ -56,30 +56,45 @@ public class SentenceFigure extends Figura {
     }
 
     private boolean isInstruction() {
+    	//Que pedo con esta comprobacion!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
 		return instruccion.instruccion != "null"
 			&& instruccion.instruccion.compareTo("null") != 0;
     }
 
     private void drawInstruction(Graphics graphics) {
 		if (isInstruction()) {
-		    
-		    String _instruction = instruccion.instruccion;
-		    
-		    int xCoord = rectangle.x + rectangle.width / 8;
+			int xCoord = rectangle.x + rectangle.width / 8;
 		    
 		    int yCoord = rectangle.y + 15;
 		    
-		    if (_instruction.length() <= 10) {
-				String subStr = _instruction.substring(0, _instruction.length() - 1);
-				graphics.drawText(subStr, xCoord, yCoord);
-			    } else {
-				int maxDisplayCharacters = _instruction.length() - 9;
-				String subStr = _instruction.substring(0, _instruction.length() -
-					maxDisplayCharacters);
-				graphics.drawText(subStr + "...", xCoord, yCoord);
-		    }
+		    String instructionText = construcInstructionText();
+		    
+			graphics.drawText(instructionText, xCoord, yCoord);
 		} else {
-		    	drawDefaultInstruction(graphics);
+			drawDefaultInstruction(graphics);
 		}
+    }
+    
+    private String construcInstructionText(){
+    	String instructionCode = instruccion.getInstruccionSimple();
+	    
+    	int instructionLenght = instructionCode.length();
+    	
+    	int maxLenght = 10;
+    	
+	    int maxDisplayCharacters = instructionLenght - 9;
+	    
+	    int minLenght = 0;
+	    
+	    String instructionText;
+	    
+	    if (instructionLenght <= maxLenght) {
+			instructionText = instructionCode.substring(minLenght, instructionLenght - 1);
+		} else {
+			
+			instructionText = instructionCode.substring(minLenght, instructionLenght - maxDisplayCharacters)+ "...";
+		}
+	    
+	    return instructionText;
     }
 }

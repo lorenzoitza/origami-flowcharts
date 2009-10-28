@@ -329,7 +329,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 				dato = "";
 				String[] variables2 = new String[50];
 				String[] variables = new String[50];
-				variables =  a.instruccion.instruccion.split(";");
+				variables =  a.instruction.instruccion.split(";");
 				int cont =0;
 				for(int x=0;x<variables.length;x++){
 					variables[x] = variables[x].replace("\\", "");
@@ -360,7 +360,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof InputFigure){
 				InputFigure a = (InputFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruccion.instruccion;
+				dato = a.instruction.instruccion;
 				dato = dato.replaceAll(";", ",");
 				if(dato.length()>0){
 					dato = dato.substring(0, dato.length()-1);

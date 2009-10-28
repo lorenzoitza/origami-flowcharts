@@ -677,9 +677,9 @@ public class Instruccion implements Serializable{
 			}
 			else if(diagrama.elementAt(x) instanceof OutputFigure){
 				OutputFigure f = ((OutputFigure)diagrama.elementAt(x));
-				if(f.instruccion.getInstruccionSimple() != null){
+				if(f.instruction.getInstruccionSimple() != null){
 					String[] ins = new String[3];
-					String inst = f.instruccion.getInstruccionSimple();
+					String inst = f.instruction.getInstruccionSimple();
 					ins = inst.split(";");
 					for(int d=0;d<ins.length;d++){
 						while(ins[d].startsWith(" ")){
@@ -691,9 +691,9 @@ public class Instruccion implements Serializable{
 			}
 			else if(diagrama.elementAt(x) instanceof InputFigure){
 				InputFigure f = ((InputFigure)diagrama.elementAt(x));
-				if(f.instruccion.getInstruccionSimple() != null){
+				if(f.instruction.getInstruccionSimple() != null){
 					String[] ins;
-					String inst = f.instruccion.getInstruccionSimple();
+					String inst = f.instruction.getInstruccionSimple();
 					ins = inst.split(";");
 					for(int d=0;d<ins.length;d++){
 						int coma = ins[d].indexOf(",");
