@@ -55,7 +55,7 @@ public class InputFigure extends Figura {
     }
 
     private boolean isInstruction() {
-    	boolean isNull = instruction.getInstruccionSimple() == null;
+    	boolean isNull = instruction.getInstruccionSimple() == "null";
     	
     	boolean isEmpty = instruction.getInstruccionSimple().isEmpty();
     	
@@ -97,11 +97,14 @@ public class InputFigure extends Figura {
 
 	    String _subInstruction = instructionCode.substring(0, number);
 	    
+	    int maxLenght = 6;
 	    
-	    if (variables[0].length() > 6) {
+	    int minNumberOfVariable = 1;
+	    
+	    if (variables[0].length() > maxLenght) {
 
 			_subInstruction = variables[0].substring(0, 5) + "...";
-	    } else if (variables.length > 1) {
+	    } else if (variables.length > minNumberOfVariable) {
 
 			_subInstruction = variables[0] + "...";
 	    } 
