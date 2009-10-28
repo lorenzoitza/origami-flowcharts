@@ -124,8 +124,6 @@ public class OutputFigure extends Figura {
     
     private String constructInstructionText(){
     	String [] unformatInstructions = unformatOutputVariables();
-    	
-	    String[] outputInstructions = instruction.instruccion.split(";");
 
 	    String instructionText;
 
@@ -133,26 +131,12 @@ public class OutputFigure extends Figura {
 	    
 	    int maxLenght = 6;
 	    
-	    //int maxLenght = 5;
-	    
-	    /**
-	     * Checar esto!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	     * porque usas el 6 para saber si es mayor que 6 luego si es mayor que 5
-	     * que pedo? si entra es porque es mayor que 6! debe ser mayor que 5
-	     * aunque no se cumpa la segunda condicion porque es un "or"
-	     * hay que poner el nombre si es que se conservan los numeros de las variables.
-	     */
-	    
-	    int minLenght = 1;
+	    int minNumberOfVariable = 1;
+	    			
+	    if ( instructionLenght > maxLenght || unformatInstructions.length > minNumberOfVariable) {
 
-	    if ( instructionLenght > maxLenght || outputInstructions.length > minLenght) {
-
-			if (instructionLenght > 5) {
-	
-			    instructionText = unformatInstructions[0].substring(0, 5);
-			} else {
-			    instructionText = unformatInstructions[0].substring(0, instructionLenght);
-			}
+			instructionText = unformatInstructions[0].substring(0, instructionLenght)+"...";
+			
 	    } else {
 	    	instructionText = unformatInstructions[0].substring(0, instructionLenght);
 	    }
