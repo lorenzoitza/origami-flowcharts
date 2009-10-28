@@ -31,7 +31,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     protected void validate(boolean band) {
 	boolean isChanged = false;
 
-	InstruccionSimple codigo = new InstruccionSimple();
+	InstruccionSimple code = new InstruccionSimple();
 
 	if (band) {
 	    if (conditionTextField.getText() != "") {
@@ -39,7 +39,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 		String instructionCode =
 			"if(" + conditionTextField.getText() + "){";
 
-		codigo.setInstruccionSimple(instructionCode);
+		code.setInstruccionSimple(instructionCode);
 
 		if (abstractFigure.instruction.instruccion.size() > 0) {
 
@@ -54,7 +54,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 			isChanged = true;
 		    }
 		}
-		abstractFigure.instruction.instruccion.add(0, codigo);
+		abstractFigure.instruction.instruccion.add(0, code);
 		tabbedPaneSelected.getHoja().addFigure();
 		tabbedPaneSelected.getHoja().guardarRetroceso();
 		if (isChanged) {

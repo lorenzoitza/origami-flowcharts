@@ -33,7 +33,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     @Override
     public void initLabels() {
 	addVariableLabel = new Label(dialog, SWT.HORIZONTAL);
-	addVariableLabel.setText("AGREGAR UNA VARIABLE MÁS");
+	addVariableLabel.setText("AGREGAR UNA VARIABLE Mï¿½S");
 	addVariableLabel.setSize(150, 30);
 	addVariableLabel.setLocation(165, 155);
 
@@ -60,23 +60,23 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 
 	    textBoxContent = abstractFigure.instruction.getInstruccionSimple().split(";");
 
-	    for (int i = 0; i < textBoxContent.length; i++) {
+	    for (int contentBoxElement = 0; contentBoxElement < textBoxContent.length; contentBoxElement++) {
 
 		scrolledCompositeContent = composite.getChildren();
 
 		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(textBoxContent[i]);
+		text.setBounds(0, 0 + contentBoxElement * 25, 250, 20);
+		text.setText(textBoxContent[contentBoxElement]);
 
-		addReadButton(i);
-		addDeleteButton(i);
+		addReadButton(contentBoxElement);
+		addDeleteButton(contentBoxElement);
 		addKeyListener(text);
 	    }
 	    if (textBoxContent.length < 4) {
 
-		for (int i = textBoxContent.length; i < 4; i++) {
+		for (int textBox = textBoxContent.length; textBox < 4; textBox++) {
 
-		    addTextComponent(i);
+		    addTextComponent(textBox);
 		}
 		scrolledCompositeContent = composite.getChildren();
 
@@ -91,15 +91,15 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 		text.forceFocus();
 	    }
 	} else {
-	    for (int i = 0; i <= 3; i++) {
-		addTextComponent(i);
+	    for (int component = 0; component <= 3; component++) {
+		addTextComponent(component);
 
 		scrolledCompositeContent = composite.getChildren();
 	    }
 	}
     }
 
-    
+    //TODO: no se ha definido el valor de la X que sirve como indice.
     public void addReadButton(int location) {
 	final Button readButton = new Button(composite, SWT.PUSH);
 	readButton.setImage(ImageLoader.getImage("teclado.ico"));
