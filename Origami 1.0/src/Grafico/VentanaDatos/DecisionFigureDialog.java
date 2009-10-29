@@ -67,15 +67,22 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 
     @Override
     public void initLabels() {
-	informationLabel = new Label(dialog, SWT.NONE);
-	informationLabel.setLocation(15, 5);
-	informationLabel.setSize(250, 15);
-	informationLabel.setText("Introduce la condicion");
-
-	exampleLabel = new Label(dialog, SWT.NONE);
-	exampleLabel.setLocation(15, 55);
-	exampleLabel.setSize(250, 15);
-	exampleLabel.setText("EJEMPLO:  suma<=condicion");
+    	initInformationLabel();
+    	initExampleLabel();
+    }
+    
+    public void initInformationLabel(){
+    	informationLabel = new Label(dialog, SWT.NONE);
+    	informationLabel.setLocation(15, 5);
+    	informationLabel.setSize(250, 15);
+    	informationLabel.setText("Introduce la condicion");
+    }
+    
+    public void initExampleLabel(){
+    	exampleLabel = new Label(dialog, SWT.NONE);
+    	exampleLabel.setLocation(15, 55);
+    	exampleLabel.setSize(250, 15);
+    	exampleLabel.setText("EJEMPLO:  suma<=condicion");
     }
 
     @Override
