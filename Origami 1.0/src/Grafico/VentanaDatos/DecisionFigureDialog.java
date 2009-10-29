@@ -66,19 +66,19 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     }
 
     @Override
-    public void initLabels() {
+    protected void initLabels() {
     	initInformationLabel();
     	initExampleLabel();
     }
     
-    public void initInformationLabel(){
+    private void initInformationLabel(){
     	informationLabel = new Label(dialog, SWT.NONE);
     	informationLabel.setLocation(15, 5);
     	informationLabel.setSize(250, 15);
     	informationLabel.setText("Introduce la condicion");
     }
     
-    public void initExampleLabel(){
+    private void initExampleLabel(){
     	exampleLabel = new Label(dialog, SWT.NONE);
     	exampleLabel.setLocation(15, 55);
     	exampleLabel.setSize(250, 15);
