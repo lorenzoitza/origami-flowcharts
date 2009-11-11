@@ -19,7 +19,7 @@ import Administracion.Eventos.EventoAgregarFigura;
 import Administracion.Eventos.EventoCambiarCursor;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.Serializar;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 /**
  * @version Origami 1.0
@@ -39,9 +39,9 @@ public class Hoja{
 	private Composite diagramaArea;
 	
 	public Hoja(Display display,TabFolder tabfolder,AdminSeleccion selec){
-		Ventana.componentes.agregarBarraFiguras();
-		diagramaArea = new Composite(Ventana.shell,SWT.NONE);
-		diagramaArea.setLayoutData(Ventana.componentes.diagramaData);
+		MainWindow._components.agregarBarraFiguras();
+		diagramaArea = new Composite(MainWindow._shell,SWT.NONE);
+		diagramaArea.setLayoutData(MainWindow._components.diagramaData);
 		GridLayout layoutComposite = new GridLayout(1, false);
 		GridData diagramaGrid =new GridData(SWT.FILL,SWT.FILL,true,true,1,1);
 		layoutComposite.horizontalSpacing =layoutComposite.verticalSpacing=0;
@@ -56,7 +56,7 @@ public class Hoja{
 		gridLayout.setConstraint(scaledPane, gridData);
 		tab = tabfolder;
 		seleccion = selec;
-		Ventana.shell.addMouseWheelListener(new MouseWheelListener(){
+		MainWindow._shell.addMouseWheelListener(new MouseWheelListener(){
 			public void mouseScrolled(MouseEvent arg0) {
 				int direction=1;
 				if(arg0.count>0){
@@ -115,8 +115,8 @@ public class Hoja{
 		 guardarRetroceso();
 		 chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true); 
 		 if(tab.getItemCount()==1){
-			Ventana.componentes.diagramaData.exclude=false;
-			Ventana.shell.layout();
+			MainWindow._components.diagramaData.exclude=false;
+			MainWindow._shell.layout();
 			resetScrollBar();
 		 }
 	}
@@ -135,10 +135,10 @@ public class Hoja{
 		chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
 		connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
 		chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
-		if(Ventana.componentes.paso!=null && Ventana.componentes.paso.colaConexiones.size()!=0
-				&& Ventana.componentes.paso.a.GetId() == tab.getSelectedTabItemId()){
-			for(int x=0;x<Ventana.componentes.paso.colaConexiones.size();x++){
-				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(Ventana.componentes.paso.colaConexiones.get(x)).setForegroundColor(Ventana.display.getSystemColor(SWT.COLOR_RED));
+		if(MainWindow._components.paso!=null && MainWindow._components.paso.colaConexiones.size()!=0
+				&& MainWindow._components.paso.a.GetId() == tab.getSelectedTabItemId()){
+			for(int x=0;x<MainWindow._components.paso.colaConexiones.size();x++){
+				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(MainWindow._components.paso.colaConexiones.get(x)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 	}
@@ -200,7 +200,7 @@ public class Hoja{
 		Rectangle r = diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().getBounds();
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = Ventana.ser.abrir(archivo);
+    	Archivo aux = MainWindow.getSerializer().abrir(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();
@@ -215,14 +215,14 @@ public class Hoja{
 		setScroll();
 		addPropiedades();
 		if(tab.getItemCount()==1){
-			Ventana.componentes.diagramaData.exclude=false;
-			Ventana.shell.layout();
+			MainWindow._components.diagramaData.exclude=false;
+			MainWindow._shell.layout();
 		}
 		chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true);
     	Rectangle r = new Rectangle(1090,100,80,50);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = Ventana.ser.abrir(archivo);
+    	Archivo aux = MainWindow.getSerializer().abrir(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();

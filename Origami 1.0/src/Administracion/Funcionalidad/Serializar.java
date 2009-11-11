@@ -5,7 +5,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import Administracion.Archivo;
 import Administracion.TabFolder;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 /**
  * Esta clase guarda y abre el diagrama realizado.
  * @version Origami 1.0
@@ -31,7 +31,7 @@ public class Serializar {
 			os.close();
 		} 
 		catch(Exception e){ 
-			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
+			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
     		messageBox.setText("Origami");
     		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
     		int seleccion = messageBox.open();

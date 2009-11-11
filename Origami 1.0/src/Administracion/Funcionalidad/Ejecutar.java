@@ -7,7 +7,7 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabItem;
 import Grafico.Componentes;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -20,7 +20,7 @@ public class Ejecutar implements ExecProcessor {
 	public TabItem a;
 	
 	private void updateTextArea(final Componentes consola, final String line) {
-		Ventana.display.syncExec(new Runnable () {
+		MainWindow._display.syncExec(new Runnable () {
 			public void run () {
 				if(!consola.seleccion){
 					String linea = consola.paso.texto(line);					
@@ -67,14 +67,14 @@ public class Ejecutar implements ExecProcessor {
 		}
 	}
 	public void ejecutar(Componentes consola,String instruccion,Compilar codigo) {
-		this.a = (TabItem)Ventana.componentes.diagramas.getSeleccion();
+		this.a = (TabItem)MainWindow._components.diagramas.getSeleccion();
 		this.codigo = codigo;
 		this.consola = consola;
 		this.consola.text.setText("");
 		runCommandActionPerformed(instruccion);
 	}
 	public void stopEjecutar(){
-		Ventana.componentes.toolItem[12].setEnabled(false);
+		MainWindow._components.toolItem[12].setEnabled(false);
 		if(exh != null){
 			exh.stopEjecucion();	
 		}
@@ -85,11 +85,11 @@ public class Ejecutar implements ExecProcessor {
 	private void exit(int exit){
 		Exit = Exit + exit;
 		if(Exit == 3){
-			Ventana.display.syncExec(new Runnable () {
+			MainWindow._display.syncExec(new Runnable () {
 				public void run () {
 					consola.setEnEjecucion(false);
 					consola.ejecucionDisable();
-					MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_INFORMATION | SWT.YES );
+					MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_INFORMATION | SWT.YES );
 					messageBox.setText("Origami");
 					messageBox.setMessage("La ejecución ha terminado.");
 					int selec = messageBox.open();

@@ -8,7 +8,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 import Imagenes.ImageLoader;
 
 public class HelpWindow{
@@ -18,7 +18,7 @@ public class HelpWindow{
 	private Browser browser;
 	private HelpContents helpContent;
 	private int treeItemSelection;
-	private final Color WHITE_COLOR = Ventana.display.getSystemColor(
+	private final Color WHITE_COLOR = MainWindow._display.getSystemColor(
 			SWT.COLOR_WHITE);
 	private final int MAX_TREE_ITEMS = 19;
 	
@@ -182,7 +182,7 @@ public class HelpWindow{
 	}
 	
 	public void createWindow(){
-		this.helpShell = new Shell(Ventana.display);
+		this.helpShell = new Shell(MainWindow._display);
 		this.helpShell.setLayout(new FillLayout());
 		
 	    

@@ -47,36 +47,36 @@ public class DoubleClickEvent extends MouseListener.Stub{
 		if(figure instanceof SentenceFigure){
 			SentenceFigure setenceFigure = (SentenceFigure)figure;
 			
-			new SentenceFigureDialog(Ventana.shell,tabFolder
+			new SentenceFigureDialog(MainWindow._shell,tabFolder
 				,setenceFigure,selectionAdmin).open();
 		}
 		else if(figure instanceof DecisionFigure){
 			DecisionFigure decisionFigure = ((DecisionFigure)figure);
-			new DecisionFigureDialog(Ventana.shell,tabFolder,
+			new DecisionFigureDialog(MainWindow._shell,tabFolder,
 				decisionFigure,selectionAdmin).open();
 		}
 		else if(figure instanceof InputFigure){
 			InputFigure inputFigure = ((InputFigure)figure);
 			
-			new InputFigureDialog(Ventana.shell,tabFolder
+			new InputFigureDialog(MainWindow._shell,tabFolder
 				,inputFigure,selectionAdmin).open();
 		}
 		else if(figure instanceof OutputFigure){
 			OutputFigure outputFigure = ((OutputFigure)figure);
 			
-			new OutputFigureDialog(Ventana.shell,tabFolder
+			new OutputFigureDialog(MainWindow._shell,tabFolder
 				,outputFigure,selectionAdmin).open();
 		}
 		else if(figure instanceof ForFigure){
 			ForFigure forFigure = ((ForFigure)figure);
 			
-			new ForFigureDialog(Ventana.shell,tabFolder
+			new ForFigureDialog(MainWindow._shell,tabFolder
 				,forFigure,selectionAdmin).open();
 		}
 		else if(figure instanceof WhileFigure){
 			WhileFigure whileFigure = ((WhileFigure)figure);
 			
-			new WhileFigureDialog(Ventana.shell,tabFolder
+			new WhileFigureDialog(MainWindow._shell,tabFolder
 				,whileFigure,selectionAdmin).open();
 			
 		}

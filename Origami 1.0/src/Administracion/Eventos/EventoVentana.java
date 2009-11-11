@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Grafico.Componentes;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -34,7 +34,7 @@ public class EventoVentana extends ShellAdapter{
 			}
 		}
 		if(mensaje){
-			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
+			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
 			messageBox.setText("Origami");
 			messageBox.setMessage("Existen diagramas sin guardar, ¿desea guardarlos?");
 				selec = messageBox.open();

@@ -52,7 +52,7 @@ public class Instruccion implements Serializable{
 	 * @param Display d 
 	 */
 	public void ventana(Display d) {
-		shell = new Shell(Ventana.shell);
+		shell = new Shell(MainWindow._shell);
 		shell.setSize(500,387);
 		shell.setLocation(300, 200);
 		shell.setText("Codigo Fuente");
@@ -104,7 +104,7 @@ public class Instruccion implements Serializable{
 			     dialog.setFilterExtensions(new String[] { "*.c"});
 			     String archivo = dialog.open();
 			     if(archivo != null){
-			    	 Exportar expor = new Exportar(Ventana.diagramas);
+			    	 Exportar expor = new Exportar(MainWindow._diagrams);
 			    	 expor.exportarCodigoC(archivo);
 				 }
 			}
@@ -121,7 +121,7 @@ public class Instruccion implements Serializable{
 			     dialog.setFilterExtensions(new String[] { "*.cpp"});
 			     String archivo = dialog.open();
 			     if(archivo != null){
-			    	 Exportar expor = new Exportar(Ventana.diagramas);
+			    	 Exportar expor = new Exportar(MainWindow._diagrams);
 			    	 expor.exportarCodigoCpp(archivo);
 				 }
 			}
@@ -140,7 +140,7 @@ public class Instruccion implements Serializable{
 			     if(archivo != null){
 			    	 String nombre = dialog.getFileName();
 			    	 nombre = nombre.substring(0,nombre.indexOf("."));
-			    	 Exportar expor = new Exportar(Ventana.diagramas);
+			    	 Exportar expor = new Exportar(MainWindow._diagrams);
 			    	 expor.exportarEjecutable(archivo,nombre);
 				 }
 			}

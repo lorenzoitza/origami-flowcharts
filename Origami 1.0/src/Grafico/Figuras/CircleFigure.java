@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 
 import Administracion.*;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de Inicio y del Fin del

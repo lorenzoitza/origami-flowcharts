@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 import Administracion.Eventos.EventoKey;
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.Serializar;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -30,7 +30,7 @@ public class TabFolder {
 	public TabFolder(Display display,AdminSeleccion seleccion){
 		selec = seleccion;
 		key = new EventoKey(selec,this);
-		tabFolder = new CTabFolder(Ventana.shell,SWT.BORDER | SWT.CLOSE);
+		tabFolder = new CTabFolder(MainWindow._shell,SWT.BORDER | SWT.CLOSE);
 		hoja = new Hoja(display,this,selec);
 		addTabItem();
 		tabFolder.forceFocus();
@@ -59,14 +59,14 @@ public class TabFolder {
 		tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 			public void close(CTabFolderEvent event) {
 				TabItem a = (TabItem)event.item;
-				if(Ventana.componentes.eje != null && Ventana.componentes.getEnEjecucion()
-						&& a.GetId() == Ventana.componentes.eje.a.GetId()){
-					Ventana.componentes.stopEjecucion();
+				if(MainWindow._components.eje != null && MainWindow._components.getEnEjecucion()
+						&& a.GetId() == MainWindow._components.eje.a.GetId()){
+					MainWindow._components.stopEjecucion();
 				}
-				else if(Ventana.componentes.paso != null && Ventana.componentes.getEnEjecucion()
-						&& a.GetId() == Ventana.componentes.paso.a.GetId()){
-					Ventana.componentes.stopEjecucion();
-					Ventana.getComponentes().disablePasoAPaso(false);
+				else if(MainWindow._components.paso != null && MainWindow._components.getEnEjecucion()
+						&& a.GetId() == MainWindow._components.paso.a.GetId()){
+					MainWindow._components.stopEjecucion();
+					MainWindow.getComponentes().disablePasoAPaso(false);
 				}
 				if(!a.getSave().isSave()){
 					a.getSave().GuardarDiagrama(event);

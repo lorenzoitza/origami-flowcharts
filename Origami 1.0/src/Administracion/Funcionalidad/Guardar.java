@@ -34,7 +34,7 @@ public class Guardar {
 	public void GuardarDiagrama(CTabFolderEvent e){
 		TabItem a = (TabItem)e.item;
 		int selec = a.GetId()+1;
-		MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
+		MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
 		messageBox.setText("Origami");
 		if(a.getText() == "*Diagrama "+ selec){
 			messageBox.setMessage("Deseas guardar los cambios efectuados en el diagrama "+ selec+"?");
@@ -46,7 +46,7 @@ public class Guardar {
 		switch(selec){
 		case 64:
 			if(tab.getTabItem().getSave().getDir()=="null"){
-				FileDialog dialog = new FileDialog(Ventana.shell,SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow._shell,SWT.SAVE);
 			    dialog.setFilterExtensions(new String[] { "*.Org"});
 			    String archivo = dialog.open();
 			    if(archivo!=null){
@@ -55,7 +55,7 @@ public class Guardar {
 		    						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 		    						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 		    						dialog.getFileName().contains("\"")){
-		    			MessageBox messageBox2 = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
+		    			MessageBox messageBox2 = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
 		    			messageBox2.setText("Origami");
 		    			messageBox2.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
 			    		int seleccion = messageBox2.open();
@@ -77,15 +77,15 @@ public class Guardar {
 		    			catch(Exception e1){
 		    			}		    	
 		    			if(existe){
-		    				MessageBox messageBox3 = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+		    				MessageBox messageBox3 = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 		    				messageBox3.setText("Origami");
 		    				messageBox3.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
-							    	Ventana.ser.SetFil(archivo);
+							    	MainWindow.getSerializer().SetFil(archivo);
 							    	tab.getTabItem().getSave().setDir(archivo);
-							    	Ventana.ser.guardar(tab);
+							    	MainWindow.getSerializer().guardar(tab);
 							    	archivo = dialog.getFileName();
 							    	int pos = archivo.indexOf('.');
 							    	String name = archivo.substring(0, pos);
@@ -97,9 +97,9 @@ public class Guardar {
 				    		}
 				    	}
 				    	else{
-					    	Ventana.ser.SetFil(archivo);
+					    	MainWindow.getSerializer().SetFil(archivo);
 					    	tab.getTabItem().getSave().setDir(archivo);
-					    	boolean error = Ventana.ser.guardar(tab);
+					    	boolean error = MainWindow.getSerializer().guardar(tab);
 					    	if(error){
 					    		archivo = dialog.getFileName();
 					    		int pos = archivo.indexOf('.');
@@ -115,8 +115,8 @@ public class Guardar {
 			    }
 			}
 			else{
-		    	Ventana.ser.SetFil(tab.getTabItem().getSave().getDir());
-		    	Ventana.ser.guardar(tab);
+		    	MainWindow.getSerializer().SetFil(tab.getTabItem().getSave().getDir());
+		    	MainWindow.getSerializer().guardar(tab);
 		    	tab.getTabItem().getSave().setSave(true);
 			}
 			break;
@@ -133,10 +133,10 @@ public class Guardar {
 		if(tab.getItemCount()==1){
 			tab.getHoja().getPanel().removeAll();
 			tab.getHoja().getDibujarDiagrama().setOpaque(false);
-			Ventana.componentes.diagramaData.exclude=true;
-			Ventana.componentes.diagramas.getHoja().setBoundsToZero();
+			MainWindow._components.diagramaData.exclude=true;
+			MainWindow._components.diagramas.getHoja().setBoundsToZero();
 			tab.getHoja().getDiagrama().removeAllElements();
-			Ventana.componentes.disableAll(false);
+			MainWindow._components.disableAll(false);
 		}
 	}
 	public void verificar(){
@@ -145,10 +145,10 @@ public class Guardar {
 			if(nombre.startsWith("*")){
 				nombre = nombre.substring(1);
 				tab.cambiarNombre(nombre);
-				Ventana.getComponentes().guardarDisable(false);
+				MainWindow.getComponentes().guardarDisable(false);
 			}
 			else{
-				Ventana.getComponentes().guardarDisable(false);
+				MainWindow.getComponentes().guardarDisable(false);
 			}
 		}
 		else{
@@ -156,21 +156,21 @@ public class Guardar {
 			if(!nombre.startsWith("*")){
 				nombre = "*"+nombre;
 				tab.cambiarNombre(nombre);
-				Ventana.getComponentes().guardarDisable(true);
+				MainWindow.getComponentes().guardarDisable(true);
 			}
 		}
 	}
 	public void verificarCambio(){
 		if(save){
 			if(tab.getHoja().getDiagrama().size()==2){
-				Ventana.getComponentes().guardarDisable(true);
+				MainWindow.getComponentes().guardarDisable(true);
 			}
 			else{
-				Ventana.getComponentes().guardarDisable(false);
+				MainWindow.getComponentes().guardarDisable(false);
 			}
 		}
 		else{
-			Ventana.getComponentes().guardarDisable(true);
+			MainWindow.getComponentes().guardarDisable(true);
 		}
 	}
 	public String getDir() {

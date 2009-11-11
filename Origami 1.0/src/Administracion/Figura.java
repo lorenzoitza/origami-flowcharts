@@ -12,7 +12,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
-import Grafico.Ventana;
+import Grafico.MainWindow;
 
 /**
  * Esta es la clase base de la cual todas las figuras heredan.
@@ -33,32 +33,32 @@ public class Figura extends Figure implements Serializable {
     protected boolean seleccion = false;
 
     protected static final Font DEFAULT_FONT =
-	    new Font(Ventana.display, "Arial", 10, SWT.ITALIC);
+	    new Font(MainWindow._display, "Arial", 10, SWT.ITALIC);
 
     protected static final Color DEFAULT_TEXTCOLOR = new Color(null, 6, 93, 6);
 
     protected static final Color RED =
-	    Ventana.display.getSystemColor(SWT.COLOR_RED);
+	    MainWindow._display.getSystemColor(SWT.COLOR_RED);
 
     protected static final Color GRAY =
-	    Ventana.display.getSystemColor(SWT.COLOR_GRAY);
+	    MainWindow._display.getSystemColor(SWT.COLOR_GRAY);
 
     protected static final Color DARKBLUE =
-	    Ventana.display.getSystemColor(SWT.COLOR_DARK_BLUE);
+	    MainWindow._display.getSystemColor(SWT.COLOR_DARK_BLUE);
 
     public Figura() {
 	addMouseListener(new MouseListener() {
 
 	    public void mouseDoubleClicked(MouseEvent arg0) {
-		Ventana.diagramas.getTabFolder().forceFocus();
+		MainWindow._diagrams.getTabFolder().forceFocus();
 	    }
 
 	    public void mousePressed(MouseEvent arg0) {
-		Ventana.diagramas.getTabFolder().forceFocus();
+		MainWindow._diagrams.getTabFolder().forceFocus();
 	    }
 
 	    public void mouseReleased(MouseEvent arg0) {
-		Ventana.diagramas.getTabFolder().forceFocus();
+		MainWindow._diagrams.getTabFolder().forceFocus();
 	    }
 	});
     }

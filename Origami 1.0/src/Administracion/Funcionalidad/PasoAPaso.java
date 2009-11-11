@@ -14,7 +14,7 @@ import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.Codigo.Instruccion;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 import Grafico.Figuras.*;
 /**
  * @version Origami 1.0
@@ -52,7 +52,7 @@ public class PasoAPaso extends Ejecutar{
 		inputActionPerformed("break 1");
 		inputActionPerformed("run");
 		recorrido();
-		Ventana.getComponentes().paso = this;
+		MainWindow.getComponentes().paso = this;
 		tab.getHoja().paso(0);
 	}
 	public String texto(String texto){
@@ -147,13 +147,13 @@ public class PasoAPaso extends Ejecutar{
 		}
 	}
 	public void ventanaLeer(){
-		final Shell capturar = new Shell(Ventana.shell);
+		final Shell capturar = new Shell(MainWindow._shell);
 		final Text text = new Text(capturar, SWT.BORDER | SWT.MULTI);
 		text.setBounds(10,10,255,110);
 		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				Ventana.key.setKey(e);
-				if(Ventana.key.PresentEnter()){
+				MainWindow._keyEvent.setKey(e);
+				if(MainWindow._keyEvent.PresentEnter()){
 					inputActionPerformed("next");
 					inputActionPerformed(text.getText());
 					capturar.close();
@@ -206,7 +206,7 @@ public class PasoAPaso extends Ejecutar{
 	}
 	public void pasoApaso(int linea){
 		colaConexiones.clear();
-		Color blue = Ventana.display.getSystemColor(SWT.COLOR_RED);
+		Color blue = MainWindow._display.getSystemColor(SWT.COLOR_RED);
 		int i=0;
 		tab.getHoja().getDiagrama().elementAt(figuraAnterior).setPasoAPaso(false);
 		for(int figura=0; figura<tab.getHoja().getDiagrama().size(); figura++){
@@ -382,7 +382,7 @@ public class PasoAPaso extends Ejecutar{
 	}
 	private boolean revisaFin(int i){
 		if(i+1==tab.getHoja().getSizeDiagrama()){//si es el final del diagrama
-			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_INFORMATION | SWT.YES );
+			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_INFORMATION | SWT.YES );
 			messageBox.setText("Origami");
 			messageBox.setMessage("La ejecución ha terminado.");
 			int selec = messageBox.open();
@@ -396,14 +396,14 @@ public class PasoAPaso extends Ejecutar{
 			}
 			tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
-			Ventana.componentes.stopEjecucion();
+			MainWindow._components.stopEjecucion();
 			return true;
 		}
 		return false;
 	}
 	private void setScroll(int fig){
 		int vertical=580;
-		if(!Ventana.componentes.consolaData.exclude){
+		if(!MainWindow._components.consolaData.exclude){
 			vertical=400;
 		}
 		int x=0,y=0;

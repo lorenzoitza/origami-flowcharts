@@ -50,11 +50,11 @@ public class DibujarDiagrama extends Figure{
 			}
 			public void mousePressed(MouseEvent arg0) {
 				tab.getTabFolder().forceFocus();
-				if(Ventana.getComponentes().hide){
-					if(Ventana.getComponentes().hide){
-						if(Ventana.Consola.getSelection()){
-							Ventana.getComponentes().moverConsola(false);
-							Ventana.Consola.setSelection(false);
+				if(MainWindow.getComponentes().hide){
+					if(MainWindow.getComponentes().hide){
+						if(MainWindow.consoleMenuItem.getSelection()){
+							MainWindow.getComponentes().moverConsola(false);
+							MainWindow.consoleMenuItem.setSelection(false);
 						}
 					}
 				}			
@@ -116,13 +116,13 @@ public class DibujarDiagrama extends Figure{
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
 		}
-		else if(Ventana.first){
-			Ventana.menuEdicion.menuDisponibleFigura();
+		else if(MainWindow.first){
+			MainWindow._editMenu.menuDisponibleFigura();
 		}
-		if(Ventana.dispToolItem){
-			Ventana.getComponentes().toolBarDisable();
+		if(MainWindow.dispToolItem){
+			MainWindow.getComponentes().toolBarDisable();
 		}
-		Ventana.dispToolItem = true;
+		MainWindow.dispToolItem = true;
 	}
 	public void agregarFigurasExportar(Vector<Figura> diagrama,Figure chart,int lugar,int alt){
 		int x;
@@ -779,17 +779,17 @@ public class DibujarDiagrama extends Figure{
 		
 		for(int i=0; i<4; i++){
 			SelectionSquare uno = new SelectionSquare(false,SWT.COLOR_DARK_GRAY);
-			Ventana.seleccion.insertElementAt(uno, i);
+			MainWindow.seleccion.insertElementAt(uno, i);
 		}
-		Ventana.seleccion.elementAt(0).setLocation(new Point(x-8,y-10));
-		Ventana.seleccion.elementAt(1).setLocation(new Point(x+width+2,y-10));
-		Ventana.seleccion.elementAt(2).setLocation(new Point(x-8,y+height-2));
-		Ventana.seleccion.elementAt(3).setLocation(new Point(x+width+2,y+height-2));
+		MainWindow.seleccion.elementAt(0).setLocation(new Point(x-8,y-10));
+		MainWindow.seleccion.elementAt(1).setLocation(new Point(x+width+2,y-10));
+		MainWindow.seleccion.elementAt(2).setLocation(new Point(x-8,y+height-2));
+		MainWindow.seleccion.elementAt(3).setLocation(new Point(x+width+2,y+height-2));
 		
 		for(int i=0; i<4; i++){
-			chart.add(Ventana.seleccion.elementAt(i));
+			chart.add(MainWindow.seleccion.elementAt(i));
 		}
-		Ventana.menuEdicion.menuDisponibleFigura();
+		MainWindow._editMenu.menuDisponibleFigura();
 		diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
 	}
 	/**
@@ -803,7 +803,7 @@ public class DibujarDiagrama extends Figure{
 	public void getFigura(Vector<Figura> diagrama,boolean eventos){
 		Point pt = new Point();
 		if(eventos){
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				new EventoSeleccionar(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
@@ -817,7 +817,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -833,7 +833,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -849,7 +849,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -865,7 +865,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -881,7 +881,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -897,7 +897,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!Ventana.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
 						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
@@ -1019,19 +1019,19 @@ public class DibujarDiagrama extends Figure{
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
 		}
-		else if(Ventana.first){
-			Ventana.menuEdicion.menuDisponibleFigura();
+		else if(MainWindow.first){
+			MainWindow._editMenu.menuDisponibleFigura();
 		}
-		if(Ventana.dispToolItem){
-			Ventana.getComponentes().toolBarDisable();
+		if(MainWindow.dispToolItem){
+			MainWindow.getComponentes().toolBarDisable();
 		}
-		Ventana.dispToolItem = true;
+		MainWindow.dispToolItem = true;
 		Conexion conexion = new Conexion(tab);
 		conexion.crearConexiones(diagrama);
-		if(Ventana.componentes.paso!=null && Ventana.componentes.paso.colaConexiones.size()!=0
-				&& Ventana.componentes.paso.a.GetId() == tab.getSelectedTabItemId()){
-			for(int y=0;y<Ventana.componentes.paso.colaConexiones.size();y++){
-				conexion.getConexion().elementAt(Ventana.componentes.paso.colaConexiones.get(y)).setForegroundColor(Ventana.display.getSystemColor(SWT.COLOR_RED));
+		if(MainWindow._components.paso!=null && MainWindow._components.paso.colaConexiones.size()!=0
+				&& MainWindow._components.paso.a.GetId() == tab.getSelectedTabItemId()){
+			for(int y=0;y<MainWindow._components.paso.colaConexiones.size();y++){
+				conexion.getConexion().elementAt(MainWindow._components.paso.colaConexiones.get(y)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 		agregarConexiones(conexion.getConexion(),chart);

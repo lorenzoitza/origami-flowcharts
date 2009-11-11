@@ -13,7 +13,7 @@ import Administracion.Funcionalidad.Compilar;
 import Administracion.Funcionalidad.Serializar;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Ventana;
+import Grafico.MainWindow;
 import Grafico.Figuras.*;
 import Grafico.Help.*;
 import Imagenes.ImageLoader;
@@ -38,100 +38,100 @@ public class EventoKey {
 	public void Accion(){
 		switch(key){
 		case 49:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name5 = "imagenes//cursorEntrada.png";
 				//ImageData image5 = new ImageData(name5);
-				Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+				MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    InputFigure entrada2 = new InputFigure();
 			    InstruccionSimple codigo5 = new InstruccionSimple();
 			    codigo5.setInstruccionSimple("null");
 				entrada2.instruction.instruccion = "null";
-			    Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = entrada2;
-			    Ventana.bandera = false;
+			    MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = entrada2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 50:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name4 = "imagenes//cursorProceso.png";
 			    //ImageData image4 = new ImageData(name4);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 			    SentenceFigure proceso2 = new SentenceFigure();
 			    InstruccionSimple codigo4 = new InstruccionSimple();
 			    codigo4.setInstruccionSimple("null");
 				proceso2.instruccion.instruccion = "null";
-			    Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = proceso2;
-			    Ventana.bandera = false;
+			    MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = proceso2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 51:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name = "imagenes//cursorIf.png";
 			    //ImageData image = new ImageData(name);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 			    DecisionFigure decision2 = new DecisionFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision2.instruction.instruccion.add(0,codigo);
-				Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = decision2;
-			    Ventana.bandera = false;
+				MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = decision2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 52:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name3 = "imagenes//cursorWhile.png";
 			    //ImageData image3 = new ImageData(name3);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 			    WhileFigure While2 = new WhileFigure();
 			    InstruccionSimple codigo3 = new InstruccionSimple();
 				codigo3.setInstruccionSimple("null");
 				While2.instruccion.instruccion.add(0,codigo3);
-			    Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = While2;
-			    Ventana.bandera = false;
+			    MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = While2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 53:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name2 = "imagenes//cursorFor.png";
 			    //ImageData image2 = new ImageData(name2);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo2 = new InstruccionSimple();
 			    codigo2.setInstruccionSimple("null");
 			    For2.instruction.instruccion.add(0,codigo2);
-			    Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = For2;
-			    Ventana.bandera = false;
+			    MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = For2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 54:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name6 = "imagenes//cursorSalida.png";
 			    //ImageData image6 = new ImageData(name6);
-			    Ventana.getComponentes().cursor[0] = new Cursor(Ventana.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    OutputFigure salida2 = new OutputFigure();
 			    InstruccionSimple codigo6 = new InstruccionSimple();
 				codigo6.setInstruccionSimple("null");
 				salida2.instruction.instruccion = "null";
-			    Ventana.figuraPrincipal = null;
-			    Ventana.figuraPrincipal = salida2;
-			    Ventana.bandera = false;
+			    MainWindow._mainFigure = null;
+			    MainWindow._mainFigure = salida2;
+			    MainWindow.bandera = false;
 			}
 			break;
 		case 27:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				 Cursor[] cursor = new Cursor[1];
-				   Grafico.Ventana.figuraPrincipal = null;
+				   Grafico.MainWindow._mainFigure = null;
 				   Cursor oldCursor = cursor[0];
 			       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
 			       tab.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
 			       if(oldCursor != null){
 			    	   oldCursor.dispose();
 			       }
-			       Ventana.bandera = true;
+			       MainWindow.bandera = true;
 			       tab.getHoja().addFigure();
 			       tab.getHoja().guardarRetroceso();
 			}
@@ -152,11 +152,11 @@ public class EventoKey {
 			break;
 		case 16777227:
 			AboutWindow acercade = new AboutWindow();
-			acercade.createWindow(Ventana.display);
+			acercade.createWindow(MainWindow._display);
 			acercade.showWindow();
 			break;
 		case 16777228:
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				for(int y=tab.getHoja().getSizeDiagrama()-1;y>0;y--){
 					tab.getHoja().removeFigureIndexOf(y);
 				}
@@ -173,46 +173,46 @@ public class EventoKey {
 		case 16777229:
 			Instruccion codigo7 = new Instruccion();
 			codigo7.main(tab.getHoja().getDiagrama(),true);
-			codigo7.ventana(Ventana.display);
+			codigo7.ventana(MainWindow._display);
 			break;
 		case 16777230:
-			if(!Ventana.getComponentes().isPasoAPaso){
-				Compilar codigo = new Compilar(Ventana.diagramas);
-				if(Ventana.componentes.getEnEjecucion()){
-					Ventana.componentes.stopEjecucion();
+			if(!MainWindow.getComponentes().isPasoAPaso){
+				Compilar codigo = new Compilar(MainWindow._diagrams);
+				if(MainWindow._components.getEnEjecucion()){
+					MainWindow._components.stopEjecucion();
 				}
 				codigo.main(false,true);
 				if(codigo.errorBandera){
-					int aux = Ventana.componentes.text.getText().length();
+					int aux = MainWindow._components.text.getText().length();
 					if(aux>=0){
-						Ventana.componentes.text.setText("");
+						MainWindow._components.text.setText("");
 					}
-					Ventana.componentes.text.setText(codigo.error);
+					MainWindow._components.text.setText(codigo.error);
 					tab.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
 					tab.getTabItem().getInfo().addInformation(codigo.error);
 					codigo.eliminarArchivosCompilar();
 				}
 				else{
-					Ventana.componentes.ejecutar(true,codigo);
+					MainWindow._components.ejecutar(true,codigo);
 					tab.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 				}
-				if(!Ventana.Consola.getSelection()){
-					Ventana.Consola.setSelection(true);
-					Ventana.componentes.moverConsola(true);
+				if(!MainWindow.consoleMenuItem.getSelection()){
+					MainWindow.consoleMenuItem.setSelection(true);
+					MainWindow._components.moverConsola(true);
 				}
 			}
 			break;
 		}
 		if(key+key2 == 262241){
-			if(Ventana.componentes.eje != null && Ventana.componentes.getEnEjecucion()
-					&& tab.getSelectedTabItemId() == Ventana.componentes.eje.a.GetId()){
-				Ventana.componentes.stopEjecucion();
+			if(MainWindow._components.eje != null && MainWindow._components.getEnEjecucion()
+					&& tab.getSelectedTabItemId() == MainWindow._components.eje.a.GetId()){
+				MainWindow._components.stopEjecucion();
 			}
-			else if(Ventana.componentes.paso != null && Ventana.componentes.getEnEjecucion()
-					&& tab.getSelectedTabItemId() == Ventana.componentes.paso.a.GetId()){
-				Ventana.componentes.stopEjecucion();
+			else if(MainWindow._components.paso != null && MainWindow._components.getEnEjecucion()
+					&& tab.getSelectedTabItemId() == MainWindow._components.paso.a.GetId()){
+				MainWindow._components.stopEjecucion();
 			}
-			FileDialog dialog = new FileDialog(Ventana.shell,SWT.OPEN);
+			FileDialog dialog = new FileDialog(MainWindow._shell,SWT.OPEN);
 		    dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
 		    String archivo = dialog.open();
 		    if(archivo!=null){
@@ -229,7 +229,7 @@ public class EventoKey {
 				    	
 			    	}
 			    	else{
-			    		Ventana.selec.setFiguraSeleccionada(0);
+			    		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
 					    tab.getHoja().openFile(archivo);
 					    tab.getTabItem().getSave().setDir(archivo);
 					    archivo = dialog.getFileName();
@@ -240,14 +240,14 @@ public class EventoKey {
 				    	tab.getTabItem().resetRetroceso();		 
 				    	tab.getTabItem().agregarRetroceso(tab.getHoja().getDiagrama(), selec);
 			    	}
-			    	Ventana.getComponentes().disablePasoAPaso(false);
-			    	Ventana.componentes.disableAll(true);
+			    	MainWindow.getComponentes().disablePasoAPaso(false);
+			    	MainWindow._components.disableAll(true);
 		    	}
 		     }
 		}
 		else if(key+key2 == 262247){
 			if(tab.getTabItem().getSave().getDir()=="null"){
-				FileDialog dialog = new FileDialog(Ventana.shell,SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow._shell,SWT.SAVE);
 			    dialog.setFilterExtensions(new String[] { "*.Org"});
 			    String archivo = dialog.open();
 			    if(archivo!=null){
@@ -256,7 +256,7 @@ public class EventoKey {
 		    						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 		    						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 		    						dialog.getFileName().contains("\"")){
-		    			MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR| SWT.OK);
+		    			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
 			    		messageBox.setText("Origami");
 			    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
 			    		int seleccion = messageBox.open();
@@ -278,7 +278,7 @@ public class EventoKey {
 		    			catch(Exception e1){
 		    			}		    	
 		    			if(existe){
-		    				MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+		    				MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 				    		messageBox.setText("Origami");
 				    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
 				    		int seleccion = messageBox.open();
@@ -324,7 +324,7 @@ public class EventoKey {
 				}
 				else{
 					EventoMenuContextual.Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
-					Ventana.getComponentes().toolBarDisable();
+					MainWindow.getComponentes().toolBarDisable();
 				}
 			}
 		}
@@ -334,25 +334,25 @@ public class EventoKey {
 				}
 				else{
 					EventoMenuContextual.Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
-					Ventana.getComponentes().toolBarDisable();
+					MainWindow.getComponentes().toolBarDisable();
 				}
 			}
 		}
 		else if(key+key2 == 262262){
 			if(selec.getFiguraSeleccionada()!=-1){
-				if(Ventana.diagramaEnMemoria.diagrama.size()>0){
+				if(MainWindow._diagramAdministrator.diagrama.size()>0){
 					EventoMenuContextual.Pegar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
-					Ventana.getComponentes().toolBarDisable();
+					MainWindow.getComponentes().toolBarDisable();
 				}
 			}
 		}
 		else if(key+key2 == 262254){
 			tab.addTabItem();
-			Ventana.getComponentes().guardarDisable(true);
-			Ventana.componentes.disableAll(true);
+			MainWindow.getComponentes().guardarDisable(true);
+			MainWindow._components.disableAll(true);
 		}
 		else if(key+key2 == 262266){
-			if(!Ventana.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponentes().isPasoAPaso){
 				TabItem item = (TabItem)tab.getSeleccion();
 				item.retroceder();
 				tab.getTabItem().getSave().setSave(false);

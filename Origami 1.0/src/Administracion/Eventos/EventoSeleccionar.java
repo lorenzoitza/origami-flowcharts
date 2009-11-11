@@ -17,7 +17,7 @@ import Grafico.*;
  * @author Juan Ku, Victor Rodriguez
  */
 public class EventoSeleccionar extends MouseListener.Stub implements MouseMotionListener{
-	public final Cursor[] cursor = Ventana.getComponentes().cursor;
+	public final Cursor[] cursor = MainWindow.getComponentes().cursor;
 	public static Figura a ;
 	public AdminSeleccion seleccion;
 	public static TabFolder tab;
@@ -27,7 +27,7 @@ public class EventoSeleccionar extends MouseListener.Stub implements MouseMotion
 	 * @param figure
 	 */
 	public EventoSeleccionar(Figura figure,AdminSeleccion selec,TabFolder tabfolder){
-		figure.setCursor(new Cursor(Ventana.display,SWT.CURSOR_HAND));
+		figure.setCursor(new Cursor(MainWindow._display,SWT.CURSOR_HAND));
 		figure.addMouseListener(this);
 		figure.addMouseMotionListener(this);
 		seleccion = selec;
