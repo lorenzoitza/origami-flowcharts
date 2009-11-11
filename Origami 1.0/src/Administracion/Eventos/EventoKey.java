@@ -178,39 +178,39 @@ public class EventoKey {
 		case 16777230:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				Compilar codigo = new Compilar(MainWindow._diagrams);
-				if(MainWindow._components.getEnEjecucion()){
-					MainWindow._components.stopEjecucion();
+				if(MainWindow.getComponents().getEnEjecucion()){
+					MainWindow.getComponents().stopEjecucion();
 				}
 				codigo.main(false,true);
 				if(codigo.errorBandera){
-					int aux = MainWindow._components.text.getText().length();
+					int aux = MainWindow.getComponents().text.getText().length();
 					if(aux>=0){
-						MainWindow._components.text.setText("");
+						MainWindow.getComponents().text.setText("");
 					}
-					MainWindow._components.text.setText(codigo.error);
+					MainWindow.getComponents().text.setText(codigo.error);
 					tab.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
 					tab.getTabItem().getInfo().addInformation(codigo.error);
 					codigo.eliminarArchivosCompilar();
 				}
 				else{
-					MainWindow._components.ejecutar(true,codigo);
+					MainWindow.getComponents().ejecutar(true,codigo);
 					tab.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 				}
 				if(!MainWindow.consoleMenuItem.getSelection()){
 					MainWindow.consoleMenuItem.setSelection(true);
-					MainWindow._components.moverConsola(true);
+					MainWindow.getComponents().moverConsola(true);
 				}
 			}
 			break;
 		}
 		if(key+key2 == 262241){
-			if(MainWindow._components.eje != null && MainWindow._components.getEnEjecucion()
-					&& tab.getSelectedTabItemId() == MainWindow._components.eje.a.GetId()){
-				MainWindow._components.stopEjecucion();
+			if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
+					&& tab.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+				MainWindow.getComponents().stopEjecucion();
 			}
-			else if(MainWindow._components.paso != null && MainWindow._components.getEnEjecucion()
-					&& tab.getSelectedTabItemId() == MainWindow._components.paso.a.GetId()){
-				MainWindow._components.stopEjecucion();
+			else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
+					&& tab.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+				MainWindow.getComponents().stopEjecucion();
 			}
 			FileDialog dialog = new FileDialog(MainWindow._shell,SWT.OPEN);
 		    dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
@@ -241,7 +241,7 @@ public class EventoKey {
 				    	tab.getTabItem().agregarRetroceso(tab.getHoja().getDiagrama(), selec);
 			    	}
 			    	MainWindow.getComponentes().disablePasoAPaso(false);
-			    	MainWindow._components.disableAll(true);
+			    	MainWindow.getComponents().disableAll(true);
 		    	}
 		     }
 		}
@@ -349,7 +349,7 @@ public class EventoKey {
 		else if(key+key2 == 262254){
 			tab.addTabItem();
 			MainWindow.getComponentes().guardarDisable(true);
-			MainWindow._components.disableAll(true);
+			MainWindow.getComponents().disableAll(true);
 		}
 		else if(key+key2 == 262266){
 			if(!MainWindow.getComponentes().isPasoAPaso){

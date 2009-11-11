@@ -20,6 +20,12 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
+import ui.actions.AddDecisionFigureAction;
+import ui.actions.AddForFigureAction;
+import ui.actions.AddInputFigureAction;
+import ui.actions.AddOutputFigureAction;
+import ui.actions.AddSentenceFigureAction;
+import ui.actions.AddWhileFigureAction;
 import ui.actions.ExportToCAction;
 import ui.actions.ExportToCPPAction;
 import ui.actions.ExportToEXEAction;
@@ -70,10 +76,10 @@ public class MainWindow{
 	public static EventoMenuContextual _editMenu;
 	public static boolean first = false; //TODO: À?
 	public static boolean dispToolItem = false; //TODO: À?
-	public static Componentes _components;
+	private static Componentes _components;
 	public static MenuItem consoleMenuItem;
 	public static MenuItem figuresBarMenuItem;
-	public static MenuItem ifMenuItem;
+	public static MenuItem decisionMenuItem;
 	public static MenuItem sentenceMenuItem;
 	public static MenuItem inputMenuItem;
 	public static MenuItem outputMenuItem;
@@ -121,7 +127,7 @@ public class MainWindow{
 		openMenuItem.addSelectionListener(new OpenDiagramAction(_diagrams, this));
 		saveMenuItem.addSelectionListener(new SaveDiagramAction(_diagrams, this));
 		saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(_diagrams, this));
-		newDiagramMenuItem.addSelectionListener(new NewDiagramAction(_diagrams, _components, this));
+		newDiagramMenuItem.addSelectionListener(new NewDiagramAction(_diagrams, getComponents(), this));
 		exportToCMenuItem.addSelectionListener(new ExportToCAction(_diagrams, this));
 		exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(_diagrams, this));
 		exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction(_diagrams, this));
@@ -152,8 +158,8 @@ public class MainWindow{
 	    inputMenuItem.setText("Entrada   ");
 	    sentenceMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
 	    sentenceMenuItem.setText("Expresion     ");
-	    ifMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
-	    ifMenuItem.setText("Decisin   ");
+	    decisionMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
+	    decisionMenuItem.setText("Decisin   ");
 	    whileMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
 	    whileMenuItem.setText("Ciclo Mientras");
 	    forMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
@@ -161,91 +167,12 @@ public class MainWindow{
 	    outputMenuItem = new MenuItem(figuresMenu,SWT.PUSH);
 	    outputMenuItem.setText("Salida   ");
 	    
-	    
-	    inputMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorEntrada.png";
-			//ImageData image = new ImageData(name);
-			_components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-		    InputFigure entrada2 = new InputFigure();
-			entrada2.instruction.instruccion = "null";
-			MainWindow._mainFigure = null;
-			MainWindow._mainFigure = entrada2;
-			MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
-	ifMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorIf.png";
-		    //ImageData image = new ImageData(name);
-		    _components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
-		    DecisionFigure decision2 = new DecisionFigure();
-		    InstruccionSimple codigo = new InstruccionSimple();
-			codigo.setInstruccionSimple("null");
-			decision2.instruction.instruccion.add(0,codigo);
-			MainWindow._mainFigure = null;
-			MainWindow._mainFigure = decision2;
-			MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
-	sentenceMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorProceso.png";
-		   //ImageData image = new ImageData(name);
-		    _components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
-		    SentenceFigure proceso2 = new SentenceFigure();
-			proceso2.instruccion.instruccion = "null";
-			MainWindow._mainFigure = null;
-			MainWindow._mainFigure = proceso2;
-			MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
-	outputMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorSalida.png";
-		   //ImageData image = new ImageData(name);
-		    _components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-		    OutputFigure salida2 = new OutputFigure();
-			salida2.instruction.instruccion = "null";
-			MainWindow._mainFigure = null;
-			MainWindow._mainFigure = salida2;
-			MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
-	forMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorFor.png";
-		    //ImageData image = new ImageData(name);
-		    _components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
-		    ForFigure For2 = new ForFigure();
-		    InstruccionSimple codigo = new InstruccionSimple();
-		    codigo.setInstruccionSimple("null");
-		    For2.instruction.instruccion.add(0,codigo);
-		    MainWindow._mainFigure = null;
-		    MainWindow._mainFigure = For2;
-		    MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
-	whileMenuItem.addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent e) {
-			//String name = "imagenes\\cursorWhile.png";
-		   // ImageData image = new ImageData(name);
-		    _components.cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
-		    WhileFigure While2 = new WhileFigure();
-		    InstruccionSimple codigo = new InstruccionSimple();
-			codigo.setInstruccionSimple("null");
-			While2.instruccion.instruccion.add(0,codigo);
-			MainWindow._mainFigure = null;
-			MainWindow._mainFigure = While2;
-			MainWindow.bandera = false;
-		    disableCursor();
-		}
-	});
+	    inputMenuItem.addSelectionListener(new AddInputFigureAction(this));
+	    decisionMenuItem.addSelectionListener(new AddDecisionFigureAction(this));
+	    sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction(this));
+	    outputMenuItem.addSelectionListener(new AddOutputFigureAction(this));
+	    forMenuItem.addSelectionListener(new AddForFigureAction(this));
+	    whileMenuItem.addSelectionListener(new AddWhileFigureAction(this));
 	
 	
 	}
@@ -271,25 +198,25 @@ public class MainWindow{
 		toolbarMenuItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				MenuItem widget = (MenuItem)e.widget;
-				_components.addBarraDeHerramientas(widget.getSelection());
+				getComponents().addBarraDeHerramientas(widget.getSelection());
 			}
 		});
 		figuresBarMenuItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				MenuItem widget = (MenuItem)e.widget;
-				_components.addBarraFiguras(widget.getSelection());
+				getComponents().addBarraFiguras(widget.getSelection());
 			}
 		});
 		tabsMenuItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				MenuItem widget = (MenuItem)e.widget;
-				_components.addTabFolder(widget.getSelection());
+				getComponents().addTabFolder(widget.getSelection());
 			}
 		});
 		consoleMenuItem.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				MenuItem widget = (MenuItem)e.widget;
-				_components.moverConsola(widget.getSelection());
+				getComponents().moverConsola(widget.getSelection());
 			}
 		});
 	}
@@ -311,24 +238,24 @@ public class MainWindow{
 	    stepByStepMenuItem.addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			if(!_diagrams.getTabItem().getSave().isSave()){
-				if(_components.guardar()){
+				if(getComponents().guardar()){
 					Compilar codigo = new Compilar(_diagrams);
 					codigo.main(false,false);
 					if(codigo.errorBandera){
-						int aux = _components.text.getText().length();
+						int aux = getComponents().text.getText().length();
 						if(aux>=0){
-							_components.text.setText("");
+							getComponents().text.setText("");
 						}
 						//moverConsola(true);
-						_components.text.setText(codigo.error);
+						getComponents().text.setText(codigo.error);
 						_diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
 						_diagrams.getTabItem().getInfo().addInformation(codigo.error);
 						codigo.eliminarArchivosCompilar();
 					}
 					else{
 						//moverConsola(true);
-						_components.disablePasoAPaso(true);
-						_components.ejecutar(false,codigo);
+						getComponents().disablePasoAPaso(true);
+						getComponents().ejecutar(false,codigo);
 						_diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
 					}
 				}
@@ -337,20 +264,20 @@ public class MainWindow{
 				Compilar codigo = new Compilar(_diagrams);
 				codigo.main(false,false);
 				if(codigo.errorBandera){
-					int aux = _components.text.getText().length();
+					int aux = getComponents().text.getText().length();
 					if(aux>=0){
-						_components.text.setText("");
+						getComponents().text.setText("");
 					}
 					//moverConsola(true);
-					_components.text.setText(codigo.error);
+					getComponents().text.setText(codigo.error);
 					_diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
 					_diagrams.getTabItem().getInfo().addInformation(codigo.error);
 					codigo.eliminarArchivosCompilar();
 				}
 				else{
 					//moverConsola(true);
-					_components.disablePasoAPaso(true);
-					_components.ejecutar(false,codigo);
+					getComponents().disablePasoAPaso(true);
+					getComponents().ejecutar(false,codigo);
 					_diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
 				}
 			}
@@ -367,27 +294,27 @@ public class MainWindow{
 	compileMenuItem.addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent e) {
 			Compilar codigo = new Compilar(_diagrams);
-			if(_components.getEnEjecucion()){
-				_components.stopEjecucion();
+			if(getComponents().getEnEjecucion()){
+				getComponents().stopEjecucion();
 			}
 			codigo.main(false,true);
 			if(codigo.errorBandera){
-				int aux = _components.text.getText().length();
+				int aux = getComponents().text.getText().length();
 				if(aux>=0){
-					_components.text.setText("");
+					getComponents().text.setText("");
 				}
-				_components.text.setText(codigo.error);
+				getComponents().text.setText(codigo.error);
 				_diagrams.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
 				_diagrams.getTabItem().getInfo().addInformation(codigo.error);
 				codigo.eliminarArchivosCompilar();
 			}
 			else{
-				_components.ejecutar(true,codigo);
+				getComponents().ejecutar(true,codigo);
 				_diagrams.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
 			if(!MainWindow.consoleMenuItem.getSelection()){
 				MainWindow.consoleMenuItem.setSelection(true);
-				_components.moverConsola(true);
+				getComponents().moverConsola(true);
 			}
 		}
 	});
@@ -472,7 +399,7 @@ public class MainWindow{
 		_diagrams.getHoja().getChart().disableCursor(_diagrams.getHoja().getDiagrama(),_diagrams.getHoja().getChart());
 	}
 	public static Componentes getComponentes(){
-		return _components;
+		return getComponents();
 	}
 	public void cargarImagenes(){
 		InputStream iconStream = this.getClass().getResourceAsStream("");
@@ -499,15 +426,15 @@ public class MainWindow{
 	
 	private void initWindow(){
 	    mainMenu = new Menu(_shell, SWT.BAR);
-	    _components = new Componentes();
-	    _components.agregarComponentes(_selectionAdministrator);
-	    _components.setDiagrama(_diagrams);
+	    setComponents(new Componentes());
+	    getComponents().agregarComponentes(_selectionAdministrator);
+	    getComponents().setDiagrama(_diagrams);
 	    _shell.setText("Origami");
 	    _shell.setMaximized(true);
 	    _shell.setImage(ImageLoader.getImage("icono.GIF"));
-	    _shell.addShellListener(new EventoVentana(_diagrams,_components)); 
+	    _shell.addShellListener(new EventoVentana(_diagrams,getComponents())); 
 	    _shell.setMenuBar(mainMenu);
-	    _shell.setLayout(_components.layout);
+	    _shell.setLayout(getComponents().layout);
 	    _shell.pack();
 	}
 	
@@ -559,6 +486,20 @@ public class MainWindow{
 	 */
 	public static Serializar getSerializer() {
 	    return _serializer;
+	}
+
+	/**
+	 * @param components the components to set
+	 */
+	public static void setComponents(Componentes components) {
+	    _components = components;
+	}
+
+	/**
+	 * @return the components
+	 */
+	public static Componentes getComponents() {
+	    return _components;
 	}
 
 	public static void main(String args[]) throws OrigamiException{

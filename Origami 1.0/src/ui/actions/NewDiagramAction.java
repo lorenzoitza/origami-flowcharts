@@ -28,7 +28,7 @@ public class NewDiagramAction implements SelectionListener{
     public void widgetSelected(SelectionEvent arg0) {
 	_diagrams.addTabItem();
 		_components.guardarDisable(true);
-	MainWindow._components.disableAll(true);
+	MainWindow.getComponents().disableAll(true);
     }
 
 }

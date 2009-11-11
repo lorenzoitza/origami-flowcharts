@@ -39,9 +39,9 @@ public class Hoja{
 	private Composite diagramaArea;
 	
 	public Hoja(Display display,TabFolder tabfolder,AdminSeleccion selec){
-		MainWindow._components.agregarBarraFiguras();
+		MainWindow.getComponents().agregarBarraFiguras();
 		diagramaArea = new Composite(MainWindow._shell,SWT.NONE);
-		diagramaArea.setLayoutData(MainWindow._components.diagramaData);
+		diagramaArea.setLayoutData(MainWindow.getComponents().diagramaData);
 		GridLayout layoutComposite = new GridLayout(1, false);
 		GridData diagramaGrid =new GridData(SWT.FILL,SWT.FILL,true,true,1,1);
 		layoutComposite.horizontalSpacing =layoutComposite.verticalSpacing=0;
@@ -115,7 +115,7 @@ public class Hoja{
 		 guardarRetroceso();
 		 chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true); 
 		 if(tab.getItemCount()==1){
-			MainWindow._components.diagramaData.exclude=false;
+			MainWindow.getComponents().diagramaData.exclude=false;
 			MainWindow._shell.layout();
 			resetScrollBar();
 		 }
@@ -135,10 +135,10 @@ public class Hoja{
 		chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
 		connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
 		chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
-		if(MainWindow._components.paso!=null && MainWindow._components.paso.colaConexiones.size()!=0
-				&& MainWindow._components.paso.a.GetId() == tab.getSelectedTabItemId()){
-			for(int x=0;x<MainWindow._components.paso.colaConexiones.size();x++){
-				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(MainWindow._components.paso.colaConexiones.get(x)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
+		if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0
+				&& MainWindow.getComponents().paso.a.GetId() == tab.getSelectedTabItemId()){
+			for(int x=0;x<MainWindow.getComponents().paso.colaConexiones.size();x++){
+				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(x)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 	}
@@ -215,7 +215,7 @@ public class Hoja{
 		setScroll();
 		addPropiedades();
 		if(tab.getItemCount()==1){
-			MainWindow._components.diagramaData.exclude=false;
+			MainWindow.getComponents().diagramaData.exclude=false;
 			MainWindow._shell.layout();
 		}
 		chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true);

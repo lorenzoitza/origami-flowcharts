@@ -59,13 +59,13 @@ public class TabFolder {
 		tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 			public void close(CTabFolderEvent event) {
 				TabItem a = (TabItem)event.item;
-				if(MainWindow._components.eje != null && MainWindow._components.getEnEjecucion()
-						&& a.GetId() == MainWindow._components.eje.a.GetId()){
-					MainWindow._components.stopEjecucion();
+				if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
+						&& a.GetId() == MainWindow.getComponents().eje.a.GetId()){
+					MainWindow.getComponents().stopEjecucion();
 				}
-				else if(MainWindow._components.paso != null && MainWindow._components.getEnEjecucion()
-						&& a.GetId() == MainWindow._components.paso.a.GetId()){
-					MainWindow._components.stopEjecucion();
+				else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
+						&& a.GetId() == MainWindow.getComponents().paso.a.GetId()){
+					MainWindow.getComponents().stopEjecucion();
 					MainWindow.getComponentes().disablePasoAPaso(false);
 				}
 				if(!a.getSave().isSave()){

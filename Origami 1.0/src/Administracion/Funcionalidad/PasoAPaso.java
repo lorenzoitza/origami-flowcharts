@@ -396,14 +396,14 @@ public class PasoAPaso extends Ejecutar{
 			}
 			tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
-			MainWindow._components.stopEjecucion();
+			MainWindow.getComponents().stopEjecucion();
 			return true;
 		}
 		return false;
 	}
 	private void setScroll(int fig){
 		int vertical=580;
-		if(!MainWindow._components.consolaData.exclude){
+		if(!MainWindow.getComponents().consolaData.exclude){
 			vertical=400;
 		}
 		int x=0,y=0;

@@ -1028,10 +1028,10 @@ public class DibujarDiagrama extends Figure{
 		MainWindow.dispToolItem = true;
 		Conexion conexion = new Conexion(tab);
 		conexion.crearConexiones(diagrama);
-		if(MainWindow._components.paso!=null && MainWindow._components.paso.colaConexiones.size()!=0
-				&& MainWindow._components.paso.a.GetId() == tab.getSelectedTabItemId()){
-			for(int y=0;y<MainWindow._components.paso.colaConexiones.size();y++){
-				conexion.getConexion().elementAt(MainWindow._components.paso.colaConexiones.get(y)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
+		if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0
+				&& MainWindow.getComponents().paso.a.GetId() == tab.getSelectedTabItemId()){
+			for(int y=0;y<MainWindow.getComponents().paso.colaConexiones.size();y++){
+				conexion.getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(y)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 		agregarConexiones(conexion.getConexion(),chart);

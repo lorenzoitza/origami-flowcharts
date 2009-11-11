@@ -348,7 +348,7 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				diagramas.addTabItem();
 				guardarDisable(true);
-				MainWindow._components.disableAll(true);
+				MainWindow.getComponents().disableAll(true);
 			}
 		});
 		toolItem[1] = new ToolItem (toolbar, SWT.PUSH);
@@ -357,13 +357,13 @@ public class Componentes {
 		toolItem[1].setToolTipText("Abrir");
 		toolItem[1].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				if(MainWindow._components.eje != null && MainWindow._components.getEnEjecucion()
-						&& diagramas.getSelectedTabItemId() == MainWindow._components.eje.a.GetId()){
-					MainWindow._components.stopEjecucion();
+				if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
+						&& diagramas.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+					MainWindow.getComponents().stopEjecucion();
 				}
-				else if(MainWindow._components.paso != null && MainWindow._components.getEnEjecucion()
-						&& diagramas.getSelectedTabItemId() == MainWindow._components.paso.a.GetId()){
-					MainWindow._components.stopEjecucion();
+				else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
+						&& diagramas.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+					MainWindow.getComponents().stopEjecucion();
 				}
 				FileDialog dialog = new FileDialog(MainWindow._shell,SWT.OPEN);
 			    dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
@@ -393,7 +393,7 @@ public class Componentes {
 					    	diagramas.getTabItem().agregarRetroceso(diagramas.getHoja().getDiagrama(), diagramas.selec);
 				    	}
 				    	MainWindow.getComponentes().disablePasoAPaso(false);
-				    	MainWindow._components.disableAll(true);
+				    	MainWindow.getComponents().disableAll(true);
 			    	}
 			    }
 			}
@@ -1189,7 +1189,7 @@ public class Componentes {
 				paso.ejecutar(this,"gdb",codigo);
 				paso.main();
 				seleccion = false;
-				MainWindow._components.toolItem[12].setEnabled(true);
+				MainWindow.getComponents().toolItem[12].setEnabled(true);
 				text.setEditable(false);
 				text.setBackground(MainWindow._display.getSystemColor(SWT.COLOR_WHITE));
 			}
@@ -1246,7 +1246,7 @@ public class Componentes {
 			public void run() {
 				MainWindow._display.syncExec (new Runnable () {
 					public void run () {
-						MainWindow._components.toolItem[12].setEnabled(true);
+						MainWindow.getComponents().toolItem[12].setEnabled(true);
 					}
 				});
 	        	timer.cancel();
@@ -1276,7 +1276,7 @@ public class Componentes {
 			boton[3].setEnabled(false);
 			boton[4].setEnabled(false);
 			boton[5].setEnabled(false);
-			MainWindow.ifMenuItem.setEnabled(false);
+			MainWindow.decisionMenuItem.setEnabled(false);
 			MainWindow.sentenceMenuItem.setEnabled(false);
 			MainWindow.inputMenuItem.setEnabled(false);
 			MainWindow.outputMenuItem.setEnabled(false);
@@ -1304,7 +1304,7 @@ public class Componentes {
 			boton[3].setEnabled(true);
 			boton[4].setEnabled(true);
 			boton[5].setEnabled(true);
-			MainWindow.ifMenuItem.setEnabled(true);
+			MainWindow.decisionMenuItem.setEnabled(true);
 			MainWindow.sentenceMenuItem.setEnabled(true);
 			MainWindow.inputMenuItem.setEnabled(true);
 			MainWindow.outputMenuItem.setEnabled(true);
@@ -1331,7 +1331,7 @@ public class Componentes {
 		boton[3].setEnabled(disable);
 		boton[4].setEnabled(disable);
 		boton[5].setEnabled(disable);
-		MainWindow.ifMenuItem.setEnabled(disable);
+		MainWindow.decisionMenuItem.setEnabled(disable);
 		MainWindow.sentenceMenuItem.setEnabled(disable);
 		MainWindow.inputMenuItem.setEnabled(disable);
 		MainWindow.outputMenuItem.setEnabled(disable);

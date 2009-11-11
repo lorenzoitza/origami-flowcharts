@@ -133,10 +133,10 @@ public class Guardar {
 		if(tab.getItemCount()==1){
 			tab.getHoja().getPanel().removeAll();
 			tab.getHoja().getDibujarDiagrama().setOpaque(false);
-			MainWindow._components.diagramaData.exclude=true;
-			MainWindow._components.diagramas.getHoja().setBoundsToZero();
+			MainWindow.getComponents().diagramaData.exclude=true;
+			MainWindow.getComponents().diagramas.getHoja().setBoundsToZero();
 			tab.getHoja().getDiagrama().removeAllElements();
-			MainWindow._components.disableAll(false);
+			MainWindow.getComponents().disableAll(false);
 		}
 	}
 	public void verificar(){

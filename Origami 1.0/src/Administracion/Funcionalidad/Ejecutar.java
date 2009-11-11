@@ -67,14 +67,14 @@ public class Ejecutar implements ExecProcessor {
 		}
 	}
 	public void ejecutar(Componentes consola,String instruccion,Compilar codigo) {
-		this.a = (TabItem)MainWindow._components.diagramas.getSeleccion();
+		this.a = (TabItem)MainWindow.getComponents().diagramas.getSeleccion();
 		this.codigo = codigo;
 		this.consola = consola;
 		this.consola.text.setText("");
 		runCommandActionPerformed(instruccion);
 	}
 	public void stopEjecutar(){
-		MainWindow._components.toolItem[12].setEnabled(false);
+		MainWindow.getComponents().toolItem[12].setEnabled(false);
 		if(exh != null){
 			exh.stopEjecucion();	
 		}
