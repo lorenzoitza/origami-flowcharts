@@ -9,13 +9,13 @@ import Administracion.TabFolder;
 
 
 public class NewDiagramAction implements SelectionListener{
-    private TabFolder _diagrams;
-    private Componentes _components;
-    private MainWindow _mainWindow;
+    private TabFolder diagrams;
+    private Componentes components;
+    private MainWindow mainWindow;
     public NewDiagramAction(TabFolder diagrams, Componentes components, MainWindow mainWindow) {
-	_diagrams = diagrams;
-	_components = components;
-	_mainWindow = mainWindow;
+	this.diagrams = diagrams;
+	this.components = components;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -26,8 +26,8 @@ public class NewDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	_diagrams.addTabItem();
-		_components.guardarDisable(true);
+	diagrams.addTabItem();
+		components.guardarDisable(true);
 	MainWindow.getComponents().disableAll(true);
     }
 

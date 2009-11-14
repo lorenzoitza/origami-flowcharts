@@ -14,12 +14,12 @@ import Grafico.MainWindow;
 
 
 public class OpenDiagramAction implements SelectionListener{
-    private TabFolder _diagrams;
-    private MainWindow _mainWindow;
+    private TabFolder diagrams;
+    private MainWindow mainWindow;
     
     public OpenDiagramAction(TabFolder diagrams, MainWindow mainWindow ) {
-	_diagrams = diagrams;
-	_mainWindow = mainWindow;
+	this.diagrams = diagrams;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -31,39 +31,39 @@ public class OpenDiagramAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
-		&& _diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+		&& diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
 	MainWindow.getComponents().stopEjecucion();
 	} else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-		&& _diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+		&& diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 	    MainWindow.getComponents().stopEjecucion();
 	    }
-	FileDialog dialog = new FileDialog(MainWindow._shell,SWT.OPEN);
+	FileDialog dialog = new FileDialog(MainWindow.shell,SWT.OPEN);
 	dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
 	String archivo = dialog.open();
 	if(archivo!=null){
 	File file = new File(archivo);
 	if(file.exists()){
-		if(_diagrams.getHoja().getSizeDiagrama()==0){
+		if(diagrams.getHoja().getSizeDiagrama()==0){
 	    	String archivo2 = dialog.getFileName();
 	    	int pos = archivo2.indexOf('.');
 	    	String name = archivo2.substring(0, pos);
-	    	_diagrams.cambiarNombre("*"+name);
-	    	_diagrams.getTabItem().getSave().setSave(true);
-	    	_diagrams.abrir(archivo,_mainWindow.getSerializer());
-	    	_diagrams.getTabItem().getSave().setDir(archivo);
+	    	diagrams.cambiarNombre("*"+name);
+	    	diagrams.getTabItem().getSave().setSave(true);
+	    	diagrams.abrir(archivo,mainWindow.getSerializer());
+	    	diagrams.getTabItem().getSave().setDir(archivo);
 	    	
     	}
     	else{
-    		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-		    _diagrams.getHoja().openFile(archivo);
-		    _diagrams.getTabItem().getSave().setDir(archivo);
+    		MainWindow.selectionAdministrator.setFiguraSeleccionada(0);
+		    diagrams.getHoja().openFile(archivo);
+		    diagrams.getTabItem().getSave().setDir(archivo);
 		    archivo = dialog.getFileName();
 		    int pos = archivo.indexOf('.');
 		    String name = archivo.substring(0, pos);
-		    _diagrams.cambiarNombre("*"+name);
-	    	_diagrams.getTabItem().getSave().setSave(true);
-	    	_diagrams.getTabItem().resetRetroceso();		 
-	    	_diagrams.getTabItem().agregarRetroceso(_diagrams.getHoja().getDiagrama(), _diagrams.selec);
+		    diagrams.cambiarNombre("*"+name);
+	    	diagrams.getTabItem().getSave().setSave(true);
+	    	diagrams.getTabItem().resetRetroceso();		 
+	    	diagrams.getTabItem().agregarRetroceso(diagrams.getHoja().getDiagrama(), diagrams.selec);
     	}
     	MainWindow.getComponentes().disablePasoAPaso(false);
     	MainWindow.getComponents().disableAll(true);

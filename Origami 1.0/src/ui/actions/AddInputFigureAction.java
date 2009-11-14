@@ -18,11 +18,11 @@ import Imagenes.ImageLoader;
 
 public class AddInputFigureAction implements SelectionListener{
  
-    private MainWindow _mainWindow;
+    private MainWindow mainWindow;
     
     public AddInputFigureAction(MainWindow mainWindow ) {
 
-	_mainWindow = mainWindow;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -33,13 +33,13 @@ public class AddInputFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	_mainWindow.getComponents().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 	InputFigure entrada2 = new InputFigure();
 	entrada2.instruction.instruccion = "null";
-	MainWindow._mainFigure = null;
-	MainWindow._mainFigure = entrada2;
+	MainWindow.mainFigure = null;
+	MainWindow.mainFigure = entrada2;
 	MainWindow.bandera = false;
-	_mainWindow.disableCursor();
+	mainWindow.disableCursor();
     }
 
 }

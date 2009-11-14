@@ -14,12 +14,12 @@ import Grafico.MainWindow;
 
 
 public class ExportToEXEAction implements SelectionListener{
-    private TabFolder _diagrams;
-    private MainWindow _mainWindow;
+    private TabFolder diagrams;
+    private MainWindow mainWindow;
     
     public ExportToEXEAction(TabFolder diagrams, MainWindow mainWindow ) {
-	_diagrams = diagrams;
-	_mainWindow = mainWindow;
+	this.diagrams = diagrams;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ExportToEXEAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	FileDialog dialog = new FileDialog(_mainWindow.getShell(),SWT.SAVE);
+	FileDialog dialog = new FileDialog(mainWindow.getShell(),SWT.SAVE);
 	    dialog.setFilterExtensions(new String[] { "*.exe"});
 	    String archivo = dialog.open();
 	    if(archivo!=null){
@@ -39,7 +39,7 @@ public class ExportToEXEAction implements SelectionListener{
 						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 						dialog.getFileName().contains("\"")){
-	    			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
+	    			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
 		    		messageBox.setText("Origami");
 		    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
 		    		int seleccion = messageBox.open();
@@ -61,7 +61,7 @@ public class ExportToEXEAction implements SelectionListener{
 	    			catch(Exception e1){
 	    			}		    	
 	    			if(existe){
-	    				MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+	    				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			    		messageBox.setText("Origami");
 			    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 			    		int seleccion = messageBox.open();
@@ -69,7 +69,7 @@ public class ExportToEXEAction implements SelectionListener{
 			    			case 64:
 			    				 String nombre = dialog.getFileName();
 						    	 nombre = nombre.substring(0,nombre.indexOf("."));
-						    	 Exportar expor = new Exportar(_diagrams);
+						    	 Exportar expor = new Exportar(diagrams);
 						    	 expor.exportarEjecutable(archivo,nombre);						    	
 			    				break;
 			    			case 128:							
@@ -79,7 +79,7 @@ public class ExportToEXEAction implements SelectionListener{
 			    	else{
 			    		 String nombre = dialog.getFileName();
 				    	 nombre = nombre.substring(0,nombre.indexOf("."));
-				    	 Exportar expor = new Exportar(_diagrams);
+				    	 Exportar expor = new Exportar(diagrams);
 				    	 expor.exportarEjecutable(archivo,nombre);
 			    	}
 	    		}

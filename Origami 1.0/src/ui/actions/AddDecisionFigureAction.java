@@ -18,10 +18,10 @@ import Imagenes.ImageLoader;
 
 
 public class AddDecisionFigureAction implements SelectionListener{
-    private MainWindow _mainWindow;
+    private MainWindow mainWindow;
     
     public AddDecisionFigureAction(MainWindow mainWindow ) {
-	_mainWindow = mainWindow;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -32,15 +32,15 @@ public class AddDecisionFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	_mainWindow.getComponents().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 	DecisionFigure decision2 = new DecisionFigure();
 	InstruccionSimple codigo = new InstruccionSimple();
 	codigo.setInstruccionSimple("null");
 	decision2.instruction.instruccion.add(0,codigo);
-	MainWindow._mainFigure = null;
-	MainWindow._mainFigure = decision2;
+	MainWindow.mainFigure = null;
+	MainWindow.mainFigure = decision2;
 	MainWindow.bandera = false;
-	_mainWindow.disableCursor();
+	mainWindow.disableCursor();
     }
 
 }

@@ -17,10 +17,10 @@ import Imagenes.ImageLoader;
 
 
 public class AddSentenceFigureAction implements SelectionListener{
-    private MainWindow _mainWindow;
+    private MainWindow mainWindow;
     
     public AddSentenceFigureAction(MainWindow mainWindow ) {
-	_mainWindow = mainWindow;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -31,13 +31,13 @@ public class AddSentenceFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	_mainWindow.getComponents().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
+	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 	    SentenceFigure proceso2 = new SentenceFigure();
 		proceso2.instruccion.instruccion = "null";
-		MainWindow._mainFigure = null;
-		MainWindow._mainFigure = proceso2;
+		MainWindow.mainFigure = null;
+		MainWindow.mainFigure = proceso2;
 		MainWindow.bandera = false;
-	    _mainWindow.disableCursor();
+	    mainWindow.disableCursor();
     }
 
 }

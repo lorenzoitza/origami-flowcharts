@@ -5,22 +5,22 @@ import java.io.File;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
+import Administracion.Funcionalidad.Compilar;
 import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Codigo.Instruccion;
 import Grafico.MainWindow;
-import Grafico.Figuras.OutputFigure;
-import Imagenes.ImageLoader;
 
 
-public class AddOutputFigureAction implements SelectionListener{
-  
+public class BuildCCodeAction implements SelectionListener{
+    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public AddOutputFigureAction(MainWindow mainWindow ) {
+    public BuildCCodeAction(TabFolder diagrams, MainWindow mainWindow ) {
+	this.diagrams = diagrams;
 	this.mainWindow = mainWindow;
     }
 
@@ -32,13 +32,11 @@ public class AddOutputFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-	OutputFigure salida2 = new OutputFigure();
-	salida2.instruction.instruccion = "null";
-	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = salida2;
-	MainWindow.bandera = false;
-	mainWindow.disableCursor();
+	Instruccion codigo = new Instruccion();
+	codigo.main(diagrams.getHoja().getDiagrama(),true);
+	codigo.ventana(mainWindow.display);
+			
+	
     }
 
 }

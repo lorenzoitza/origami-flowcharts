@@ -19,10 +19,10 @@ import Imagenes.ImageLoader;
 
 public class AddForFigureAction implements SelectionListener{
     
-    private MainWindow _mainWindow;
+    private MainWindow mainWindow;
     
     public AddForFigureAction(MainWindow mainWindow ) {
-	_mainWindow = mainWindow;
+	this.mainWindow = mainWindow;
     }
 
     @Override
@@ -33,15 +33,15 @@ public class AddForFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	_mainWindow.getComponents().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 	ForFigure For2 = new ForFigure();
 	InstruccionSimple codigo = new InstruccionSimple();
 	codigo.setInstruccionSimple("null");
 	For2.instruction.instruccion.add(0,codigo);
-	MainWindow._mainFigure = null;
-	MainWindow._mainFigure = For2;
+	MainWindow.mainFigure = null;
+	MainWindow.mainFigure = For2;
 	MainWindow.bandera = false;
-	_mainWindow.disableCursor();
+	mainWindow.disableCursor();
     }
 
 }
