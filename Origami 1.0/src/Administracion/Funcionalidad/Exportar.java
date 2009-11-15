@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.Instruccion;
-import Grafico.MainWindow;
+import Grafico.Ventana;
 import Grafico.Figuras.*;
 /**
  * @version Origami 1.0
@@ -135,7 +135,7 @@ public class Exportar {
 	}
 	public Shell shell;
 	public Figure getPan(Figure contents){
-		shell = new Shell(MainWindow._display);
+		shell = new Shell(Ventana.display);
 		shell.setBounds(0,0,contents.getBounds().width+40,contents.getBounds().height+30);
 		Canvas composite = new Canvas(shell,SWT.NONE);
 		composite.setBounds(0,0,contents.getBounds().width+40,contents.getBounds().height+30);
@@ -154,7 +154,7 @@ public class Exportar {
 		Graphics g = null;
 		figure=getPan(figure);
 		try {
-			image = new Image(MainWindow._display, r.width, r.height);
+			image = new Image(Ventana.display, r.width, r.height);
 			gc = new GC(image);
 			g = new SWTGraphics(gc);
 			g.translate(r.x * -1, r.y * -1);
@@ -198,8 +198,8 @@ public class Exportar {
 		guardar(dir,source2);
 	}
 	public void exportarEjecutable(String dir,String nombre){
-		Compilar ejecutable = new Compilar(tab);
-		boolean crear = ejecutable.crearExe(nombre);
+		CodeCompiler ejecutable = new CodeCompiler(tab);
+		boolean crear = ejecutable.createExecuteFile(nombre);
 		if(!crear){
 			moverArchivoEjecutable(nombre+".exe",dir);
 		}
@@ -245,7 +245,7 @@ public class Exportar {
 		}catch(IOException e){}	
 	}
 	private void mensajeDeError(){
-		MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+		MessageBox messageBox = new MessageBox(Ventana.shell, SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText("Origami");
 		messageBox.setMessage("Error al exportar ejecutable verifique su sintaxis");
 		messageBox.open();

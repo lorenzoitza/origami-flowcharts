@@ -66,7 +66,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     }
 
     @Override
-    protected void initLabels() {
+    protected  void initLabels() {
     	initInformationLabel();
     	initExampleLabel();
     }

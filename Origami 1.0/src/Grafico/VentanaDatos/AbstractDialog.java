@@ -51,7 +51,7 @@ public abstract class AbstractDialog<Figure> {
 		this.initComponents();
     }
 
-    public abstract void initLabels();
+    protected abstract void initLabels();
 
     public abstract void initTextFields();
 
