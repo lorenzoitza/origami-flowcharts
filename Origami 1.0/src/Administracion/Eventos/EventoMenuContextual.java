@@ -55,7 +55,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	 * @param figure
 	 */
 	public EventoMenuContextual(){
-		MainWindow.first=true;
+		//MainWindow.first=true; //eliminado agregado una llamada al metodo mouseReleased() en la clase EventoCambiarCursor
 	}
 	public EventoMenuContextual(Figura figure,TabFolder tabfolder,AdminSeleccion seleccion){
 		figure.addMouseListener(this);

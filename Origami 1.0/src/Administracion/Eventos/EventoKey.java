@@ -48,7 +48,6 @@ public class EventoKey {
 				entrada2.instruction.instruccion = "null";
 			    MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = entrada2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 50:
@@ -62,7 +61,6 @@ public class EventoKey {
 				proceso2.instruccion.instruccion = "null";
 			    MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = proceso2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 51:
@@ -76,7 +74,6 @@ public class EventoKey {
 				decision2.instruction.instruccion.add(0,codigo);
 				MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = decision2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 52:
@@ -90,7 +87,6 @@ public class EventoKey {
 				While2.instruccion.instruccion.add(0,codigo3);
 			    MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = While2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 53:
@@ -104,7 +100,6 @@ public class EventoKey {
 			    For2.instruction.instruccion.add(0,codigo2);
 			    MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = For2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 54:
@@ -118,7 +113,6 @@ public class EventoKey {
 				salida2.instruction.instruccion = "null";
 			    MainWindow._mainFigure = null;
 			    MainWindow._mainFigure = salida2;
-			    MainWindow.bandera = false;
 			}
 			break;
 		case 27:
@@ -131,7 +125,6 @@ public class EventoKey {
 			       if(oldCursor != null){
 			    	   oldCursor.dispose();
 			       }
-			       MainWindow.bandera = true;
 			       tab.getHoja().addFigure();
 			       tab.getHoja().guardarRetroceso();
 			}

@@ -1034,7 +1034,6 @@ public class Componentes {
 				entrada2.instruction.instruccion = "null";
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = entrada2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});
@@ -1054,7 +1053,6 @@ public class Componentes {
 				proceso2.instruccion.instruccion = "null";
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = proceso2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});
@@ -1075,7 +1073,6 @@ public class Componentes {
 				decision2.instruction.instruccion.add(0, codigo);
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = decision2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});
@@ -1097,7 +1094,6 @@ public class Componentes {
 				While2.instruccion.instruccion.add(0, codigo);
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = While2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});
@@ -1118,7 +1114,6 @@ public class Componentes {
 				For2.instruction.instruccion.add(0, codigo);
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = For2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});
@@ -1138,7 +1133,6 @@ public class Componentes {
 				salida2.instruction.instruccion = "null";
 				MainWindow._mainFigure = null;
 				MainWindow._mainFigure = salida2;
-				MainWindow.bandera = false;
 				disableCursor();
 			}
 		});

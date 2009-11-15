@@ -75,9 +75,6 @@ public class MainWindow {
 
     private static SerializeFile _serializer = new SerializeFile();
 
-    public static boolean bandera = false; // TODO: ÀPara que sirve esta
-					   // bandera?
-
     public static boolean isCut = false;
 
     public static Vector<SelectionSquare> seleccion =
@@ -89,14 +86,11 @@ public class MainWindow {
 										 // clase
 										 // a
 										 // SelectionAdministrator
-
     public static TabFolder _diagrams;
 
     public static EventoKey _keyEvent;
 
     public static EventoMenuContextual _editMenu;
-
-    public static boolean first = false; // TODO: À?
 
     public static boolean dispToolItem = false; // TODO: À?
 
@@ -524,7 +518,6 @@ public class MainWindow {
 		if (oldCursor != null) {
 		    oldCursor.dispose();
 		}
-		MainWindow.bandera = true;
 		if (_diagrams.getItemCount() != 0) {
 		    _diagrams.getHoja().addFigure();
 		}
@@ -597,29 +590,6 @@ public class MainWindow {
 	    }
 	} catch (Exception e) {
 	    throw new OrigamiException(e);
-	}
-    }
-
-    // TODO: Revisar si es util.
-    class MouseDetect implements MouseListener {
-
-	public void mouseDoubleClick(MouseEvent arg0) {
-	}
-
-	public void mouseDown(MouseEvent arg0) {
-	    Cursor[] cursor = new Cursor[1];
-	    Grafico.MainWindow._mainFigure = null;
-	    Cursor oldCursor = cursor[0];
-	    cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-	    _diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
-	    if (oldCursor != null) {
-		oldCursor.dispose();
-	    }
-	    MainWindow.bandera = true;
-	    _diagrams.getHoja().addFigure();
-	}
-
-	public void mouseUp(MouseEvent arg0) {
 	}
     }
 }
