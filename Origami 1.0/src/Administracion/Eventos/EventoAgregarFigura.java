@@ -242,6 +242,5 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 		if (oldCursor != null){
 			oldCursor.dispose();
 		}
-		MainWindow.bandera = true;
 	}
 }

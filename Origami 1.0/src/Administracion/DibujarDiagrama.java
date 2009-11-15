@@ -115,10 +115,11 @@ public class DibujarDiagrama extends Figure{
 		}
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
-		}
-		else if(MainWindow.first){
 			MainWindow._editMenu.menuDisponibleFigura();
 		}
+		/*else if(MainWindow.first){		//quitado del MainWindow y no se encontro error aun se corrigio agregando una linea en la clase 
+			MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
+		}*/
 		if(MainWindow.dispToolItem){
 			MainWindow.getComponentes().toolBarDisable();
 		}
@@ -1018,10 +1019,11 @@ public class DibujarDiagrama extends Figure{
 		}
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
-		}
-		else if(MainWindow.first){
 			MainWindow._editMenu.menuDisponibleFigura();
 		}
+		/*else if(MainWindow.first){	igual que el metodo agregarFiguras() de la misma clase.
+			MainWindow._editMenu.menuDisponibleFigura();
+		}*/
 		if(MainWindow.dispToolItem){
 			MainWindow.getComponentes().toolBarDisable();
 		}

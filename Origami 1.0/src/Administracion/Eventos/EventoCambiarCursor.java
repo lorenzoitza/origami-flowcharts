@@ -51,6 +51,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	 * @param MouseEvent 
 	 */
 	public void mouseReleased(MouseEvent e){
+	    MainWindow._editMenu.menuDisponibleFigura();
 	}
 	public void mouseClicked(MouseEvent e) {
   	}
