@@ -40,7 +40,7 @@ import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoVentana;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Exportar;
-import Administracion.Funcionalidad.Serializar;
+import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Figuras.SelectionSquare;
@@ -73,7 +73,7 @@ public class MainWindow {
 
     public static Figura _mainFigure = null;
 
-    private static Serializar _serializer = new Serializar();
+    private static SerializeFile _serializer = new SerializeFile();
 
     public static boolean bandera = false; // TODO: ÀPara que sirve esta
 					   // bandera?
@@ -551,14 +551,14 @@ public class MainWindow {
      * @param serializer
      *            the serializer to set
      */
-    public static void setSerializer(Serializar serializer) {
+    public static void setSerializer(SerializeFile serializer) {
 	_serializer = serializer;
     }
 
     /**
      * @return the serializer
      */
-    public static Serializar getSerializer() {
+    public static SerializeFile getSerializer() {
 	return _serializer;
     }
 

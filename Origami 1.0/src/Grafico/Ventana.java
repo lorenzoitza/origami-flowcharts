@@ -25,7 +25,7 @@ import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoVentana;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Exportar;
-import Administracion.Funcionalidad.Serializar;
+import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Figuras.SelectionSquare;
@@ -59,7 +59,7 @@ public class Ventana {
 
     public static Cursor cursor2 = new Cursor(null, SWT.CURSOR_ARROW);
 
-    public static Serializar ser = new Serializar();
+    public static SerializeFile ser = new SerializeFile();
 
     public static boolean bandera = false;
 
@@ -746,7 +746,7 @@ public class Ventana {
 				    ser.SetFil(archivo);
 				    diagramas.getTabItem().getSave().setDir(
 					    archivo);
-				    ser.guardar(diagramas);
+				    ser.saveFile(diagramas);
 				    archivo = dialog.getFileName();
 				    int pos = archivo.indexOf('.');
 				    String name = archivo.substring(0, pos);
@@ -761,7 +761,7 @@ public class Ventana {
 				ser.SetFil(archivo);
 				diagramas.getTabItem().getSave()
 					.setDir(archivo);
-				boolean error = ser.guardar(diagramas);
+				boolean error = ser.saveFile(diagramas);
 				if (error) {
 				    archivo = dialog.getFileName();
 				    int pos = archivo.indexOf('.');
@@ -775,7 +775,7 @@ public class Ventana {
 		    }
 		} else {
 		    ser.SetFil(diagramas.getTabItem().getSave().getDir());
-		    ser.guardar(diagramas);
+		    ser.saveFile(diagramas);
 		    diagramas.getTabItem().getSave().setSave(true);
 		}
 	    }
@@ -841,7 +841,7 @@ public class Ventana {
 			    switch (seleccion) {
 			    case 64:
 				ser.SetFil(archivo);
-				ser.guardar(diagramas);
+				ser.saveFile(diagramas);
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');
 				String name = archivo.substring(0, pos);
@@ -852,7 +852,7 @@ public class Ventana {
 			    }
 			} else {
 			    ser.SetFil(archivo);
-			    boolean error = ser.guardar(diagramas);
+			    boolean error = ser.saveFile(diagramas);
 			    if (error) {
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');

@@ -10,7 +10,7 @@ import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.Serializar;
+import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Ventana;
@@ -30,7 +30,7 @@ public class EventoKey {
 
     private TabFolder tab;
 
-    private Serializar ser = new Serializar();
+    private SerializeFile ser = new SerializeFile();
 
     public EventoKey(AdminSeleccion seleccion, TabFolder tabfolder) {
 	selec = seleccion;
@@ -317,7 +317,7 @@ public class EventoKey {
 			    case 64:
 				ser.SetFil(archivo);
 				tab.getTabItem().getSave().setDir(archivo);
-				ser.guardar(tab);
+				ser.saveFile(tab);
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');
 				String name = archivo.substring(0, pos);
@@ -330,7 +330,7 @@ public class EventoKey {
 			} else {
 			    ser.SetFil(archivo);
 			    tab.getTabItem().getSave().setDir(archivo);
-			    boolean error = ser.guardar(tab);
+			    boolean error = ser.saveFile(tab);
 			    if (error) {
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');
@@ -343,7 +343,7 @@ public class EventoKey {
 		}
 	    } else {
 		ser.SetFil(tab.getTabItem().getSave().getDir());
-		ser.guardar(tab);
+		ser.saveFile(tab);
 		tab.getTabItem().getSave().setSave(true);
 	    }
 	} else if (key + key2 == 262264) {

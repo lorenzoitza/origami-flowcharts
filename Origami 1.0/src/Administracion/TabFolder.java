@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import Administracion.Eventos.EventoKey;
 import Administracion.Funcionalidad.Guardar;
-import Administracion.Funcionalidad.Serializar;
+import Administracion.Funcionalidad.SerializeFile;
 import Grafico.MainWindow;
 /**
  * @version Origami 1.0
@@ -158,7 +158,7 @@ public class TabFolder {
 	public Hoja getHoja(){
 		return hoja;
 	}
-	public void abrir(String archivo,Serializar ser ){
+	public void abrir(String archivo,SerializeFile ser ){
 		hoja.openNewFile(archivo,ser);
 		setSeleccion(0);
 		selec.setFiguraSeleccionada(-1);	

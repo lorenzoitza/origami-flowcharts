@@ -29,7 +29,7 @@ import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.Exportar;
 import Administracion.Funcionalidad.PasoAPaso;
-import Administracion.Funcionalidad.Serializar;
+import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Figuras.InputFigure;
@@ -79,7 +79,7 @@ public class Componentes {
 
     final GridLayout layout2 = new GridLayout(1, false);
 
-    public Serializar ser = new Serializar();
+    public SerializeFile ser = new SerializeFile();
 
     private Button boton[] = new Button[7];
 
@@ -364,7 +364,7 @@ public class Componentes {
 			case 64:
 			    ser.SetFil(archivo);
 			    diagramas.getTabItem().getSave().setDir(archivo);
-			    ser.guardar(diagramas);
+			    ser.saveFile(diagramas);
 			    archivo = dialog.getFileName();
 			    int pos = archivo.indexOf('.');
 			    String name = archivo.substring(0, pos);
@@ -377,7 +377,7 @@ public class Componentes {
 		    } else {
 			ser.SetFil(archivo);
 			diagramas.getTabItem().getSave().setDir(archivo);
-			boolean error = ser.guardar(diagramas);
+			boolean error = ser.saveFile(diagramas);
 			if (error) {
 			    archivo = dialog.getFileName();
 			    int pos = archivo.indexOf('.');
@@ -392,7 +392,7 @@ public class Componentes {
 	    return false;
 	} else {
 	    ser.SetFil(diagramas.getTabItem().getSave().getDir());
-	    ser.guardar(diagramas);
+	    ser.saveFile(diagramas);
 	    diagramas.getTabItem().getSave().setSave(true);
 	    return true;
 	}
@@ -522,7 +522,7 @@ public class Componentes {
 				    ser.SetFil(archivo);
 				    diagramas.getTabItem().getSave().setDir(
 					    archivo);
-				    ser.guardar(diagramas);
+				    ser.saveFile(diagramas);
 				    archivo = dialog.getFileName();
 				    int pos = archivo.indexOf('.');
 				    String name = archivo.substring(0, pos);
@@ -537,7 +537,7 @@ public class Componentes {
 				ser.SetFil(archivo);
 				diagramas.getTabItem().getSave()
 					.setDir(archivo);
-				boolean error = ser.guardar(diagramas);
+				boolean error = ser.saveFile(diagramas);
 				if (error) {
 				    archivo = dialog.getFileName();
 				    int pos = archivo.indexOf('.');
@@ -551,7 +551,7 @@ public class Componentes {
 		    }
 		} else {
 		    ser.SetFil(diagramas.getTabItem().getSave().getDir());
-		    ser.guardar(diagramas);
+		    ser.saveFile(diagramas);
 		    diagramas.getTabItem().getSave().setSave(true);
 		}
 	    }
