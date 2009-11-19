@@ -13,6 +13,7 @@ import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Grafico.CustomeMenu;
 import Grafico.MainWindow;
 import Grafico.Figuras.*;
 import Grafico.Help.*;
@@ -41,84 +42,84 @@ public class EventoKey {
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name5 = "imagenes//cursorEntrada.png";
 				//ImageData image5 = new ImageData(name5);
-				MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+				MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 			    InputFigure entrada2 = new InputFigure();
 			    InstruccionSimple codigo5 = new InstruccionSimple();
 			    codigo5.setInstruccionSimple("null");
 				entrada2.instruction.instruccion = "null";
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = entrada2;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = entrada2;
 			}
 			break;
 		case 50:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name4 = "imagenes//cursorProceso.png";
 			    //ImageData image4 = new ImageData(name4);
-			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 			    SentenceFigure proceso2 = new SentenceFigure();
 			    InstruccionSimple codigo4 = new InstruccionSimple();
 			    codigo4.setInstruccionSimple("null");
 				proceso2.instruccion.instruccion = "null";
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = proceso2;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = proceso2;
 			}
 			break;
 		case 51:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name = "imagenes//cursorIf.png";
 			    //ImageData image = new ImageData(name);
-			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 			    DecisionFigure decision2 = new DecisionFigure();
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision2.instruction.instruccion.add(0,codigo);
-				MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = decision2;
+				MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = decision2;
 			}
 			break;
 		case 52:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name3 = "imagenes//cursorWhile.png";
 			    //ImageData image3 = new ImageData(name3);
-			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 			    WhileFigure While2 = new WhileFigure();
 			    InstruccionSimple codigo3 = new InstruccionSimple();
 				codigo3.setInstruccionSimple("null");
 				While2.instruccion.instruccion.add(0,codigo3);
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = While2;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = While2;
 			}
 			break;
 		case 53:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name2 = "imagenes//cursorFor.png";
 			    //ImageData image2 = new ImageData(name2);
-			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 			    ForFigure For2 = new ForFigure();
 			    InstruccionSimple codigo2 = new InstruccionSimple();
 			    codigo2.setInstruccionSimple("null");
 			    For2.instruction.instruccion.add(0,codigo2);
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = For2;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = For2;
 			}
 			break;
 		case 54:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				//String name6 = "imagenes//cursorSalida.png";
 			    //ImageData image6 = new ImageData(name6);
-			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
+			    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 			    OutputFigure salida2 = new OutputFigure();
 			    InstruccionSimple codigo6 = new InstruccionSimple();
 				codigo6.setInstruccionSimple("null");
 				salida2.instruction.instruccion = "null";
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = salida2;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = salida2;
 			}
 			break;
 		case 27:
 			if(!MainWindow.getComponentes().isPasoAPaso){
 				 Cursor[] cursor = new Cursor[1];
-				   Grafico.MainWindow._mainFigure = null;
+				   Grafico.MainWindow.mainFigure = null;
 				   Cursor oldCursor = cursor[0];
 			       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
 			       tab.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
@@ -145,7 +146,7 @@ public class EventoKey {
 			break;
 		case 16777227:
 			AboutWindow acercade = new AboutWindow();
-			acercade.createWindow(MainWindow._display);
+			acercade.createWindow(MainWindow.display);
 			acercade.showWindow();
 			break;
 		case 16777228:
@@ -166,7 +167,7 @@ public class EventoKey {
 		case 16777229:
 			Instruccion codigo7 = new Instruccion();
 			codigo7.main(tab.getHoja().getDiagrama(),true);
-			codigo7.ventana(MainWindow._display);
+			codigo7.ventana(MainWindow.display);
 			break;
 		case 16777230:
 			if(!MainWindow.getComponentes().isPasoAPaso){
@@ -189,8 +190,8 @@ public class EventoKey {
 					MainWindow.getComponents().ejecutar(true,codigo);
 					tab.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 				}
-				if(!MainWindow.consoleMenuItem.getSelection()){
-					MainWindow.consoleMenuItem.setSelection(true);
+				if(!CustomeMenu.consoleMenuItem.getSelection()){
+				    CustomeMenu.consoleMenuItem.setSelection(true);
 					MainWindow.getComponents().moverConsola(true);
 				}
 			}
@@ -205,7 +206,7 @@ public class EventoKey {
 					&& tab.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 				MainWindow.getComponents().stopEjecucion();
 			}
-			FileDialog dialog = new FileDialog(MainWindow._shell,SWT.OPEN);
+			FileDialog dialog = new FileDialog(MainWindow.shell,SWT.OPEN);
 		    dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
 		    String archivo = dialog.open();
 		    if(archivo!=null){
@@ -240,7 +241,7 @@ public class EventoKey {
 		}
 		else if(key+key2 == 262247){
 			if(tab.getTabItem().getSave().getDir()=="null"){
-				FileDialog dialog = new FileDialog(MainWindow._shell,SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow.shell,SWT.SAVE);
 			    dialog.setFilterExtensions(new String[] { "*.Org"});
 			    String archivo = dialog.open();
 			    if(archivo!=null){
@@ -249,7 +250,7 @@ public class EventoKey {
 		    						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 		    						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 		    						dialog.getFileName().contains("\"")){
-		    			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
+		    			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
 			    		messageBox.setText("Origami");
 			    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
 			    		int seleccion = messageBox.open();
@@ -271,7 +272,7 @@ public class EventoKey {
 		    			catch(Exception e1){
 		    			}		    	
 		    			if(existe){
-		    				MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+		    				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 				    		messageBox.setText("Origami");
 				    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
 				    		int seleccion = messageBox.open();

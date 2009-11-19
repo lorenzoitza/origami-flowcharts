@@ -20,7 +20,7 @@ public class Ejecutar implements ExecProcessor {
 	public TabItem a;
 	
 	private void updateTextArea(final Componentes consola, final String line) {
-		MainWindow._display.syncExec(new Runnable () {
+		MainWindow.display.syncExec(new Runnable () {
 			public void run () {
 				if(!consola.seleccion){
 					String linea = consola.paso.texto(line);					
@@ -85,11 +85,11 @@ public class Ejecutar implements ExecProcessor {
 	private void exit(int exit){
 		Exit = Exit + exit;
 		if(Exit == 3){
-			MainWindow._display.syncExec(new Runnable () {
+			MainWindow.display.syncExec(new Runnable () {
 				public void run () {
 					consola.setEnEjecucion(false);
 					consola.ejecucionDisable();
-					MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_INFORMATION | SWT.YES );
+					MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_INFORMATION | SWT.YES );
 					messageBox.setText("Origami");
 					messageBox.setMessage("La ejecución ha terminado.");
 					int selec = messageBox.open();

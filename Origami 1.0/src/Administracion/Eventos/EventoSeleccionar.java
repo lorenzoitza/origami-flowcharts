@@ -27,7 +27,7 @@ public class EventoSeleccionar extends MouseListener.Stub implements MouseMotion
 	 * @param figure
 	 */
 	public EventoSeleccionar(Figura figure,AdminSeleccion selec,TabFolder tabfolder){
-		figure.setCursor(new Cursor(MainWindow._display,SWT.CURSOR_HAND));
+		figure.setCursor(new Cursor(MainWindow.display,SWT.CURSOR_HAND));
 		figure.addMouseListener(this);
 		figure.addMouseMotionListener(this);
 		seleccion = selec;

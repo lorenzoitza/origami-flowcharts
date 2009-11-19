@@ -51,14 +51,14 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	 * @param MouseEvent 
 	 */
 	public void mouseReleased(MouseEvent e){
-	    MainWindow._editMenu.menuDisponibleFigura();
+	    CustomeMenu._editMenu.menuDisponibleFigura();
 	}
 	public void mouseClicked(MouseEvent e) {
   	}
 	public void mouseDoubleClicked(MouseEvent e) {
   	}
 	public void mouseMoved(MouseEvent me) {
-		figuraPrincipal = MainWindow._mainFigure;
+		figuraPrincipal = MainWindow.mainFigure;
 		int a;
 		start = me.getLocation();
 		for(int z=0;z<tab.getHoja().getSizeDiagrama()-1;z++){
@@ -234,7 +234,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 					|| figuraPrincipal instanceof OutputFigure || figuraPrincipal instanceof InputFigure || figuraPrincipal instanceof SentenceFigure){
 				 //String name = "cursor.PNG";
 			     //ImageData image = new ImageData(name);
-			     cursor[0] = new Cursor(MainWindow._display, ImageLoader.getImage("cursor.PNG").getImageData(), 0, 0);
+			     cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursor.PNG").getImageData(), 0, 0);
 			     cuadro.setCursor(cursor[0]);
 			}
 		}
@@ -261,7 +261,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			if(name != ""){
 				ImageData image = ImageLoader.getImage(name).getImageData();
 			    image.transparentPixel = image.palette.getPixel(new RGB(255, 255, 255));
-			    cursor[0] = new Cursor(MainWindow._display,image,60,35);
+			    cursor[0] = new Cursor(MainWindow.display,image,60,35);
 			    cuadro.setCursor(cursor[0]);
 			}
 		}

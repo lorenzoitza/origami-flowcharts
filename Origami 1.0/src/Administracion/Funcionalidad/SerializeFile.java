@@ -39,7 +39,7 @@ public class SerializeFile {
 	    selectedTab.getTabItem().getInfo().removeTime();
 	    objectStream.close();
 	} catch (Exception e) {
-	    MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+	    MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 	    messageBox.setText("Origami");
 	    messageBox.setMessage("El nombre de archivo, directorio o etiqueta del" +
 		    		" volumén no es válido");

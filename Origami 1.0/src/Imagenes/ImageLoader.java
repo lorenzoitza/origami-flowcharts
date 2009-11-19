@@ -10,7 +10,7 @@ import Grafico.MainWindow;
 public class ImageLoader {
 
 	public static Image getImage(String imageName){
-		Image image = new Image(MainWindow._display, 
+		Image image = new Image(MainWindow.display, 
 				ImageLoader.class.getResourceAsStream(imageName));
 		return image;
 	}

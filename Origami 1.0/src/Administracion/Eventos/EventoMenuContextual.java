@@ -122,10 +122,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision.instruction.instruccion.add(0,codigo);
-				MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = decision;
+				MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = decision;
 			    insertarFigura(decision);
-			    MainWindow._mainFigure = null;
+			    MainWindow.mainFigure = null;
 				
 			}
 		});
@@ -135,10 +135,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				 InstruccionSimple codigo = new InstruccionSimple();
 				 codigo.setInstruccionSimple("null");
 				 proceso.instruccion.instruccion = "null";
-				 MainWindow._mainFigure = null;
-				 MainWindow._mainFigure = proceso;
+				 MainWindow.mainFigure = null;
+				 MainWindow.mainFigure = proceso;
 				 insertarFigura(proceso);
-				 MainWindow._mainFigure = null;
+				 MainWindow.mainFigure = null;
 			}
 		});
 		entrada.addSelectionListener(new SelectionAdapter() {
@@ -147,10 +147,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				 InstruccionSimple codigo = new InstruccionSimple();
 				 codigo.setInstruccionSimple("null");
 				 entrada.instruction.instruccion = "null";
-				 MainWindow._mainFigure = null;
-				 MainWindow._mainFigure = entrada;
+				 MainWindow.mainFigure = null;
+				 MainWindow.mainFigure = entrada;
 				 insertarFigura(entrada);
-				 MainWindow._mainFigure = null;
+				 MainWindow.mainFigure = null;
 			}
 		});
 		salida.addSelectionListener(new SelectionAdapter() {
@@ -159,10 +159,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				salida.instruction.instruccion = "null";
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = salida;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = salida;
 			    insertarFigura(salida);
-			    MainWindow._mainFigure = null;
+			    MainWindow.mainFigure = null;
 			}
 		});
 		para.addSelectionListener(new SelectionAdapter() {
@@ -171,10 +171,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			    InstruccionSimple codigo = new InstruccionSimple();
 			    codigo.setInstruccionSimple("null");
 			    For.instruction.instruccion.add(0,codigo);
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = For;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = For;
 			    insertarFigura(For);
-			    MainWindow._mainFigure = null;
+			    MainWindow.mainFigure = null;
 			}
 		});
 		mientras.addSelectionListener(new SelectionAdapter() {
@@ -183,10 +183,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			    InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				While.instruccion.instruccion.add(0,codigo);
-			    MainWindow._mainFigure = null;
-			    MainWindow._mainFigure = While;
+			    MainWindow.mainFigure = null;
+			    MainWindow.mainFigure = While;
 			    insertarFigura(While);
-			    MainWindow._mainFigure = null;
+			    MainWindow.mainFigure = null;
 			}
 		});
 		menuDisponibleFigura();
@@ -230,10 +230,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 	}
 	public void mousePressed(MouseEvent e){
-		MainWindow._editMenu.menuDisponibleFigura();
+	    CustomeMenu._editMenu.menuDisponibleFigura();
 		final Figura fig = ((Figura) e.getSource());
 		if(e.button == 3){
-			Menu menu = new Menu(MainWindow._shell,SWT.POP_UP);
+			Menu menu = new Menu(MainWindow.shell,SWT.POP_UP);
 			MenuItem cortar = new MenuItem(menu,SWT.CASCADE);
 			cortar.setText("Cortar");
 			MenuItem copiar = new MenuItem(menu,SWT.CASCADE);
@@ -317,10 +317,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					decision.instruction.instruccion.add(0,codigo);
-					MainWindow._mainFigure = null;
-				    MainWindow._mainFigure = decision;
+					MainWindow.mainFigure = null;
+				    MainWindow.mainFigure = decision;
 				    insertarFigura(decision);
-				    MainWindow._mainFigure = null;
+				    MainWindow.mainFigure = null;
 					
 				}
 			});
@@ -330,10 +330,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					 InstruccionSimple codigo = new InstruccionSimple();
 					 codigo.setInstruccionSimple("null");
 					 proceso.instruccion.instruccion = "null";
-					 MainWindow._mainFigure = null;
-					 MainWindow._mainFigure = proceso;
+					 MainWindow.mainFigure = null;
+					 MainWindow.mainFigure = proceso;
 					 insertarFigura(proceso);
-					 MainWindow._mainFigure = null;
+					 MainWindow.mainFigure = null;
 				}
 			});
 			entrada.addSelectionListener(new SelectionAdapter() {
@@ -342,10 +342,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					 InstruccionSimple codigo = new InstruccionSimple();
 					 codigo.setInstruccionSimple("null");
 					 entrada.instruction.instruccion = "null";
-					 MainWindow._mainFigure = null;
-					 MainWindow._mainFigure = entrada;
+					 MainWindow.mainFigure = null;
+					 MainWindow.mainFigure = entrada;
 					 insertarFigura(entrada);
-					 MainWindow._mainFigure = null;
+					 MainWindow.mainFigure = null;
 				}
 			});
 			salida.addSelectionListener(new SelectionAdapter() {
@@ -354,10 +354,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					salida.instruction.instruccion = "null";
-				    MainWindow._mainFigure = null;
-				    MainWindow._mainFigure = salida;
+				    MainWindow.mainFigure = null;
+				    MainWindow.mainFigure = salida;
 				    insertarFigura(salida);
-				    MainWindow._mainFigure = null;
+				    MainWindow.mainFigure = null;
 				}
 			});
 			para.addSelectionListener(new SelectionAdapter() {
@@ -366,10 +366,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				    InstruccionSimple codigo = new InstruccionSimple();
 				    codigo.setInstruccionSimple("null");
 				    For.instruction.instruccion.add(0,codigo);
-				    MainWindow._mainFigure = null;
-				    MainWindow._mainFigure = For;
+				    MainWindow.mainFigure = null;
+				    MainWindow.mainFigure = For;
 				    insertarFigura(For);
-				    MainWindow._mainFigure = null;
+				    MainWindow.mainFigure = null;
 				}
 			});
 			mientras.addSelectionListener(new SelectionAdapter() {
@@ -378,10 +378,10 @@ public class EventoMenuContextual extends MouseListener.Stub{
 				    InstruccionSimple codigo = new InstruccionSimple();
 					codigo.setInstruccionSimple("null");
 					While.instruccion.instruccion.add(0,codigo);
-				    MainWindow._mainFigure = null;
-				    MainWindow._mainFigure = While;
+				    MainWindow.mainFigure = null;
+				    MainWindow.mainFigure = While;
 				    insertarFigura(While);
-				    MainWindow._mainFigure = null;
+				    MainWindow.mainFigure = null;
 				}
 			});
 		}
@@ -580,7 +580,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	}
 	public static void Pegar(Figura fig){
 		int w = 0, y=0 ,lim=0;
-		final Shell shell = new Shell(MainWindow._shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+		final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
 		if(!MainWindow.isCut){
 			for(int i=0; i<MainWindow._diagramAdministrator.diagrama.size(); i++){
 				if(MainWindow._diagramAdministrator.diagrama.elementAt(i) instanceof Elipse){
@@ -660,7 +660,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 					Label pregunta = new Label(shell, SWT.NONE); 
 					FontData fontData = new FontData();
 					fontData.setHeight(11);
-					Font newFont = new Font(MainWindow._display, fontData);
+					Font newFont = new Font(MainWindow.display, fontData);
 					pregunta.setBounds(85, 30, 340, 30);
 					pregunta.setText("¿De que lado deseas pegar?");
 					pregunta.setFont(newFont);
@@ -811,7 +811,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	public static void insertarFigura(final Figura inser){
 		final int i = selec.getFiguraSeleccionada();
 		if(tab.getHoja().getAdminDiagrama().diagrama.elementAt(i) instanceof DecisionFigure){
-			final Shell shell = new Shell(MainWindow._shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
+			final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
 			shell.setBounds(315, 260, 400, 140);
 			Button izquierda = new Button(shell,SWT.PUSH);
 			izquierda.setBounds(5, 75, 75, 25);
@@ -825,7 +825,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 			Label pregunta = new Label(shell, SWT.NONE); 
 			FontData fontData = new FontData();
 			fontData.setHeight(11);
-			Font newFont = new Font(MainWindow._display, fontData);
+			Font newFont = new Font(MainWindow.display, fontData);
 			pregunta.setBounds(85, 30, 340, 30);
 			pregunta.setText("¿De que lado deseas insertar la nueva figura?");
 			pregunta.setFont(newFont);
@@ -931,27 +931,27 @@ public class EventoMenuContextual extends MouseListener.Stub{
 	public void agregar(Figura fig){
 		if(fig instanceof SentenceFigure){
 			SentenceFigure f = (SentenceFigure)fig;
-			new SentenceFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new SentenceFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof DecisionFigure){
 			DecisionFigure f = ((DecisionFigure)fig);
-			new DecisionFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new DecisionFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof InputFigure){
 			InputFigure f = ((InputFigure)fig);
-			new InputFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new InputFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof OutputFigure){
 			OutputFigure f = ((OutputFigure)fig);
-			new OutputFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new OutputFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof ForFigure){
 			ForFigure f = ((ForFigure)fig);
-			new ForFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new ForFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 		else if(fig instanceof WhileFigure){
 			WhileFigure f = ((WhileFigure)fig);
-			new WhileFigureDialog(MainWindow._shell,tab,f,selec).open();
+			new WhileFigureDialog(MainWindow.shell,tab,f,selec).open();
 		}
 	}
 	public static void Repintar(){

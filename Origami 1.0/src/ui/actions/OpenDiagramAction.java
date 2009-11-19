@@ -54,7 +54,7 @@ public class OpenDiagramAction implements SelectionListener{
 	    	
     	}
     	else{
-    		MainWindow.selectionAdministrator.setFiguraSeleccionada(0);
+    		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
 		    diagrams.getHoja().openFile(archivo);
 		    diagrams.getTabItem().getSave().setDir(archivo);
 		    archivo = dialog.getFileName();

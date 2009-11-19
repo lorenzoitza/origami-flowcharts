@@ -34,7 +34,7 @@ public class EventoVentana extends ShellAdapter{
 			}
 		}
 		if(mensaje){
-			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
+			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO |  SWT.CANCEL);
 			messageBox.setText("Origami");
 			messageBox.setMessage("Existen diagramas sin guardar, ¿desea guardarlos?");
 				selec = messageBox.open();

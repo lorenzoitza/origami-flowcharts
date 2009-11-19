@@ -33,18 +33,18 @@ public class Figura extends Figure implements Serializable {
     protected boolean seleccion = false;
 
     protected static final Font DEFAULT_FONT =
-	    new Font(MainWindow._display, "Arial", 10, SWT.ITALIC);
+	    new Font(MainWindow.display, "Arial", 10, SWT.ITALIC);
 
     protected static final Color DEFAULT_TEXTCOLOR = new Color(null, 6, 93, 6);
 
     protected static final Color RED =
-	    MainWindow._display.getSystemColor(SWT.COLOR_RED);
+	    MainWindow.display.getSystemColor(SWT.COLOR_RED);
 
     protected static final Color GRAY =
-	    MainWindow._display.getSystemColor(SWT.COLOR_GRAY);
+	    MainWindow.display.getSystemColor(SWT.COLOR_GRAY);
 
     protected static final Color DARKBLUE =
-	    MainWindow._display.getSystemColor(SWT.COLOR_DARK_BLUE);
+	    MainWindow.display.getSystemColor(SWT.COLOR_DARK_BLUE);
 
     public Figura() {
 	addMouseListener(new MouseListener() {

@@ -37,7 +37,6 @@ public class AddOutputFigureAction implements SelectionListener{
 	salida2.instruction.instruccion = "null";
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = salida2;
-	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 

@@ -77,7 +77,7 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    		switch(seleccion){
 				    			case 64:
 							    	mainWindow.getSerializer().SetFil(archivo);
-							    	mainWindow.getSerializer().guardar(diagrams);
+							    	mainWindow.getSerializer().saveFile(diagrams);
 							    	archivo = dialog.getFileName();
 							    	int pos = archivo.indexOf('.');
 							    	String name = archivo.substring(0, pos);
@@ -89,7 +89,7 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    	}
 				    	else{
 				    	    mainWindow.getSerializer().SetFil(archivo);
-					    	boolean error = mainWindow.getSerializer().guardar(diagrams);
+					    	boolean error = mainWindow.getSerializer().saveFile(diagrams);
 					    	if(error){
 					    		archivo = dialog.getFileName();
 					    		int pos = archivo.indexOf('.');

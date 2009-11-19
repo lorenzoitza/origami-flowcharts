@@ -41,7 +41,7 @@ public class Guardar {
 	TabItem a = (TabItem) e.item;
 	int selec = a.GetId() + 1;
 	MessageBox messageBox =
-		new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES
+		new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES
 			| SWT.NO | SWT.CANCEL);
 	messageBox.setText("Origami");
 	if (a.getText() == "*Diagrama " + selec) {
@@ -57,7 +57,7 @@ public class Guardar {
 	switch (selec) {
 	case 64:
 	    if (tab.getTabItem().getSave().getDir() == "null") {
-		FileDialog dialog = new FileDialog(MainWindow._shell, SWT.SAVE);
+		FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 		dialog.setFilterExtensions(new String[] { "*.Org" });
 		String archivo = dialog.open();
 		if (archivo != null) {
@@ -71,7 +71,7 @@ public class Guardar {
 			    || dialog.getFileName().contains("|")
 			    || dialog.getFileName().contains("\"")) {
 			MessageBox messageBox2 =
-				new MessageBox(MainWindow._shell,
+				new MessageBox(MainWindow.shell,
 					SWT.ICON_ERROR | SWT.OK);
 			messageBox2.setText("Origami");
 			messageBox2
@@ -94,7 +94,7 @@ public class Guardar {
 			}
 			if (existe) {
 			    MessageBox messageBox3 =
-				    new MessageBox(MainWindow._shell,
+				    new MessageBox(MainWindow.shell,
 					    SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			    messageBox3.setText("Origami");
 			    messageBox3

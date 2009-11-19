@@ -36,8 +36,7 @@ public class AddSentenceFigureAction implements SelectionListener{
 		proceso2.instruccion.instruccion = "null";
 		MainWindow.mainFigure = null;
 		MainWindow.mainFigure = proceso2;
-		MainWindow.bandera = false;
-	    mainWindow.disableCursor();
+		mainWindow.disableCursor();
     }
 
 }

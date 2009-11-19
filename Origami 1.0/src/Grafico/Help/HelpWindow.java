@@ -18,7 +18,7 @@ public class HelpWindow{
 	private Browser browser;
 	private HelpContents helpContent;
 	private int treeItemSelection;
-	private final Color WHITE_COLOR = MainWindow._display.getSystemColor(
+	private final Color WHITE_COLOR = MainWindow.display.getSystemColor(
 			SWT.COLOR_WHITE);
 	private final int MAX_TREE_ITEMS = 19;
 	
@@ -182,7 +182,7 @@ public class HelpWindow{
 	}
 	
 	public void createWindow(){
-		this.helpShell = new Shell(MainWindow._display);
+		this.helpShell = new Shell(MainWindow.display);
 		this.helpShell.setLayout(new FillLayout());
 		
 	    

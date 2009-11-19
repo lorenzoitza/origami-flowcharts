@@ -30,7 +30,7 @@ public class TabFolder {
 	public TabFolder(Display display,AdminSeleccion seleccion){
 		selec = seleccion;
 		key = new EventoKey(selec,this);
-		tabFolder = new CTabFolder(MainWindow._shell,SWT.BORDER | SWT.CLOSE);
+		tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
 		hoja = new Hoja(display,this,selec);
 		addTabItem();
 		tabFolder.forceFocus();

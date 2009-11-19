@@ -135,7 +135,7 @@ public class Exportar {
 	}
 	public Shell shell;
 	public Figure getPan(Figure contents){
-		shell = new Shell(MainWindow._display);
+		shell = new Shell(MainWindow.display);
 		shell.setBounds(0,0,contents.getBounds().width+40,contents.getBounds().height+30);
 		Canvas composite = new Canvas(shell,SWT.NONE);
 		composite.setBounds(0,0,contents.getBounds().width+40,contents.getBounds().height+30);
@@ -154,7 +154,7 @@ public class Exportar {
 		Graphics g = null;
 		figure=getPan(figure);
 		try {
-			image = new Image(MainWindow._display, r.width, r.height);
+			image = new Image(MainWindow.display, r.width, r.height);
 			gc = new GC(image);
 			g = new SWTGraphics(gc);
 			g.translate(r.x * -1, r.y * -1);
@@ -245,7 +245,7 @@ public class Exportar {
 		}catch(IOException e){}	
 	}
 	private void mensajeDeError(){
-		MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+		MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 		messageBox.setText("Origami");
 		messageBox.setMessage("Error al exportar ejecutable verifique su sintaxis");
 		messageBox.open();
