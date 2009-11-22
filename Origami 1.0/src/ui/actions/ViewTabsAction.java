@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.MainWindow;
 import Grafico.Figuras.DecisionFigure;

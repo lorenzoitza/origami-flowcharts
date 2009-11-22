@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.MainWindow;
 import Grafico.Figuras.WhileFigure;
@@ -40,6 +40,7 @@ public class AddWhileFigureAction implements SelectionListener{
 	While2.instruccion.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = While2;
+	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 

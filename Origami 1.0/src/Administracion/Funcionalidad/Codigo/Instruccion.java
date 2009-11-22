@@ -7,7 +7,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 import Administracion.Figura;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.*;
 import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;
@@ -52,7 +52,7 @@ public class Instruccion implements Serializable{
 	 * @param Display d 
 	 */
 	public void ventana(Display d) {
-		shell = new Shell(MainWindow.shell);
+		shell = new Shell(MainWindow._shell);
 		shell.setSize(500,387);
 		shell.setLocation(300, 200);
 		shell.setText("Codigo Fuente");
@@ -104,8 +104,8 @@ public class Instruccion implements Serializable{
 			     dialog.setFilterExtensions(new String[] { "*.c"});
 			     String archivo = dialog.open();
 			     if(archivo != null){
-			    	 Exportar expor = new Exportar(MainWindow._diagrams);
-			    	 expor.exportarCodigoC(archivo);
+			    	 Exporter expor = new Exporter(MainWindow._diagrams);
+			    	 expor.codeCExport(archivo);
 				 }
 			}
 		});
@@ -121,8 +121,8 @@ public class Instruccion implements Serializable{
 			     dialog.setFilterExtensions(new String[] { "*.cpp"});
 			     String archivo = dialog.open();
 			     if(archivo != null){
-			    	 Exportar expor = new Exportar(MainWindow._diagrams);
-			    	 expor.exportarCodigoCpp(archivo);
+			    	 Exporter expor = new Exporter(MainWindow._diagrams);
+			    	 expor.codeCppExport(archivo);
 				 }
 			}
 		});
@@ -140,8 +140,8 @@ public class Instruccion implements Serializable{
 			     if(archivo != null){
 			    	 String nombre = dialog.getFileName();
 			    	 nombre = nombre.substring(0,nombre.indexOf("."));
-			    	 Exportar expor = new Exportar(MainWindow._diagrams);
-			    	 expor.exportarEjecutable(archivo,nombre);
+			    	 Exporter expor = new Exporter(MainWindow._diagrams);
+			    	 expor.executeFileExport(archivo,nombre);
 				 }
 			}
 		});

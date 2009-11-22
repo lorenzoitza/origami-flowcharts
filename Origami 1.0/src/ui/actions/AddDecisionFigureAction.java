@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.MainWindow;
 import Grafico.Figuras.DecisionFigure;
@@ -39,6 +39,7 @@ public class AddDecisionFigureAction implements SelectionListener{
 	decision2.instruction.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = decision2;
+	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 

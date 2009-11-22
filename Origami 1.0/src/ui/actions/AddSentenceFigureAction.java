@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 import Grafico.Figuras.SentenceFigure;
 import Imagenes.ImageLoader;
@@ -36,7 +36,8 @@ public class AddSentenceFigureAction implements SelectionListener{
 		proceso2.instruccion.instruccion = "null";
 		MainWindow.mainFigure = null;
 		MainWindow.mainFigure = proceso2;
-		mainWindow.disableCursor();
+		MainWindow.bandera = false;
+	    mainWindow.disableCursor();
     }
 
 }

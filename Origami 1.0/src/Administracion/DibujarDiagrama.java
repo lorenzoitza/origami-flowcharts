@@ -52,9 +52,9 @@ public class DibujarDiagrama extends Figure{
 				tab.getTabFolder().forceFocus();
 				if(MainWindow.getComponentes().hide){
 					if(MainWindow.getComponentes().hide){
-						if(CustomeMenu.consoleMenuItem.getSelection()){
+						if(MainWindow.consoleMenuItem.getSelection()){
 							MainWindow.getComponentes().moverConsola(false);
-							CustomeMenu.consoleMenuItem.setSelection(false);
+							MainWindow.consoleMenuItem.setSelection(false);
 						}
 					}
 				}			
@@ -115,7 +115,7 @@ public class DibujarDiagrama extends Figure{
 		}
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
-			CustomeMenu._editMenu.menuDisponibleFigura();
+			MainWindow._editMenu.menuDisponibleFigura();
 		}
 		/*else if(MainWindow.first){		//quitado del MainWindow y no se encontro error aun se corrigio agregando una linea en la clase 
 			MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
@@ -790,7 +790,7 @@ public class DibujarDiagrama extends Figure{
 		for(int i=0; i<4; i++){
 			chart.add(MainWindow.seleccion.elementAt(i));
 		}
-		CustomeMenu._editMenu.menuDisponibleFigura();
+		MainWindow._editMenu.menuDisponibleFigura();
 		diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
 	}
 	/**
@@ -979,7 +979,7 @@ public class DibujarDiagrama extends Figure{
 					CircleFigure fig = (CircleFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					CircleFigure ini = new CircleFigure();
-					ini.setMensagge(fig.getMensagge());
+					ini.setMesagge(fig.getMesagge());
 					ini.setListaPosicion(fig.getPosicion());
 					ini.setLocation(pt);
 					diagrama.insertElementAt(ini,x);
@@ -1019,7 +1019,7 @@ public class DibujarDiagrama extends Figure{
 		}
 		if(selec.getFiguraSeleccionada()!=-1){
 			agregarSeleccion(diagrama,chart);
-			CustomeMenu._editMenu.menuDisponibleFigura();
+			MainWindow._editMenu.menuDisponibleFigura();
 		}
 		/*else if(MainWindow.first){	igual que el metodo agregarFiguras() de la misma clase.
 			MainWindow._editMenu.menuDisponibleFigura();
@@ -1033,7 +1033,7 @@ public class DibujarDiagrama extends Figure{
 		if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0
 				&& MainWindow.getComponents().paso.a.GetId() == tab.getSelectedTabItemId()){
 			for(int y=0;y<MainWindow.getComponents().paso.colaConexiones.size();y++){
-				conexion.getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(y)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
+				conexion.getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(y)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 		agregarConexiones(conexion.getConexion(),chart);

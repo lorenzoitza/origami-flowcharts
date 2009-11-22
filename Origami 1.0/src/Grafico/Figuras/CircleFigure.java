@@ -32,11 +32,11 @@ public class CircleFigure extends Figura {
      * @param mensaje
      */
 
-    public void setMensagge(String mensaje) {
+    public void setMesagge(String mensaje) {
     	this.mesagge = mensaje;
     }
 
-    public String getMensagge() {
+    public String getMesagge() {
     	return mesagge;
     }
 

@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
@@ -69,8 +69,8 @@ public class ExportToEXEAction implements SelectionListener{
 			    			case 64:
 			    				 String nombre = dialog.getFileName();
 						    	 nombre = nombre.substring(0,nombre.indexOf("."));
-						    	 Exportar expor = new Exportar(diagrams);
-						    	 expor.exportarEjecutable(archivo,nombre);						    	
+						    	 Exporter expor = new Exporter(diagrams);
+						    	 expor.executeFileExport(archivo,nombre);						    	
 			    				break;
 			    			case 128:							
 			    				break;
@@ -79,8 +79,8 @@ public class ExportToEXEAction implements SelectionListener{
 			    	else{
 			    		 String nombre = dialog.getFileName();
 				    	 nombre = nombre.substring(0,nombre.indexOf("."));
-				    	 Exportar expor = new Exportar(diagrams);
-				    	 expor.exportarEjecutable(archivo,nombre);
+				    	 Exporter expor = new Exporter(diagrams);
+				    	 expor.executeFileExport(archivo,nombre);
 			    	}
 	    		}
 	    }

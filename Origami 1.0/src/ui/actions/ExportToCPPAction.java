@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
@@ -67,16 +67,16 @@ public class ExportToCPPAction implements SelectionListener{
 			    		int seleccion = messageBox.open();
 			    		switch(seleccion){
 			    			case 64:
-			    				Exportar expor = new Exportar(diagrams);
-						    	expor.exportarCodigoCpp(archivo);						    	
+			    				Exporter expor = new Exporter(diagrams);
+						    	expor.codeCppExport(archivo);						    	
 			    				break;
 			    			case 128:							
 			    				break;
 			    		}
 			    	}
 			    	else{
-			    		Exportar expor = new Exportar(diagrams);
-				    	expor.exportarCodigoCpp(archivo);
+			    		Exporter expor = new Exporter(diagrams);
+				    	expor.codeCppExport(archivo);
 			    	}
 	    		}
 	    }

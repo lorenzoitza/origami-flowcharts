@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
@@ -39,7 +39,7 @@ public class ExportToImageAction implements SelectionListener{
 						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 						dialog.getFileName().contains("\"")){
-			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
+			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
     		messageBox.setText("Origami");
     		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
     		int seleccion = messageBox.open();
@@ -61,7 +61,7 @@ public class ExportToImageAction implements SelectionListener{
 			catch(Exception e1){
 			}		    	
 			if(existe){
-				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+				MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 	    		messageBox.setText("Origami");
 	    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 	    		int seleccion = messageBox.open();
@@ -69,8 +69,8 @@ public class ExportToImageAction implements SelectionListener{
 	    			case 64:
 	    				String nombre = dialog.getFileName();
 				    	nombre = nombre.substring(0,nombre.indexOf("."));
-				    	Exportar expor = new Exportar(diagrams);
-				    	expor.exportarJpg(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());					    	
+				    	Exporter expor = new Exporter(diagrams);
+				    	expor.exportJPGFile(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());					    	
 	    				break;
 	    			case 128:							
 	    				break;
@@ -79,8 +79,8 @@ public class ExportToImageAction implements SelectionListener{
 	    	else{
 	    		String nombre = dialog.getFileName();
 		    	nombre = nombre.substring(0,nombre.indexOf("."));
-		    	Exportar expor = new Exportar(diagrams);
-		    	expor.exportarJpg(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());
+		    	Exporter expor = new Exporter(diagrams);
+		    	expor.exportJPGFile(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());
 	    	}
 		}
     }

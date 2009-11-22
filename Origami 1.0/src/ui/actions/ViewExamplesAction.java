@@ -9,7 +9,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Compilar;
+import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Grafico.MainWindow;
 
@@ -44,7 +45,7 @@ public class ViewExamplesAction implements SelectionListener{
 			    diagrams.abrir(archivo,mainWindow.getSerializer());
 	    	}
 		    else{
-		    	mainWindow._selectionAdministrator.setFiguraSeleccionada(0);
+		    	mainWindow.selectionAdministrator.setFiguraSeleccionada(0);
 				diagrams.getHoja().openFile(archivo);
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');

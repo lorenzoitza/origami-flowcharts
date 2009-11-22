@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Compilar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
@@ -33,18 +33,18 @@ public class StepByStepAction implements SelectionListener{
     public void widgetSelected(SelectionEvent arg0) {
 	if(!diagrams.getTabItem().getSave().isSave()){
 		if(mainWindow.getComponents().guardar()){
-		    CodeCompiler codigo = new CodeCompiler(diagrams);
+			Compilar codigo = new Compilar(diagrams);
 			codigo.main(false,false);
-			if(codigo.isError){
+			if(codigo.errorBandera){
 				int aux = mainWindow.getComponents().text.getText().length();
 				if(aux>=0){
 				    mainWindow.getComponents().text.setText("");
 				}
 				
-				mainWindow.getComponents().text.setText(codigo.errorTipe);
+				mainWindow.getComponents().text.setText(codigo.error);
 				diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
-				diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
-				codigo.deleteMainFiles();
+				diagrams.getTabItem().getInfo().addInformation(codigo.error);
+				codigo.eliminarArchivosCompilar();
 			}
 			else{
 				
@@ -55,18 +55,18 @@ public class StepByStepAction implements SelectionListener{
 		}
 	}
 	else{
-		CodeCompiler codigo = new CodeCompiler(diagrams);
+		Compilar codigo = new Compilar(diagrams);
 		codigo.main(false,false);
-		if(codigo.isError){
+		if(codigo.errorBandera){
 			int aux = mainWindow.getComponents().text.getText().length();
 			if(aux>=0){
 			    mainWindow.getComponents().text.setText("");
 			}
 			
-			mainWindow.getComponents().text.setText(codigo.errorTipe);
+			mainWindow.getComponents().text.setText(codigo.error);
 			diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
-			diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
-			codigo.deleteMainFiles();
+			diagrams.getTabItem().getInfo().addInformation(codigo.error);
+			codigo.eliminarArchivosCompilar();
 		}
 		else{
 			

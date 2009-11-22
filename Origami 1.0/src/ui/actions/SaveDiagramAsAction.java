@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exportar;
+import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
@@ -77,7 +77,7 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    		switch(seleccion){
 				    			case 64:
 							    	mainWindow.getSerializer().SetFil(archivo);
-							    	mainWindow.getSerializer().saveFile(diagrams);
+							    	mainWindow.getSerializer().guardar(diagrams);
 							    	archivo = dialog.getFileName();
 							    	int pos = archivo.indexOf('.');
 							    	String name = archivo.substring(0, pos);
@@ -89,7 +89,7 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    	}
 				    	else{
 				    	    mainWindow.getSerializer().SetFil(archivo);
-					    	boolean error = mainWindow.getSerializer().saveFile(diagrams);
+					    	boolean error = mainWindow.getSerializer().guardar(diagrams);
 					    	if(error){
 					    		archivo = dialog.getFileName();
 					    		int pos = archivo.indexOf('.');
