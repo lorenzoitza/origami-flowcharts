@@ -1,58 +1,22 @@
 package Grafico;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Menu;
-import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
-import ui.actions.AddDecisionFigureAction;
-import ui.actions.AddForFigureAction;
-import ui.actions.AddInputFigureAction;
-import ui.actions.AddOutputFigureAction;
-import ui.actions.AddSentenceFigureAction;
-import ui.actions.AddWhileFigureAction;
-import ui.actions.ExportToCAction;
-import ui.actions.ExportToCPPAction;
-import ui.actions.ExportToEXEAction;
-import ui.actions.ExportToImageAction;
-import ui.actions.NewDiagramAction;
-import ui.actions.OpenDiagramAction;
-import ui.actions.SaveDiagramAction;
-import ui.actions.SaveDiagramAsAction;
+
 import Administracion.*;
 import Administracion.Eventos.EventoKey;
-import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoVentana;
-import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.Exportar;
 import Administracion.Funcionalidad.SerializeFile;
-import Administracion.Funcionalidad.Codigo.Instruccion;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.Figuras.SelectionSquare;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.CircleFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
-import Grafico.Help.AboutWindow;
-import Grafico.Help.HelpWindow;
 import Imagenes.ImageLoader;
 
 /**
