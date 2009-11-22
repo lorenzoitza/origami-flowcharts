@@ -39,7 +39,7 @@ public class ExportToImageAction implements SelectionListener{
 						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
 						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
 						dialog.getFileName().contains("\"")){
-			MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_ERROR| SWT.OK);
+			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
     		messageBox.setText("Origami");
     		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
     		int seleccion = messageBox.open();
@@ -61,7 +61,7 @@ public class ExportToImageAction implements SelectionListener{
 			catch(Exception e1){
 			}		    	
 			if(existe){
-				MessageBox messageBox = new MessageBox(MainWindow._shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
+				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 	    		messageBox.setText("Origami");
 	    		messageBox.setMessage("El archivo ya existe. Desea reemplazarlo?");
 	    		int seleccion = messageBox.open();

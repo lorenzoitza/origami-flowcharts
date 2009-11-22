@@ -40,7 +40,7 @@ public class Hoja{
 	
 	public Hoja(Display display,TabFolder tabfolder,AdminSeleccion selec){
 		MainWindow.getComponents().agregarBarraFiguras();
-		diagramaArea = new Composite(MainWindow._shell,SWT.NONE);
+		diagramaArea = new Composite(MainWindow.shell,SWT.NONE);
 		diagramaArea.setLayoutData(MainWindow.getComponents().diagramaData);
 		GridLayout layoutComposite = new GridLayout(1, false);
 		GridData diagramaGrid =new GridData(SWT.FILL,SWT.FILL,true,true,1,1);
@@ -56,7 +56,7 @@ public class Hoja{
 		gridLayout.setConstraint(scaledPane, gridData);
 		tab = tabfolder;
 		seleccion = selec;
-		MainWindow._shell.addMouseWheelListener(new MouseWheelListener(){
+		MainWindow.shell.addMouseWheelListener(new MouseWheelListener(){
 			public void mouseScrolled(MouseEvent arg0) {
 				int direction=1;
 				if(arg0.count>0){
@@ -116,7 +116,7 @@ public class Hoja{
 		 chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true); 
 		 if(tab.getItemCount()==1){
 			MainWindow.getComponents().diagramaData.exclude=false;
-			MainWindow._shell.layout();
+			MainWindow.shell.layout();
 			resetScrollBar();
 		 }
 	}
@@ -138,7 +138,7 @@ public class Hoja{
 		if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0
 				&& MainWindow.getComponents().paso.a.GetId() == tab.getSelectedTabItemId()){
 			for(int x=0;x<MainWindow.getComponents().paso.colaConexiones.size();x++){
-				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(x)).setForegroundColor(MainWindow._display.getSystemColor(SWT.COLOR_RED));
+				connection.elementAt(seleccion.getSeleccionDigrama()).getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(x)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 	}
@@ -216,7 +216,7 @@ public class Hoja{
 		addPropiedades();
 		if(tab.getItemCount()==1){
 			MainWindow.getComponents().diagramaData.exclude=false;
-			MainWindow._shell.layout();
+			MainWindow.shell.layout();
 		}
 		chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true);
     	Rectangle r = new Rectangle(1090,100,80,50);

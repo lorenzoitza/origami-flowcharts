@@ -52,7 +52,7 @@ public class Instruccion implements Serializable{
 	 * @param Display d 
 	 */
 	public void ventana(Display d) {
-		shell = new Shell(MainWindow._shell);
+		shell = new Shell(MainWindow.shell);
 		shell.setSize(500,387);
 		shell.setLocation(300, 200);
 		shell.setText("Codigo Fuente");
