@@ -90,7 +90,7 @@ public class Componentes {
 	}
 
 	private void agregarBarraDeHerramientas() {
-		barraHerramientas = new ToolBar(MainWindow._shell, SWT.HORIZONTAL
+		barraHerramientas = new ToolBar(MainWindow.shell, SWT.HORIZONTAL
 				| SWT.FLAT);
 		barraHerramientas.setLayoutData(toolData);
 		toolData.heightHint = 23;
@@ -99,7 +99,7 @@ public class Componentes {
 	}
 
 	private void agregarTabFolder(AdminSeleccion selec) {
-		MainWindow._diagrams = new TabFolder(MainWindow._display, selec);
+		MainWindow._diagrams = new TabFolder(MainWindow.display, selec);
 		tabData.heightHint = 0;
 		MainWindow._diagrams.getTabFolder().setLayoutData(tabData);
 	}
@@ -110,7 +110,7 @@ public class Componentes {
 		layout2.horizontalSpacing = 0;
 		layout2.verticalSpacing = 3;
 		layout2.marginWidth = layout2.marginHeight = 0;
-		barraFiguras = new ToolBar(MainWindow._shell, SWT.LEFT | SWT.FLAT
+		barraFiguras = new ToolBar(MainWindow.shell, SWT.LEFT | SWT.FLAT
 				| SWT.BORDER);
 		barraFiguras.setLayoutData(figurasData);
 		figurasData.widthHint = 62;
@@ -127,7 +127,7 @@ public class Componentes {
 			} else {
 				toolData.exclude = false;
 			}
-			MainWindow._shell.layout();
+			MainWindow.shell.layout();
 		}
 		boolTool = seleccion;
 	}
@@ -140,7 +140,7 @@ public class Componentes {
 			} else {
 				tabData.exclude = false;
 			}
-			MainWindow._shell.layout();
+			MainWindow.shell.layout();
 		}
 		boolPestaas = seleccion;
 	}
@@ -153,7 +153,7 @@ public class Componentes {
 			} else {
 				figurasData.exclude = false;
 			}
-			MainWindow._shell.layout();
+			MainWindow.shell.layout();
 		}
 		boolFiguras = seleccion;
 	}
@@ -203,7 +203,7 @@ public class Componentes {
 			consolaMax = false;
 			tabFolder.setBounds(0, 0, 0, 0);
 		}
-		MainWindow._shell.layout();
+		MainWindow.shell.layout();
 	}
 
 	public void maxConsola(boolean seleccionado) {
@@ -236,22 +236,22 @@ public class Componentes {
 			item.setControl(text);
 			text.forceFocus();
 		}
-		MainWindow._shell.layout();
+		MainWindow.shell.layout();
 	}
 
 	public void agregarConsola() {
-		tabFolder = new CTabFolder(MainWindow._shell, SWT.BORDER);
+		tabFolder = new CTabFolder(MainWindow.shell, SWT.BORDER);
 		tabFolder.pack();
 		tabFolder.setLayoutData(consolaData);
 		consolaData.exclude = true;
 		tabFolder.setBounds(0, 0, 0, 0);
 		tabFolder.setSimple(false);
 		tabFolder.setTabHeight(24);
-		Color title = MainWindow._display
+		Color title = MainWindow.display
 				.getSystemColor(SWT.COLOR_TITLE_BACKGROUND);
-		Color title2 = MainWindow._display
+		Color title2 = MainWindow.display
 				.getSystemColor(SWT.COLOR_TITLE_FOREGROUND);
-		Color title3 = MainWindow._display
+		Color title3 = MainWindow.display
 				.getSystemColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT);
 		tabFolder.setSelectionForeground(title);
 		tabFolder.setSelectionBackground(new Color[] { title2, title3 },
@@ -261,7 +261,7 @@ public class Componentes {
 		tabFolder.setMaximizeVisible(true);
 		tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 			public void minimize(CTabFolderEvent event) {
-				MainWindow.consoleMenuItem.setSelection(false);
+				MainWindow.menu.consoleMenuItem.setSelection(false);
 				moverConsola(false);
 				tabFolder.setMaximized(false);
 			}
@@ -285,7 +285,7 @@ public class Componentes {
 
 	public boolean guardar() {
 		if (diagramas.getTabItem().getSave().getDir() == "null") {
-			FileDialog dialog = new FileDialog(MainWindow._shell, SWT.SAVE);
+			FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 			dialog.setFilterExtensions(new String[] { "*.Org" });
 			String archivo = dialog.open();
 			if (archivo != null) {
@@ -298,7 +298,7 @@ public class Componentes {
 						|| dialog.getFileName().contains(">")
 						|| dialog.getFileName().contains("|")
 						|| dialog.getFileName().contains("\"")) {
-					MessageBox messageBox = new MessageBox(MainWindow._shell,
+					MessageBox messageBox = new MessageBox(MainWindow.shell,
 							SWT.ICON_ERROR | SWT.OK);
 					messageBox.setText("Origami");
 					messageBox
@@ -322,7 +322,7 @@ public class Componentes {
 					}
 					if (existe) {
 						MessageBox messageBox = new MessageBox(
-								MainWindow._shell, SWT.ICON_WARNING | SWT.YES
+								MainWindow.shell, SWT.ICON_WARNING | SWT.YES
 										| SWT.NO);
 						messageBox.setText("Origami");
 						messageBox
@@ -397,7 +397,7 @@ public class Componentes {
 								.getComponents().paso.a.GetId()) {
 					MainWindow.getComponents().stopEjecucion();
 				}
-				FileDialog dialog = new FileDialog(MainWindow._shell, SWT.OPEN);
+				FileDialog dialog = new FileDialog(MainWindow.shell, SWT.OPEN);
 				dialog.setFilterExtensions(new String[] { "*.Org", "*.*" });
 				String archivo = dialog.open();
 				if (archivo != null) {
@@ -439,7 +439,7 @@ public class Componentes {
 		toolItem[2].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
 				if (diagramas.getTabItem().getSave().getDir() == "null") {
-					FileDialog dialog = new FileDialog(MainWindow._shell,
+					FileDialog dialog = new FileDialog(MainWindow.shell,
 							SWT.SAVE);
 					dialog.setFilterExtensions(new String[] { "*.Org" });
 					String archivo = dialog.open();
@@ -454,7 +454,7 @@ public class Componentes {
 								|| dialog.getFileName().contains("|")
 								|| dialog.getFileName().contains("\"")) {
 							MessageBox messageBox = new MessageBox(
-									MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+									MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 							messageBox.setText("Origami");
 							messageBox
 									.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
@@ -476,7 +476,7 @@ public class Componentes {
 							}
 							if (existe) {
 								MessageBox messageBox = new MessageBox(
-										MainWindow._shell, SWT.ICON_WARNING
+										MainWindow.shell, SWT.ICON_WARNING
 												| SWT.YES | SWT.NO);
 								messageBox.setText("Origami");
 								messageBox
@@ -605,7 +605,7 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				Instruccion codigo = new Instruccion();
 				codigo.main(diagramas.getHoja().getDiagrama(), true);
-				codigo.ventana(MainWindow._display);
+				codigo.ventana(MainWindow.display);
 			}
 		});
 		toolItem[9] = new ToolItem(toolbar, SWT.PUSH);
@@ -617,7 +617,7 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				Instruccion codigo = new Instruccion();
 				codigo.main(diagramas.getHoja().getDiagrama(), false);
-				codigo.ventana(MainWindow._display);
+				codigo.ventana(MainWindow.display);
 			}
 		});
 		new ToolItem(toolbar, SWT.SEPARATOR);
@@ -655,8 +655,8 @@ public class Componentes {
 									.addInformation(
 											"/C - Se Compilo el diagrama de manera correcta");
 						}
-						if (!MainWindow.consoleMenuItem.getSelection()) {
-							MainWindow.consoleMenuItem.setSelection(true);
+						if (!MainWindow.menu.consoleMenuItem.getSelection()) {
+							MainWindow.menu.consoleMenuItem.setSelection(true);
 							moverConsola(true);
 						}
 					}
@@ -676,8 +676,8 @@ public class Componentes {
 					} else {
 						ejecutar(true, codigo);
 					}
-					if (!MainWindow.consoleMenuItem.getSelection()) {
-						MainWindow.consoleMenuItem.setSelection(true);
+					if (!MainWindow.menu.consoleMenuItem.getSelection()) {
+						MainWindow.menu.consoleMenuItem.setSelection(true);
 						moverConsola(true);
 					}
 				}
@@ -781,7 +781,7 @@ public class Componentes {
 		toolItem[14].setToolTipText("Exportar a C");
 		toolItem[14].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				FileDialog dialog = new FileDialog(MainWindow._shell, SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 				dialog.setFilterExtensions(new String[] { "*.c" });
 				String archivo = dialog.open();
 				if (archivo != null) {
@@ -795,7 +795,7 @@ public class Componentes {
 							|| dialog.getFileName().contains("|")
 							|| dialog.getFileName().contains("\"")) {
 						MessageBox messageBox = new MessageBox(
-								MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+								MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 						messageBox.setText("Origami");
 						messageBox
 								.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
@@ -817,7 +817,7 @@ public class Componentes {
 						}
 						if (existe) {
 							MessageBox messageBox = new MessageBox(
-									MainWindow._shell, SWT.ICON_WARNING
+									MainWindow.shell, SWT.ICON_WARNING
 											| SWT.YES | SWT.NO);
 							messageBox.setText("Origami");
 							messageBox
@@ -845,7 +845,7 @@ public class Componentes {
 		toolItem[15].setToolTipText("Exportar a C++");
 		toolItem[15].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				FileDialog dialog = new FileDialog(MainWindow._shell, SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 				dialog.setFilterExtensions(new String[] { "*.cpp" });
 				String archivo = dialog.open();
 				if (archivo != null) {
@@ -859,7 +859,7 @@ public class Componentes {
 							|| dialog.getFileName().contains("|")
 							|| dialog.getFileName().contains("\"")) {
 						MessageBox messageBox = new MessageBox(
-								MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+								MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 						messageBox.setText("Origami");
 						messageBox
 								.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
@@ -881,7 +881,7 @@ public class Componentes {
 						}
 						if (existe) {
 							MessageBox messageBox = new MessageBox(
-									MainWindow._shell, SWT.ICON_WARNING
+									MainWindow.shell, SWT.ICON_WARNING
 											| SWT.YES | SWT.NO);
 							messageBox.setText("Origami");
 							messageBox
@@ -910,7 +910,7 @@ public class Componentes {
 		toolItem[16].setToolTipText("Exportar a .exe");
 		toolItem[16].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				FileDialog dialog = new FileDialog(MainWindow._shell, SWT.SAVE);
+				FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 				dialog.setFilterExtensions(new String[] { "*.exe" });
 				String archivo = dialog.open();
 				if (archivo != null) {
@@ -924,7 +924,7 @@ public class Componentes {
 							|| dialog.getFileName().contains("|")
 							|| dialog.getFileName().contains("\"")) {
 						MessageBox messageBox = new MessageBox(
-								MainWindow._shell, SWT.ICON_ERROR | SWT.OK);
+								MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 						messageBox.setText("Origami");
 						messageBox
 								.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
@@ -946,7 +946,7 @@ public class Componentes {
 						}
 						if (existe) {
 							MessageBox messageBox = new MessageBox(
-									MainWindow._shell, SWT.ICON_WARNING
+									MainWindow.shell, SWT.ICON_WARNING
 											| SWT.YES | SWT.NO);
 							messageBox.setText("Origami");
 							messageBox
@@ -988,7 +988,7 @@ public class Componentes {
 
 	public void guardarDisable(boolean disable) {
 		toolItem[2].setEnabled(disable);
-		MainWindow.saveMenuItem.setEnabled(disable);
+		MainWindow.menu.saveMenuItem.setEnabled(disable);
 	}
 
 	public void toolBarDisable() {
@@ -1028,12 +1028,12 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorEntrada.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorEntrada.png").getImageData(), 0, 0);
 				InputFigure entrada2 = new InputFigure();
 				entrada2.instruction.instruccion = "null";
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = entrada2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = entrada2;
 				disableCursor();
 			}
 		});
@@ -1047,12 +1047,12 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorProceso.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorProceso.png").getImageData(), 0, 0);
 				SentenceFigure proceso2 = new SentenceFigure();
 				proceso2.instruccion.instruccion = "null";
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = proceso2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = proceso2;
 				disableCursor();
 			}
 		});
@@ -1065,14 +1065,14 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorIf.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorIf.png").getImageData(), 0, 0);
 				DecisionFigure decision2 = new DecisionFigure();
 				InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				decision2.instruction.instruccion.add(0, codigo);
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = decision2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = decision2;
 				disableCursor();
 			}
 		});
@@ -1086,14 +1086,14 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorWhile.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorWhile.png").getImageData(), 0, 0);
 				WhileFigure While2 = new WhileFigure();
 				InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				While2.instruccion.instruccion.add(0, codigo);
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = While2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = While2;
 				disableCursor();
 			}
 		});
@@ -1106,14 +1106,14 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorFor.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorFor.png").getImageData(), 0, 0);
 				ForFigure For2 = new ForFigure();
 				InstruccionSimple codigo = new InstruccionSimple();
 				codigo.setInstruccionSimple("null");
 				For2.instruction.instruccion.add(0, codigo);
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = For2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = For2;
 				disableCursor();
 			}
 		});
@@ -1127,12 +1127,12 @@ public class Componentes {
 			public void widgetSelected(SelectionEvent event) {
 				// String name = "imagenes\\cursorSalida.png";
 				// ImageData image = new ImageData(name);
-				cursor[0] = new Cursor(MainWindow._display, ImageLoader
+				cursor[0] = new Cursor(MainWindow.display, ImageLoader
 						.getImage("cursorSalida.png").getImageData(), 0, 0);
 				OutputFigure salida2 = new OutputFigure();
 				salida2.instruction.instruccion = "null";
-				MainWindow._mainFigure = null;
-				MainWindow._mainFigure = salida2;
+				MainWindow.mainFigure = null;
+				MainWindow.mainFigure = salida2;
 				disableCursor();
 			}
 		});
@@ -1150,12 +1150,12 @@ public class Componentes {
 		botonConsola.setToolTipText("Consola ");
 		botonConsola.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				if (MainWindow.consoleMenuItem.getSelection()) {
-					MainWindow.consoleMenuItem.setSelection(false);
+				if (MainWindow.menu.consoleMenuItem.getSelection()) {
+					MainWindow.menu.consoleMenuItem.setSelection(false);
 					moverConsola(false);
 				} else {
 					moverConsola(true);
-					MainWindow.consoleMenuItem.setSelection(true);
+					MainWindow.menu.consoleMenuItem.setSelection(true);
 				}
 			}
 		});
@@ -1273,7 +1273,7 @@ public class Componentes {
 			seleccion = true;
 		} else {
 			if (diagramas.getHoja().getSizeDiagrama() == 2) {
-				MessageBox messageBox = new MessageBox(MainWindow._shell,
+				MessageBox messageBox = new MessageBox(MainWindow.shell,
 						SWT.ICON_INFORMATION | SWT.YES);
 				messageBox.setText("Origami");
 				messageBox.setMessage("La ejecucin ha terminado.");
@@ -1297,7 +1297,7 @@ public class Componentes {
 				seleccion = false;
 				MainWindow.getComponents().toolItem[12].setEnabled(true);
 				text.setEditable(false);
-				text.setBackground(MainWindow._display
+				text.setBackground(MainWindow.display
 						.getSystemColor(SWT.COLOR_WHITE));
 			}
 		}
@@ -1354,7 +1354,7 @@ public class Componentes {
 		final Timer timer = new Timer();
 		TimerTask timerTask = new TimerTask() {
 			public void run() {
-				MainWindow._display.syncExec(new Runnable() {
+				MainWindow.display.syncExec(new Runnable() {
 					public void run() {
 						MainWindow.getComponents().toolItem[12]
 								.setEnabled(true);
@@ -1388,16 +1388,16 @@ public class Componentes {
 			boton[3].setEnabled(false);
 			boton[4].setEnabled(false);
 			boton[5].setEnabled(false);
-			MainWindow.decisionMenuItem.setEnabled(false);
-			MainWindow.sentenceMenuItem.setEnabled(false);
-			MainWindow.inputMenuItem.setEnabled(false);
-			MainWindow.outputMenuItem.setEnabled(false);
-			MainWindow.forMenuItem.setEnabled(false);
-			MainWindow.whileMenuItem.setEnabled(false);
-			MainWindow.exportMenuItem.setEnabled(false);
-			MainWindow.compileMenuItem.setEnabled(false);
-			MainWindow.resetDiagramMenuItem.setEnabled(false);
-			MainWindow.stepByStepMenuItem.setEnabled(false);
+			MainWindow.menu.decisionMenuItem.setEnabled(false);
+			MainWindow.menu.sentenceMenuItem.setEnabled(false);
+			MainWindow.menu.inputMenuItem.setEnabled(false);
+			MainWindow.menu.outputMenuItem.setEnabled(false);
+			MainWindow.menu.forMenuItem.setEnabled(false);
+			MainWindow.menu.whileMenuItem.setEnabled(false);
+			MainWindow.menu.exportMenuItem.setEnabled(false);
+			MainWindow.menu.compileMenuItem.setEnabled(false);
+			MainWindow.menu.resetDiagramMenuItem.setEnabled(false);
+			MainWindow.menu.stepByStepMenuItem.setEnabled(false);
 
 		} else {
 			isPasoAPaso = false;
@@ -1415,16 +1415,16 @@ public class Componentes {
 			boton[3].setEnabled(true);
 			boton[4].setEnabled(true);
 			boton[5].setEnabled(true);
-			MainWindow.decisionMenuItem.setEnabled(true);
-			MainWindow.sentenceMenuItem.setEnabled(true);
-			MainWindow.inputMenuItem.setEnabled(true);
-			MainWindow.outputMenuItem.setEnabled(true);
-			MainWindow.forMenuItem.setEnabled(true);
-			MainWindow.whileMenuItem.setEnabled(true);
-			MainWindow.exportMenuItem.setEnabled(true);
-			MainWindow.compileMenuItem.setEnabled(true);
-			MainWindow.resetDiagramMenuItem.setEnabled(true);
-			MainWindow.stepByStepMenuItem.setEnabled(true);
+			MainWindow.menu.decisionMenuItem.setEnabled(true);
+			MainWindow.menu.sentenceMenuItem.setEnabled(true);
+			MainWindow.menu.inputMenuItem.setEnabled(true);
+			MainWindow.menu.outputMenuItem.setEnabled(true);
+			MainWindow.menu.forMenuItem.setEnabled(true);
+			MainWindow.menu.whileMenuItem.setEnabled(true);
+			MainWindow.menu.exportMenuItem.setEnabled(true);
+			MainWindow.menu.compileMenuItem.setEnabled(true);
+			MainWindow.menu.resetDiagramMenuItem.setEnabled(true);
+			MainWindow.menu.stepByStepMenuItem.setEnabled(true);
 		}
 	}
 
@@ -1443,18 +1443,18 @@ public class Componentes {
 		boton[3].setEnabled(disable);
 		boton[4].setEnabled(disable);
 		boton[5].setEnabled(disable);
-		MainWindow.decisionMenuItem.setEnabled(disable);
-		MainWindow.sentenceMenuItem.setEnabled(disable);
-		MainWindow.inputMenuItem.setEnabled(disable);
-		MainWindow.outputMenuItem.setEnabled(disable);
-		MainWindow.forMenuItem.setEnabled(disable);
-		MainWindow.whileMenuItem.setEnabled(disable);
-		MainWindow.exportMenuItem.setEnabled(disable);
-		MainWindow.compileMenuItem.setEnabled(disable);
-		MainWindow.resetDiagramMenuItem.setEnabled(disable);
-		MainWindow.stepByStepMenuItem.setEnabled(disable);
-		MainWindow.saveAsMenuItem.setEnabled(disable);
-		MainWindow.buildCodeMenuItem.setEnabled(disable);
+		MainWindow.menu.decisionMenuItem.setEnabled(disable);
+		MainWindow.menu.sentenceMenuItem.setEnabled(disable);
+		MainWindow.menu.inputMenuItem.setEnabled(disable);
+		MainWindow.menu.outputMenuItem.setEnabled(disable);
+		MainWindow.menu.forMenuItem.setEnabled(disable);
+		MainWindow.menu.whileMenuItem.setEnabled(disable);
+		MainWindow.menu.exportMenuItem.setEnabled(disable);
+		MainWindow.menu.compileMenuItem.setEnabled(disable);
+		MainWindow.menu.resetDiagramMenuItem.setEnabled(disable);
+		MainWindow.menu.stepByStepMenuItem.setEnabled(disable);
+		MainWindow.menu.saveAsMenuItem.setEnabled(disable);
+		MainWindow.menu.buildCodeMenuItem.setEnabled(disable);
 		guardarDisable(disable);
 	}
 }
