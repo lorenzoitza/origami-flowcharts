@@ -39,8 +39,6 @@ public class MainWindow {
 
     private static SerializeFile _serializer = new SerializeFile();
 
-    public static boolean isCut = false;
-
     public static Vector<SelectionSquare> seleccion =
 	    new Vector<SelectionSquare>();
 
@@ -48,8 +46,9 @@ public class MainWindow {
 										 // Cambiar
 										 // la
 										 // clase
-										 // a
-										 // SelectionAdministrator
+								 // a
+    public static boolean isCut = false;
+    
     public static TabFolder _diagrams;
 
     public static EventoKey _keyEvent;

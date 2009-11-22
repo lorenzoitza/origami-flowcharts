@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Compilar;
 import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Grafico.MainWindow;

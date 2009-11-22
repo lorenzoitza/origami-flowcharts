@@ -40,7 +40,6 @@ public class AddWhileFigureAction implements SelectionListener{
 	While2.instruccion.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = While2;
-	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 

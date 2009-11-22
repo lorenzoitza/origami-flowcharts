@@ -40,7 +40,6 @@ public class AddForFigureAction implements SelectionListener{
 	For2.instruction.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = For2;
-	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 

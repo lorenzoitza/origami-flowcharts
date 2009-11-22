@@ -9,7 +9,6 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.TabFolder;
-import Administracion.Funcionalidad.Compilar;
 import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
@@ -32,7 +31,7 @@ public class ResetDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	mainWindow.selectionAdministrator.setFiguraSeleccionada(0);
+	mainWindow._selectionAdministrator.setFiguraSeleccionada(0);
 	for(int y=diagrams.getHoja().getSizeDiagrama()-1;y>0;y--){
 		diagrams.getHoja().removeFigureIndexOf(y);
 	}

@@ -38,7 +38,6 @@ public class AddInputFigureAction implements SelectionListener{
 	entrada2.instruction.instruccion = "null";
 	MainWindow.mainFigure = null;
 	MainWindow.mainFigure = entrada2;
-	MainWindow.bandera = false;
 	mainWindow.disableCursor();
     }
 
