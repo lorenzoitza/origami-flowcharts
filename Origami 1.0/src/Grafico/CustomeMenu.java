@@ -354,7 +354,7 @@ public class CustomeMenu {
 		}
 		CircleFigure fin = new CircleFigure();
 		MainWindow._diagrams.getHoja().getDiagrama().add(fin);
-		fin.setMensagge("  Fin");
+		fin.setMesagge("  Fin");
 		MainWindow._diagrams.getHoja().resetScrollBar();
 		MainWindow._diagrams.getHoja().addFigure();
 		MainWindow._diagrams.getHoja().guardarRetroceso();
