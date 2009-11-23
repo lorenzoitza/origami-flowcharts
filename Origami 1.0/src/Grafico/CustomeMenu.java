@@ -309,9 +309,9 @@ public class CustomeMenu {
 	buildCodeMenuItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent e) {
-		Instruccion codigo = new Instruccion();
+		/*Instruccion codigo = new Instruccion();
 		codigo.main(MainWindow._diagrams.getHoja().getDiagrama(), true);
-		codigo.ventana(_display);
+		codigo.ventana(_display);*/
 	    }
 	});
 	compileMenuItem.addSelectionListener(new SelectionAdapter() {

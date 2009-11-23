@@ -32,6 +32,7 @@ import Administracion.Funcionalidad.PasoAPaso;
 import Administracion.Funcionalidad.SerializeFile;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.Funcionalidad.Codigo.Manager;
 import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
@@ -603,9 +604,12 @@ public class Componentes {
 		toolItem[8].setToolTipText("Generar Codigo");
 		toolItem[8].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				Instruccion codigo = new Instruccion();
+				/*Instruccion codigo = new Instruccion();
 				codigo.main(diagramas.getHoja().getDiagrama(), true);
-				codigo.ventana(MainWindow.display);
+				codigo.ventana(MainWindow.display);*/
+			    Manager manager = new Manager(diagramas.getHoja().getDiagrama());
+			    manager.formatCodeC();
+			    System.out.println(manager.getInstructionsFormat());
 			}
 		});
 		toolItem[9] = new ToolItem(toolbar, SWT.PUSH);
@@ -615,9 +619,12 @@ public class Componentes {
 		toolItem[9].setToolTipText("Generar Codigo");
 		toolItem[9].addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent event) {
-				Instruccion codigo = new Instruccion();
+				/*Instruccion codigo = new Instruccion();
 				codigo.main(diagramas.getHoja().getDiagrama(), false);
-				codigo.ventana(MainWindow.display);
+				codigo.ventana(MainWindow.display);*/
+			    Manager manager = new Manager(diagramas.getHoja().getDiagrama());
+			    manager.formatCodeCpp();
+			    System.out.println(manager.getInstructionsFormat());
 			}
 		});
 		new ToolItem(toolbar, SWT.SEPARATOR);

@@ -32,6 +32,10 @@ public class Instruccion implements Serializable{
 	private String identador = "      ";
 	public String codigoTotal = new String();
 	
+	
+	public Vector<String> getTablaVariables() {
+	    return TablaVariables;
+	}
 	public Vector<String> main(Vector<Figura> diagrama){
 	    addFiguresInstructionToString(diagrama,1);
 	    return codigo;
