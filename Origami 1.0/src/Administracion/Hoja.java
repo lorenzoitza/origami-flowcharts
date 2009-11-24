@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.ScrollBar;
 import Administracion.Eventos.EventoAgregarFigura;
 import Administracion.Eventos.EventoCambiarCursor;
 import Administracion.Eventos.EventoMenuContextual;
-import Administracion.Funcionalidad.SerializeFile;
+import Administracion.Funcionalidad.DiagramSerializer;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 /**
@@ -200,7 +200,7 @@ public class Hoja{
 		Rectangle r = diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().getBounds();
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = MainWindow.getSerializer().openFile(archivo);
+    	Archivo aux = MainWindow.getSerializer().openDiagram(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();
@@ -210,7 +210,7 @@ public class Hoja{
     	connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
     	chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
 	}
-	public void openNewFile(String archivo,SerializeFile ser ){
+	public void openNewFile(String archivo,DiagramSerializer ser ){
 		addDiagrama();
 		setScroll();
 		addPropiedades();
@@ -222,7 +222,7 @@ public class Hoja{
     	Rectangle r = new Rectangle(1090,100,80,50);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = MainWindow.getSerializer().openFile(archivo);
+    	Archivo aux = MainWindow.getSerializer().openDiagram(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();

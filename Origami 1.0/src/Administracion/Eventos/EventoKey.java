@@ -10,7 +10,7 @@ import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.SerializeFile;
+import Administracion.Funcionalidad.DiagramSerializer;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.MainWindow;
@@ -25,7 +25,7 @@ public class EventoKey {
 	private int key,key2=0;
 	private AdminSeleccion selec;
 	private TabFolder tab;
-	private SerializeFile ser = new SerializeFile();
+	private DiagramSerializer ser = new DiagramSerializer();
 	
 	public EventoKey(AdminSeleccion seleccion, TabFolder tabfolder){
 		selec = seleccion;
@@ -251,7 +251,7 @@ public class EventoKey {
 		    						dialog.getFileName().contains("\"")){
 		    			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
 			    		messageBox.setText("Origami");
-			    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+			    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volumï¿½n no es vï¿½lido");
 			    		int seleccion = messageBox.open();
 			    		switch(seleccion){
 			    			case 64:
@@ -273,13 +273,13 @@ public class EventoKey {
 		    			if(existe){
 		    				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
 				    		messageBox.setText("Origami");
-				    		messageBox.setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+				    		messageBox.setMessage("El archivo ya existe. ï¿½Desea reemplazarlo?");
 				    		int seleccion = messageBox.open();
 				    		switch(seleccion){
 				    			case 64:
-							    	ser.SetFil(archivo);
+							    	ser.setFile(archivo);
 							    	tab.getTabItem().getSave().setDir(archivo);
-							    	ser.saveFile(tab);
+							    	ser.saveDiagram(tab);
 							    	archivo = dialog.getFileName();
 							    	int pos = archivo.indexOf('.');
 							    	String name = archivo.substring(0, pos);
@@ -291,9 +291,9 @@ public class EventoKey {
 				    		}
 				    	}
 				    	else{
-					    	ser.SetFil(archivo);
+					    	ser.setFile(archivo);
 					    	tab.getTabItem().getSave().setDir(archivo);
-					    	boolean error = ser.saveFile(tab);
+					    	boolean error = ser.saveDiagram(tab);
 					    	if(error){
 					    		archivo = dialog.getFileName();
 					    		int pos = archivo.indexOf('.');
@@ -306,8 +306,8 @@ public class EventoKey {
 			    }
 			}
 			else{
-		    	ser.SetFil(tab.getTabItem().getSave().getDir());
-		    	ser.saveFile(tab);
+		    	ser.setFile(tab.getTabItem().getSave().getDir());
+		    	ser.saveDiagram(tab);
 		    	tab.getTabItem().getSave().setSave(true);
 			}
 		}

@@ -29,7 +29,7 @@ import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.PasoAPaso;
-import Administracion.Funcionalidad.SerializeFile;
+import Administracion.Funcionalidad.DiagramSerializer;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Administracion.Funcionalidad.Codigo.Manager;
@@ -65,7 +65,7 @@ public class Componentes {
 	private boolean consolaMax = false;
 	public final GridLayout layout = new GridLayout(2, false);
 	final GridLayout layout2 = new GridLayout(1, false);
-	public SerializeFile ser = new SerializeFile();
+	public DiagramSerializer ser = new DiagramSerializer();
 	private Button boton[] = new Button[7];
 	public ToolItem toolItem[] = new ToolItem[20];
 	public final Cursor[] cursor = new Cursor[1];
@@ -331,9 +331,9 @@ public class Componentes {
 						int seleccion = messageBox.open();
 						switch (seleccion) {
 						case 64:
-							ser.SetFil(archivo);
+							ser.setFile(archivo);
 							diagramas.getTabItem().getSave().setDir(archivo);
-							ser.saveFile(diagramas);
+							ser.saveDiagram(diagramas);
 							archivo = dialog.getFileName();
 							int pos = archivo.indexOf('.');
 							String name = archivo.substring(0, pos);
@@ -344,9 +344,9 @@ public class Componentes {
 							return false;
 						}
 					} else {
-						ser.SetFil(archivo);
+						ser.setFile(archivo);
 						diagramas.getTabItem().getSave().setDir(archivo);
-						boolean error = ser.saveFile(diagramas);
+						boolean error = ser.saveDiagram(diagramas);
 						if (error) {
 							archivo = dialog.getFileName();
 							int pos = archivo.indexOf('.');
@@ -360,8 +360,8 @@ public class Componentes {
 			}
 			return false;
 		} else {
-			ser.SetFil(diagramas.getTabItem().getSave().getDir());
-			ser.saveFile(diagramas);
+			ser.setFile(diagramas.getTabItem().getSave().getDir());
+			ser.saveDiagram(diagramas);
 			diagramas.getTabItem().getSave().setSave(true);
 			return true;
 		}
@@ -485,10 +485,10 @@ public class Componentes {
 								int seleccion = messageBox.open();
 								switch (seleccion) {
 								case 64:
-									ser.SetFil(archivo);
+									ser.setFile(archivo);
 									diagramas.getTabItem().getSave().setDir(
 											archivo);
-									ser.saveFile(diagramas);
+									ser.saveDiagram(diagramas);
 									archivo = dialog.getFileName();
 									int pos = archivo.indexOf('.');
 									String name = archivo.substring(0, pos);
@@ -500,10 +500,10 @@ public class Componentes {
 									break;
 								}
 							} else {
-								ser.SetFil(archivo);
+								ser.setFile(archivo);
 								diagramas.getTabItem().getSave()
 										.setDir(archivo);
-								boolean error = ser.saveFile(diagramas);
+								boolean error = ser.saveDiagram(diagramas);
 								if (error) {
 									archivo = dialog.getFileName();
 									int pos = archivo.indexOf('.');
@@ -516,8 +516,8 @@ public class Componentes {
 						}
 					}
 				} else {
-					ser.SetFil(diagramas.getTabItem().getSave().getDir());
-					ser.saveFile(diagramas);
+					ser.setFile(diagramas.getTabItem().getSave().getDir());
+					ser.saveDiagram(diagramas);
 					diagramas.getTabItem().getSave().setSave(true);
 				}
 			}

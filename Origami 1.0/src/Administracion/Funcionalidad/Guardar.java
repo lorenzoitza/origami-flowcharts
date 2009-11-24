@@ -75,7 +75,7 @@ public class Guardar {
 					SWT.ICON_ERROR | SWT.OK);
 			messageBox2.setText("Origami");
 			messageBox2
-				.setMessage("El nombre de archivo, directorio o etiqueta del volumén no es válido");
+				.setMessage("El nombre de archivo, directorio o etiqueta del volumï¿½n no es vï¿½lido");
 			int seleccion = messageBox2.open();
 			switch (seleccion) {
 			case 64:
@@ -98,13 +98,13 @@ public class Guardar {
 					    SWT.ICON_WARNING | SWT.YES | SWT.NO);
 			    messageBox3.setText("Origami");
 			    messageBox3
-				    .setMessage("El archivo ya existe. ¿Desea reemplazarlo?");
+				    .setMessage("El archivo ya existe. ï¿½Desea reemplazarlo?");
 			    int seleccion = messageBox.open();
 			    switch (seleccion) {
 			    case 64:
-				MainWindow.getSerializer().SetFil(archivo);
+				MainWindow.getSerializer().setFile(archivo);
 				tab.getTabItem().getSave().setDir(archivo);
-				MainWindow.getSerializer().saveFile(tab);
+				MainWindow.getSerializer().saveDiagram(tab);
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');
 				String name = archivo.substring(0, pos);
@@ -115,10 +115,10 @@ public class Guardar {
 				break;
 			    }
 			} else {
-			    MainWindow.getSerializer().SetFil(archivo);
+			    MainWindow.getSerializer().setFile(archivo);
 			    tab.getTabItem().getSave().setDir(archivo);
 			    boolean error =
-				    MainWindow.getSerializer().saveFile(tab);
+				    MainWindow.getSerializer().saveDiagram(tab);
 			    if (error) {
 				archivo = dialog.getFileName();
 				int pos = archivo.indexOf('.');
@@ -132,9 +132,9 @@ public class Guardar {
 		    e.doit = false;
 		}
 	    } else {
-		MainWindow.getSerializer().SetFil(
+		MainWindow.getSerializer().setFile(
 			tab.getTabItem().getSave().getDir());
-		MainWindow.getSerializer().saveFile(tab);
+		MainWindow.getSerializer().saveDiagram(tab);
 		tab.getTabItem().getSave().setSave(true);
 	    }
 	    break;

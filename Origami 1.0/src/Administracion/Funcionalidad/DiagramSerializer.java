@@ -13,9 +13,9 @@ import Grafico.MainWindow;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class SerializeFile {
+public class DiagramSerializer {
 
-    private String file;
+    private String fileName;
 
     /**
      * Este metodo es el encargado de guardar el diagrama y recibe el diagrama y
@@ -24,42 +24,52 @@ public class SerializeFile {
      * @param figuras
      * @param fileDir
      */
-    public boolean saveFile(TabFolder selectedTab) {
+    public boolean saveDiagram(TabFolder selectedTab) {
 	try {
 	    selectedTab.getTabItem().getInfo().addTime();
 
-	    FileOutputStream fileStream = new FileOutputStream(file);
-	    ObjectOutputStream objectStream =
-		    new ObjectOutputStream(fileStream);
-
-	    Archivo file = new Archivo(selectedTab.getHoja().getDiagrama());
-	    file.setInfo(selectedTab.getTabItem().getInfo().getInfo());
-	    objectStream.writeObject(file); // 3
-
+	    FileOutputStream fileStream = new FileOutputStream(fileName);
+	    
+	    ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+            //Archivo esta en admin
+	    Archivo seriliazableFile = new Archivo(selectedTab.getHoja().getDiagrama());
+	    
+	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo().getInfo());
+	    objectStream.writeObject(seriliazableFile); 
+	    
 	    selectedTab.getTabItem().getInfo().removeTime();
 	    objectStream.close();
+	    
 	} catch (Exception e) {
-	    MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
-	    messageBox.setText("Origami");
-	    messageBox.setMessage("El nombre de archivo, directorio o etiqueta del" +
-		    		" volumén no es válido");
-
+            errorMessage();
 	    e.printStackTrace();
 	    return false;
 	}
 	return true;
     }
+    
+
+    
+    
+    private void errorMessage()
+    {
+	    MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
+	    messageBox.setText("Origami");
+	    messageBox.setMessage("El nombre de archivo, directorio o etiqueta del" +
+		    		" volumï¿½n no es vï¿½lido");
+    
+    }
 
     /**
      * Este metodo es el encargado de abrir el diagrama guardado.
      * 
-     * @param fileDir
+     * @param diagramPath
      * @return
      */
-    public Archivo openFile(String fileDir) {
+    public Archivo openDiagram(String diagramPath) {
 	Archivo file = null;
 	try {
-	    FileInputStream fileStream = new FileInputStream(fileDir);
+	    FileInputStream fileStream = new FileInputStream(diagramPath);
 	    ObjectInputStream objectStream = new ObjectInputStream(fileStream);
 	    file = (Archivo) objectStream.readObject();
 	    objectStream.close();
@@ -69,11 +79,11 @@ public class SerializeFile {
 	return file;
     }
 
-    public void SetFil(String fil) {
-	this.file = fil;
+    public void setFile(String fileName) {
+	this.fileName = fileName;
     }
 
-    public String GetFil() {
-	return file;
+    public String getFile() {
+	return fileName;
     }
 }

@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 import Administracion.*;
 import Administracion.Eventos.EventoKey;
 import Administracion.Eventos.EventoVentana;
-import Administracion.Funcionalidad.SerializeFile;
+import Administracion.Funcionalidad.DiagramSerializer;
 import Grafico.Figuras.SelectionSquare;
 import Imagenes.ImageLoader;
 
@@ -37,7 +37,7 @@ public class MainWindow {
 
     public static Figura mainFigure = null;
 
-    private static SerializeFile _serializer = new SerializeFile();
+    private static DiagramSerializer _serializer = new DiagramSerializer();
 
     public static Vector<SelectionSquare> seleccion =
 	    new Vector<SelectionSquare>();
@@ -53,7 +53,7 @@ public class MainWindow {
 
     public static EventoKey _keyEvent;
 
-    public static boolean dispToolItem = false; // TODO: À?
+    public static boolean dispToolItem = false; // TODO: ï¿½?
 
     private static Componentes _components;
 
@@ -143,14 +143,14 @@ public class MainWindow {
      * @param serializer
      *            the serializer to set
      */
-    public static void setSerializer(SerializeFile serializer) {
+    public static void setSerializer(DiagramSerializer serializer) {
 	_serializer = serializer;
     }
 
     /**
      * @return the serializer
      */
-    public static SerializeFile getSerializer() {
+    public static DiagramSerializer getSerializer() {
 	return _serializer;
     }
 
@@ -173,7 +173,7 @@ public class MainWindow {
 	try {
 	    MainWindow mainWindow = new MainWindow();
 	    mainWindow.show();
-	    // TODO: ÀPara que sirve esta bandera?
+	    // TODO: ï¿½Para que sirve esta bandera?
 	    int bandera = 0;
 
 	    while (!shell.isDisposed() && bandera <= 15) {
