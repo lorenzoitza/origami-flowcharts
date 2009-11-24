@@ -32,14 +32,14 @@ public class AddForFigureAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
+    public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
-	ForFigure For2 = new ForFigure();
+	ForFigure forFigure = new ForFigure();
 	InstruccionSimple codigo = new InstruccionSimple();
 	codigo.setInstruccionSimple("null");
-	For2.instruction.instruccion.add(0,codigo);
+	forFigure.instruction.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = For2;
+	MainWindow.mainFigure = forFigure;
 	mainWindow.disableCursor();
     }
 

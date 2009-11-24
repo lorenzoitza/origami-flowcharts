@@ -30,10 +30,10 @@ public class BuildCCodeAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
-	Instruccion codigo = new Instruccion();
-	codigo.main(diagrams.getHoja().getDiagrama());
-	codigo.createWindow(mainWindow.display);
+    public void widgetSelected(SelectionEvent event) {
+	Instruccion instructionCode = new Instruccion();
+	instructionCode.main(diagrams.getHoja().getDiagrama());
+	instructionCode.createWindow(mainWindow.display);
 			
 	
     }

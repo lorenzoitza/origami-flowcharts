@@ -32,12 +32,12 @@ public class AddInputFigureAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
+    public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-	InputFigure entrada2 = new InputFigure();
-	entrada2.instruction.instruccion = "null";
+	InputFigure inputFigure = new InputFigure();
+	inputFigure.instruction.instruccion = "null";
 	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = entrada2;
+	MainWindow.mainFigure = inputFigure;
 	mainWindow.disableCursor();
     }
 

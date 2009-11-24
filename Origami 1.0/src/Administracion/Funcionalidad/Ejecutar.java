@@ -13,9 +13,9 @@ import Grafico.MainWindow;
  * @author Juan Ku, Victor Rodriguez
  */
 public class Ejecutar implements ExecProcessor {
-	protected ExecHelper exh;
-	public Componentes consola;
-	public CodeCompiler codigo;
+	protected ExecHelper execHelper;
+	public Componentes console;
+	private CodeCompiler compiler;
 	private int Exit=0;
 	public TabItem a;
 	
@@ -38,23 +38,23 @@ public class Ejecutar implements ExecProcessor {
 		});
 	}
 	public void processNewInput(String input) {
-		updateTextArea(consola,input);
+		updateTextArea(console,input);
 	}
 	public void processNewError(String error) {
-		updateTextArea(consola,error);
+		updateTextArea(console,error);
 	}
 	public void processEnded(int exitValue) {
-		exh = null;
+		execHelper = null;
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException ex) {
 		}
-		codigo.deleteMainFiles();
+		compiler.deleteMainFiles();
 	}
 	void runCommandActionPerformed(String instruccion) {
-		if (exh == null) {
+		if (execHelper == null) {
 			try {
-				exh = ExecHelper.exec(this, instruccion);
+				execHelper = ExecHelper.exec(this, instruccion);
 			} 
 			catch (IOException ex) {
 				processNewError(ex.getMessage());
@@ -62,21 +62,21 @@ public class Ejecutar implements ExecProcessor {
 		}
 	}
 	public void inputActionPerformed(String text) {
-		if (exh != null) {
-			exh.println(text);
+		if (execHelper != null) {
+			execHelper.println(text);
 		}
 	}
 	public void ejecutar(Componentes consola,String instruccion, CodeCompiler codigo) {
 		this.a = (TabItem)MainWindow.getComponents().diagramas.getSeleccion();
-		this.codigo = codigo;
-		this.consola = consola;
-		this.consola.text.setText("");
+		this.compiler = codigo;
+		this.console = consola;
+		this.console.text.setText("");
 		runCommandActionPerformed(instruccion);
 	}
 	public void stopEjecutar(){
 		MainWindow.getComponents().toolItem[12].setEnabled(false);
-		if(exh != null){
-			exh.stopEjecucion();	
+		if(execHelper != null){
+			execHelper.stopEjecucion();	
 		}
 	}
 	public void processExit(int exit) {
@@ -87,11 +87,11 @@ public class Ejecutar implements ExecProcessor {
 		if(Exit == 3){
 			MainWindow.display.syncExec(new Runnable () {
 				public void run () {
-					consola.setEnEjecucion(false);
-					consola.ejecucionDisable();
+					console.setEnEjecucion(false);
+					console.ejecucionDisable();
 					MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_INFORMATION | SWT.YES );
 					messageBox.setText("Origami");
-					messageBox.setMessage("La ejecución ha terminado.");
+					messageBox.setMessage("La ejecuciï¿½n ha terminado.");
 					int selec = messageBox.open();
 					switch(selec){
 						case 0:

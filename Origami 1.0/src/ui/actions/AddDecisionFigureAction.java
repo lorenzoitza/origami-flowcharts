@@ -31,14 +31,14 @@ public class AddDecisionFigureAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
+    public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
-	DecisionFigure decision2 = new DecisionFigure();
+	DecisionFigure decisionFigure = new DecisionFigure();
 	InstruccionSimple codigo = new InstruccionSimple();
 	codigo.setInstruccionSimple("null");
-	decision2.instruction.instruccion.add(0,codigo);
+	decisionFigure.instruction.instruccion.add(0,codigo);
 	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = decision2;
+	MainWindow.mainFigure = decisionFigure;
 	mainWindow.disableCursor();
     }
 

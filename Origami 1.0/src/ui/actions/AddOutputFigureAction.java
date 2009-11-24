@@ -31,12 +31,12 @@ public class AddOutputFigureAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
+    public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-	OutputFigure salida2 = new OutputFigure();
-	salida2.instruction.instruccion = "null";
+	OutputFigure outPutFigure = new OutputFigure();
+	outPutFigure.instruction.instruccion = "null";
 	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = salida2;
+	MainWindow.mainFigure = outPutFigure;
 	mainWindow.disableCursor();
     }
 

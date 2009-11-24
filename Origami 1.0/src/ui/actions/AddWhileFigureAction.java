@@ -32,14 +32,14 @@ public class AddWhileFigureAction implements SelectionListener{
     }
 
     @Override
-    public void widgetSelected(SelectionEvent arg0) {
+    public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
-	WhileFigure While2 = new WhileFigure();
-	InstruccionSimple codigo = new InstruccionSimple();
-	codigo.setInstruccionSimple("null");
-	While2.instruccion.instruccion.add(0,codigo);
+	WhileFigure whileFigure = new WhileFigure();
+	InstruccionSimple instructionCode = new InstruccionSimple();
+	instructionCode.setInstruccionSimple("null");
+	whileFigure.instruccion.instruccion.add(0,instructionCode);
 	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = While2;
+	MainWindow.mainFigure = whileFigure;
 	mainWindow.disableCursor();
     }
 
