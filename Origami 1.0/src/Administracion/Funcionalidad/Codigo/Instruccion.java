@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.*;
 import Administracion.Figura;
 import Administracion.Funcionalidad.Exporter;
 import Grafico.*;
+import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.DecisionFigure;
@@ -157,7 +158,6 @@ public class Instruccion implements Serializable{
 		}
 	    });
 	}
-	
 	/**
 	 * Este metodo recorre el vector de figuras y agrega cada instruccion
 	 * de cada figura a un vector de string.
@@ -306,10 +306,9 @@ public class Instruccion implements Serializable{
 		else if(flowchartFigures.elementAt(index) instanceof Elipse){
 		    break;
 		}
-		else if(flowchartFigures.elementAt(index) instanceof OutputFigure){
+		else if(flowchartFigures.elementAt(index) instanceof CircleFigure){
 		    break;
 		}
-		index++;
 	    }
 	    return index;
 	}
