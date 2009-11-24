@@ -165,8 +165,8 @@ public class EventoKey {
 			break;
 		case 16777229:
 			Instruccion codigo7 = new Instruccion();
-			codigo7.main(tab.getHoja().getDiagrama(),true);
-			codigo7.ventana(MainWindow.display);
+			codigo7.main(tab.getHoja().getDiagrama());
+			codigo7.createWindow(MainWindow.display);
 			break;
 		case 16777230:
 			if(!MainWindow.getComponentes().isPasoAPaso){

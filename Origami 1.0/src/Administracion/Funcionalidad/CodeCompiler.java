@@ -43,7 +43,7 @@ public class CodeCompiler {
 
 	String comand = "cmd /c gcc -g -o " + fileName + " " + fileName + ".c";
 
-	code.main(selectedTab.getHoja().getDiagrama(), true);
+	code.main(selectedTab.getHoja().getDiagrama());
 	boolean error = false;
 
 	try {
@@ -87,11 +87,11 @@ public class CodeCompiler {
 	if (isCCode) {
 
 	    source = new File("main.c");
-	    codigo.main(selectedTab.getHoja().getDiagrama(), true);
+	    codigo.main(selectedTab.getHoja().getDiagrama());
 	} else if (!isCCode && inExecution) {
 
 	    source = new File("main.cpp");
-	    codigo.main(selectedTab.getHoja().getDiagrama(), false);
+	    codigo.main(selectedTab.getHoja().getDiagrama());
 	} else if (!isCCode && !inExecution) {
 
 	    source = new File("main.cpp");
