@@ -7,29 +7,25 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 import Administracion.Archivo;
-import Administracion.TabFolder;
 
 public class Serializer {
 
-    public void writeFile(TabFolder selectedTab, String fileName)
+    public void writeFile(Archivo seriliazableFile, String fileName)
 	    throws IOException {
-	
+
 	FileOutputStream fileStream = new FileOutputStream(fileName);
 
 	ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 	// Archivo esta en admin
-	Archivo seriliazableFile =
-		new Archivo(selectedTab.getHoja().getDiagrama());
 
-	seriliazableFile.setInfo(selectedTab.getTabItem().getInfo().getInfo());
 	objectStream.writeObject(seriliazableFile);
-	selectedTab.getTabItem().getInfo().removeTime();
+
 	objectStream.close();
     }
 
     public Archivo recoverFile(String diagramPath) throws IOException,
 	    ClassNotFoundException {
-	
+
 	Archivo file = null;
 	FileInputStream fileStream = new FileInputStream(diagramPath);
 	ObjectInputStream objectStream = new ObjectInputStream(fileStream);

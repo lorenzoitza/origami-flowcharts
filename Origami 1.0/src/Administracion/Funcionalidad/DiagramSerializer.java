@@ -1,6 +1,5 @@
 package Administracion.Funcionalidad;
 
-import java.io.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import Administracion.Archivo;
@@ -27,9 +26,14 @@ public class DiagramSerializer {
      * @param fileDir
      */
     public boolean saveDiagram(TabFolder selectedTab) {
-	
+
 	try {
-	    serializer.writeFile(selectedTab, fileName);
+	    Archivo seriliazableFile =
+		    new Archivo(selectedTab.getHoja().getDiagrama());
+	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo()
+		    .getInfo());
+	    serializer.writeFile(seriliazableFile, fileName);
+	    selectedTab.getTabItem().getInfo().removeTime();
 	} catch (Exception e) {
 	    errorMessage();
 	    e.printStackTrace();
@@ -39,8 +43,9 @@ public class DiagramSerializer {
     }
 
     private void errorMessage() {
-	
-	MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
+
+	MessageBox messageBox =
+		new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 	messageBox.setText("Origami");
 	messageBox.setMessage("El nombre de archivo, directorio o etiqueta del"
 		+ " volum�n no es v�lido");
@@ -54,7 +59,7 @@ public class DiagramSerializer {
      * @return
      */
     public Archivo recoverDiagram(String diagramPath) {
-	
+
 	try {
 	    return serializer.recoverFile(diagramPath);
 	} catch (Exception e) {
