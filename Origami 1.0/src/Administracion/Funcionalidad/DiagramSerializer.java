@@ -14,7 +14,9 @@ import Grafico.MainWindow;
  * @author Juan Ku, Victor Rodriguez
  */
 public class DiagramSerializer {
+
     private Serializer serializer = new Serializer();
+
     private String fileName;
 
     /**
@@ -25,27 +27,24 @@ public class DiagramSerializer {
      * @param fileDir
      */
     public boolean saveDiagram(TabFolder selectedTab) {
+	
 	try {
-               serializer.writeFile(selectedTab, fileName);
-	    
+	    serializer.writeFile(selectedTab, fileName);
 	} catch (Exception e) {
-            errorMessage();
+	    errorMessage();
 	    e.printStackTrace();
 	    return false;
 	}
 	return true;
     }
-    
 
-    
-    
-    private void errorMessage()
-    {
-	    MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
-	    messageBox.setText("Origami");
-	    messageBox.setMessage("El nombre de archivo, directorio o etiqueta del" +
-		    		" volum�n no es v�lido");
-    
+    private void errorMessage() {
+	
+	MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
+	messageBox.setText("Origami");
+	messageBox.setMessage("El nombre de archivo, directorio o etiqueta del"
+		+ " volum�n no es v�lido");
+
     }
 
     /**
@@ -55,13 +54,13 @@ public class DiagramSerializer {
      * @return
      */
     public Archivo recoverDiagram(String diagramPath) {
-	Archivo fileToRecover = null;
+	
 	try {
-             fileToRecover = serializer.recoverFile(diagramPath);
+	    return serializer.recoverFile(diagramPath);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	return fileToRecover;
+	return null;
     }
 
     public void setFile(String fileName) {
