@@ -21,6 +21,7 @@ public class DiagramFileManager {
 		    new CustomFile(selectedTab.getHoja().getDiagrama());
 	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo()
 		    .getInfo());
+	    
 	    serializer.writeFile(seriliazableFile, fileName);
 	    selectedTab.getTabItem().getInfo().removeTime();
 	} catch (Exception e) {
