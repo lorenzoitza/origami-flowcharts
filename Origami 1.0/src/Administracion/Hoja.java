@@ -200,7 +200,7 @@ public class Hoja{
 		Rectangle r = diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().getBounds();
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = MainWindow.getSerializer().openDiagram(archivo);
+    	Archivo aux = MainWindow.getSerializer().recoverDiagram(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();
@@ -222,7 +222,7 @@ public class Hoja{
     	Rectangle r = new Rectangle(1090,100,80,50);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
     	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	Archivo aux = MainWindow.getSerializer().openDiagram(archivo);
+    	Archivo aux = MainWindow.getSerializer().recoverDiagram(archivo);
     	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
     	tab.getTabItem().getInfo().setInfo(aux.getInfo());
     	tab.getTabItem().getInfo().upDateTime();

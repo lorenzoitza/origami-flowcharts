@@ -14,7 +14,7 @@ import Grafico.MainWindow;
  * @author Juan Ku, Victor Rodriguez
  */
 public class DiagramSerializer {
-
+    private Serializer serializer = new Serializer();
     private String fileName;
 
     /**
@@ -26,19 +26,7 @@ public class DiagramSerializer {
      */
     public boolean saveDiagram(TabFolder selectedTab) {
 	try {
-	    selectedTab.getTabItem().getInfo().addTime();
-
-	    FileOutputStream fileStream = new FileOutputStream(fileName);
-	    
-	    ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
-            //Archivo esta en admin
-	    Archivo seriliazableFile = new Archivo(selectedTab.getHoja().getDiagrama());
-	    
-	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo().getInfo());
-	    objectStream.writeObject(seriliazableFile); 
-	    
-	    selectedTab.getTabItem().getInfo().removeTime();
-	    objectStream.close();
+               serializer.writeFile(selectedTab, fileName);
 	    
 	} catch (Exception e) {
             errorMessage();
@@ -66,17 +54,14 @@ public class DiagramSerializer {
      * @param diagramPath
      * @return
      */
-    public Archivo openDiagram(String diagramPath) {
-	Archivo file = null;
+    public Archivo recoverDiagram(String diagramPath) {
+	Archivo fileToRecover = null;
 	try {
-	    FileInputStream fileStream = new FileInputStream(diagramPath);
-	    ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-	    file = (Archivo) objectStream.readObject();
-	    objectStream.close();
+             fileToRecover = serializer.recoverFile(diagramPath);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	return file;
+	return fileToRecover;
     }
 
     public void setFile(String fileName) {
