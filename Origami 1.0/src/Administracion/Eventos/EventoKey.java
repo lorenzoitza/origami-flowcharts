@@ -10,7 +10,7 @@ import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.DiagramSerializer;
+import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Grafico.MainWindow;
@@ -25,7 +25,7 @@ public class EventoKey {
 	private int key,key2=0;
 	private AdminSeleccion selec;
 	private TabFolder tab;
-	private DiagramSerializer ser = new DiagramSerializer();
+	private DiagramFileManager ser = new DiagramFileManager();
 	
 	public EventoKey(AdminSeleccion seleccion, TabFolder tabfolder){
 		selec = seleccion;

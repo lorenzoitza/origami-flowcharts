@@ -6,11 +6,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import Administracion.Archivo;
+import Administracion.CustomFile;
 
 public class Serializer {
 
-    public void writeFile(Archivo seriliazableFile, String fileName)
+    public void writeFile(CustomFile seriliazableFile, String fileName)
 	    throws IOException {
 
 	FileOutputStream fileStream = new FileOutputStream(fileName);
@@ -23,13 +23,13 @@ public class Serializer {
 	objectStream.close();
     }
 
-    public Archivo recoverFile(String diagramPath) throws IOException,
+    public CustomFile readFile(String diagramPath) throws IOException,
 	    ClassNotFoundException {
 
-	Archivo file = null;
+	CustomFile file = null;
 	FileInputStream fileStream = new FileInputStream(diagramPath);
 	ObjectInputStream objectStream = new ObjectInputStream(fileStream);
-	file = (Archivo) objectStream.readObject();
+	file = (CustomFile) objectStream.readObject();
 	objectStream.close();
 	fileStream.close();
 	return file;

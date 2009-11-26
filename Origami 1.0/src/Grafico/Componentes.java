@@ -29,7 +29,7 @@ import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.PasoAPaso;
-import Administracion.Funcionalidad.DiagramSerializer;
+import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Administracion.Funcionalidad.Codigo.Manager;
@@ -65,7 +65,7 @@ public class Componentes {
 	private boolean consolaMax = false;
 	public final GridLayout layout = new GridLayout(2, false);
 	final GridLayout layout2 = new GridLayout(1, false);
-	public DiagramSerializer ser = new DiagramSerializer();
+	public DiagramFileManager ser = new DiagramFileManager();
 	private Button boton[] = new Button[7];
 	public ToolItem toolItem[] = new ToolItem[20];
 	public final Cursor[] cursor = new Cursor[1];

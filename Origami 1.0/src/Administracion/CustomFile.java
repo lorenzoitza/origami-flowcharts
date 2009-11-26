@@ -6,11 +6,11 @@ import java.util.Vector;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class Archivo implements Serializable{
+public class CustomFile implements Serializable{
 	private Vector<Figura> diagrama;
 	private Vector<String> info;
 	
-	public Archivo(Vector<Figura> diagrama){
+	public CustomFile(Vector<Figura> diagrama){
 		this.diagrama = diagrama;
 	}
 

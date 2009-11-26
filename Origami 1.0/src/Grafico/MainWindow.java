@@ -15,7 +15,7 @@ import org.eclipse.swt.widgets.Display;
 import Administracion.*;
 import Administracion.Eventos.EventoKey;
 import Administracion.Eventos.EventoVentana;
-import Administracion.Funcionalidad.DiagramSerializer;
+import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.Figuras.SelectionSquare;
 import Imagenes.ImageLoader;
 
@@ -37,7 +37,7 @@ public class MainWindow {
 
     public static Figura mainFigure = null;
 
-    private static DiagramSerializer _serializer = new DiagramSerializer();
+    private static DiagramFileManager _serializer = new DiagramFileManager();
 
     public static Vector<SelectionSquare> seleccion =
 	    new Vector<SelectionSquare>();
@@ -143,14 +143,14 @@ public class MainWindow {
      * @param serializer
      *            the serializer to set
      */
-    public static void setSerializer(DiagramSerializer serializer) {
+    public static void setSerializer(DiagramFileManager serializer) {
 	_serializer = serializer;
     }
 
     /**
      * @return the serializer
      */
-    public static DiagramSerializer getSerializer() {
+    public static DiagramFileManager getSerializer() {
 	return _serializer;
     }
 
