@@ -13,9 +13,10 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+
+import ui.events.KeyEvent;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
-import Administracion.Eventos.EventoKey;
 import Imagenes.ImageLoader;
 
 public abstract class AbstractInputOutputDialog<Figure> extends
@@ -50,7 +51,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	
 		this.selectionAdmin = selectionAdmin;
 	
-		this.key = new EventoKey(selectionAdmin, tabFolder);
+		this.key = new KeyEvent(selectionAdmin, tabFolder);
 	
 		this.scrolledComposite =
 			new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL

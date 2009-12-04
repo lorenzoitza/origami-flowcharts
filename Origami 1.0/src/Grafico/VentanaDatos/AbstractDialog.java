@@ -6,6 +6,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
+import ui.events.KeyEvent;
+
 import Administracion.*;
 import Administracion.TabFolder;
 import Administracion.Eventos.*;
@@ -16,7 +18,7 @@ public abstract class AbstractDialog<Figure> {
     
     protected Label exampleLabel;
 
-    protected EventoKey key;
+    protected KeyEvent key;
 
     protected TabFolder tabbedPaneSelected;
 
@@ -45,7 +47,7 @@ public abstract class AbstractDialog<Figure> {
 	
 		this.selectionAdmin = selectionAdmin;
 	
-		this.key = new EventoKey(selectionAdmin, tabFolder);
+		this.key = new KeyEvent(selectionAdmin, tabFolder);
 	
 		this.create();
 		this.initComponents();
