@@ -13,7 +13,7 @@ import Grafico.MainWindow;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class EventoVentana extends ShellAdapter{
+public class EventoVentana{
 	public TabFolder tab;
 	public Componentes consola;
 	

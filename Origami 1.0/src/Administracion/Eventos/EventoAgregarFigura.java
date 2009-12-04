@@ -23,7 +23,7 @@ import Grafico.Figuras.Elipse;
  * @author Juan Ku, Victor Rodriguez
  */
 
-public class EventoAgregarFigura extends MouseMotionListener.Stub implements MouseListener{
+public class EventoAgregarFigura{
 	private Point start;
 	public boolean bandera=false;
 	public final Cursor[] cursor = new Cursor[1];
@@ -35,28 +35,15 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 	 * a la figura recibida.
 	 * @param figure
 	 */
-	public EventoAgregarFigura(Figure figure,AdminSeleccion selecc,TabFolder tabfolder) {
-		figure.addMouseMotionListener(this);
-		figure.addMouseListener(this);
+	public EventoAgregarFigura(AdminSeleccion selecc,TabFolder tabfolder) {
 		selec = selecc;
 		tab = tabfolder;
 	}
 	/**
-	 * Recorre el diagrama de figuras y verifica si
-	 * la figura fue liberada en un area disponible.
-	 * @param MouseEvent 
-	 */
-	public void mouseReleased(MouseEvent e){
-	}
-	public void mouseClicked(MouseEvent e) {
-  	}
-	public void mouseDoubleClicked(MouseEvent e) {
-  	}
-	/**
 	 * Obtiene la localizacion en la que la figura fue seleccionada.
 	 * @param MouseEvent 
 	 */
-	public void mousePressed(MouseEvent e) {
+	public void mousePresseds(MouseEvent e) {
 		bandera = false;
 		start = e.getLocation();
 		Figura fig = MainWindow.mainFigure;
@@ -88,8 +75,6 @@ public class EventoAgregarFigura extends MouseMotionListener.Stub implements Mou
 				tab.getHoja().addFigure();
 			}
 		}
-	}
-	public void mouseDragged(MouseEvent e) {
 	}
 	/**
 	 * Este metodo hace un recorrido por la derecha

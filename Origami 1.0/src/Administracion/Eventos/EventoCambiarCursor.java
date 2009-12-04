@@ -26,7 +26,7 @@ import Imagenes.ImageLoader;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class EventoCambiarCursor extends MouseMotionListener.Stub implements MouseListener{
+public class EventoCambiarCursor{
 	private Point start;
 	public boolean bandera=false;
 	private Figura figuraPrincipal;
@@ -41,8 +41,6 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	 */
 	public EventoCambiarCursor(IFigure figure,TabFolder tabfolder){
 		cuadro = figure;
-		figure.addMouseMotionListener(this);
-		figure.addMouseListener(this);
 		tab = tabfolder;
 	}
 	/**
@@ -50,14 +48,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 	 * la figura fue liberada en un area disponible.
 	 * @param MouseEvent 
 	 */
-	public void mouseReleased(MouseEvent e){
-	    CustomeMenu._editMenu.menuDisponibleFigura();
-	}
-	public void mouseClicked(MouseEvent e) {
-  	}
-	public void mouseDoubleClicked(MouseEvent e) {
-  	}
-	public void mouseMoved(MouseEvent me) {
+	public void mouseMoveds(MouseEvent me) {
 		figuraPrincipal = MainWindow.mainFigure;
 		int a;
 		start = me.getLocation();
@@ -88,19 +79,7 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 		}
 		tooltip(tab.getHoja().getAdminDiagrama());
 	}
-	/**
-	 * Obtiene la localizacion en la que la figura fue seleccionada.
-	 * @param MouseEvent 
-	 */
-	public void mousePressed(MouseEvent e) {
-	}
-	/**
-	 * Obtiene la diferencia en la que la figura fue seleccionada 
-	 * y la distancia a donde fue movida para actualizar su posicion.
-	 * @param MouseEvent 
-	 */
-	public void mouseDragged(MouseEvent e) {
-	}
+
 	/**
 	 * 
 	 * Este metodo hace un recorrido por la derecha
@@ -375,4 +354,5 @@ public class EventoCambiarCursor extends MouseMotionListener.Stub implements Mou
 			}
 		}
 	}
+
 }
