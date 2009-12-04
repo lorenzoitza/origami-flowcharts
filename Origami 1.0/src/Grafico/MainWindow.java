@@ -11,9 +11,11 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Display;
 
+import ui.events.KeyEvent;
+import ui.events.WindowEvent;
+
 
 import Administracion.*;
-import Administracion.Eventos.EventoKey;
 import Administracion.Eventos.EventoVentana;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.Figuras.SelectionSquare;
@@ -51,7 +53,7 @@ public class MainWindow {
     
     public static TabFolder _diagrams;
 
-    public static EventoKey _keyEvent;
+    public static KeyEvent _keyEvent;
 
     public static boolean dispToolItem = false; // TODO: �?
 
@@ -99,7 +101,7 @@ public class MainWindow {
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new EventoVentana(_diagrams, getComponents()));
+	shell.addShellListener(new WindowEvent(_diagrams, getComponents()));
 	shell.setMenuBar(menu.mainMenu);
 	shell.setLayout(getComponents().layout);
 	shell.pack();
@@ -123,7 +125,7 @@ public class MainWindow {
 	    }
 	});
 
-	_keyEvent = new EventoKey(_selectionAdministrator, _diagrams);
+	_keyEvent = new KeyEvent(_selectionAdministrator, _diagrams);
 
     }
 
