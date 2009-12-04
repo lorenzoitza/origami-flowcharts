@@ -5,7 +5,8 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.SWT;
 
-import Administracion.Eventos.DoubleClickEvent;
+import ui.events.SelectEvent;
+import ui.events.DoubleClickEvento;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Eventos.EventoSeleccionar;
 import Grafico.*;
@@ -805,7 +806,7 @@ public class DibujarDiagrama extends Figure{
 		Point pt = new Point();
 		if(eventos){
 			if(!MainWindow.getComponentes().isPasoAPaso){
-				new EventoSeleccionar(diagrama.elementAt(0),selec,tab);
+				new SelectEvent(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
 				if(diagrama.elementAt(x) instanceof DecisionFigure){
@@ -819,9 +820,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof ForFigure){
@@ -835,9 +836,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof WhileFigure){
@@ -851,9 +852,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof InputFigure){
@@ -867,9 +868,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof OutputFigure){
@@ -883,9 +884,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof SentenceFigure){
@@ -899,9 +900,9 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
-						new DoubleClickEvent(diagrama.elementAt(x),selec,tab);
+						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
-						new EventoSeleccionar(diagrama.elementAt(x),selec,tab);
+						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
 			}

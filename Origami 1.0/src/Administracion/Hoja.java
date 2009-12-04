@@ -15,6 +15,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
+
+import ui.events.AddFigureEvent;
+import ui.events.ChangeCursorEvent;
 import Administracion.Eventos.EventoAgregarFigura;
 import Administracion.Eventos.EventoCambiarCursor;
 import Administracion.Eventos.EventoMenuContextual;
@@ -146,8 +149,8 @@ public class Hoja{
 		tab.agregarRetroceso(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
 	}
 	public void addPropiedades(){
-		new EventoAgregarFigura(chart.elementAt(seleccion.getSeleccionDigrama()),seleccion,tab);
-		new EventoCambiarCursor(chart.elementAt(seleccion.getSeleccionDigrama()),tab);
+		new AddFigureEvent(chart.elementAt(seleccion.getSeleccionDigrama()),seleccion,tab);
+		new ChangeCursorEvent(chart.elementAt(seleccion.getSeleccionDigrama()),tab);
 	}
 	public Conexion getConexion(){
 		return connection.elementAt(seleccion.getSeleccionDigrama());

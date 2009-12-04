@@ -12,7 +12,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
-import Administracion.Eventos.EventoKey;
+
+import ui.events.KeyEvent;
+
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
@@ -23,13 +25,13 @@ import Grafico.MainWindow;
 public class TabFolder {
 	private CTabFolder tabFolder;
 	private int contador = -1;
-	private EventoKey key;
+	private KeyEvent key;
 	private Hoja hoja;
 	public AdminSeleccion selec;
 	
 	public TabFolder(Display display,AdminSeleccion seleccion){
 		selec = seleccion;
-		key = new EventoKey(selec,this);
+		key = new KeyEvent(selec,this);
 		tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
 		hoja = new Hoja(display,this,selec);
 		addTabItem();
