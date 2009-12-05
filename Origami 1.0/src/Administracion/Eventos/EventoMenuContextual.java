@@ -230,7 +230,7 @@ public class EventoMenuContextual extends MouseListener.Stub{
 		}
 	}
 	public void mousePressed(MouseEvent e){
-	    CustomeMenu._editMenu.menuDisponibleFigura();
+	    CustomMenu._editMenu.menuDisponibleFigura();
 		final Figura fig = ((Figura) e.getSource());
 		if(e.button == 3){
 			Menu menu = new Menu(MainWindow.shell,SWT.POP_UP);
