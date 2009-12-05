@@ -13,7 +13,7 @@ import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.CustomeMenu;
+import Grafico.CustomMenu;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.DecisionFigure;
@@ -217,7 +217,7 @@ public class ContextualMenuEvent  extends MouseListener.Stub{
 		}
 	}
 	public void mousePressed(MouseEvent e){
-	    CustomeMenu._editMenu.menuDisponibleFigura();
+	    CustomMenu._editMenu.menuDisponibleFigura();
 		final Figura fig = ((Figura) e.getSource());
 		if(e.button == 3){
 			Menu menu = new Menu(MainWindow.shell,SWT.POP_UP);

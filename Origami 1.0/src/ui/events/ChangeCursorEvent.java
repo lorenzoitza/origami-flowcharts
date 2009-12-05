@@ -10,7 +10,7 @@ import org.eclipse.swt.graphics.Cursor;
 import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoCambiarCursor;
-import Grafico.CustomeMenu;
+import Grafico.CustomMenu;
 import Grafico.MainWindow;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.ForFigure;
@@ -38,7 +38,7 @@ public class ChangeCursorEvent  extends MouseMotionListener.Stub implements Mous
 	 * @param MouseEvent 
 	 */
 	public void mouseReleased(MouseEvent e){
-	    CustomeMenu._editMenu.menuDisponibleFigura();
+	    CustomMenu._editMenu.menuDisponibleFigura();
 	}
 	public void mouseClicked(MouseEvent e) {
   	}

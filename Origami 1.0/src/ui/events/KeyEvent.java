@@ -46,9 +46,7 @@ public class KeyEvent {
 	switch(key){
 	case 49:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name5 = "imagenes//cursorEntrada.png";
-			//ImageData image5 = new ImageData(name5);
-			MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 		    InputFigure entrada2 = new InputFigure();
 		    InstruccionSimple codigo5 = new InstruccionSimple();
 		    codigo5.setInstruccionSimple("null");
@@ -59,8 +57,6 @@ public class KeyEvent {
 		break;
 	case 50:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name4 = "imagenes//cursorProceso.png";
-		    //ImageData image4 = new ImageData(name4);
 		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 		    SentenceFigure proceso2 = new SentenceFigure();
 		    InstruccionSimple codigo4 = new InstruccionSimple();
@@ -72,9 +68,7 @@ public class KeyEvent {
 		break;
 	case 51:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name = "imagenes//cursorIf.png";
-		    //ImageData image = new ImageData(name);
-		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 		    DecisionFigure decision2 = new DecisionFigure();
 		    InstruccionSimple codigo = new InstruccionSimple();
 			codigo.setInstruccionSimple("null");
@@ -85,9 +79,7 @@ public class KeyEvent {
 		break;
 	case 52:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name3 = "imagenes//cursorWhile.png";
-		    //ImageData image3 = new ImageData(name3);
-		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
+		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 		    WhileFigure While2 = new WhileFigure();
 		    InstruccionSimple codigo3 = new InstruccionSimple();
 			codigo3.setInstruccionSimple("null");
@@ -98,9 +90,7 @@ public class KeyEvent {
 		break;
 	case 53:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name2 = "imagenes//cursorFor.png";
-		    //ImageData image2 = new ImageData(name2);
-		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 		    ForFigure For2 = new ForFigure();
 		    InstruccionSimple codigo2 = new InstruccionSimple();
 		    codigo2.setInstruccionSimple("null");
@@ -111,9 +101,7 @@ public class KeyEvent {
 		break;
 	case 54:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			//String name6 = "imagenes//cursorSalida.png";
-		    //ImageData image6 = new ImageData(name6);
-		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
+		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 		    OutputFigure salida2 = new OutputFigure();
 		    InstruccionSimple codigo6 = new InstruccionSimple();
 			codigo6.setInstruccionSimple("null");
@@ -183,11 +171,11 @@ public class KeyEvent {
 			}
 			codigo.main(false,true);
 			if(codigo.isError){
-				int aux = MainWindow.getComponents().text.getText().length();
+				int aux = MainWindow.getComponents().console.text.getText().length();
 				if(aux>=0){
-					MainWindow.getComponents().text.setText("");
+					MainWindow.getComponents().console.text.setText("");
 				}
-				MainWindow.getComponents().text.setText(codigo.errorTipe);
+				MainWindow.getComponents().console.text.setText(codigo.errorTipe);
 				tab.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
 				tab.getTabItem().getInfo().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
