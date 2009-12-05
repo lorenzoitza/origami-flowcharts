@@ -26,14 +26,14 @@ public class Ejecutar implements ExecProcessor {
 					String linea = consola.paso.texto(line);					
 					if(linea.compareTo("") != 0){
 						linea = linea +"\n";
-						consola.text.append(linea);
+						consola.console.text.append(linea);
 					}
 				}
 				else{
-					consola.text.append(line);
+					consola.console.text.append(line);
 				}
-				consola.text.setDragDetect(true);
-				consola.setInformation(consola.text.getText().length());
+				consola.console.text.setDragDetect(true);
+				consola.console.setInformation(consola.console.text.getText().length());
 			}
 		});
 	}
@@ -70,11 +70,11 @@ public class Ejecutar implements ExecProcessor {
 		this.a = (TabItem)MainWindow.getComponents().diagramas.getSeleccion();
 		this.compiler = codigo;
 		this.console = consola;
-		this.console.text.setText("");
+		this.console.console.text.setText("");
 		runCommandActionPerformed(instruccion);
 	}
 	public void stopEjecutar(){
-		MainWindow.getComponents().toolItem[12].setEnabled(false);
+		MainWindow.getComponents().barraHerramientas.toolItem[12].setEnabled(false);
 		if(execHelper != null){
 			execHelper.stopEjecucion();	
 		}
