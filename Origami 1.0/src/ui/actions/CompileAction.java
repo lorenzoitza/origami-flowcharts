@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Exporter;
-import Grafico.CustomeMenu;
+import Grafico.CustomMenu;
 import Grafico.MainWindow;
 
 
@@ -32,31 +32,58 @@ public class CompileAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	CodeCompiler codigo = new CodeCompiler(diagrams);
-	if(mainWindow.getComponents().getEnEjecucion()){
-	    mainWindow.getComponents().stopEjecucion();
-	}
-	codigo.main(false,true);
-	if(codigo.isError){
-		int aux = mainWindow.getComponents().text.getText().length();
-		if(aux>=0){
-		    mainWindow.getComponents().text.setText("");
+	if (!MainWindow.getComponentes().diagramas.getTabItem().getSave().isSave()) {
+		// llamo abrir la ventana para guardar
+		if (MainWindow.getComponentes().guardar()) {
+			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes().diagramas);
+			if (MainWindow.getComponentes().getEnEjecucion()) {
+			    MainWindow.getComponentes().stopEjecucion();
+			}
+			codigo.main(false, true);
+			if (codigo.isError) {
+				int aux = MainWindow.getComponentes().console.text.getText().length();
+				if (aux >= 0) {
+				    MainWindow.getComponentes().console.text.setText("");
+				}
+				MainWindow.getComponentes().console.text.setText(codigo.errorTipe);
+				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(
+						"/Ec - Error en la compilacion:");
+				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(
+						codigo.errorTipe);
+				codigo.deleteMainFiles();
+			} else {
+			    MainWindow.getComponentes().ejecutar(true, codigo);
+				MainWindow.getComponentes().diagramas
+						.getTabItem()
+						.getInfo()
+						.addInformation(
+								"/C - Se Compilo el diagrama de manera correcta");
+			}
+			if (!MainWindow.menu.consoleMenuItem.getSelection()) {
+				MainWindow.menu.consoleMenuItem.setSelection(true);
+				MainWindow.getComponentes().moverConsola(true);
+			}
 		}
-		mainWindow.getComponents().text.setText(codigo.errorTipe);
-		diagrams.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
-		diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
-		codigo.deleteMainFiles();
+	} else {
+		CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes().diagramas);
+		if (MainWindow.getComponentes().getEnEjecucion()) {
+		    MainWindow.getComponentes().stopEjecucion();
+		}
+		codigo.main(false, true);
+		if (codigo.isError) {
+			int aux = MainWindow.getComponentes().console.text.getText().length();
+			if (aux >= 0) {
+			    MainWindow.getComponentes().console.text.setText("");
+			}
+			MainWindow.getComponentes().console.text.setText(codigo.errorTipe);
+			codigo.deleteMainFiles();
+		} else {
+		    MainWindow.getComponentes().ejecutar(true, codigo);
+		}
+		if (!MainWindow.menu.consoleMenuItem.getSelection()) {
+			MainWindow.menu.consoleMenuItem.setSelection(true);
+			MainWindow.getComponentes().moverConsola(true);
+		}
 	}
-	else{
-	    	mainWindow.getComponents().ejecutar(true,codigo);
-		diagrams.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
-	}
-	if(!CustomeMenu.consoleMenuItem.getSelection()){
-	    CustomeMenu.consoleMenuItem.setSelection(true);
-		mainWindow.getComponents().moverConsola(true);
-	}
-			
-	
     }
-
 }

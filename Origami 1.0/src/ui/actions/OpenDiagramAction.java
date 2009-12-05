@@ -43,27 +43,27 @@ public class OpenDiagramAction implements SelectionListener{
 	if(archivo!=null){
 	File file = new File(archivo);
 	if(file.exists()){
-		if(diagrams.getHoja().getSizeDiagrama()==0){
+		if(MainWindow._diagrams.getHoja().getSizeDiagrama()==0){
 	    	String archivo2 = dialog.getFileName();
 	    	int pos = archivo2.indexOf('.');
 	    	String name = archivo2.substring(0, pos);
 	    	diagrams.cambiarNombre("*"+name);
 	    	diagrams.getTabItem().getSave().setSave(true);
-	    	diagrams.abrir(archivo,mainWindow.getSerializer());
+	    	diagrams.abrir(archivo,MainWindow.getSerializer());
 	    	diagrams.getTabItem().getSave().setDir(archivo);
 	    	
     	}
     	else{
     		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-		    diagrams.getHoja().openFile(archivo);
-		    diagrams.getTabItem().getSave().setDir(archivo);
+    		MainWindow._diagrams.getHoja().openFile(archivo);
+    		MainWindow._diagrams.getTabItem().getSave().setDir(archivo);
 		    archivo = dialog.getFileName();
 		    int pos = archivo.indexOf('.');
 		    String name = archivo.substring(0, pos);
-		    diagrams.cambiarNombre("*"+name);
-	    	diagrams.getTabItem().getSave().setSave(true);
-	    	diagrams.getTabItem().resetRetroceso();		 
-	    	diagrams.getTabItem().agregarRetroceso(diagrams.getHoja().getDiagrama(), diagrams.selec);
+		    MainWindow._diagrams.cambiarNombre("*"+name);
+		    MainWindow._diagrams.getTabItem().getSave().setSave(true);
+		    MainWindow._diagrams.getTabItem().resetRetroceso();		 
+		    MainWindow._diagrams.getTabItem().agregarRetroceso(MainWindow._diagrams.getHoja().getDiagrama(), MainWindow._diagrams.selec);
     	}
     	MainWindow.getComponentes().disablePasoAPaso(false);
     	MainWindow.getComponents().disableAll(true);

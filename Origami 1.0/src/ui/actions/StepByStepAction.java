@@ -36,12 +36,12 @@ public class StepByStepAction implements SelectionListener{
 		    CodeCompiler codigo = new CodeCompiler(diagrams);
 			codigo.main(false,false);
 			if(codigo.isError){
-				int aux = mainWindow.getComponents().text.getText().length();
+				int aux = mainWindow.getComponents().console.text.getText().length();
 				if(aux>=0){
-				    mainWindow.getComponents().text.setText("");
+				    mainWindow.getComponents().console.text.setText("");
 				}
 				
-				mainWindow.getComponents().text.setText(codigo.errorTipe);
+				mainWindow.getComponents().console.text.setText(codigo.errorTipe);
 				diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
 				diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
@@ -58,12 +58,12 @@ public class StepByStepAction implements SelectionListener{
 	    CodeCompiler codigo = new CodeCompiler(diagrams);
 		codigo.main(false,false);
 		if(codigo.isError){
-			int aux = mainWindow.getComponents().text.getText().length();
+			int aux = mainWindow.getComponents().console.text.getText().length();
 			if(aux>=0){
-			    mainWindow.getComponents().text.setText("");
+			    mainWindow.getComponents().console.text.setText("");
 			}
 			
-			mainWindow.getComponents().text.setText(codigo.errorTipe);
+			mainWindow.getComponents().console.text.setText(codigo.errorTipe);
 			diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
 			diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
 			codigo.deleteMainFiles();

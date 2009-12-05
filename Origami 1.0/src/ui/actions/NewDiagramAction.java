@@ -12,11 +12,11 @@ public class NewDiagramAction implements SelectionListener{
     private TabFolder diagrams;
     private Componentes components;
     private MainWindow mainWindow;
-    public NewDiagramAction(TabFolder diagrams, Componentes components, MainWindow mainWindow) {
+    
+    public NewDiagramAction(TabFolder diagrams, Componentes components) {
 	this.diagrams = diagrams;
 	this.components = components;
-	this.mainWindow = mainWindow;
-    }
+	}
 
     @Override
     public void widgetDefaultSelected(SelectionEvent arg0) {
@@ -26,8 +26,8 @@ public class NewDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	diagrams.addTabItem();
-		components.guardarDisable(true);
+	MainWindow._diagrams.addTabItem();
+	MainWindow.getComponents().guardarDisable(true);
 	MainWindow.getComponents().disableAll(true);
     }
 

@@ -32,11 +32,11 @@ public class AddSentenceFigureAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent event) {
 	mainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
-	    SentenceFigure sentenceFigure = new SentenceFigure();
-		sentenceFigure.instruccion.instruccion = "null";
-		MainWindow.mainFigure = null;
-		MainWindow.mainFigure = sentenceFigure;
-	    mainWindow.disableCursor();
+	SentenceFigure sentenceFigure = new SentenceFigure();
+	sentenceFigure.instruccion.instruccion = "null";
+	MainWindow.mainFigure = null;
+	MainWindow.mainFigure = sentenceFigure;
+	mainWindow.disableCursor();
     }
 
 }

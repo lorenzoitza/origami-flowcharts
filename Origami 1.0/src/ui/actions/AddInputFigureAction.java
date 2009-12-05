@@ -17,11 +17,9 @@ import Imagenes.ImageLoader;
 
 
 public class AddInputFigureAction implements SelectionListener{
- 
     private MainWindow mainWindow;
     
     public AddInputFigureAction(MainWindow mainWindow ) {
-
 	this.mainWindow = mainWindow;
     }
 
