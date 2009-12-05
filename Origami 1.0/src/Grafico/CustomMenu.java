@@ -15,14 +15,25 @@ import ui.actions.AddInputFigureAction;
 import ui.actions.AddOutputFigureAction;
 import ui.actions.AddSentenceFigureAction;
 import ui.actions.AddWhileFigureAction;
+import ui.actions.BuildCCodeAction;
+import ui.actions.CompileAction;
 import ui.actions.ExportToCAction;
 import ui.actions.ExportToCPPAction;
 import ui.actions.ExportToEXEAction;
 import ui.actions.ExportToImageAction;
 import ui.actions.NewDiagramAction;
 import ui.actions.OpenDiagramAction;
+import ui.actions.ResetDiagramAction;
 import ui.actions.SaveDiagramAction;
 import ui.actions.SaveDiagramAsAction;
+import ui.actions.StepByStepAction;
+import ui.actions.ViewAboutAction;
+import ui.actions.ViewConsoleAction;
+import ui.actions.ViewExamplesAction;
+import ui.actions.ViewFiguresBarAction;
+import ui.actions.ViewHelpContentsAction;
+import ui.actions.ViewTabsAction;
+import ui.actions.ViewToolbarAction;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoMenuContextual;
@@ -33,7 +44,7 @@ import Grafico.Help.AboutWindow;
 import Grafico.Help.HelpWindow;
 
 
-public class CustomeMenu {
+public class CustomMenu {
     public static MenuItem consoleMenuItem;
 
     public static MenuItem figuresBarMenuItem;
@@ -76,7 +87,7 @@ public class CustomeMenu {
     
     public static AdminSeleccion _selectionAdministrator;
     
-    public CustomeMenu(Shell shell, Display display,MainWindow mainWindow, AdminSeleccion _selectionAdministrator ){
+    public CustomMenu(Shell shell, Display display,MainWindow mainWindow, AdminSeleccion _selectionAdministrator ){
 	_shell = shell;
 	_display = display;
 	mainMenu = new Menu(_shell, SWT.BAR);
@@ -130,7 +141,7 @@ public class CustomeMenu {
 	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(MainWindow._diagrams,
 		mainWindow));
 	newDiagramMenuItem.addSelectionListener(new NewDiagramAction(MainWindow._diagrams,
-		mainWindow.getComponents(), mainWindow));
+		mainWindow.getComponents()));
 	exportToCMenuItem.addSelectionListener(new ExportToCAction(MainWindow._diagrams,
 		mainWindow));
 	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(
@@ -203,34 +214,13 @@ public class CustomeMenu {
 	consoleMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	consoleMenuItem.setText(" Consola     ");
 
-	toolbarMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		MenuItem widget = (MenuItem) e.widget;
-		mainWindow.getComponents().addBarraDeHerramientas(widget.getSelection());
-	    }
-	});
-	figuresBarMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		MenuItem widget = (MenuItem) e.widget;
-		mainWindow.getComponents().addBarraFiguras(widget.getSelection());
-	    }
-	});
-	tabsMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		MenuItem widget = (MenuItem) e.widget;
-		mainWindow.getComponents().addTabFolder(widget.getSelection());
-	    }
-	});
-	consoleMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		MenuItem widget = (MenuItem) e.widget;
-		mainWindow.getComponents().moverConsola(widget.getSelection());
-	    }
-	});
+	toolbarMenuItem.addSelectionListener(new ViewToolbarAction(mainWindow));
+	
+	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarAction(mainWindow));
+	
+	tabsMenuItem.addSelectionListener(new ViewTabsAction(mainWindow));
+	
+	consoleMenuItem.addSelectionListener(new ViewConsoleAction(mainWindow));
     }
 
     private void initOptionsMenu() {
@@ -247,120 +237,13 @@ public class CustomeMenu {
 	stepByStepMenuItem.setText("Paso A Paso");
 	optionsMenuItem.setMenu(optionsMenu);
 
-	stepByStepMenuItem.addSelectionListener(new SelectionAdapter() {
+	stepByStepMenuItem
+	.addSelectionListener(new StepByStepAction(MainWindow._diagrams, mainWindow));
 
-	    public void widgetSelected(SelectionEvent e) {
-		if (!MainWindow._diagrams.getTabItem().getSave().isSave()) {
-		    if (mainWindow.getComponents().guardar()) {
-			CodeCompiler codigo = new CodeCompiler(MainWindow._diagrams);
-			codigo.main(false, false);
-			if (codigo.isError) {
-			    int aux = mainWindow.getComponents().text.getText().length();
-			    if (aux >= 0) {
-				mainWindow.getComponents().text.setText("");
-			    }
-			    // moverConsola(true);
-			    mainWindow.getComponents().text.setText(codigo.errorTipe);
-			    MainWindow._diagrams.getTabItem().getInfo().addInformation(
-				    "/Ep - Error en el paso a paso:");
-			    MainWindow._diagrams.getTabItem().getInfo().addInformation(
-				    codigo.errorTipe);
-			    codigo.deleteMainFiles();
-			} else {
-			    // moverConsola(true);
-			    mainWindow.getComponents().disablePasoAPaso(true);
-			    mainWindow.getComponents().ejecutar(false, codigo);
-			    MainWindow._diagrams
-				    .getTabItem()
-				    .getInfo()
-				    .addInformation(
-					    "/P - Se inicio el paso a paso de manera correcta");
-			}
-		    }
-		} else {
-		    CodeCompiler codigo = new CodeCompiler(MainWindow._diagrams);
-		    codigo.main(false, false);
-		    if (codigo.isError) {
-			int aux = mainWindow.getComponents().text.getText().length();
-			if (aux >= 0) {
-			    mainWindow.getComponents().text.setText("");
-			}
-			// moverConsola(true);
-			mainWindow.getComponents().text.setText(codigo.errorTipe);
-			MainWindow._diagrams.getTabItem().getInfo().addInformation(
-				"/Ep - Error en el paso a paso:");
-			MainWindow._diagrams.getTabItem().getInfo().addInformation(
-				codigo.errorTipe);
-			codigo.deleteMainFiles();
-		    } else {
-			// moverConsola(true);
-			mainWindow.getComponents().disablePasoAPaso(true);
-			mainWindow.getComponents().ejecutar(false, codigo);
-			MainWindow._diagrams
-				.getTabItem()
-				.getInfo()
-				.addInformation(
-					"/P - Se inicio el paso a paso de manera correcta");
-		    }
-		}
-	    }
-	});
+	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction(mainWindow._diagrams, mainWindow));
+	compileMenuItem.addSelectionListener(new CompileAction(mainWindow._diagrams, mainWindow));
 
-	buildCodeMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		/*Instruccion codigo = new Instruccion();
-		codigo.main(MainWindow._diagrams.getHoja().getDiagrama(), true);
-		codigo.ventana(_display);*/
-	    }
-	});
-	compileMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		CodeCompiler codigo = new CodeCompiler(MainWindow._diagrams);
-		if (mainWindow.getComponents().getEnEjecucion()) {
-		    mainWindow.getComponents().stopEjecucion();
-		}
-		codigo.main(false, true);
-		if (codigo.isError) {
-		    int aux = mainWindow.getComponents().text.getText().length();
-		    if (aux >= 0) {
-			mainWindow.getComponents().text.setText("");
-		    }
-		    mainWindow.getComponents().text.setText(codigo.errorTipe);
-		    MainWindow._diagrams.getTabItem().getInfo().addInformation(
-			    "/Ec - Error en la compilacion:");
-		    MainWindow._diagrams.getTabItem().getInfo().addInformation(
-			    codigo.errorTipe);
-		    codigo.deleteMainFiles();
-		} else {
-		    mainWindow.getComponents().ejecutar(true, codigo);
-		    MainWindow._diagrams.getTabItem().getInfo().addInformation(
-			    "/C - Se Compilo el diagrama de manera correcta");
-		}
-		if (!consoleMenuItem.getSelection()) {
-		    consoleMenuItem.setSelection(true);
-		    mainWindow.getComponents().moverConsola(true);
-		}
-	    }
-	});
-
-	resetDiagramMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		_selectionAdministrator.setFiguraSeleccionada(0);
-		for (int y = MainWindow._diagrams.getHoja().getSizeDiagrama() - 1; y > 0; y--) {
-		    MainWindow._diagrams.getHoja().removeFigureIndexOf(y);
-		}
-		CircleFigure fin = new CircleFigure();
-		MainWindow._diagrams.getHoja().getDiagrama().add(fin);
-		fin.setMesagge("  Fin");
-		MainWindow._diagrams.getHoja().resetScrollBar();
-		MainWindow._diagrams.getHoja().addFigure();
-		MainWindow._diagrams.getHoja().guardarRetroceso();
-		MainWindow._diagrams.getTabItem().getSave().setSave(false);
-	    }
-	});
+	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction(mainWindow._diagrams, mainWindow));
 
     }
 
@@ -368,58 +251,64 @@ public class CustomeMenu {
 	MenuItem helpMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	helpMenuItem.setText("Ayuda");
 	Menu helpMenu = new Menu(_shell, SWT.DROP_DOWN);
+	
 	MenuItem helpContentsMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	helpContentsMenuItem
 		.setText("Contenidos de Ayuda                             F1");
+	helpContentsMenuItem.addSelectionListener(new ViewHelpContentsAction());
+	
 	MenuItem examplesMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	examplesMenuItem.setText("Ejemplos");
+	examplesMenuItem.addSelectionListener(new ViewExamplesAction(mainWindow._diagrams,mainWindow));
+
+	
 	new MenuItem(helpMenu, SWT.SEPARATOR);
+	
+	
 	MenuItem aboutMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	aboutMenuItem.setText("Acerca de Origami...      F2");
+	aboutMenuItem.addSelectionListener(new ViewAboutAction(mainWindow));
+
 	helpMenuItem.setMenu(helpMenu);
-
-	helpContentsMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		HelpWindow help = new HelpWindow();
-		help.createWindow();
-		help.showWindow();
-	    }
-	});
-	aboutMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		AboutWindow acercade = new AboutWindow();
-		acercade.createWindow(_display);
-		acercade.showWindow();
-	    }
-	});
-
-	examplesMenuItem.addSelectionListener(new SelectionAdapter() {
-
-	    public void widgetSelected(SelectionEvent e) {
-		FileDialog dialog = new FileDialog(_shell, SWT.OPEN);
-		dialog.setFilterExtensions(new String[] { "*.Org", "*.*" });
-		dialog.setFilterPath("ejemplos\\");
-		String archivo = dialog.open();
-		if (archivo != null) {
-		    if (MainWindow._diagrams.getHoja().getSizeDiagrama() == 0) {
-			String archivo2 = dialog.getFileName();
-			int pos = archivo2.indexOf('.');
-			String name = archivo2.substring(0, pos);
-			MainWindow._diagrams.cambiarNombre(name);
-			MainWindow._diagrams.abrir(archivo, mainWindow.getSerializer());
-		    } else {
-			_selectionAdministrator.setFiguraSeleccionada(0);
-			MainWindow._diagrams.getHoja().openFile(archivo);
-			archivo = dialog.getFileName();
-			int pos = archivo.indexOf('.');
-			String name = archivo.substring(0, pos);
-			MainWindow._diagrams.cambiarNombre(name);
-		    }
-		}
-	    }
-	});
-
+	
+    }
+    public void disablePasoAPaso(boolean disable) {
+	if (disable) {
+		decisionMenuItem.setEnabled(false);
+		sentenceMenuItem.setEnabled(false);
+		inputMenuItem.setEnabled(false);
+		outputMenuItem.setEnabled(false);
+		forMenuItem.setEnabled(false);
+		whileMenuItem.setEnabled(false);
+		exportMenuItem.setEnabled(false);
+		compileMenuItem.setEnabled(false);
+		resetDiagramMenuItem.setEnabled(false);
+		stepByStepMenuItem.setEnabled(false);
+	} else {
+		decisionMenuItem.setEnabled(true);
+		sentenceMenuItem.setEnabled(true);
+		inputMenuItem.setEnabled(true);
+		outputMenuItem.setEnabled(true);
+		forMenuItem.setEnabled(true);
+		whileMenuItem.setEnabled(true);
+		exportMenuItem.setEnabled(true);
+		compileMenuItem.setEnabled(true);
+		resetDiagramMenuItem.setEnabled(true);
+		stepByStepMenuItem.setEnabled(true);
+	}
+    }
+    public void disableAll(boolean disable) {
+	decisionMenuItem.setEnabled(disable);
+	sentenceMenuItem.setEnabled(disable);
+	inputMenuItem.setEnabled(disable);
+	outputMenuItem.setEnabled(disable);
+	forMenuItem.setEnabled(disable);
+	whileMenuItem.setEnabled(disable);
+	exportMenuItem.setEnabled(disable);
+	compileMenuItem.setEnabled(disable);
+	resetDiagramMenuItem.setEnabled(disable);
+	stepByStepMenuItem.setEnabled(disable);
+	saveAsMenuItem.setEnabled(disable);
+	buildCodeMenuItem.setEnabled(disable);
     }
 }

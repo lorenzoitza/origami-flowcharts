@@ -59,7 +59,7 @@ public class MainWindow {
 
     private static Componentes _components;
 
-    public static CustomeMenu menu;
+    public static CustomMenu menu;
     
     public void disableCursor() {
 	_diagrams.getHoja().getChart().disableCursor(
@@ -93,9 +93,9 @@ public class MainWindow {
     }
 
     private void initWindow() {
-	menu = new CustomeMenu(shell, display, this, _selectionAdministrator);
+	menu = new CustomMenu(shell, display, this, _selectionAdministrator);
 	
-	setComponents(new Componentes());
+	setComponents(new Componentes(this));
 	getComponents().agregarComponentes(_selectionAdministrator);
 	getComponents().setDiagrama(_diagrams);
 	shell.setText("Origami");
