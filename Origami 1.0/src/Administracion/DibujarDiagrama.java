@@ -51,8 +51,8 @@ public class DibujarDiagrama extends Figure{
 			}
 			public void mousePressed(MouseEvent arg0) {
 				tab.getTabFolder().forceFocus();
-				if(MainWindow.getComponentes().hide){
-					if(MainWindow.getComponentes().hide){
+				if(MainWindow.getComponentes().console.hide){
+					if(MainWindow.getComponentes().console.hide){
 						if(MainWindow.menu.consoleMenuItem.getSelection()){
 							MainWindow.getComponentes().moverConsola(false);
 							MainWindow.menu.consoleMenuItem.setSelection(false);
