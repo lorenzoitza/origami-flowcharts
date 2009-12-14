@@ -34,8 +34,6 @@ public class BuildCCodeAction implements SelectionListener{
 	Instruccion instructionCode = new Instruccion();
 	instructionCode.main(diagrams.getHoja().getDiagrama());
 	instructionCode.createWindow(mainWindow.display);
-			
-	
     }
 
 }
