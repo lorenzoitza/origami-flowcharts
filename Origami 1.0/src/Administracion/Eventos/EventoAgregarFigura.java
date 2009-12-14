@@ -22,9 +22,8 @@ import Grafico.Figuras.Elipse;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-
 public class EventoAgregarFigura{
-	private Point start;
+    	private Point start;
 	public boolean bandera=false;
 	public final Cursor[] cursor = new Cursor[1];
 	public int cursorPrincipal = SWT.CURSOR_ARROW;
