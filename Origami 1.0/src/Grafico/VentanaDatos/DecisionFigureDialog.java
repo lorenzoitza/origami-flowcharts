@@ -3,6 +3,7 @@ package Grafico.VentanaDatos;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.*;
+import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.DecisionFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
@@ -29,38 +30,13 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 
     @Override
     protected void validate(boolean band) {
-	boolean isChanged = false;
-
-	InstruccionSimple code = new InstruccionSimple();
-
 	if (band) {
 	    if (conditionTextField.getText() != "") {
 
 		String instructionCode =
 			"if(" + conditionTextField.getText() + "){";
 
-		code.setInstruccionSimple(instructionCode);
-
-		if (abstractFigure.instruction.instruccion.size() > 0) {
-
-		    if (!abstractFigure.instruction.instruccion.elementAt(0).
-			    instruccion.equals(instructionCode)) {
-
-			tabbedPaneSelected.getTabItem().getSave().setSave(false);
-			tabbedPaneSelected.getTabItem().getInfo().setInformacion(
-						"/M - Se agrego"
-						+ " o modifico una "
-						+ "instruccion en una figura de tipo \"si\"\n");
-			isChanged = true;
-		    }
-		}
-		abstractFigure.instruction.instruccion.add(0, code);
-		tabbedPaneSelected.getHoja().addFigure();
-		tabbedPaneSelected.getHoja().guardarRetroceso();
-		if (isChanged) {
-		    tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			    tabbedPaneSelected.getHoja().getDiagrama());
-		}
+		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"si");
 	    }
 	}
     }

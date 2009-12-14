@@ -42,8 +42,7 @@ public class CustomToolBar {
 	toolItem[0] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[0].setImage(ImageLoader.getImage("nuevo.png"));
 	toolItem[0].setToolTipText("Nuevo");
-	toolItem[0].addSelectionListener(new NewDiagramAction(MainWindow._diagrams,
-		MainWindow.getComponents()));
+	toolItem[0].addSelectionListener(new NewDiagramAction());
 
 	
 	toolItem[1] = new ToolItem(toolbar, SWT.PUSH);

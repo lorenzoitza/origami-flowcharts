@@ -140,8 +140,7 @@ public class CustomMenu {
 		.addSelectionListener(new SaveDiagramAction(MainWindow._diagrams, mainWindow));
 	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(MainWindow._diagrams,
 		mainWindow));
-	newDiagramMenuItem.addSelectionListener(new NewDiagramAction(MainWindow._diagrams,
-		mainWindow.getComponents()));
+	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
 	exportToCMenuItem.addSelectionListener(new ExportToCAction(MainWindow._diagrams,
 		mainWindow));
 	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(

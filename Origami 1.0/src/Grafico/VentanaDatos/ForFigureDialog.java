@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.ForFigure;
 
 public class ForFigureDialog extends AbstractDialog<ForFigure> {
@@ -52,8 +53,6 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 
     @Override
     protected void validate(boolean band) {
-	InstruccionSimple forInstrution = new InstruccionSimple();
-
 	String instructionCode = "";
 
 	boolean cambio = false;
@@ -66,30 +65,8 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 		instructionCode += ";" + conditionExpressionTextField.getText();
 		instructionCode += ";" + counterExpressionTextField.getText();
 		instructionCode += "){";
-		forInstrution.setInstruccionSimple(instructionCode);
-		if (abstractFigure.instruction.instruccion.size() > 0) {
-
-		    if (!abstractFigure.instruction.instruccion.elementAt(0).
-			    instruccion.equals(instructionCode)) {
-
-			tabbedPaneSelected.getTabItem().getSave()
-				.setSave(false);
-			tabbedPaneSelected
-				.getTabItem()
-				.getInfo()
-				.setInformacion(
-					"/M Se agrego o modifico una instruccion"
-						+ "en una figura de tipo \"para\"\n");
-			cambio = true;
-		    }
-		}
-		abstractFigure.instruction.instruccion.add(0, forInstrution);
-		tabbedPaneSelected.getHoja().addFigure();
-		tabbedPaneSelected.getHoja().guardarRetroceso();
-		if (cambio) {
-		    tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			    tabbedPaneSelected.getHoja().getDiagrama());
-		}
+		
+		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"para");
 	    }
 	}
     }

@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
+import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.SentenceFigure;
 
 public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
@@ -24,8 +25,6 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 
     @Override
     public void validate(boolean band) {
-	boolean isChanged = false;
-
 	if (band) {
 
 	    if (variableTextField.getText() != ""
@@ -34,25 +33,9 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 		String code =
 			variableTextField.getText() + " = "
 				+ dataTextField.getText() + ";";
-
-		if (!abstractFigure.instruccion.instruccion.equals(code)) {
-
-		    tabbedPaneSelected.getTabItem().getSave().setSave(false);
-		    tabbedPaneSelected.getTabItem().getInfo().setInformacion(
-			    "/M - Se agrego " + "o modifico una "
-				    + "instruccion en una figura de tipo "
-				    + "\"proceso\"\n");
-		    isChanged = true;
-		    abstractFigure.instruccion.setInstruccionSimple(code);
-		}
-		abstractFigure.instruccion.setInstruccionSimple(code);
-		tabbedPaneSelected.getHoja().addFigure();
-		tabbedPaneSelected.getHoja().guardarRetroceso();
-
-		if (isChanged) {
-		    tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			    tabbedPaneSelected.getHoja().getDiagrama());
-		}
+		
+		new ValidateDialog().validate(code, tabbedPaneSelected, abstractFigure,"si");
+		
 	    }
 	}
     }

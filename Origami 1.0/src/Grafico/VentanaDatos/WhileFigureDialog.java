@@ -5,6 +5,7 @@ import org.eclipse.swt.widgets.*;
 import Administracion.*;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.WhileFigure;
 
 public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
@@ -20,39 +21,13 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
     @Override
     public void validate(boolean band) {
-	boolean isChanged = false;
-
 	if (band) {
 	    if (conditionTextField.getText() != "") {
-		InstruccionSimple whileInstruction = new InstruccionSimple();
-
+		
 		String instructionCode =
 			"while(" + conditionTextField.getText() + "){";
 
-		whileInstruction.setInstruccionSimple(instructionCode);
-		if (abstractFigure.instruccion.instruccion.size() > 0) {
-
-		    if (!abstractFigure.instruccion.instruccion.elementAt(0).
-			    instruccion.equals(instructionCode)) {
-
-			tabbedPaneSelected.getTabItem().getSave()
-				.setSave(false);
-			tabbedPaneSelected.getTabItem().getInfo()
-				.setInformacion(
-					"/M - Se agrego o modifico una "
-						+ "instruccion "
-						+ "en una figura de tipo "
-						+ "\"mientras\"\n");
-			isChanged = true;
-		    }
-		}
-		abstractFigure.instruccion.instruccion.add(0, whileInstruction);
-		tabbedPaneSelected.getHoja().addFigure();
-		tabbedPaneSelected.getHoja().guardarRetroceso();
-		if (isChanged) {
-		    tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			    tabbedPaneSelected.getHoja().getDiagrama());
-		}
+		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"si");
 	    }
 	}
     }
