@@ -50,15 +50,15 @@ public class Figura extends Figure implements Serializable {
 	addMouseListener(new MouseListener() {
 
 	    public void mouseDoubleClicked(MouseEvent arg0) {
-		MainWindow._diagrams.getTabFolder().forceFocus();
+		MainWindow.getComponents()._diagrams.getTabFolder().forceFocus();
 	    }
 
 	    public void mousePressed(MouseEvent arg0) {
-		MainWindow._diagrams.getTabFolder().forceFocus();
+		MainWindow.getComponents()._diagrams.getTabFolder().forceFocus();
 	    }
 
 	    public void mouseReleased(MouseEvent arg0) {
-		MainWindow._diagrams.getTabFolder().forceFocus();
+		MainWindow.getComponents()._diagrams.getTabFolder().forceFocus();
 	    }
 	});
     }
