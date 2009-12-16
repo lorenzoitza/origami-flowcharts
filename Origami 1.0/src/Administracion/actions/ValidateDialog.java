@@ -10,7 +10,6 @@ import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.SentenceFigure;
 import Grafico.Figuras.WhileFigure;
 
-
 public class ValidateDialog {
     
     public void validate(String instructionCode,TabFolder tabbedPaneSelected, DecisionFigure abstractFigure,
