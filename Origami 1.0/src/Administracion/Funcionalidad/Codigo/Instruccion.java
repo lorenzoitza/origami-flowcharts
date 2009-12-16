@@ -122,7 +122,7 @@ public class Instruccion implements Serializable {
 				dialog.setFilterExtensions(new String[] { "*.c" });
 				String archivo = dialog.open();
 				if (archivo != null) {
-					Exporter expor = new Exporter(MainWindow._diagrams);
+					Exporter expor = new Exporter(MainWindow.getComponents()._diagrams);
 					expor.codeCExport(archivo);
 				}
 			}
@@ -139,7 +139,7 @@ public class Instruccion implements Serializable {
 				dialog.setFilterExtensions(new String[] { "*.cpp" });
 				String archivo = dialog.open();
 				if (archivo != null) {
-					Exporter expor = new Exporter(MainWindow._diagrams);
+					Exporter expor = new Exporter(MainWindow.getComponents()._diagrams);
 					expor.codeCppExport(archivo);
 				}
 			}
@@ -157,7 +157,7 @@ public class Instruccion implements Serializable {
 				if (archivo != null) {
 					String nombre = dialog.getFileName();
 					nombre = nombre.substring(0, nombre.indexOf("."));
-					Exporter expor = new Exporter(MainWindow._diagrams);
+					Exporter expor = new Exporter(MainWindow.getComponents()._diagrams);
 					expor.executeFileExport(archivo, nombre);
 				}
 			}
