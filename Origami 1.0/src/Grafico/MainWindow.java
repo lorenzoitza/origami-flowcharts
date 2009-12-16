@@ -26,7 +26,7 @@ import Imagenes.ImageLoader;
  * componentes.
  * 
  * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez benjamin chuy
+ * @author Juan Ku, Victor Rodriguez
  */
 public class MainWindow {
 
@@ -51,7 +51,7 @@ public class MainWindow {
 								 // a
     public static boolean isCut = false;
     
-    public static TabFolder _diagrams;
+//    public static TabFolder _diagrams;
 
     public static KeyEvent _keyEvent;
 
@@ -61,11 +61,7 @@ public class MainWindow {
 
     public static CustomMenu menu;
     
-    public void disableCursor() {
-	_diagrams.getHoja().getChart().disableCursor(
-		_diagrams.getHoja().getDiagrama(),
-		_diagrams.getHoja().getChart());
-    }
+
 
     public static Componentes getComponentes() {
 	return getComponents();
@@ -75,13 +71,6 @@ public class MainWindow {
 	InputStream iconStream = this.getClass().getResourceAsStream("");
 	Image image = new Image(display, iconStream);
     }
-
-    /**
-     * Este metodo crea la ventana de inicio.
-     * 
-     * @param args
-     * @throws OrigamiException
-     */
 
     public MainWindow() {
 	initWindow();
@@ -93,15 +82,17 @@ public class MainWindow {
     }
 
     private void initWindow() {
-	menu = new CustomMenu(shell, display, this, _selectionAdministrator);
+	menu = new CustomMenu(shell, this);
 	
+//	_diagrams = new TabFolder(MainWindow.display, _selectionAdministrator);
 	setComponents(new Componentes(this));
+	
 	getComponents().agregarComponentes(_selectionAdministrator);
-	getComponents().setDiagrama(_diagrams);
+	getComponents().setDiagrama(getComponents()._diagrams);
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new WindowEvent(_diagrams, getComponents()));
+	shell.addShellListener(new WindowEvent(getComponents()._diagrams, getComponents()));
 	shell.setMenuBar(menu.mainMenu);
 	shell.setLayout(getComponents().layout);
 	shell.pack();
@@ -115,17 +106,17 @@ public class MainWindow {
 		Grafico.MainWindow.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		_diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
+		getComponents()._diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
 		if (oldCursor != null) {
 		    oldCursor.dispose();
 		}
-		if (_diagrams.getItemCount() != 0) {
-		    _diagrams.getHoja().addFigure();
+		if (getComponents()._diagrams.getItemCount() != 0) {
+		    getComponents()._diagrams.getHoja().addFigure();
 		}
 	    }
 	});
 
-	_keyEvent = new KeyEvent(_selectionAdministrator, _diagrams);
+	_keyEvent = new KeyEvent(_selectionAdministrator, getComponents()._diagrams);
 
     }
 
@@ -141,32 +132,18 @@ public class MainWindow {
 	return shell;
     }
 
-    /**
-     * @param serializer
-     *            the serializer to set
-     */
     public static void setSerializer(DiagramFileManager serializer) {
 	_serializer = serializer;
     }
 
-    /**
-     * @return the serializer
-     */
     public static DiagramFileManager getSerializer() {
 	return _serializer;
     }
 
-    /**
-     * @param components
-     *            the components to set
-     */
     public static void setComponents(Componentes components) {
 	_components = components;
     }
 
-    /**
-     * @return the components
-     */
     public static Componentes getComponents() {
 	return _components;
     }
@@ -180,7 +157,7 @@ public class MainWindow {
 
 	    while (!shell.isDisposed() && bandera <= 15) {
 		while (!display.readAndDispatch()) {
-		    _diagrams.getHoja().resetScrollBar();
+		    getComponents()._diagrams.getHoja().resetScrollBar();
 		    bandera++;
 		}
 	    }

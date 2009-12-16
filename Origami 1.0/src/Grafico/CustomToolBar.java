@@ -48,14 +48,14 @@ public class CustomToolBar {
 	toolItem[1] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[1].setImage(ImageLoader.getImage("abrir.png"));
 	toolItem[1].setToolTipText("Abrir");
-	toolItem[1].addSelectionListener(new OpenDiagramAction(MainWindow._diagrams, mainWindow));
+	toolItem[1].addSelectionListener(new OpenDiagramAction());
 
 	
 	
 	toolItem[2] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[2].setImage(ImageLoader.getImage("save.png"));
 	toolItem[2].setToolTipText("Guardar");
-	toolItem[2].addSelectionListener(new SaveDiagramAction(MainWindow._diagrams, mainWindow));
+	toolItem[2].addSelectionListener(new SaveDiagramAction(mainWindow));
 	
 	new ToolItem(toolbar, SWT.SEPARATOR);
 
@@ -157,12 +157,12 @@ public class CustomToolBar {
 	toolItem[10] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[10].setImage(ImageLoader.getImage("run.png"));
 	toolItem[10].setToolTipText("Compilar/Ejecutar");
-	toolItem[10].addSelectionListener(new CompileAction(MainWindow._diagrams, mainWindow));
+	toolItem[10].addSelectionListener(new CompileAction());
 	
 	toolItem[11] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[11].setImage(ImageLoader.getImage("check.png"));
 	toolItem[11].setToolTipText("Paso A Paso");
-	toolItem[11].addSelectionListener(new StepByStepAction(MainWindow._diagrams, mainWindow));
+	toolItem[11].addSelectionListener(new StepByStepAction(mainWindow));
 
 	
 	
@@ -196,23 +196,20 @@ public class CustomToolBar {
 	toolItem[14] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[14].setImage(ImageLoader.getImage("exportV.png"));
 	toolItem[14].setToolTipText("Exportar a C");
-	toolItem[14].addSelectionListener(new ExportToCAction(MainWindow._diagrams,
-		mainWindow));
+	toolItem[14].addSelectionListener(new ExportToCAction(mainWindow));
 	
 	
 	
 	toolItem[15] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[15].setImage(ImageLoader.getImage("cpp.png"));
 	toolItem[15].setToolTipText("Exportar a C++");
-	toolItem[15].addSelectionListener(new ExportToCPPAction(
-		MainWindow._diagrams, mainWindow));
+	toolItem[15].addSelectionListener(new ExportToCPPAction(mainWindow));
 	
 	
 	toolItem[16] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[16].setImage(ImageLoader.getImage("exportExe.png"));
 	toolItem[16].setToolTipText("Exportar a .exe");
-	toolItem[16].addSelectionListener(new ExportToEXEAction(
-		MainWindow._diagrams, mainWindow));
+	toolItem[16].addSelectionListener(new ExportToEXEAction(mainWindow));
 	new ToolItem(toolbar, SWT.SEPARATOR);
 
 	

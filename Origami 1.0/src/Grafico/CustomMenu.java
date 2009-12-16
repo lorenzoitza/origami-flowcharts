@@ -3,8 +3,6 @@ package Grafico;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -34,14 +32,7 @@ import ui.actions.ViewFiguresBarAction;
 import ui.actions.ViewHelpContentsAction;
 import ui.actions.ViewTabsAction;
 import ui.actions.ViewToolbarAction;
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
 import Administracion.Eventos.EventoMenuContextual;
-import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.Codigo.Instruccion;
-import Grafico.Figuras.CircleFigure;
-import Grafico.Help.AboutWindow;
-import Grafico.Help.HelpWindow;
 
 
 public class CustomMenu {
@@ -81,18 +72,12 @@ public class CustomMenu {
     
     private Shell _shell;
     
-    private Display _display;
-    
     private MainWindow mainWindow;
     
-    public static AdminSeleccion _selectionAdministrator;
-    
-    public CustomMenu(Shell shell, Display display,MainWindow mainWindow, AdminSeleccion _selectionAdministrator ){
+    public CustomMenu(Shell shell, MainWindow mainWindow){
 	_shell = shell;
-	_display = display;
 	mainMenu = new Menu(_shell, SWT.BAR);
 	this.mainWindow = mainWindow;
-	this._selectionAdministrator = _selectionAdministrator;
     }
 
     public void createMenu(){
@@ -135,20 +120,15 @@ public class CustomMenu {
 	exitMenuItem.setText("Salir                            Alt+F4");
 
 	openMenuItem
-		.addSelectionListener(new OpenDiagramAction(MainWindow._diagrams, mainWindow));
+		.addSelectionListener(new OpenDiagramAction());
 	saveMenuItem
-		.addSelectionListener(new SaveDiagramAction(MainWindow._diagrams, mainWindow));
-	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(MainWindow._diagrams,
-		mainWindow));
+		.addSelectionListener(new SaveDiagramAction(mainWindow));
+	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(mainWindow));
 	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
-	exportToCMenuItem.addSelectionListener(new ExportToCAction(MainWindow._diagrams,
-		mainWindow));
-	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(
-		MainWindow._diagrams, mainWindow));
-	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction(
-		MainWindow._diagrams, mainWindow));
-	exportToImageMenuItem.addSelectionListener(new ExportToImageAction(
-		MainWindow._diagrams, mainWindow));
+	exportToCMenuItem.addSelectionListener(new ExportToCAction(mainWindow));
+	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(mainWindow));
+	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction(mainWindow));
+	exportToImageMenuItem.addSelectionListener(new ExportToImageAction(mainWindow));
 	exitMenuItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent e) {
@@ -185,14 +165,14 @@ public class CustomMenu {
 	outputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	outputMenuItem.setText("Salida   ");
 
-	inputMenuItem.addSelectionListener(new AddInputFigureAction(mainWindow));
+	inputMenuItem.addSelectionListener(new AddInputFigureAction());
 	decisionMenuItem
-		.addSelectionListener(new AddDecisionFigureAction(mainWindow));
+		.addSelectionListener(new AddDecisionFigureAction());
 	sentenceMenuItem
-		.addSelectionListener(new AddSentenceFigureAction(mainWindow));
-	outputMenuItem.addSelectionListener(new AddOutputFigureAction(mainWindow));
-	forMenuItem.addSelectionListener(new AddForFigureAction(mainWindow));
-	whileMenuItem.addSelectionListener(new AddWhileFigureAction(mainWindow));
+		.addSelectionListener(new AddSentenceFigureAction());
+	outputMenuItem.addSelectionListener(new AddOutputFigureAction());
+	forMenuItem.addSelectionListener(new AddForFigureAction());
+	whileMenuItem.addSelectionListener(new AddWhileFigureAction());
 
     }
 
@@ -213,11 +193,11 @@ public class CustomMenu {
 	consoleMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	consoleMenuItem.setText(" Consola     ");
 
-	toolbarMenuItem.addSelectionListener(new ViewToolbarAction(mainWindow));
+	toolbarMenuItem.addSelectionListener(new ViewToolbarAction());
 	
-	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarAction(mainWindow));
+	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarAction());
 	
-	tabsMenuItem.addSelectionListener(new ViewTabsAction(mainWindow));
+	tabsMenuItem.addSelectionListener(new ViewTabsAction());
 	
 	consoleMenuItem.addSelectionListener(new ViewConsoleAction(mainWindow));
     }
@@ -237,12 +217,12 @@ public class CustomMenu {
 	optionsMenuItem.setMenu(optionsMenu);
 
 	stepByStepMenuItem
-	.addSelectionListener(new StepByStepAction(MainWindow._diagrams, mainWindow));
+	.addSelectionListener(new StepByStepAction(mainWindow));
 
-	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction(mainWindow._diagrams, mainWindow));
-	compileMenuItem.addSelectionListener(new CompileAction(mainWindow._diagrams, mainWindow));
+	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction(mainWindow));
+	compileMenuItem.addSelectionListener(new CompileAction());
 
-	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction(mainWindow._diagrams, mainWindow));
+	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction(mainWindow));
 
     }
 
@@ -258,7 +238,7 @@ public class CustomMenu {
 	
 	MenuItem examplesMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	examplesMenuItem.setText("Ejemplos");
-	examplesMenuItem.addSelectionListener(new ViewExamplesAction(mainWindow._diagrams,mainWindow));
+	examplesMenuItem.addSelectionListener(new ViewExamplesAction(mainWindow));
 
 	
 	new MenuItem(helpMenu, SWT.SEPARATOR);
@@ -273,27 +253,27 @@ public class CustomMenu {
     }
     public void disablePasoAPaso(boolean disable) {
 	if (disable) {
-		decisionMenuItem.setEnabled(false);
-		sentenceMenuItem.setEnabled(false);
-		inputMenuItem.setEnabled(false);
-		outputMenuItem.setEnabled(false);
-		forMenuItem.setEnabled(false);
-		whileMenuItem.setEnabled(false);
-		exportMenuItem.setEnabled(false);
-		compileMenuItem.setEnabled(false);
-		resetDiagramMenuItem.setEnabled(false);
-		stepByStepMenuItem.setEnabled(false);
+	    decisionMenuItem.setEnabled(false);
+	    sentenceMenuItem.setEnabled(false);
+	    inputMenuItem.setEnabled(false);
+	    outputMenuItem.setEnabled(false);
+	    forMenuItem.setEnabled(false);
+	    whileMenuItem.setEnabled(false);
+	    exportMenuItem.setEnabled(false);
+	    compileMenuItem.setEnabled(false);
+	    resetDiagramMenuItem.setEnabled(false);
+	    stepByStepMenuItem.setEnabled(false);
 	} else {
-		decisionMenuItem.setEnabled(true);
-		sentenceMenuItem.setEnabled(true);
-		inputMenuItem.setEnabled(true);
-		outputMenuItem.setEnabled(true);
-		forMenuItem.setEnabled(true);
-		whileMenuItem.setEnabled(true);
-		exportMenuItem.setEnabled(true);
-		compileMenuItem.setEnabled(true);
-		resetDiagramMenuItem.setEnabled(true);
-		stepByStepMenuItem.setEnabled(true);
+	    decisionMenuItem.setEnabled(true);
+	    sentenceMenuItem.setEnabled(true);
+	    inputMenuItem.setEnabled(true);
+	    outputMenuItem.setEnabled(true);
+	    forMenuItem.setEnabled(true);
+	    whileMenuItem.setEnabled(true);
+	    exportMenuItem.setEnabled(true);
+	    compileMenuItem.setEnabled(true);
+	    resetDiagramMenuItem.setEnabled(true);
+	    stepByStepMenuItem.setEnabled(true);
 	}
     }
     public void disableAll(boolean disable) {

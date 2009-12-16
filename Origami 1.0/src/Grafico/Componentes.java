@@ -23,70 +23,73 @@ import Administracion.Funcionalidad.PasoAPaso;
  * @author Juan Ku, Victor Rodriguez
  */
 public class Componentes {
+    public static TabFolder _diagrams;
+    
+    public CustomToolBar barraHerramientas;
+    public CustomFiguresToolBar barraFiguras;
 	
-	public CustomToolBar barraHerramientas;
-	public CustomFiguresToolBar barraFiguras;
 	
-	
-	private final GridData toolData = new GridData(SWT.FILL, SWT.FILL, true,
+    private final GridData toolData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
-	private final GridData tabData = new GridData(SWT.FILL, SWT.FILL, true,
+    private final GridData tabData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
-	private final GridData figurasData = new GridData(SWT.FILL, SWT.FILL,
+    private final GridData figurasData = new GridData(SWT.FILL, SWT.FILL,
 			false, true, 1, 1);
-	public final GridData diagramaData = new GridData(SWT.FILL, SWT.FILL, true,
+    public final GridData diagramaData = new GridData(SWT.FILL, SWT.FILL, true,
 			true, 1, 1);
-	public final GridData consolaData = new GridData(SWT.FILL, SWT.FILL, false,
+    public final GridData consolaData = new GridData(SWT.FILL, SWT.FILL, false,
 			false, 2, 1);
-	private boolean boolTool = true;
-	private boolean boolPestaas = true;
-	private boolean boolFiguras = true;
-	private boolean consolaMax = false;
-	public final GridLayout layout = new GridLayout(2, false);
-	final GridLayout layout2 = new GridLayout(1, false);
+    private boolean boolTool = true;
+    private boolean boolPestaas = true;
+    private boolean boolFiguras = true;
+    private boolean consolaMax = false;
+    public final GridLayout layout = new GridLayout(2, false);
+    final GridLayout layout2 = new GridLayout(1, false);
 	
 	
 	
-	public TabFolder diagramas;
-	public DiagramFileManager ser = new DiagramFileManager();
-	public final Cursor[] cursor = new Cursor[1];
+    public TabFolder diagramas;
+    public DiagramFileManager ser = new DiagramFileManager();
+    public final Cursor[] cursor = new Cursor[1];
 	
 	
-	public Ejecutar eje;
-	public PasoAPaso paso;
-	private boolean enEjecucion = false;
+    public Ejecutar eje;
+    public PasoAPaso paso;
+    private boolean enEjecucion = false;
 	
-	public boolean seleccion;
-	public boolean isPasoAPaso = false;
+    public boolean seleccion;
+    public boolean isPasoAPaso = false;
+    public CustomConsole console;
 	
-	public CustomConsole console;
-	
-	public MainWindow mainWindow;
+    public MainWindow mainWindow;
 
-	public Componentes(MainWindow mainWindow) {
-	    this.mainWindow = mainWindow;
-	}
+    public Componentes(MainWindow mainWindow) {
+	this.mainWindow = mainWindow;
+    }
 
-	public void agregarComponentes(AdminSeleccion selec) {
+    public void agregarComponentes(AdminSeleccion selec) {
+//	    agregarBarraFiguras();
 		layout.horizontalSpacing = layout.verticalSpacing = 0;
 		layout.marginWidth = layout.marginHeight = 0;
 		layout.numColumns = 2;
+		
 		agregarBarraDeHerramientas();
 		agregarTabFolder(selec);
 		
 		
+		
 		console = new CustomConsole();
 		console.agregarConsola(consolaData);
-	}
+    }
 
-	private void agregarBarraDeHerramientas() {
-	    barraHerramientas= new CustomToolBar(toolData,mainWindow);
-	}
+    private void agregarBarraDeHerramientas() {
+	barraHerramientas= new CustomToolBar(toolData,mainWindow);
+    }
 
 	private void agregarTabFolder(AdminSeleccion selec) {
-		MainWindow._diagrams = new TabFolder(MainWindow.display, selec);
+		_diagrams = new TabFolder(MainWindow.display, selec);
 		tabData.heightHint = 0;
-		MainWindow._diagrams.getTabFolder().setLayoutData(tabData);
+		_diagrams.getTabFolder().setLayoutData(tabData);
 	}
 
 	public void agregarBarraFiguras() {
@@ -110,7 +113,7 @@ public class Componentes {
 		if (!consolaMax) {
 			if (!seleccion) {
 				tabData.exclude = true;
-				MainWindow._diagrams.getTabFolder().setBounds(0, 0, 0, 0);
+				_diagrams.getTabFolder().setBounds(0, 0, 0, 0);
 			} else {
 				tabData.exclude = false;
 			}
@@ -194,7 +197,7 @@ public class Componentes {
 			toolData.exclude = true;
 			barraHerramientas.barraHerramientas.setBounds(0, 0, 0, 0);
 			tabData.exclude = true;
-			MainWindow._diagrams.getTabFolder().setBounds(0, 0, 0, 0);
+			_diagrams.getTabFolder().setBounds(0, 0, 0, 0);
 			figurasData.exclude = true;
 			barraFiguras.barraFiguras.setBounds(0, 0, 0, 0);
 			diagramaData.exclude = true;
@@ -324,11 +327,10 @@ public class Componentes {
 			}
 		}
 	}
-
 	public void disableCursor() {
-		MainWindow._diagrams.getHoja().getChart().disableCursor(
-				MainWindow._diagrams.getHoja().getDiagrama(),
-				MainWindow._diagrams.getHoja().getChart());
+		_diagrams.getHoja().getChart().disableCursor(
+		_diagrams.getHoja().getDiagrama(),
+		_diagrams.getHoja().getChart());
 	}
 
 	public void ejecucionDisable() {
@@ -388,7 +390,7 @@ public class Componentes {
 				ejecucionDisable();
 				disablePasoAPaso(false);
 			} else {
-				paso = new PasoAPaso(MainWindow._diagrams,
+				paso = new PasoAPaso(_diagrams,
 						MainWindow._selectionAdministrator);
 				paso.ejecutar(this, "gdb", codigo);
 				paso.main();

@@ -10,7 +10,6 @@ import ui.events.KeyEvent;
 
 import Administracion.*;
 import Administracion.TabFolder;
-import Administracion.Eventos.*;
 
 public abstract class AbstractDialog<Figure> {
 
@@ -64,16 +63,16 @@ public abstract class AbstractDialog<Figure> {
     
     private void initAcceptButton(){
     	acceptButton = new Button(dialog, SWT.FLAT);
-		acceptButton.setBounds(25, 85, 75, 25);
-		acceptButton.setText("ACEPTAR");
-		addSelectionListener(acceptButton, true);
+	acceptButton.setBounds(25, 85, 75, 25);
+	acceptButton.setText("ACEPTAR");
+	addSelectionListener(acceptButton, true);
     }
     
     private void initCancelButton(){
     	cancelButton = new Button(dialog, SWT.FLAT);
-		cancelButton.setBounds(135, 85, 75, 25);
-		cancelButton.setText("CANCELAR");
-		addSelectionListener(cancelButton, false);
+	cancelButton.setBounds(135, 85, 75, 25);
+	cancelButton.setText("CANCELAR");
+	addSelectionListener(cancelButton, false);
     }
 
     protected abstract void create();
@@ -90,9 +89,9 @@ public abstract class AbstractDialog<Figure> {
     }
 
     protected void initComponents() {
-		initLabels();
-		initTextFields();
-		initButtons();
+	initLabels();
+	initTextFields();
+	initButtons();
     }
     
     protected abstract void validate(boolean band);

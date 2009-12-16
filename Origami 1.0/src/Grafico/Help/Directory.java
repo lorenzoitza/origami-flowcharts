@@ -5,7 +5,9 @@ import org.eclipse.swt.widgets.*;
 
 public class Directory{
 	private TreeItem[] treeItems = new TreeItem[1];
+	
 	private int numSelectedItem;
+	
 	private HelpContents helpContent;
     
 	public Directory(HelpContents helpContent){
@@ -13,7 +15,7 @@ public class Directory{
 	}
 	
 	public void crearContenido(final Tree tree){
-		treeItems[0] = new TreeItem(tree, SWT.NULL);	
+	    treeItems[0] = new TreeItem(tree, SWT.NULL);	
 	    treeItems[0].setText("ORIGAMI");
 	    createSubTreeSimbols(tree,treeItems);
 	    createSubTreeCode(tree,treeItems);
@@ -29,11 +31,11 @@ public class Directory{
 		        String subItemText = itemText.substring(10);
 		        changeBrowserURL(subItemText);
 		    }
-		});
+	    });
 	}
 	
 	private void changeBrowserURL(String subItemText){
-		if(subItemText.compareTo("ORIGAMI} ") == 0){
+	    if(subItemText.compareTo("ORIGAMI} ") == 0){
 	    	helpContent.goHelpPage("Origami.html");
 	    	numSelectedItem = 0;
 	    }else if(subItemText.compareTo("Entrada/Salida} ") == 0){
