@@ -45,8 +45,8 @@ public class DoubleClickEvento  extends MouseListener.Stub{
 		if(figure instanceof SentenceFigure){
 			SentenceFigure setenceFigure = (SentenceFigure)figure;
 			
-			new SentenceFigureDialog(MainWindow.shell,tabFolder
-				,setenceFigure,selectionAdmin).open();
+			new SentenceFigureDialog(MainWindow.shell,MainWindow.getComponents()._diagrams
+				,setenceFigure,MainWindow._selectionAdministrator).open();
 		}
 		else if(figure instanceof DecisionFigure){
 			DecisionFigure decisionFigure = ((DecisionFigure)figure);

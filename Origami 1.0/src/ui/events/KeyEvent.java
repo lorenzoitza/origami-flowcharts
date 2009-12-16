@@ -165,7 +165,7 @@ public class KeyEvent {
 		break;
 	case 16777230:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			CodeCompiler codigo = new CodeCompiler(MainWindow._diagrams);
+			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
 			if(MainWindow.getComponents().getEnEjecucion()){
 				MainWindow.getComponents().stopEjecucion();
 			}
