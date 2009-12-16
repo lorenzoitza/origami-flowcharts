@@ -14,11 +14,9 @@ import Grafico.MainWindow;
 
 
 public class ExportToImageAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public ExportToImageAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public ExportToImageAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -69,8 +67,8 @@ public class ExportToImageAction implements SelectionListener{
 	    			case 64:
 	    				String nombre = dialog.getFileName();
 				    	nombre = nombre.substring(0,nombre.indexOf("."));
-				    	Exporter expor = new Exporter(diagrams);
-				    	expor.exportJPGFile(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());					    	
+				    	Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
+				    	expor.exportJPGFile(archivo,MainWindow.getComponentes()._diagrams.getHoja().getDiagrama(),MainWindow.getComponentes()._diagrams.getHoja().getConexion());					    	
 	    				break;
 	    			case 128:							
 	    				break;
@@ -79,8 +77,8 @@ public class ExportToImageAction implements SelectionListener{
 	    	else{
 	    		String nombre = dialog.getFileName();
 		    	nombre = nombre.substring(0,nombre.indexOf("."));
-		    	Exporter expor = new Exporter(diagrams);
-		    	expor.exportJPGFile(archivo,diagrams.getHoja().getDiagrama(),diagrams.getHoja().getConexion());
+		    	Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
+		    	expor.exportJPGFile(archivo,MainWindow.getComponentes()._diagrams.getHoja().getDiagrama(),MainWindow.getComponentes()._diagrams.getHoja().getConexion());
 	    	}
 		}
     }

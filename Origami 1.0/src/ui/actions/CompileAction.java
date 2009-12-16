@@ -1,29 +1,14 @@
 package ui.actions;
 
-import java.io.File;
-
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
 
-import Administracion.TabFolder;
 import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.Exporter;
-import Grafico.CustomMenu;
 import Grafico.MainWindow;
 
 
 public class CompileAction implements SelectionListener{
-    private TabFolder diagrams;
-    private MainWindow mainWindow;
     
-    public CompileAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
-	this.mainWindow = mainWindow;
-    }
-
     @Override
     public void widgetDefaultSelected(SelectionEvent arg0) {
 	// TODO Auto-generated method stub

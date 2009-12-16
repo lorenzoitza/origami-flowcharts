@@ -5,7 +5,6 @@ import org.eclipse.swt.events.SelectionListener;
 
 import Administracion.actions.NewDiagramLogic;
 
-
 public class NewDiagramAction implements SelectionListener{
    
     @Override

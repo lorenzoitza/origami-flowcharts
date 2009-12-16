@@ -14,11 +14,9 @@ import Grafico.MainWindow;
 
 
 public class ExportToEXEAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public ExportToEXEAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public ExportToEXEAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -69,7 +67,7 @@ public class ExportToEXEAction implements SelectionListener{
 			    			case 64:
 			    				 String nombre = dialog.getFileName();
 						    	 nombre = nombre.substring(0,nombre.indexOf("."));
-						    	 Exporter expor = new Exporter(diagrams);
+						    	 Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 						    	 expor.executeFileExport(archivo,nombre);						    	
 			    				break;
 			    			case 128:							
@@ -79,7 +77,7 @@ public class ExportToEXEAction implements SelectionListener{
 			    	else{
 			    		 String nombre = dialog.getFileName();
 				    	 nombre = nombre.substring(0,nombre.indexOf("."));
-				    	 Exporter expor = new Exporter(diagrams);
+				    	 Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 				    	 expor.executeFileExport(archivo,nombre);
 			    	}
 	    		}

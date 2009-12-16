@@ -14,11 +14,9 @@ import Grafico.MainWindow;
 
 
 public class ExportToCPPAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public ExportToCPPAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public ExportToCPPAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -67,7 +65,7 @@ public class ExportToCPPAction implements SelectionListener{
 			    		int seleccion = messageBox.open();
 			    		switch(seleccion){
 			    			case 64:
-			    				Exporter expor = new Exporter(diagrams);
+			    				Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 						    	expor.codeCppExport(archivo);						    	
 			    				break;
 			    			case 128:							
@@ -75,7 +73,7 @@ public class ExportToCPPAction implements SelectionListener{
 			    		}
 			    	}
 			    	else{
-			    		Exporter expor = new Exporter(diagrams);
+			    		Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 				    	expor.codeCppExport(archivo);
 			    	}
 	    		}

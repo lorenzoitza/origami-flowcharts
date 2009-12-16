@@ -14,11 +14,9 @@ import Grafico.MainWindow;
 
 
 public class SaveDiagramAsAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public SaveDiagramAsAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public SaveDiagramAsAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -31,11 +29,11 @@ public class SaveDiagramAsAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 				if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
-						&& diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+						&& MainWindow.getComponentes()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
 					MainWindow.getComponents().stopEjecucion();
 				}
 				else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-						&& diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+						&& MainWindow.getComponentes()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 					MainWindow.getComponents().stopEjecucion();
 				}
 				MainWindow.getComponentes().disablePasoAPaso(false);
@@ -77,11 +75,11 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    		switch(seleccion){
 				    			case 64:
 							    	mainWindow.getSerializer().setFile(archivo);
-							    	mainWindow.getSerializer().saveDiagram(diagrams);
+							    	mainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
 							    	archivo = dialog.getFileName();
 							    	int pos = archivo.indexOf('.');
 							    	String name = archivo.substring(0, pos);
-							    	diagrams.cambiarNombre(name);							    	
+							    	MainWindow.getComponentes()._diagrams.cambiarNombre(name);							    	
 				    				break;
 				    			case 128:							
 				    				break;
@@ -89,12 +87,12 @@ public class SaveDiagramAsAction implements SelectionListener{
 				    	}
 				    	else{
 				    	    mainWindow.getSerializer().setFile(archivo);
-					    	boolean error = mainWindow.getSerializer().saveDiagram(diagrams);
+					    	boolean error = mainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
 					    	if(error){
 					    		archivo = dialog.getFileName();
 					    		int pos = archivo.indexOf('.');
 						    	String name = archivo.substring(0, pos);
-						    	diagrams.cambiarNombre(name);
+						    	MainWindow.getComponentes()._diagrams.cambiarNombre(name);
 					    	}			    	
 				    	}
 		    		}

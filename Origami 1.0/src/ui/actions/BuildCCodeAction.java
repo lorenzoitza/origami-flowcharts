@@ -1,25 +1,16 @@
 package ui.actions;
 
-import java.io.File;
-
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
 
-import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exporter;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Grafico.MainWindow;
 
 
 public class BuildCCodeAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public BuildCCodeAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public BuildCCodeAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -32,7 +23,7 @@ public class BuildCCodeAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent event) {
 	Instruccion instructionCode = new Instruccion();
-	instructionCode.main(diagrams.getHoja().getDiagrama());
+	instructionCode.main(MainWindow.getComponentes()._diagrams.getHoja().getDiagrama());
 	instructionCode.createWindow(mainWindow.display);
     }
 

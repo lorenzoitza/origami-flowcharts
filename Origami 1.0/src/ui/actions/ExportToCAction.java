@@ -8,17 +8,14 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
-import Administracion.TabFolder;
 import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
 public class ExportToCAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public ExportToCAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public ExportToCAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -67,7 +64,7 @@ public class ExportToCAction implements SelectionListener{
 			    		int seleccion = messageBox.open();
 			    		switch(seleccion){
 			    			case 64:
-			    				 Exporter expor = new Exporter(diagrams);
+			    				 Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 						    	 expor.codeCExport(archivo);					    	
 			    				break;
 			    			case 128:							
@@ -75,7 +72,7 @@ public class ExportToCAction implements SelectionListener{
 			    		}
 			    	}
 			    	else{
-			    		 Exporter expor = new Exporter(diagrams);
+			    		 Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
 				    	 expor.codeCExport(archivo);
 			    	}
 	    		}

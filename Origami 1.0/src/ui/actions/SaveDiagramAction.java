@@ -8,17 +8,13 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
-import Administracion.TabFolder;
-import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
 
 public class SaveDiagramAction implements SelectionListener{
-    private TabFolder diagrams;
     private MainWindow mainWindow;
     
-    public SaveDiagramAction(TabFolder diagrams, MainWindow mainWindow ) {
-	this.diagrams = diagrams;
+    public SaveDiagramAction(MainWindow mainWindow ) {
 	this.mainWindow = mainWindow;
     }
 
@@ -30,7 +26,7 @@ public class SaveDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if(diagrams.getTabItem().getSave().getDir()=="null"){
+	if(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir()=="null"){
 		FileDialog dialog = new FileDialog(MainWindow.shell,SWT.SAVE);
 	    dialog.setFilterExtensions(new String[] { "*.Org"});
 	    String archivo = dialog.open();
@@ -69,13 +65,13 @@ public class SaveDiagramAction implements SelectionListener{
 		    		switch(seleccion){
 		    			case 64:
 					    	mainWindow.getSerializer().setFile(archivo);
-					    	diagrams.getTabItem().getSave().setDir(archivo);
-					    	mainWindow.getSerializer().saveDiagram(diagrams);
+					    	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setDir(archivo);
+					    	mainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
 					    	archivo = dialog.getFileName();
 					    	int pos = archivo.indexOf('.');
 					    	String name = archivo.substring(0, pos);
-					    	diagrams.getTabItem().getSave().setSave(true);
-					    	diagrams.cambiarNombre(name);
+					    	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
+					    	MainWindow.getComponentes()._diagrams.cambiarNombre(name);
 		    				break;
 		    			case 128:							
 		    				break;
@@ -83,23 +79,23 @@ public class SaveDiagramAction implements SelectionListener{
 		    	}
 		    	else{
 		    	mainWindow.getSerializer().setFile(archivo);
-			    	diagrams.getTabItem().getSave().setDir(archivo);
-			    	boolean error = mainWindow.getSerializer().saveDiagram(diagrams);
+		    	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setDir(archivo);
+			    	boolean error = mainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
 			    	if(error){
 			    		archivo = dialog.getFileName();
 			    		int pos = archivo.indexOf('.');
 				    	String name = archivo.substring(0, pos);
-				    	diagrams.getTabItem().getSave().setSave(true);
-				    	diagrams.cambiarNombre(name);
+				    	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
+				    	MainWindow.getComponentes()._diagrams.cambiarNombre(name);
 			    	}
 		    	}
 		}
 	    }
 	}
 	else{
-	    mainWindow.getSerializer().setFile(diagrams.getTabItem().getSave().getDir());
-	    mainWindow.getSerializer().saveDiagram(diagrams);
-	diagrams.getTabItem().getSave().setSave(true);
+	    mainWindow.getSerializer().setFile(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir());
+	    mainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
+	    MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
 	}
 	
     }
