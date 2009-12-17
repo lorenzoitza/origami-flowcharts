@@ -4,8 +4,8 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
 
+import Administracion.actions.AddFigureLogic;
 import Grafico.MainWindow;
-import Grafico.Figuras.InputFigure;
 import Imagenes.ImageLoader;
 
 public class AddInputFigureAction implements SelectionListener{
@@ -17,10 +17,7 @@ public class AddInputFigureAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent event) {
 	MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-	InputFigure inputFigure = new InputFigure();
-	inputFigure.instruction.instruccion = "null";
-	MainWindow.mainFigure = null;
-	MainWindow.mainFigure = inputFigure;
+	new AddFigureLogic().addInput();
 	MainWindow.getComponents().disableCursor();
     }
 
