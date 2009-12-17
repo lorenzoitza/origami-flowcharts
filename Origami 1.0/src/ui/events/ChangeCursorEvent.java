@@ -4,17 +4,10 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.graphics.Cursor;
 
-import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Eventos.EventoCambiarCursor;
 import Grafico.CustomMenu;
-import Grafico.MainWindow;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.WhileFigure;
 
 
 public class ChangeCursorEvent  extends MouseMotionListener.Stub implements MouseListener{

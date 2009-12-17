@@ -10,19 +10,13 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
-import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Codigo.Instruccion;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.actions.AddFigureLogic;
+import Administracion.actions.ContextualMenuActions;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
 import Grafico.Help.AboutWindow;
 import Grafico.Help.HelpWindow;
 import Imagenes.ImageLoader;
@@ -46,68 +40,44 @@ public class KeyEvent {
 	switch(key){
 	case 49:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
-		    InputFigure entrada2 = new InputFigure();
-		    InstruccionSimple codigo5 = new InstruccionSimple();
-		    codigo5.setInstruccionSimple("null");
-			entrada2.instruction.instruccion = "null";
-		    MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = entrada2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addInput();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 50:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
-		    SentenceFigure proceso2 = new SentenceFigure();
-		    InstruccionSimple codigo4 = new InstruccionSimple();
-		    codigo4.setInstruccionSimple("null");
-			proceso2.instruccion.instruccion = "null";
-		    MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = proceso2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addSentence();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 51:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
-		    DecisionFigure decision2 = new DecisionFigure();
-		    InstruccionSimple codigo = new InstruccionSimple();
-			codigo.setInstruccionSimple("null");
-			decision2.instruction.instruccion.add(0,codigo);
-			MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = decision2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addDecision();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 52:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
-		    WhileFigure While2 = new WhileFigure();
-		    InstruccionSimple codigo3 = new InstruccionSimple();
-			codigo3.setInstruccionSimple("null");
-			While2.instruccion.instruccion.add(0,codigo3);
-		    MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = While2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addWhile();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 53:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
-		    ForFigure For2 = new ForFigure();
-		    InstruccionSimple codigo2 = new InstruccionSimple();
-		    codigo2.setInstruccionSimple("null");
-		    For2.instruction.instruccion.add(0,codigo2);
-		    MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = For2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addFor();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 54:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-		MainWindow.getComponentes().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
-		    OutputFigure salida2 = new OutputFigure();
-		    InstruccionSimple codigo6 = new InstruccionSimple();
-			codigo6.setInstruccionSimple("null");
-			salida2.instruction.instruccion = "null";
-		    MainWindow.mainFigure = null;
-		    MainWindow.mainFigure = salida2;
+		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
+		    new AddFigureLogic().addOutput();
+		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 27:
@@ -129,7 +99,7 @@ public class KeyEvent {
 			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof CircleFigure){
 			}
 			else{
-				EventoMenuContextual.Eliminar(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()));
 			}
 		}
 		break;
@@ -311,7 +281,7 @@ public class KeyEvent {
 			if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
 			}
 			else{
-				EventoMenuContextual.Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
+			    new ContextualMenuActions().Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
@@ -321,7 +291,7 @@ public class KeyEvent {
 			if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
 			}
 			else{
-				EventoMenuContextual.Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
@@ -329,7 +299,7 @@ public class KeyEvent {
 	else if(key+key2 == 262262){
 		if(selec.getFiguraSeleccionada()!=-1){
 			if(MainWindow._diagramAdministrator.diagrama.size()>0){
-				EventoMenuContextual.Pegar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Pegar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
