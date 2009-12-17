@@ -17,8 +17,8 @@ import ui.actions.SaveDiagramAction;
 import ui.actions.StepByStepAction;
 import Administracion.Figura;
 import Administracion.TabItem;
-import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.Codigo.Manager;
+import Administracion.actions.ContextualMenuActions;
 import Imagenes.ImageLoader;
 
 
@@ -78,7 +78,7 @@ public class CustomToolBar {
 			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
 					MainWindow._selectionAdministrator
 							.getFiguraSeleccionada());
-			EventoMenuContextual.Cortar(fig);
+			new ContextualMenuActions().Cortar(fig);
 			MainWindow.getComponentes().toolBarDisable();
 		}
 	});
@@ -91,7 +91,7 @@ public class CustomToolBar {
 			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
 					MainWindow._selectionAdministrator
 							.getFiguraSeleccionada());
-			EventoMenuContextual.Copiar(fig);
+			new ContextualMenuActions().Copiar(fig);
 			MainWindow.getComponentes().toolBarDisable();
 		}
 	});
@@ -104,7 +104,7 @@ public class CustomToolBar {
 			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
 					MainWindow._selectionAdministrator
 							.getFiguraSeleccionada());
-			EventoMenuContextual.Pegar(fig);
+			new ContextualMenuActions().Pegar(fig);
 			MainWindow.getComponentes().toolBarDisable();
 		}
 	});
@@ -119,7 +119,7 @@ public class CustomToolBar {
 			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
 					MainWindow._selectionAdministrator
 							.getFiguraSeleccionada());
-			EventoMenuContextual.Eliminar(fig);
+			new ContextualMenuActions().Eliminar(fig);
 		}
 	});
 	new ToolItem(toolbar, SWT.SEPARATOR);

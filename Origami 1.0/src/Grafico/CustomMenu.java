@@ -32,7 +32,7 @@ import ui.actions.ViewFiguresBarAction;
 import ui.actions.ViewHelpContentsAction;
 import ui.actions.ViewTabsAction;
 import ui.actions.ViewToolbarAction;
-import Administracion.Eventos.EventoMenuContextual;
+import ui.events.ContextualMenuEvent;
 
 
 public class CustomMenu {
@@ -66,7 +66,7 @@ public class CustomMenu {
 
     public static MenuItem buildCodeMenuItem;
 
-    public static EventoMenuContextual _editMenu;
+    public static ContextualMenuEvent _editMenu;
     
     public static Menu mainMenu;
     
@@ -141,7 +141,7 @@ public class CustomMenu {
 	MenuItem editMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	editMenuItem.setText("Edicion ");
 	Menu editMenu = new Menu(_shell, SWT.DROP_DOWN);
-	_editMenu = new EventoMenuContextual();
+	_editMenu = new ContextualMenuEvent();
 	_editMenu.menu(editMenu);
 	editMenuItem.setMenu(editMenu);
 
@@ -166,12 +166,15 @@ public class CustomMenu {
 	outputMenuItem.setText("Salida   ");
 
 	inputMenuItem.addSelectionListener(new AddInputFigureAction());
-	decisionMenuItem
-		.addSelectionListener(new AddDecisionFigureAction());
-	sentenceMenuItem
-		.addSelectionListener(new AddSentenceFigureAction());
+	
+	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction());
+	
+	sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction());
+	
 	outputMenuItem.addSelectionListener(new AddOutputFigureAction());
+	
 	forMenuItem.addSelectionListener(new AddForFigureAction());
+	
 	whileMenuItem.addSelectionListener(new AddWhileFigureAction());
 
     }
