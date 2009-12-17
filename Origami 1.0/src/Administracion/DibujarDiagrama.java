@@ -5,10 +5,9 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.SWT;
 
+import ui.events.ContextualMenuEvent;
 import ui.events.SelectEvent;
 import ui.events.DoubleClickEvento;
-import Administracion.Eventos.EventoMenuContextual;
-import Administracion.Eventos.EventoSeleccionar;
 import Grafico.*;
 import Grafico.Figuras.SelectionSquare;
 import Grafico.Figuras.InputFigure;
@@ -33,6 +32,8 @@ public class DibujarDiagrama extends Figure{
 	private int derecha, izquierda;
 	public static AdminSeleccion selec;
 	public TabFolder tab;
+	public static boolean dispToolItem = false; 
+	public static Vector<SelectionSquare> seleccion = new Vector<SelectionSquare>();
 	
     /**
      * Define varias propiedades como el color y tama�o
@@ -121,10 +122,10 @@ public class DibujarDiagrama extends Figure{
 		/*else if(MainWindow.first){		//quitado del MainWindow y no se encontro error aun se corrigio agregando una linea en la clase 
 			MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
 		}*/
-		if(MainWindow.dispToolItem){
+		if(dispToolItem){
 			MainWindow.getComponentes().toolBarDisable();
 		}
-		MainWindow.dispToolItem = true;
+		dispToolItem = true;
 	}
 	public void agregarFigurasExportar(Vector<Figura> diagrama,Figure chart,int lugar,int alt){
 		int x;
@@ -781,15 +782,15 @@ public class DibujarDiagrama extends Figure{
 		
 		for(int i=0; i<4; i++){
 			SelectionSquare uno = new SelectionSquare(false,SWT.COLOR_DARK_GRAY);
-			MainWindow.seleccion.insertElementAt(uno, i);
+			seleccion.insertElementAt(uno, i);
 		}
-		MainWindow.seleccion.elementAt(0).setLocation(new Point(x-8,y-10));
-		MainWindow.seleccion.elementAt(1).setLocation(new Point(x+width+2,y-10));
-		MainWindow.seleccion.elementAt(2).setLocation(new Point(x-8,y+height-2));
-		MainWindow.seleccion.elementAt(3).setLocation(new Point(x+width+2,y+height-2));
+		seleccion.elementAt(0).setLocation(new Point(x-8,y-10));
+		seleccion.elementAt(1).setLocation(new Point(x+width+2,y-10));
+		seleccion.elementAt(2).setLocation(new Point(x-8,y+height-2));
+		seleccion.elementAt(3).setLocation(new Point(x+width+2,y+height-2));
 		
 		for(int i=0; i<4; i++){
-			chart.add(MainWindow.seleccion.elementAt(i));
+			chart.add(seleccion.elementAt(i));
 		}
 		MainWindow.menu._editMenu.menuDisponibleFigura();
 		diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
@@ -821,7 +822,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -837,7 +838,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -853,7 +854,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -869,7 +870,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -885,7 +886,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -901,7 +902,7 @@ public class DibujarDiagrama extends Figure{
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponentes().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new EventoMenuContextual(diagrama.elementAt(x),tab,selec);
+						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -1025,10 +1026,10 @@ public class DibujarDiagrama extends Figure{
 		/*else if(MainWindow.first){	igual que el metodo agregarFiguras() de la misma clase.
 			MainWindow._editMenu.menuDisponibleFigura();
 		}*/
-		if(MainWindow.dispToolItem){
+		if(dispToolItem){
 			MainWindow.getComponentes().toolBarDisable();
 		}
-		MainWindow.dispToolItem = true;
+		dispToolItem = true;
 		Conexion conexion = new Conexion(tab);
 		conexion.crearConexiones(diagrama);
 		if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0

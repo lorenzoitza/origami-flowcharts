@@ -18,9 +18,9 @@ import org.eclipse.swt.widgets.ScrollBar;
 
 import ui.events.AddFigureEvent;
 import ui.events.ChangeCursorEvent;
+import ui.events.ContextualMenuEvent;
 import Administracion.Eventos.EventoAgregarFigura;
 import Administracion.Eventos.EventoCambiarCursor;
-import Administracion.Eventos.EventoMenuContextual;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
@@ -109,7 +109,7 @@ public class Hoja{
 			fin.setMesagge("  Fin");
 			diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.add(inicio);
 			diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.add(fin);
-			new EventoMenuContextual(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0),tab,seleccion);
+			new ContextualMenuEvent(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0));
 			resetScrollBar();
 			addPropiedades();
 		 }
@@ -201,17 +201,17 @@ public class Hoja{
 	}
 	public void openFile(String archivo){
 		Rectangle r = diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().getBounds();
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
-    	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	CustomFile aux = MainWindow.getSerializer().recoverDiagram(archivo);
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
-    	tab.getTabItem().getInfo().setInfo(aux.getInfo());
-    	tab.getTabItem().getInfo().upDateTime();
-    	resetScrollBar();
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().setBounds(r);
-    	chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
-    	connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
-    	chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
+        	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
+        	CustomFile aux = MainWindow.getSerializer().recoverDiagram(archivo);
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
+        	tab.getTabItem().getInfo().setInfo(aux.getInfo());
+        	tab.getTabItem().getInfo().upDateTime();
+        	resetScrollBar();
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().setBounds(r);
+        	chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
+        	connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
+        	chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
 	}
 	public void openNewFile(String archivo,DiagramFileManager ser ){
 		addDiagrama();
@@ -222,18 +222,18 @@ public class Hoja{
 			MainWindow.shell.layout();
 		}
 		chart.elementAt(seleccion.getSeleccionDigrama()).setOpaque(true);
-    	Rectangle r = new Rectangle(1090,100,80,50);
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
-    	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-    	CustomFile aux = MainWindow.getSerializer().recoverDiagram(archivo);
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
-    	tab.getTabItem().getInfo().setInfo(aux.getInfo());
-    	tab.getTabItem().getInfo().upDateTime();
-    	resetScrollBar();
-    	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().setBounds(r);
-    	chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
-    	connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
-    	chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
+        	Rectangle r = new Rectangle(1090,100,80,50);
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
+        	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
+        	CustomFile aux = ser.recoverDiagram(archivo);
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
+        	tab.getTabItem().getInfo().setInfo(aux.getInfo());
+        	tab.getTabItem().getInfo().upDateTime();
+        	resetScrollBar();
+        	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().setBounds(r);
+        	chart.elementAt(seleccion.getSeleccionDigrama()).agregarFiguras(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama,chart.elementAt(seleccion.getSeleccionDigrama()));
+        	connection.elementAt(seleccion.getSeleccionDigrama()).crearConexiones(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama);
+        	chart.elementAt(seleccion.getSeleccionDigrama()).agregarConexiones(connection.elementAt(seleccion.getSeleccionDigrama()).getConexion(),chart.elementAt(seleccion.getSeleccionDigrama()));
 	}
 	public Vector<Figura> getDiagrama(){
 		return diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama;
@@ -262,7 +262,7 @@ public class Hoja{
 		inicio.setLocation(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0).getLocation());
 		diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeElementAt(0);
 		diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.insertElementAt(inicio,0);
-		new EventoMenuContextual(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0),tab,seleccion);
+		new ContextualMenuEvent(diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0));
 		if(pasoInicio){
 			diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.elementAt(0).setPasoAPaso(true);
 		}
