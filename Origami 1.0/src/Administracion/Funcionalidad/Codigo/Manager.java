@@ -22,9 +22,6 @@ public class Manager {
 	
 	public void formatCodeC(){
 		Instruccion getCodeOfFigures = new Instruccion();
-		//usar la parte que hizo juan
-		//para obtener el vector de instrucciones
-		//y la tabla de variables
 		Vector<String> result = getCodeOfFigures.main(figures);
 		System.out.println(result);
 		format = new FormatCodeC(result,getCodeOfFigures.getTablaVariables());
@@ -34,9 +31,6 @@ public class Manager {
 	
 	public void formatCodeCpp(){
 		Instruccion getCodeOfFigures = new Instruccion();
-		//usar la parte que hizo juan
-		//para obtener el vector de instrucciones
-		//y la tabla de variables
 		Vector<String> result = getCodeOfFigures.main(figures);
 		System.out.println(result);
 		format = new FormatCodeCpp(result,getCodeOfFigures.getTablaVariables());

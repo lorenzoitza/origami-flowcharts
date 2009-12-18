@@ -14,10 +14,10 @@ public class FormatCodeC extends FormatInstructions{
     @Override
 	public void applyFormat() {
     	divideDataInputForCodeC();
-    	generateInstructionOfDataOutputForCodeC();
+    	//generateInstructionOfDataOutputForCodeC();
     	code =
-    		("#include <iostream>\n" + "using namespace std;\n"
-    			+ "int main(int argc, char argv[])\n{\n");
+		("#include <stdio.h>\n" + "#include <stdlib.h>"
+			+ "\nint main(int argc, char argv[])\n{\n");
     	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();indexCodeFigure++) {
     	    String str = codeOfFigure.elementAt(indexCodeFigure);
     	    int pos = str.indexOf("null");
@@ -25,49 +25,57 @@ public class FormatCodeC extends FormatInstructions{
     	    	code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
     	    }
     	}
-    	code = code + "      return 0;\n" + "}\n";
+    	code = code + "      system(\"PAUSE\");\n      return 0;\n" + "}\n";
 	}
-    
-   /* public void generateCodeC() {
-	divideDataInputForCodeC();
-	generateInstructionOfDataOutputForCodeC();
-	code =
-		("#include <iostream>\n" + "using namespace std;\n"
-			+ "int main(int argc, char argv[])\n{\n");
-	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();
-	indexCodeFigure++) {
-	    String str = codeOfFigure.elementAt(indexCodeFigure);
-	    int pos = str.indexOf("null");
-	    if (pos < 0) {
-		code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
-	    }
-	}
-	code = code + "      return 0;\n" + "}\n";
-    }*/
     
     private void divideDataInputForCodeC() {
-	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();
-	indexCodeFigure++) {
+	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();indexCodeFigure++) {
+	    
 	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("Leer:") >= 0) {
-		Vector<String> dataSeparate =
-			generateInstructionOfDataInputForCodeC(codeOfFigure
-				.elementAt(indexCodeFigure));
-		int indexCharacterL =
-			codeOfFigure.elementAt(indexCodeFigure).indexOf("L");
-		String space =
-			codeOfFigure.elementAt(indexCodeFigure).substring(0,
-				indexCharacterL);
+		
+		Vector<String> dataSeparate =generateInstructionOfDataInputForCodeC2(codeOfFigure.elementAt(indexCodeFigure));
+		
+		int indexCharacterL =codeOfFigure.elementAt(indexCodeFigure).indexOf("L");
+		
+		String space =codeOfFigure.elementAt(indexCodeFigure).substring(0,indexCharacterL);
+		
 		removeLinesRepeated(dataSeparate);
+		
 		codeOfFigure.removeElementAt(indexCodeFigure);
+		
 		for (int k = 0; k < dataSeparate.size(); k++) {
+		    
 		    String lin = space + dataSeparate.elementAt(k);
+		    
 		    codeOfFigure.insertElementAt(lin, indexCodeFigure);
+		    
+		    indexCodeFigure++;
+		}
+		indexCodeFigure--;
+	    }
+	    else if(codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("\\p") >= 0){
+		
+		Vector<String> dataSeparate = generateInstructionOfDataOutputForCodeC(codeOfFigure.elementAt(indexCodeFigure));
+		
+		int indexCharacterP =codeOfFigure.elementAt(indexCodeFigure).indexOf("p");
+		
+		String space =codeOfFigure.elementAt(indexCodeFigure).substring(0,indexCharacterP-1);
+		
+		codeOfFigure.removeElementAt(indexCodeFigure);
+		
+		for (int k = 0; k < dataSeparate.size(); k++) {
+		    
+		    String lin = space + dataSeparate.elementAt(k);
+		    
+		    codeOfFigure.insertElementAt(lin, indexCodeFigure);
+		    
 		    indexCodeFigure++;
 		}
 		indexCodeFigure--;
 	    }
 	}
     }
+    
     public void removeLinesRepeated(Vector<String> lineas) {
 	String aux, aux2, aux3;
 	int pos;
@@ -105,512 +113,146 @@ public class FormatCodeC extends FormatInstructions{
 	}
     }
     
-    public Vector<String> generateInstructionOfDataInputForCodeC(String linea) {
-	Vector<String> datos = null;
-	Vector<String> variables = new Vector<String>();
+    private Vector<String> generateInstructionOfDataInputForCodeC2(String linea) {
+	Vector<String> datos = new Vector<String>();;
 	String scanCaracter = "scanf(" + "\"" + "%" + "c" + "\"" + "," + "&";
 	String scanEnteros = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String scanFlotante = "scanf(" + "\"" + "%" + "f" + "\"" + "," + "&";
 	String scanDefaul = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String ultimo = ");";
-
-	int i = linea.indexOf(",");
-	if (i != -1) {
-	    datos = new Vector<String>();
-	    linea =
-		    linea.substring(linea.lastIndexOf("Leer:") + 5, linea
-			    .length());
-	    variables = separateData(linea);
-	    for (int k = 0; k < variables.size(); k++) {
-		datos.add(variables.elementAt(k));
+	
+	System.out.println("la linea tiene: "+linea);
+	
+	String data = linea.substring(linea.lastIndexOf("Leer:") + 5,linea.length());
+	
+	while (data.startsWith(" ")) {
+	    data = data.substring(1);
 	    }
-	    for (int k = 0; k < variables.size(); k++) {
-		if (variables.elementAt(k).lastIndexOf("int") >= 0) {
-		    String dato =
-			    variables.elementAt(k)
-				    .substring(
-					    variables.elementAt(k).lastIndexOf(
-						    "int") + 3,
-					    variables.elementAt(k).lastIndexOf(
-						    ";"));
-		    String lin = scanEnteros + dato + ultimo;
-		    datos.add(lin);
-		} else if (variables.elementAt(k).lastIndexOf("char") >= 0) {
-		    String dato =
-			    variables.elementAt(k)
-				    .substring(
-					    variables.elementAt(k).lastIndexOf(
-						    "char") + 4,
-					    variables.elementAt(k).lastIndexOf(
-						    ";"));
-		    String lin = scanCaracter + dato + ultimo;
-		    datos.add(lin);
-		} else if (variables.elementAt(k).lastIndexOf("float") >= 0) {
-		    String dato =
-			    variables.elementAt(k)
-				    .substring(
-					    variables.elementAt(k).lastIndexOf(
-						    "float") + 5,
-					    variables.elementAt(k).lastIndexOf(
-						    ";"));
-		    String lin = scanFlotante + dato + ultimo;
-		    datos.add(lin);
-		} else {
-		    String dato =
-			    variables.elementAt(k).substring(0,
-				    variables.elementAt(k).lastIndexOf(";"));
-		    String lin = scanDefaul + dato + ultimo;
-		    datos.add(lin);
-		}
+	
+	System.out.println("data: "+data);
+	
+	
+	if (data.lastIndexOf("int ") >= 0) {
+	    String dato =data.substring(data.lastIndexOf("int") + 3,data.lastIndexOf(";"));
+	    
+	    String lin = scanEnteros + dato + ultimo;
+	    
+	    if(!isDeclarada(data)){
+		this.TableOfVariable.add(data);
+		datos.add(data);
 	    }
+	    datos.add(lin);
+	    
+	} else if (data.lastIndexOf("char ") >= 0) {
+	    String dato =data .substring(data.lastIndexOf("char") + 4,data.lastIndexOf(";"));
+	    
+	    String lin = scanCaracter + dato + ultimo;
+	    
+	    if(!isDeclarada(data)){
+		this.TableOfVariable.add(data);
+		datos.add(data);
+	    }
+	    datos.add(lin);
+	    
+	} else if (data.lastIndexOf("float ") >= 0) {
+	    String dato =data.substring(data.lastIndexOf("float") + 5,data.lastIndexOf(";"));
+	    
+	    String lin = scanFlotante + dato + ultimo;
+	    
+	    if(!isDeclarada(data)){
+		this.TableOfVariable.add(data);
+		datos.add(data);
+	    }
+	    datos.add(lin);
 	} else {
-	    datos = new Vector<String>();
-	    if (linea.lastIndexOf("int") != -1) {
-		String dato =
-			linea.substring(linea.lastIndexOf("int"), linea
-				.length() - 1);
-		TableOfVariable.add(dato + ";");
-		String lin = scanEnteros + dato.substring(3) + ultimo;
-		datos.add(dato + ";");
-		datos.add(lin);
-	    } else if (linea.lastIndexOf("char") != -1) {
-		String dato =
-			linea.substring(linea.lastIndexOf("char"), linea
-				.length() - 1);
-		TableOfVariable.add(dato + ";");
-		String lin2 = scanCaracter + dato.substring(4) + ultimo;
-		datos.add(dato + ";");
-		datos.add(lin2);
-	    } else if (linea.lastIndexOf("float") != -1) {
-		String dato =
-			linea.substring(linea.lastIndexOf("float"), linea
-				.length() - 1);
-		TableOfVariable.add(dato + ";");
-		String lin2 = scanFlotante + dato.substring(5) + ultimo;
-		datos.add(dato + ";");
-		datos.add(lin2);
-	    } else {
-		String tipo =
-			getTypeOfData(linea.substring(linea
-				.lastIndexOf("Leer:") + 5, linea.length() - 1));
-		if (tipo != null) {
-		    if (tipo.lastIndexOf("int") >= 0) {
-			datos.add(scanEnteros
-				+ linea.substring(
-					linea.lastIndexOf("Leer:") + 5, linea
-						.length() - 1) + ultimo);
-		    } else if (tipo.lastIndexOf("char") >= 0) {
-			datos.add(scanCaracter
-				+ linea.substring(
-					linea.lastIndexOf("Leer:") + 5, linea
-						.length() - 1) + ultimo);
-		    } else {
-			datos.add(scanFlotante
-				+ linea.substring(
-					linea.lastIndexOf("Leer:") + 5, linea
-						.length() - 1) + ultimo);
+	    
+	    for(int i=0; i<TableOfVariable.size(); i++){
+		System.out.println(TableOfVariable.elementAt(i));
+		if(TableOfVariable.elementAt(i).lastIndexOf(data)>=0){
+		    if(TableOfVariable.elementAt(i).lastIndexOf("char") >=0){
+			scanDefaul=scanCaracter;
+		    } else if(TableOfVariable.elementAt(i).lastIndexOf("float") >=0){
+			scanDefaul=scanFlotante;
 		    }
-		} else {
-		    String lin2 =
-			    scanDefaul
-				    + linea.substring(linea
-					    .lastIndexOf("Leer:") + 5, linea
-					    .length() - 1) + ultimo;
-		    datos.add(lin2);
+		    break;
 		}
 	    }
+	    String dato =data.substring(0,data.lastIndexOf(";"));
+	    
+	    String lin = scanDefaul + dato + ultimo;
+	    
+	    if(!isDeclarada(data)){
+		this.TableOfVariable.add(data);
+		datos.add(data);
+	    }
+	    datos.add(lin);
 	}
 	return datos;
     }
     
-    public void generateInstructionOfDataOutputForCodeC() {
+    private boolean isDeclarada(String data) {
+	for(int i=0; i<this.TableOfVariable.size(); i++){
+	    if(this.TableOfVariable.elementAt(i).contains(data)){
+		return true;
+	    }
+	}
+	return false;
+    }
+    
+    public Vector<String> generateInstructionOfDataOutputForCodeC(String linea) {
 	Vector<String> imprimir = new Vector<String>();
-	String printEnteros = "printf(" + "\"" + "%d" + "\"" + ",";
-	String printFlotantes = "printf(" + "\"" + "%f" + "\"" + ",";
-	String printCaracteres = "printf(" + "\"" + "%c" + "\"" + ",";
-	String printTexto = "printf(" + "\"";
-	String printDefaul = "printf(" + "\"" + "%d" + "\"" + ",";
-	String print = "printf(" + "\"";
-	String entero = "%d";
-	String caracter = "%c";
-	String flotante = "%f";
+	String print = "printf(" + "\" ";
+	String entero = "%d ";
+	String caracter = "%c ";
+	String flotante = "%f ";
 	String separador = ",";
 	String ultimo = ");";
-
-	for (int x = 0; x < codeOfFigure.size(); x++) {
-	    String aux = codeOfFigure.elementAt(x);
-	    while (aux.startsWith(" ")) {
-		aux = aux.substring(1);
+	
+	String data = linea.substring(linea.lastIndexOf("\\p") + 2,linea.length()-1);
+	
+	while (data.startsWith(" ")) {
+	    data = data.substring(1);
 	    }
-	    if (aux.startsWith("\\p")) {
-		String tab =
-			codeOfFigure.elementAt(x).substring(0,
-				codeOfFigure.elementAt(x).indexOf("\\"));
-		if (aux.indexOf(",") > 0) {
-		    String inicio;
-		    String fin = "";
-
-		    fin = ",";
-
-		    String aux2;
-		    int comaAnterior = aux.indexOf(",");
-		    int comaPosterior = aux.indexOf(",", comaAnterior + 1);
-		    aux2 = aux.substring(0, comaAnterior);
-		    while (aux2.endsWith(" ")) {
-			aux2 = aux2.substring(0, aux2.length() - 1);
-		    }
-		    if (aux2.startsWith("\\p" + "\"") && aux2.endsWith("\"")) {
-			inicio =
-				aux2.substring(aux.indexOf("\"") + 1, aux2
-					.length() - 1);
-		    } else {
-			String tipo = getTypeOfData(aux2.substring(2));
-			if (tipo != null) {
-			    if (tipo.indexOf("int") == 0) {
-				inicio = entero;
-				fin = fin + aux2.substring(2) + separador;
-			    } else if (tipo.indexOf("char") == 0) {
-				inicio = caracter;
-				fin = fin + aux2.substring(2) + separador;
-			    } else {
-				inicio = flotante;
-				fin = fin + aux2.substring(2) + separador;
-			    }
-			} else {
-			    inicio = entero;
-			    fin = fin + aux2.substring(2) + separador;
-			}
-		    }
-		    while (comaPosterior != -1) {
-			aux2 = aux.substring(comaAnterior + 1, comaPosterior);
-			while (aux2.startsWith(" ")) {
-			    aux2 = aux2.substring(1);
-			}
-			while (aux2.endsWith(" ")) {
-			    aux2 = aux2.substring(0, aux2.length() - 1);
-			}
-			if (aux2.startsWith("\"") && aux2.endsWith("\"")) {
-			    inicio =
-				    inicio
-					    + " "
-					    + aux2.substring(1,
-						    aux2.length() - 1);
-			} else {
-			    String tipo = getTypeOfData(aux2);
-			    if (tipo != null) {
-				if (tipo.indexOf("int") == 0) {
-				    inicio = inicio + " " + entero;
-				    fin = fin + aux2 + separador;
-				} else if (tipo.indexOf("char") == 0) {
-				    inicio = inicio + " " + caracter;
-				    fin = fin + aux2 + separador;
-				} else {
-				    inicio = inicio + " " + flotante;
-				    fin = fin + aux2 + separador;
-				}
-			    } else {
-				inicio = inicio + " " + entero;
-				fin = fin + aux2 + separador;
-			    }
-			}
-			comaAnterior = comaPosterior;
-			comaPosterior = aux.indexOf(",", comaAnterior + 1);
-		    }
-		    aux2 = aux.substring(comaAnterior + 1);
-		    while (aux2.startsWith(" ")) {
-			aux2 = aux2.substring(1);
-		    }
-		    if (aux2.endsWith(";")) {
-			aux2 = aux2.substring(0, aux2.length() - 1);
-		    }
-		    if (aux2.startsWith("\"") && aux2.endsWith("\"")) {
-			inicio =
-				inicio + " "
-					+ aux2.substring(1, aux2.length() - 1);
-		    } else {
-			String tipo = getTypeOfData(aux2);
-			if (tipo != null) {
-			    if (tipo.indexOf("int") == 0) {
-				inicio = inicio + " " + entero;
-				fin = fin + aux2;
-			    } else if (tipo.indexOf("char") == 0) {
-				inicio = inicio + " " + caracter;
-				fin = fin + aux2;
-			    } else {
-				inicio = inicio + " " + flotante;
-				fin = fin + aux2;
-			    }
-			} else {
-			    inicio = inicio + " " + entero;
-			    fin = fin + aux2;
-			}
-		    }
-		    while (fin.endsWith(",")) {
-			fin = fin.substring(0, fin.length() - 1);
-		    }
-
-		    inicio = print + inicio + "\"" + fin + ");";
-		    inicio = tab + inicio;
-		    codeOfFigure.removeElementAt(x);
-		    codeOfFigure.insertElementAt(inicio, x);
-		    imprimir.removeAllElements();
-
-		} else {
-		    if (aux.startsWith("\\p" + "\"")
-			    && aux.endsWith("\"" + ";")) {
-			int pos = aux.indexOf("\"");
-			int fin = aux.indexOf("\"", pos + 1);
-			String imp =
-				tab + printTexto + aux.substring(pos + 1, fin)
-					+ "\"" + ultimo;
-			imprimir.add(imp);
-			codeOfFigure.removeElementAt(x);
-			codeOfFigure.insertElementAt(imprimir.elementAt(0), x);
-			imprimir.removeAllElements();
-		    } else {
-			String tipo = getTypeOfData(aux.substring(2));
-			if (tipo != null) {
-			    if (tipo.indexOf("int") == 0) {
-				int pos = aux.indexOf("p");
-				int fin = aux.indexOf(";");
-				if (fin != -1) {
-				    String imp =
-					    tab
-						    + printEnteros
-						    + aux.substring(pos + 1,
-							    fin) + ultimo;
-				    imprimir.add(imp);
-				} else {
-				    String imp =
-					    tab
-						    + printEnteros
-						    + aux.substring(pos + 1,
-							    fin - 1) + ultimo;
-				    imprimir.add(imp);
-				}
-			    } else if (tipo.indexOf("char") == 0) {
-				int pos = aux.indexOf("p");
-				int fin = aux.indexOf(";");
-				if (fin != -1) {
-				    String imp =
-					    tab
-						    + printCaracteres
-						    + aux.substring(pos + 1,
-							    fin) + ultimo;
-				    imprimir.add(imp);
-				} else {
-				    String imp =
-					    tab
-						    + printCaracteres
-						    + aux.substring(pos + 1,
-							    fin - 1) + ultimo;
-				    imprimir.add(imp);
-				}
-			    } else {
-				int pos = aux.indexOf("p");
-				int fin = aux.indexOf(";");
-				if (fin != -1) {
-				    String imp =
-					    tab
-						    + printFlotantes
-						    + aux.substring(pos + 1,
-							    fin) + ultimo;
-				    imprimir.add(imp);
-				} else {
-				    String imp =
-					    tab
-						    + printFlotantes
-						    + aux.substring(pos + 1,
-							    fin - 1) + ultimo;
-				    imprimir.add(imp);
-				}
-			    }
-			    codeOfFigure.removeElementAt(x);
-			    codeOfFigure.insertElementAt(imprimir.elementAt(0),
-				    x);
-			    imprimir.removeAllElements();
-			} else {
-			    int pos = aux.indexOf("p");
-			    int fin = aux.indexOf(";");
-			    if (fin != -1) {
-				String imp =
-					tab + printDefaul
-						+ aux.substring(pos + 1, fin)
-						+ ultimo;
-				imprimir.add(imp);
-			    } else {
-				String imp =
-					tab
-						+ printDefaul
-						+ aux.substring(pos + 1,
-							fin - 1) + ultimo;
-				imprimir.add(imp);
-			    }
-			    codeOfFigure.removeElementAt(x);
-			    codeOfFigure.insertElementAt(imprimir.elementAt(0),
-				    x);
-			    imprimir.removeAllElements();
-			}
-		    }
+	
+	String datos[] = data.split(",");
+	
+	String instruccion = print;
+	
+	String parteFinalDeLaInstruccion="";
+	
+	for(int i=0; i<datos.length; i++){
+	    String tipo = this.getTypeOfData(datos[i]);
+	    if(tipo!=null){
+		if(tipo=="int"){
+		   instruccion = instruccion + entero;
+		}
+		else if(tipo=="float"){
+		    instruccion = instruccion + flotante;
+		}
+		else{
+		    instruccion = instruccion + caracter;
+		}
+		parteFinalDeLaInstruccion = parteFinalDeLaInstruccion + separador+datos[i];
+	    }
+	    else{
+		if(datos[i].contains("\"")){
+		    System.out.println(datos[i]);
+		    instruccion = instruccion + datos[i].substring(1,datos[i].length()-1);
+		}
+		else{
+		    parteFinalDeLaInstruccion = parteFinalDeLaInstruccion + separador+datos[i];
 		}
 	    }
 	}
+	
+	instruccion = instruccion + "\""+ parteFinalDeLaInstruccion + ultimo;
+	
+	System.out.println(instruccion);
+	
+	imprimir.add(instruccion);
+	
+	return imprimir;
     }
     
-    public Vector<String> separateData(String linea) {
-	String tipoAnterior = null;
-	Vector<String> variables = new Vector<String>();
-	int comaAnterior = linea.indexOf(",");
-	int comaPosterior = linea.indexOf(",", comaAnterior + 1);
-	if (comaPosterior == -1) {
-	    int tipo = linea.indexOf("int");
-	    if (tipo != -1 && tipo < comaAnterior) {
-		tipoAnterior = "int";
-		TableOfVariable.add(linea.substring(linea.indexOf("int"),
-			comaAnterior)
-			+ ";");
-		variables.add(linea.substring(linea.indexOf("int"),
-			comaAnterior)
-			+ ";");
-		variables =
-			separarVariables2(tipo, linea, comaAnterior, variables,
-				tipoAnterior);
-	    } else {
-		tipo = linea.indexOf("char");
-		if (tipo != -1 && tipo < comaAnterior) {
-		    tipoAnterior = "char";
-		    TableOfVariable.add(linea.substring(linea.indexOf("char"),
-			    comaAnterior)
-			    + ";");
-		    variables.add(linea.substring(linea.indexOf("char"),
-			    comaAnterior)
-			    + ";");
-		    variables =
-			    separarVariables2(tipo, linea, comaAnterior,
-				    variables, tipoAnterior);
-		} else {
-		    tipo = linea.indexOf("float");
-		    if (tipo != -1 && tipo < comaAnterior) {
-			tipoAnterior = "float";
-			TableOfVariable.add(linea.substring(linea
-				.indexOf("float"), comaAnterior)
-				+ ";");
-			variables.add(linea.substring(linea.indexOf("float"),
-				comaAnterior)
-				+ ";");
-			variables =
-				separarVariables2(tipo, linea, comaAnterior,
-					variables, tipoAnterior);
-		    } else {
-			String tip =
-				getTypeOfData(linea.substring(0, comaAnterior));
-			if (tip != null) {
-			    variables.add(tip
-				    + linea.substring(0, comaAnterior) + ";");
-			} else {
-			    variables.add(linea.substring(0, comaAnterior)
-				    + ";");
-			}
-			variables =
-				separarVariables2(tipo, linea, comaAnterior,
-					variables, tipoAnterior);
-		    }
-		}
-	    }
-
-	} else {
-	    Vector<String> variables2 = new Vector<String>();
-	    int tipo = linea.indexOf("int");
-	    if (tipo != -1 && tipo < comaAnterior) {
-		tipoAnterior = "int";
-		TableOfVariable.add(linea.substring(linea.indexOf("int"),
-			comaAnterior)
-			+ ";");
-		variables.add(linea.substring(linea.indexOf("int"),
-			comaAnterior)
-			+ ";");
-		linea = linea.substring(comaAnterior + 1);
-		variables2 = separateData(linea);
-	    } else {
-		tipo = linea.indexOf("char");
-		if (tipo != -1 && tipo < comaAnterior) {
-		    tipoAnterior = "char";
-		    TableOfVariable.add(linea.substring(linea.indexOf("char"),
-			    comaAnterior)
-			    + ";");
-		    variables.add(linea.substring(linea.indexOf("char"),
-			    comaAnterior)
-			    + ";");
-		    linea = linea.substring(comaAnterior + 1);
-		    variables2 = separateData(linea);
-		} else {
-		    tipo = linea.indexOf("float");
-		    if (tipo != -1 && tipo < comaAnterior) {
-			tipoAnterior = "float";
-			TableOfVariable.add(linea.substring(linea
-				.indexOf("float"), comaAnterior)
-				+ ";");
-			variables.add(linea.substring(linea.indexOf("float"),
-				comaAnterior)
-				+ ";");
-			linea = linea.substring(comaAnterior + 1);
-			variables2 = separateData(linea);
-		    } else {
-			String tip =
-				getTypeOfData(linea.substring(0, comaAnterior));
-			if (tip != null) {
-			    variables.add(tip
-				    + linea.substring(0, comaAnterior) + ";");
-			} else {
-			    variables.add(linea.substring(0, comaAnterior)
-				    + ";");
-			}
-			linea = linea.substring(comaAnterior + 1);
-			variables2 = separateData(linea);
-		    }
-		}
-	    }
-	    for (int i = 0; i < variables2.size(); i++) {
-		variables.add(variables2.elementAt(i));
-	    }
-	}
-	return variables;
-    }
     
-    public Vector<String> separarVariables2(int tipo, String linea,
-	    int comaAnterior, Vector<String> variables, String tipoAnterior) {
-	tipo = linea.indexOf("int", comaAnterior);
-	if (tipo != -1) {
-	    TableOfVariable.add(linea.substring(tipo, linea.length()));
-	    variables.add(linea.substring(tipo, linea.length()));
-	} else {
-	    tipo = linea.indexOf("char", comaAnterior);
-	    if (tipo != -1) {
-		TableOfVariable.add(linea.substring(tipo, linea.length()));
-		variables.add(linea.substring(tipo, linea.length()));
-	    } else {
-		tipo = linea.indexOf("float", comaAnterior);
-		if (tipo != -1) {
-		    TableOfVariable.add(linea.substring(tipo, linea.length()));
-		    variables.add(linea.substring(tipo, linea.length()));
-		} else {
-		    String tip =
-			    getTypeOfData(linea.substring(comaAnterior + 1,
-				    linea.length() - 1));
-		    if (tip != null) {
-			variables.add(tip + linea.substring(comaAnterior + 1));
-		    } else {
-			if (tipoAnterior != null) {
-			    variables.add(tipoAnterior + " "
-				    + linea.substring(comaAnterior + 1));
-			} else {
-			    variables.add(linea.substring(comaAnterior + 1));
-			}
-		    }
-
-		}
-	    }
-	}
-	return variables;
-    }
 }

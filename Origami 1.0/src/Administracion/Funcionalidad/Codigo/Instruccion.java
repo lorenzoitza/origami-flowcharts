@@ -25,6 +25,7 @@ import Imagenes.ImageLoader;
  * 
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
+ * 
  */
 public class Instruccion implements Serializable {
 	private Shell shell;
@@ -157,7 +158,9 @@ public class Instruccion implements Serializable {
 				if (archivo != null) {
 					String nombre = dialog.getFileName();
 					nombre = nombre.substring(0, nombre.indexOf("."));
+
 					Exporter expor = new Exporter(MainWindow.getComponents()._diagrams);
+
 					expor.executeFileExport(archivo, nombre);
 				}
 			}
@@ -300,9 +303,44 @@ public class Instruccion implements Serializable {
 							Vector<String> masVariables = masVariables(ins[d],
 									null);
 							if (masVariables.elementAt(0).indexOf("Leer:") >= 0) {
+							    /**
+							     * aqui quitar el int o float o char que trae el elementAt(0)
+							     * y aplicarselo a los del ciclo de abajo.
+							     */
+							    	int indexAux = masVariables.elementAt(0).indexOf("Leer:")+5;
+							    	String declaracionAnterior = masVariables.elementAt(0).substring(indexAux);
+							    	
+							    	if(declaracionAnterior.contains("int ")){ 
+							    	    declaracionAnterior = "int ";
+								}
+								else if(declaracionAnterior.contains("float ")){
+								    declaracionAnterior = "float ";
+								}
+								else if(declaracionAnterior.contains("char ")){
+								    declaracionAnterior = "char ";
+								}
+								else{
+								    //que poner si no esta declarada????
+								}
+							    	
 								for (int i = 1; i < masVariables.size(); i++) {
 									String aux = masVariables.elementAt(i);
-									aux = "Leer: " + aux;
+									if(aux.contains("int ")){
+									    aux = "Leer: " + aux;
+									    declaracionAnterior = "int ";
+									}
+									else if(aux.contains("float ")){
+									    aux = "Leer: " + aux;
+									    declaracionAnterior = "float ";
+									}
+									else if(aux.contains("char ")){
+									    aux = "Leer: " + aux;
+									    declaracionAnterior = "char ";
+									}
+									else{
+									    aux = "Leer: " +declaracionAnterior+ aux;
+									}
+									//aux = "Leer: " + aux;
 									masVariables.remove(i);
 									masVariables.insertElementAt(aux, i);
 								}

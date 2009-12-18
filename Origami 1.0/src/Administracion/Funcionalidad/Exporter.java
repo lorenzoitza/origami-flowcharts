@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.Instruccion;
+import Administracion.Funcionalidad.Codigo.Manager;
 import Grafico.MainWindow;
 import Grafico.Figuras.*;
 
@@ -183,36 +184,38 @@ public class Exporter {
 	}
 
 	public void codeCExport(String adress) {
-		
-		Instruccion codes = new Instruccion();
-		
+	    
 		String content = "";
 		
-		String[] source = codes.getCodigoC(selectedTab.getHoja().getDiagrama()).split("\n");
+		Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		manager.formatCodeC();
+		
+		String[] source = manager.getInstructionsFormat().split("\n");
+		
 		
 		for (int i = 0; i < source.length; i++) {
-			
 			source[i] = source[i] + "\r\n";
 			content = content + source[i];
 		}
-		// source.replaceAll("\n","\r\n");
+
 		save(adress, content);
 	}
 
 	public void codeCppExport(String adress) {
 		
-		Instruccion codes = new Instruccion();
-		
 		String content = "";
 		
-		String[] source = codes.getCodigoC(selectedTab.getHoja().getDiagrama()).split("\n");
+		Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		manager.formatCodeCpp();
+		
+		String[] source = manager.getInstructionsFormat().split("\n");
 		
 		for (int i = 0; i < source.length; i++) {
 			
 			source[i] = source[i] + "\r\n";
 			content = content + source[i];
 		}
-		// source.replaceAll("\n","\r\n");
+		
 		save(adress, content);
 	}
 

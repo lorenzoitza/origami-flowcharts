@@ -17,14 +17,18 @@ public abstract class FormatInstructions {
 		this.code = new String();
     }
     
-    protected void setCodeOfFigure(Vector<String> codeOfFigure) {
-    	this.codeOfFigure = codeOfFigure;
-    }
-    
     public abstract void applyFormat();
     
     public String getInstructionsFormat(){
     	return this.code;
+    }
+    
+    public void setTableOfVariable(Vector<String> tableOfVariable) {
+        TableOfVariable = tableOfVariable;
+    }
+    
+    protected void setCodeOfFigure(Vector<String> codeOfFigure) {
+    	this.codeOfFigure = codeOfFigure;
     }
     
     protected String getTypeOfData(String variable) {
@@ -43,11 +47,4 @@ public abstract class FormatInstructions {
 	}
 	return null;
     }
-
-    
-    public void setTableOfVariable(Vector<String> tableOfVariable) {
-        TableOfVariable = tableOfVariable;
-    }
-    
-    
 }
