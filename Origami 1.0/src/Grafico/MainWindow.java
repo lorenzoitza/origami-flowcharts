@@ -86,7 +86,7 @@ public class MainWindow {
 	    }
 	});
 
-	_keyEvent = new KeyEvent(_selectionAdministrator, Componentes._diagrams);
+	_keyEvent = new KeyEvent();
     }
 
     private void initControllers() {
