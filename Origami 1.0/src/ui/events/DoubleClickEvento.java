@@ -20,7 +20,6 @@ import Grafico.VentanaDatos.OutputFigureDialog;
 import Grafico.VentanaDatos.SentenceFigureDialog;
 import Grafico.VentanaDatos.WhileFigureDialog;
 
-
 public class DoubleClickEvento  extends MouseListener.Stub{
 	public AdminSeleccion selectionAdmin;
 	public TabFolder tabFolder;
@@ -45,38 +44,32 @@ public class DoubleClickEvento  extends MouseListener.Stub{
 		if(figure instanceof SentenceFigure){
 			SentenceFigure setenceFigure = (SentenceFigure)figure;
 			
-			new SentenceFigureDialog(MainWindow.shell,MainWindow.getComponents()._diagrams
-				,setenceFigure,MainWindow._selectionAdministrator).open();
+			new SentenceFigureDialog(MainWindow.shell,setenceFigure).open();
 		}
 		else if(figure instanceof DecisionFigure){
 			DecisionFigure decisionFigure = ((DecisionFigure)figure);
-			new DecisionFigureDialog(MainWindow.shell,tabFolder,
-				decisionFigure,selectionAdmin).open();
+			
+			new DecisionFigureDialog(MainWindow.shell,decisionFigure).open();
 		}
 		else if(figure instanceof InputFigure){
 			InputFigure inputFigure = ((InputFigure)figure);
 			
-			new InputFigureDialog(MainWindow.shell,tabFolder
-				,inputFigure,selectionAdmin).open();
+			new InputFigureDialog(MainWindow.shell,inputFigure).open();
 		}
 		else if(figure instanceof OutputFigure){
 			OutputFigure outputFigure = ((OutputFigure)figure);
 			
-			new OutputFigureDialog(MainWindow.shell,tabFolder
-				,outputFigure,selectionAdmin).open();
+			new OutputFigureDialog(MainWindow.shell,outputFigure).open();
 		}
 		else if(figure instanceof ForFigure){
 			ForFigure forFigure = ((ForFigure)figure);
 			
-			new ForFigureDialog(MainWindow.shell,tabFolder
-				,forFigure,selectionAdmin).open();
+			new ForFigureDialog(MainWindow.shell,forFigure).open();
 		}
 		else if(figure instanceof WhileFigure){
 			WhileFigure whileFigure = ((WhileFigure)figure);
 			
-			new WhileFigureDialog(MainWindow.shell,tabFolder
-				,whileFigure,selectionAdmin).open();
-			
+			new WhileFigureDialog(MainWindow.shell,whileFigure).open();
 		}
 	}
 }

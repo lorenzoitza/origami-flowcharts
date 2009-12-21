@@ -6,9 +6,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
-
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
@@ -24,14 +21,8 @@ import Imagenes.ImageLoader;
 
 public class KeyEvent {
     private int key,key2=0;
-    private AdminSeleccion selec;
-    private TabFolder tab;
     private DiagramFileManager ser = new DiagramFileManager();
     
-    public KeyEvent(AdminSeleccion seleccion, TabFolder tabfolder){
-    	selec = seleccion;
-    	tab = tabfolder;
-    }
     public void setKey(org.eclipse.swt.events.KeyEvent e){
     	key = e.keyCode;
     	key2 = e.stateMask;
@@ -86,20 +77,20 @@ public class KeyEvent {
 			   Grafico.MainWindow.mainFigure = null;
 			   Cursor oldCursor = cursor[0];
 		       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		       tab.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
+		       MainWindow.getComponentes().diagramas.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
 		       if(oldCursor != null){
 		    	   oldCursor.dispose();
 		       }
-		       tab.getHoja().addFigure();
-		       tab.getHoja().guardarRetroceso();
+		       MainWindow.getComponentes().diagramas.getHoja().addFigure();
+		       MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
 		}
        break;
 	case 127:
-		if(selec.getFiguraSeleccionada()!=-1){
-			if(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()) instanceof CircleFigure){
+		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
 			}
 			else{
-			    new ContextualMenuActions().Eliminar(tab.getHoja().getDiagrama().elementAt(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		}
 		break;
@@ -115,22 +106,22 @@ public class KeyEvent {
 		break;
 	case 16777228:
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			for(int y=tab.getHoja().getSizeDiagrama()-1;y>0;y--){
-				tab.getHoja().removeFigureIndexOf(y);
+			for(int y=MainWindow.getComponentes().diagramas.getHoja().getSizeDiagrama()-1;y>0;y--){
+				MainWindow.getComponentes().diagramas.getHoja().removeFigureIndexOf(y);
 			}
 			CircleFigure fin = new CircleFigure();
-			selec.setFiguraSeleccionada(0);
-			tab.getHoja().getDiagrama().add(fin);
+			MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
+			MainWindow.getComponentes().diagramas.getHoja().getDiagrama().add(fin);
 			fin.setMesagge("  Fin");
-			tab.getHoja().resetScrollBar();
-			tab.getHoja().addFigure();
-			tab.getHoja().guardarRetroceso();
-			tab.getTabItem().getSave().setSave(false);
+			MainWindow.getComponentes().diagramas.getHoja().resetScrollBar();
+			MainWindow.getComponentes().diagramas.getHoja().addFigure();
+			MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+			MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
 		}
 		break;
 	case 16777229:
 		Instruccion codigo7 = new Instruccion();
-		codigo7.main(tab.getHoja().getDiagrama());
+		codigo7.main(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
 		codigo7.createWindow(MainWindow.display);
 		break;
 	case 16777230:
@@ -146,13 +137,13 @@ public class KeyEvent {
 					MainWindow.getComponents().console.text.setText("");
 				}
 				MainWindow.getComponents().console.text.setText(codigo.errorTipe);
-				tab.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
-				tab.getTabItem().getInfo().addInformation(codigo.errorTipe);
+				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
+				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
 			}
 			else{
 				MainWindow.getComponents().ejecutar(true,codigo);
-				tab.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
+				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
 			if(!MainWindow.menu.consoleMenuItem.getSelection()){
 				MainWindow.menu.consoleMenuItem.setSelection(true);
@@ -163,11 +154,11 @@ public class KeyEvent {
 	}
 	if(key+key2 == 262241){
 		if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
-				&& tab.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+				&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
 			MainWindow.getComponents().stopEjecucion();
 		}
 		else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-				&& tab.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+				&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 			MainWindow.getComponents().stopEjecucion();
 		}
 		FileDialog dialog = new FileDialog(MainWindow.shell,SWT.OPEN);
@@ -176,27 +167,27 @@ public class KeyEvent {
 	    if(archivo!=null){
 	    	File file = new File(archivo);
 	    	if(file.exists()){
-	    		if(tab.getHoja().getSizeDiagrama()==0){
+	    		if(MainWindow.getComponentes().diagramas.getHoja().getSizeDiagrama()==0){
 			    	String archivo2 = dialog.getFileName();
 			    	int pos = archivo2.indexOf('.');
 			    	String name = archivo2.substring(0, pos);
-			    	tab.cambiarNombre("*"+name);
-			    	tab.getTabItem().getSave().setSave(true);
-			    	tab.abrir(archivo,ser);
-			    	tab.getTabItem().getSave().setDir(archivo);
+			    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
+			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
+			    	MainWindow.getComponentes().diagramas.abrir(archivo,ser);
+			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
 			    	
 		    	}
 		    	else{
 		    		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-				    tab.getHoja().openFile(archivo);
-				    tab.getTabItem().getSave().setDir(archivo);
+				    MainWindow.getComponentes().diagramas.getHoja().openFile(archivo);
+				    MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
 				    archivo = dialog.getFileName();
 				    int pos = archivo.indexOf('.');
 				    String name = archivo.substring(0, pos);
-				    tab.cambiarNombre("*"+name);
-			    	tab.getTabItem().getSave().setSave(true);
-			    	tab.getTabItem().resetRetroceso();		 
-			    	tab.getTabItem().agregarRetroceso(tab.getHoja().getDiagrama(), selec);
+				    MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
+			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
+			    	MainWindow.getComponentes().diagramas.getTabItem().resetRetroceso();		 
+			    	MainWindow.getComponentes().diagramas.getTabItem().agregarRetroceso(MainWindow.getComponentes().diagramas.getHoja().getDiagrama(), MainWindow._selectionAdministrator);
 		    	}
 		    	MainWindow.getComponentes().disablePasoAPaso(false);
 		    	MainWindow.getComponents().disableAll(true);
@@ -204,7 +195,7 @@ public class KeyEvent {
 	     }
 	}
 	else if(key+key2 == 262247){
-		if(tab.getTabItem().getSave().getDir()=="null"){
+		if(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir()=="null"){
 			FileDialog dialog = new FileDialog(MainWindow.shell,SWT.SAVE);
 		    dialog.setFilterExtensions(new String[] { "*.Org"});
 		    String archivo = dialog.open();
@@ -243,13 +234,13 @@ public class KeyEvent {
 			    		switch(seleccion){
 			    			case 64:
 						    	ser.setFile(archivo);
-						    	tab.getTabItem().getSave().setDir(archivo);
-						    	ser.saveDiagram(tab);
+						    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
+						    	ser.saveDiagram(MainWindow.getComponentes().diagramas);
 						    	archivo = dialog.getFileName();
 						    	int pos = archivo.indexOf('.');
 						    	String name = archivo.substring(0, pos);
-						    	tab.cambiarNombre("*"+name);
-						    	tab.getTabItem().getSave().setSave(true);
+						    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
+						    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
 			    				break;
 			    			case 128:							
 			    				break;
@@ -257,63 +248,63 @@ public class KeyEvent {
 			    	}
 			    	else{
 				    	ser.setFile(archivo);
-				    	tab.getTabItem().getSave().setDir(archivo);
-				    	boolean error = ser.saveDiagram(tab);
+				    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
+				    	boolean error = ser.saveDiagram(MainWindow.getComponentes().diagramas);
 				    	if(error){
 				    		archivo = dialog.getFileName();
 				    		int pos = archivo.indexOf('.');
 					    	String name = archivo.substring(0, pos);
-					    	tab.cambiarNombre("*"+name);
-					    	tab.getTabItem().getSave().setSave(true);
+					    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
+					    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
 				    	}
 			    	}
 	    		}
 		    }
 		}
 		else{
-	    	ser.setFile(tab.getTabItem().getSave().getDir());
-	    	ser.saveDiagram(tab);
-	    	tab.getTabItem().getSave().setSave(true);
+	    	ser.setFile(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir());
+	    	ser.saveDiagram(MainWindow.getComponentes().diagramas);
+	    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
 		}
 	}
 	else if(key+key2 == 262264){
-		if(selec.getFiguraSeleccionada()!=-1){
-			if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
+		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || MainWindow._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Cortar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));	
+			    new ContextualMenuActions().Cortar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));	
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262243){
-		if(selec.getFiguraSeleccionada()!=-1){
-			if(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()) instanceof CircleFigure || selec.getFiguraSeleccionada() == -1){
+		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || MainWindow._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Copiar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Copiar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262262){
-		if(selec.getFiguraSeleccionada()!=-1){
+		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
 			if(MainWindow._diagramAdministrator.diagrama.size()>0){
-			    new ContextualMenuActions().Pegar(tab.getHoja().getFigureIndexOf(selec.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Pegar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
 				MainWindow.getComponentes().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262254){
-		tab.addTabItem();
+		MainWindow.getComponentes().diagramas.addTabItem();
 		MainWindow.getComponentes().guardarDisable(true);
 		MainWindow.getComponents().disableAll(true);
 	}
 	else if(key+key2 == 262266){
 		if(!MainWindow.getComponentes().isPasoAPaso){
-			TabItem item = (TabItem)tab.getSeleccion();
+			TabItem item = (TabItem)MainWindow.getComponentes().diagramas.getSeleccion();
 			item.retroceder();
-			tab.getTabItem().getSave().setSave(false);
+			MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
 		}
 	}
 	else if(key+key2 == 262245){
