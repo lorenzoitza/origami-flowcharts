@@ -2,9 +2,6 @@ package Grafico.VentanaDatos;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.*;
-import Administracion.TabFolder;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.WhileFigure;
 
@@ -14,9 +11,8 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
     
     private Label informationLabel;
 
-    public WhileFigureDialog(Shell shell, TabFolder tabFolder, WhileFigure figure,
-	    AdminSeleccion selectionAdmin) {
-	super(shell, tabFolder, figure, selectionAdmin);
+    public WhileFigureDialog(Shell shell, WhileFigure figure) {
+	super(shell, figure);
     }
 
     @Override
@@ -27,7 +23,7 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 		String instructionCode =
 			"while(" + conditionTextField.getText() + "){";
 
-		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"si");
+		new ValidateDialog().validate(instructionCode, abstractFigure,"si");
 	    }
 	}
     }

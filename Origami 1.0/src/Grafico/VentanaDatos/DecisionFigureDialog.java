@@ -1,8 +1,5 @@
 package Grafico.VentanaDatos;
 
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
-import Administracion.Funcionalidad.Codigo.*;
 import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.DecisionFigure;
 import org.eclipse.swt.SWT;
@@ -16,10 +13,9 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     
     private Label informationLabel;
 
-    public DecisionFigureDialog(Shell shell, TabFolder tabFolder, DecisionFigure figura,
-	    AdminSeleccion selectionAdmin) {
+    public DecisionFigureDialog(Shell shell, DecisionFigure figura) {
 
-	super(shell, tabFolder, figura, selectionAdmin);
+	super(shell, figura);
     }
     @Override
     protected void create() {
@@ -36,7 +32,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 		String instructionCode =
 			"if(" + conditionTextField.getText() + "){";
 
-		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"si");
+		new ValidateDialog().validate(instructionCode, abstractFigure,"si");
 	    }
 	}
     }

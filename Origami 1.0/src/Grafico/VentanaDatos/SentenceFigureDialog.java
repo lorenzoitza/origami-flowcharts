@@ -2,8 +2,6 @@ package Grafico.VentanaDatos;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
 import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.SentenceFigure;
 
@@ -17,10 +15,9 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
     
     private Label equalOperator;
 
-    public SentenceFigureDialog(Shell shell, TabFolder tabFolder,
-	    SentenceFigure figure, AdminSeleccion selectionAdmin) {
+    public SentenceFigureDialog(Shell shell, SentenceFigure figure) {
 
-	super(shell, tabFolder, figure, selectionAdmin);
+	super(shell, figure);
     }
 
     @Override
@@ -34,7 +31,7 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 			variableTextField.getText() + " = "
 				+ dataTextField.getText() + ";";
 		
-		new ValidateDialog().validate(code, tabbedPaneSelected, abstractFigure,"si");
+		new ValidateDialog().validate(code, abstractFigure,"si");
 		
 	    }
 	}

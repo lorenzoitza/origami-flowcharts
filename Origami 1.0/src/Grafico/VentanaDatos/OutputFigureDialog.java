@@ -1,11 +1,12 @@
 package Grafico.VentanaDatos;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
 
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
+import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.OutputFigure;
 
 /**
@@ -16,9 +17,8 @@ import Grafico.Figuras.OutputFigure;
  */
 public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> {
 
-    public OutputFigureDialog(Shell shell, TabFolder tabFolder,
-	    OutputFigure figura, AdminSeleccion selectionAdmin) {
-	super(shell, tabFolder, figura, selectionAdmin);
+    public OutputFigureDialog(Shell shell, OutputFigure figura) {
+	super(shell, figura);
 
 	numHorizComponents = 2;
     }
@@ -150,58 +150,17 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 	addDeleteButton(position);
     }
     
-    
-    private boolean isChange(int total) {
-	boolean cambio = false;
-
-	String codigo = "";
-
-	for (int x = 0; x < total; x++) {
-	    codigo = codigo + "\\" + "p"+ textBoxContent[x] + ";";
-	}
-	if (!abstractFigure.instruction.instruccion.equals(codigo)) {
-
-	    tabbedPaneSelected.getTabItem().getSave().setSave(false);
-	    tabbedPaneSelected.getTabItem().getInfo().setInformacion( "/M - Se " 
-		    + "agrego o modifico una instruccion en una"
-		    + " figura de tipo \"salida\"\n");
-	    cambio = true;
-	}
-	abstractFigure.instruction.setInstruccionSimple(codigo);
-	tabbedPaneSelected.getHoja().addFigure();
-	tabbedPaneSelected.getHoja().guardarRetroceso();
-	return cambio;
-    }
-
     @Override
     protected void validate(boolean band) {
-	int total = 0;
-	
 	if (band) {
 	    scrolledCompositeContent = composite.getChildren();
 
-	    textBoxContent = new String[50];
-
+	    ArrayList<String> copia = new ArrayList<String>();
+	    
 	    for (int x = 0; x < scrolledCompositeContent.length; x += 2) {
-
-		String copia = ((Text) scrolledCompositeContent[x]).getText();
-
-		while (copia.startsWith(" ")) {
-
-		    copia = copia.replaceFirst(" ", "");
-		}
-		if (!copia.startsWith("Escribe") && copia != "null"
-			&& copia != "") {
-
-		    textBoxContent[total] = copia;
-		    total++;
-		}
+		copia.add(((Text) scrolledCompositeContent[x]).getText());
 	    }
-	    if (isChange(total)) {
-		
-		tabbedPaneSelected.getTabItem().getInfo().setDiagrama(
-			tabbedPaneSelected.getHoja().getDiagrama());
-	    }
+	    new ValidateDialog().validate(abstractFigure, copia);
 	}
     }
 

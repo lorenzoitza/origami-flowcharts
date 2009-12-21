@@ -5,9 +5,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
 import Administracion.actions.ValidateDialog;
 import Grafico.Figuras.ForFigure;
 
@@ -25,10 +22,9 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 
     private Text counterExpressionTextField;
 
-    public ForFigureDialog(Shell shell, TabFolder tabFolder, ForFigure figura,
-	    AdminSeleccion selectionAdmin) {
+    public ForFigureDialog(Shell shell, ForFigure figura) {
 
-	super(shell, tabFolder, figura, selectionAdmin);
+	super(shell, figura);
     }
     
     @Override
@@ -55,7 +51,6 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
     protected void validate(boolean band) {
 	String instructionCode = "";
 
-	boolean cambio = false;
 	if (band) {
 	    if ((indexExpressionTextField.getText() != "")
 		    && (conditionExpressionTextField.getText() != "")
@@ -66,7 +61,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 		instructionCode += ";" + counterExpressionTextField.getText();
 		instructionCode += "){";
 		
-		new ValidateDialog().validate(instructionCode, tabbedPaneSelected, abstractFigure,"para");
+		new ValidateDialog().validate(instructionCode, abstractFigure,"para");
 	    }
 	}
     }

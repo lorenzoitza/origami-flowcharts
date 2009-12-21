@@ -8,9 +8,6 @@ import org.eclipse.swt.widgets.*;
 
 import ui.events.KeyEvent;
 
-import Administracion.*;
-import Administracion.TabFolder;
-
 public abstract class AbstractDialog<Figure> {
 
     protected Shell dialog;
@@ -19,13 +16,9 @@ public abstract class AbstractDialog<Figure> {
 
     protected KeyEvent key;
 
-    protected TabFolder tabbedPaneSelected;
-
     protected Display display;
 
     protected Figure abstractFigure;
-    
-    protected AdminSeleccion selectionAdmin;
 
     protected Button acceptButton;
 
@@ -34,19 +27,14 @@ public abstract class AbstractDialog<Figure> {
     public AbstractDialog() {
     }
     
-    public AbstractDialog(Shell shell, TabFolder tabFolder, Figure figura,
-    		AdminSeleccion selectionAdmin) {
+    public AbstractDialog(Shell shell, Figure figura) {
 		this.dialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-	
-		this.tabbedPaneSelected = tabFolder;
 	
 		this.display = shell.getDisplay();
 	
 		this.abstractFigure = figura;
 	
-		this.selectionAdmin = selectionAdmin;
-	
-		this.key = new KeyEvent(selectionAdmin, tabFolder);
+		this.key = new KeyEvent();
 	
 		this.create();
 		this.initComponents();

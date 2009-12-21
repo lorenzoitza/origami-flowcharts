@@ -15,8 +15,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import ui.events.KeyEvent;
-import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
 import Imagenes.ImageLoader;
 
 public abstract class AbstractInputOutputDialog<Figure> extends
@@ -38,20 +36,15 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 
     protected Label writeVariableLabel;
 
-    public AbstractInputOutputDialog(Shell shell, TabFolder tabFolder,
-    		Figure figura, AdminSeleccion selectionAdmin) {
+    public AbstractInputOutputDialog(Shell shell, Figure figura) {
 		super();
 		this.dialog = new Shell(shell, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
-	
-		this.tabbedPaneSelected = tabFolder;
 	
 		this.display = shell.getDisplay();
 	
 		this.abstractFigure = figura;
 	
-		this.selectionAdmin = selectionAdmin;
-	
-		this.key = new KeyEvent(selectionAdmin, tabFolder);
+		this.key = new KeyEvent();
 	
 		this.scrolledComposite =
 			new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
