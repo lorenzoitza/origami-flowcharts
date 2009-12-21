@@ -578,27 +578,27 @@ public class ContextualMenuActions {
     public void agregar(Figura fig){
     	if(fig instanceof SentenceFigure){
     		SentenceFigure f = (SentenceFigure)fig;
-    		new SentenceFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new SentenceFigureDialog(MainWindow.shell,f).open();
     	}
     	else if(fig instanceof DecisionFigure){
     		DecisionFigure f = ((DecisionFigure)fig);
-    		new DecisionFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new DecisionFigureDialog(MainWindow.shell,f).open();
     	}
     	else if(fig instanceof InputFigure){
     		InputFigure f = ((InputFigure)fig);
-    		new InputFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new InputFigureDialog(MainWindow.shell,f).open();
     	}
     	else if(fig instanceof OutputFigure){
     		OutputFigure f = ((OutputFigure)fig);
-    		new OutputFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new OutputFigureDialog(MainWindow.shell,f).open();
     	}
     	else if(fig instanceof ForFigure){
     		ForFigure f = ((ForFigure)fig);
-    		new ForFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new ForFigureDialog(MainWindow.shell,f).open();
     	}
     	else if(fig instanceof WhileFigure){
     		WhileFigure f = ((WhileFigure)fig);
-    		new WhileFigureDialog(MainWindow.shell,MainWindow.getComponentes().diagramas,f,MainWindow._selectionAdministrator).open();
+    		new WhileFigureDialog(MainWindow.shell,f).open();
     	}
     }
     public void Repintar(){

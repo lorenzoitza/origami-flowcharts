@@ -31,7 +31,7 @@ public class TabFolder {
 	
 	public TabFolder(Display display,AdminSeleccion seleccion){
 		selec = seleccion;
-		key = new KeyEvent(selec,this);
+		key = new KeyEvent();
 		tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
 		hoja = new Hoja(display,this,selec);
 		addTabItem();
