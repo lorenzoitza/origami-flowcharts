@@ -192,8 +192,8 @@ public class PasoAPaso extends Ejecutar{
 	}
 	public boolean verificarLectura(int linea){
 		Instruccion codigo = new Instruccion();
-		codigo.generarGDB(tab.getHoja().getDiagrama());
-		String auxCodigo[] = codigo.codigoTotal.split("\n");
+		codigo.generateGDB(tab.getHoja().getDiagrama());
+		String auxCodigo[] = codigo.totalCode.split("\n");
 		for(int i=0; i<auxCodigo.length; i++){
 			if(i+1==linea){
 				if(auxCodigo[i].indexOf("cin>>")!=-1){
@@ -801,8 +801,8 @@ public class PasoAPaso extends Ejecutar{
 		tab.getHoja().getFigureIndexOf(0).setPosicion(4);
 
 		Instruccion codigo = new Instruccion();
-		codigo.generarGDB(tab.getHoja().getDiagrama());
-		String auxCodigo[] = codigo.codigoTotal.split("\n");	
+		codigo.generateGDB(tab.getHoja().getDiagrama());
+		String auxCodigo[] = codigo.totalCode.split("\n");	
 		NoEstaIf.removeAllElements();
 		NoEstaWhile.removeAllElements();
 		for(int x=0;x<auxCodigo.length;x++){

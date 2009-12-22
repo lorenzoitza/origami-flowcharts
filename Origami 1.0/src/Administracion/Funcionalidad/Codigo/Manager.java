@@ -24,7 +24,7 @@ public class Manager {
 		Instruccion getCodeOfFigures = new Instruccion();
 		Vector<String> result = getCodeOfFigures.main(figures);
 		System.out.println(result);
-		format = new FormatCodeC(result,getCodeOfFigures.getTablaVariables());
+		format = new FormatCodeC(result,getCodeOfFigures.getVariablesTable());
 		format.applyFormat();
 		this.instructionsFormat = format.getInstructionsFormat();
 	}
@@ -33,7 +33,7 @@ public class Manager {
 		Instruccion getCodeOfFigures = new Instruccion();
 		Vector<String> result = getCodeOfFigures.main(figures);
 		System.out.println(result);
-		format = new FormatCodeCpp(result,getCodeOfFigures.getTablaVariables());
+		format = new FormatCodeCpp(result,getCodeOfFigures.getVariablesTable());
 		format.applyFormat();
 		this.instructionsFormat = format.getInstructionsFormat();
 	}

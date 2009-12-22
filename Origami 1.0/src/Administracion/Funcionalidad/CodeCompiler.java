@@ -50,7 +50,7 @@ public class CodeCompiler {
 	    source = new File(fileName + ".c");
 
 	    PrintWriter writer = new PrintWriter(source);
-	    writer.write(code.codigoTotal);
+	    writer.write(code.totalCode);
 	    writer.close();
 
 	    while (true) {
@@ -95,12 +95,12 @@ public class CodeCompiler {
 	} else if (!isCCode && !inExecution) {
 
 	    source = new File("main.cpp");
-	    codigo.generarGDB(selectedTab.getHoja().getDiagrama());
+	    codigo.generateGDB(selectedTab.getHoja().getDiagrama());
 	}
 	try {
 
 	    PrintWriter pw = new PrintWriter(source);
-	    pw.write(codigo.codigoTotal);
+	    pw.write(codigo.totalCode);
 	    pw.close();
 	} catch (Exception e) {
 	    e.printStackTrace();

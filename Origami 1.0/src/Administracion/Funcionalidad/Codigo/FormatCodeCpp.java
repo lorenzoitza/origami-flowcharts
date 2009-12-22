@@ -2,84 +2,92 @@ package Administracion.Funcionalidad.Codigo;
 
 import java.util.Vector;
 
+public class FormatCodeCpp extends FormatInstructions {
 
-public class FormatCodeCpp extends FormatInstructions{
-
-    public FormatCodeCpp(Vector<String> codeOfFigure,Vector<String> TableOfVariable){
-		super();
-		setCodeOfFigure(codeOfFigure);
-		setTableOfVariable(TableOfVariable);
+    public FormatCodeCpp(Vector<String> codeOfFigure,
+	    Vector<String> TableOfVariable) {
+	super();
+	setCodeOfFigure(codeOfFigure);
+	setTableOfVariable(TableOfVariable);
     }
-    
+
     @Override
-	public void applyFormat() {
-    	divideDataInputForCodeCpp();
-    	code =
+    public void applyFormat() {
+	divideDataInputForCodeCpp();
+	code =
 		("#include <iostream>\n" + "using namespace std;\n"
 			+ "int main(int argc, char argv[])\n{\n");
-    	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();indexCodeFigure++) {
-    	    String str = codeOfFigure.elementAt(indexCodeFigure);
-    	    int pos = str.indexOf("null");
-    	    if (pos < 0) {
-    	    	code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
-    	    }
-    	}
-    	code = code + "      return 0;\n" + "}\n";
+	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
+	    
+	    String str = codeOfFigure.elementAt(indexCodeFigure);
+	    int pos = str.indexOf("null");
+	    if (pos < 0) {
+		
+		code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
+	    }
 	}
-    
+	code = code + "      return 0;\n" + "}\n";
+    }
+
     private void divideDataInputForCodeCpp() {
 	int j;
-	
+
 	for (int x = 0; x < codeOfFigure.size(); x++) {
-	    
+
 	    if (codeOfFigure.elementAt(x).lastIndexOf("Leer:") >= 0) {
-		
-		Vector<String> lineas = generateInstructionOfDataInputForCodeCpp(codeOfFigure.elementAt(x));
-		
+
+		Vector<String> lineas =
+			generateInstructionOfDataInputForCodeCpp(codeOfFigure
+				.elementAt(x));
+
 		String tab = codeOfFigure.elementAt(x);
-		
+
 		j = codeOfFigure.elementAt(x).indexOf("L");
-		
+
 		tab = tab.substring(0, j);
-		
+
 		removeLinesRepeated(lineas);
-		
+
 		codeOfFigure.removeElementAt(x);
-		
+
 		for (int k = 0; k < lineas.size(); k++) {
-		    
+
 		    String lin = tab + lineas.elementAt(k);
-		    
+
 		    codeOfFigure.insertElementAt(lin, x);
-		    
+
 		    x++;
-		    
+
 		}
-		
+
 		x--;
-	    }
-	    else if(codeOfFigure.elementAt(x).lastIndexOf("\\p") >= 0){
-		
-		Vector<String> lineas = generateInstructionOfDataOutputForCodeCpp2(codeOfFigure.elementAt(x));
-		
-		int indexCharacterP =codeOfFigure.elementAt(x).indexOf("p");
-		
-		String space =codeOfFigure.elementAt(x).substring(0,indexCharacterP-1);
-		
+	    } else if (codeOfFigure.elementAt(x).lastIndexOf("\\p") >= 0) {
+
+		Vector<String> lineas =
+			generateInstructionOfDataOutputForCodeCpp2(codeOfFigure
+				.elementAt(x));
+
+		int indexCharacterP = codeOfFigure.elementAt(x).indexOf("p");
+
+		String space =
+			codeOfFigure.elementAt(x).substring(0,
+				indexCharacterP - 1);
+
 		codeOfFigure.removeElementAt(x);
-		
+
 		for (int k = 0; k < lineas.size(); k++) {
-		    
+
 		    String lin = space + lineas.elementAt(k);
-		    
+
 		    codeOfFigure.insertElementAt(lin, x);
-		    
+
 		    x++;
 		}
 		x--;
 	    }
 	}
     }
+
     public void removeLinesRepeated(Vector<String> lineas) {
 	String aux, aux2, aux3;
 	int pos;
@@ -116,87 +124,95 @@ public class FormatCodeCpp extends FormatInstructions{
 	    }
 	}
     }
-    
+
     private boolean isDeclarada(String data) {
-	for(int i=0; i<this.TableOfVariable.size(); i++){
-	    if(this.TableOfVariable.elementAt(i).contains(data)){
+	for (int i = 0; i < this.TableOfVariable.size(); i++) {
+	    if (this.TableOfVariable.elementAt(i).contains(data)) {
 		return true;
 	    }
 	}
 	return false;
     }
-    
+
     public Vector<String> generateInstructionOfDataInputForCodeCpp(String linea) {
 	Vector<String> datos = new Vector<String>();
 	String scan = "cin>>";
 	String ultimo = ";";
-	String lin="";
-	String dato="";
-	
+	String lin = "";
+	String dato = "";
+
 	System.out.println("-----------");
 	System.out.println(linea);
-	
-	String data = linea.substring(linea.lastIndexOf("Leer:") + 5,linea.length());
-	
+
+	String data =
+		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
+
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
 	}
-	
+
 	if (data.lastIndexOf("int ") >= 0) {
-	    dato =data.substring(data.lastIndexOf("int") + 3,data.lastIndexOf(";"));
-	    if(!isDeclarada(data)){
+	    dato =
+		    data.substring(data.lastIndexOf("int") + 3, data
+			    .lastIndexOf(";"));
+	    if (!isDeclarada(data)) {
+		this.TableOfVariable.add(data);
+		datos.add(data);
+	    }
+	} else if (data.lastIndexOf("float ") >= 0) {
+	    dato =
+		    data.substring(data.lastIndexOf("float") + 5, data
+			    .lastIndexOf(";"));
+	    if (!isDeclarada(data)) {
+		this.TableOfVariable.add(data);
+		datos.add(data);
+	    }
+	} else if (data.lastIndexOf("char ") >= 0) {
+	    dato =
+		    data.substring(data.lastIndexOf("char") + 4, data
+			    .lastIndexOf(";"));
+	    if (!isDeclarada(data)) {
 		this.TableOfVariable.add(data);
 		datos.add(data);
 	    }
 	}
-	else if(data.lastIndexOf("float ") >= 0){
-	    dato =data.substring(data.lastIndexOf("float") + 5,data.lastIndexOf(";"));
-	    if(!isDeclarada(data)){
-		this.TableOfVariable.add(data);
-		datos.add(data);
-	    }
-	}
-	else if(data.lastIndexOf("char ") >= 0){
-	    dato =data.substring(data.lastIndexOf("char") + 4,data.lastIndexOf(";"));
-	    if(!isDeclarada(data)){
-		this.TableOfVariable.add(data);
-		datos.add(data);
-	    }
-	}
-	
+
 	lin = scan + dato + ultimo;
-	
+
 	datos.add(lin);
 
 	return datos;
     }
-    public Vector<String> generateInstructionOfDataOutputForCodeCpp2(String linea) {
+
+    public Vector<String> generateInstructionOfDataOutputForCodeCpp2(
+	    String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "cout ";
 	String separador = "<< ";
 	String ultimo = "<< endl;";
-	
-	String data = linea.substring(linea.lastIndexOf("\\p") + 2,linea.length()-1);
-	
+
+	String data =
+		linea.substring(linea.lastIndexOf("\\p") + 2,
+			linea.length() - 1);
+
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
-	    }
-	
+	}
+
 	String datos[] = data.split(",");
-	
+
 	String instruccion = print;
-	
-	
-	for(int i=0; i<datos.length; i++){
+
+	for (int i = 0; i < datos.length; i++) {
 	    instruccion = instruccion + separador + datos[i];
 	}
-	
+
 	instruccion = instruccion + ultimo;
-	
+
 	System.out.println(instruccion);
-	
+
 	imprimir.add(instruccion);
-	
+
 	return imprimir;
     }
 }

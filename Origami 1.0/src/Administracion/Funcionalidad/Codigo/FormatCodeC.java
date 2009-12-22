@@ -2,80 +2,92 @@ package Administracion.Funcionalidad.Codigo;
 
 import java.util.Vector;
 
+public class FormatCodeC extends FormatInstructions {
 
-public class FormatCodeC extends FormatInstructions{
-
-    public FormatCodeC(Vector<String> codeOfFigure,Vector<String> TableOfVariable){
-		super();
-		setCodeOfFigure(codeOfFigure);
-		setTableOfVariable(TableOfVariable);
+    public FormatCodeC(Vector<String> codeOfFigure,
+	    Vector<String> TableOfVariable) {
+	super();
+	setCodeOfFigure(codeOfFigure);
+	setTableOfVariable(TableOfVariable);
     }
-    
+
     @Override
-	public void applyFormat() {
-    	divideDataInputForCodeC();
-    	//generateInstructionOfDataOutputForCodeC();
-    	code =
+    public void applyFormat() {
+	divideDataInputForCodeC();
+	// generateInstructionOfDataOutputForCodeC();
+	code =
 		("#include <stdio.h>\n" + "#include <stdlib.h>"
 			+ "\nint main(int argc, char argv[])\n{\n");
-    	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();indexCodeFigure++) {
-    	    String str = codeOfFigure.elementAt(indexCodeFigure);
-    	    int pos = str.indexOf("null");
-    	    if (pos < 0) {
-    	    	code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
-    	    }
-    	}
-    	code = code + "      system(\"PAUSE\");\n      return 0;\n" + "}\n";
-	}
-    
-    private void divideDataInputForCodeC() {
-	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size();indexCodeFigure++) {
+	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
 	    
+	    String str = codeOfFigure.elementAt(indexCodeFigure);
+	    int pos = str.indexOf("null");
+	    if (pos < 0) {
+		
+		code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
+	    }
+	}
+	code = code + "      system(\"PAUSE\");\n      return 0;\n" + "}\n";
+    }
+
+    private void divideDataInputForCodeC() {
+	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
+
 	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("Leer:") >= 0) {
-		
-		Vector<String> dataSeparate =generateInstructionOfDataInputForCodeC2(codeOfFigure.elementAt(indexCodeFigure));
-		
-		int indexCharacterL =codeOfFigure.elementAt(indexCodeFigure).indexOf("L");
-		
-		String space =codeOfFigure.elementAt(indexCodeFigure).substring(0,indexCharacterL);
-		
+
+		Vector<String> dataSeparate =
+			generateInstructionOfDataInputForCodeC2(codeOfFigure
+				.elementAt(indexCodeFigure));
+
+		int indexCharacterL =
+			codeOfFigure.elementAt(indexCodeFigure).indexOf("L");
+
+		String space =
+			codeOfFigure.elementAt(indexCodeFigure).substring(0,
+				indexCharacterL);
+
 		removeLinesRepeated(dataSeparate);
-		
+
 		codeOfFigure.removeElementAt(indexCodeFigure);
-		
+
 		for (int k = 0; k < dataSeparate.size(); k++) {
-		    
+
 		    String lin = space + dataSeparate.elementAt(k);
-		    
+
 		    codeOfFigure.insertElementAt(lin, indexCodeFigure);
-		    
+
 		    indexCodeFigure++;
 		}
 		indexCodeFigure--;
-	    }
-	    else if(codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("\\p") >= 0){
-		
-		Vector<String> dataSeparate = generateInstructionOfDataOutputForCodeC(codeOfFigure.elementAt(indexCodeFigure));
-		
-		int indexCharacterP =codeOfFigure.elementAt(indexCodeFigure).indexOf("p");
-		
-		String space =codeOfFigure.elementAt(indexCodeFigure).substring(0,indexCharacterP-1);
-		
+	    } else if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf(
+		    "\\p") >= 0) {
+
+		Vector<String> dataSeparate =
+			generateInstructionOfDataOutputForCodeC(codeOfFigure
+				.elementAt(indexCodeFigure));
+
+		int indexCharacterP =
+			codeOfFigure.elementAt(indexCodeFigure).indexOf("p");
+
+		String space =
+			codeOfFigure.elementAt(indexCodeFigure).substring(0,
+				indexCharacterP - 1);
+
 		codeOfFigure.removeElementAt(indexCodeFigure);
-		
+
 		for (int k = 0; k < dataSeparate.size(); k++) {
-		    
+
 		    String lin = space + dataSeparate.elementAt(k);
-		    
+
 		    codeOfFigure.insertElementAt(lin, indexCodeFigure);
-		    
+
 		    indexCodeFigure++;
 		}
 		indexCodeFigure--;
 	    }
 	}
     }
-    
+
     public void removeLinesRepeated(Vector<String> lineas) {
 	String aux, aux2, aux3;
 	int pos;
@@ -112,76 +124,84 @@ public class FormatCodeC extends FormatInstructions{
 	    }
 	}
     }
-    
+
     private Vector<String> generateInstructionOfDataInputForCodeC2(String linea) {
-	Vector<String> datos = new Vector<String>();;
+	Vector<String> datos = new Vector<String>();
+	;
 	String scanCaracter = "scanf(" + "\"" + "%" + "c" + "\"" + "," + "&";
 	String scanEnteros = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String scanFlotante = "scanf(" + "\"" + "%" + "f" + "\"" + "," + "&";
 	String scanDefaul = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String ultimo = ");";
-	
-	System.out.println("la linea tiene: "+linea);
-	
-	String data = linea.substring(linea.lastIndexOf("Leer:") + 5,linea.length());
-	
+
+	System.out.println("la linea tiene: " + linea);
+
+	String data =
+		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
+
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
-	    }
-	
-	System.out.println("data: "+data);
-	
-	
+	}
+
+	System.out.println("data: " + data);
+
 	if (data.lastIndexOf("int ") >= 0) {
-	    String dato =data.substring(data.lastIndexOf("int") + 3,data.lastIndexOf(";"));
-	    
+	    String dato =
+		    data.substring(data.lastIndexOf("int") + 3, data
+			    .lastIndexOf(";"));
+
 	    String lin = scanEnteros + dato + ultimo;
-	    
-	    if(!isDeclarada(data)){
+
+	    if (!isDeclarada(data)) {
 		this.TableOfVariable.add(data);
 		datos.add(data);
 	    }
 	    datos.add(lin);
-	    
+
 	} else if (data.lastIndexOf("char ") >= 0) {
-	    String dato =data .substring(data.lastIndexOf("char") + 4,data.lastIndexOf(";"));
-	    
+	    String dato =
+		    data.substring(data.lastIndexOf("char") + 4, data
+			    .lastIndexOf(";"));
+
 	    String lin = scanCaracter + dato + ultimo;
-	    
-	    if(!isDeclarada(data)){
+
+	    if (!isDeclarada(data)) {
 		this.TableOfVariable.add(data);
 		datos.add(data);
 	    }
 	    datos.add(lin);
-	    
+
 	} else if (data.lastIndexOf("float ") >= 0) {
-	    String dato =data.substring(data.lastIndexOf("float") + 5,data.lastIndexOf(";"));
-	    
+	    String dato =
+		    data.substring(data.lastIndexOf("float") + 5, data
+			    .lastIndexOf(";"));
+
 	    String lin = scanFlotante + dato + ultimo;
-	    
-	    if(!isDeclarada(data)){
+
+	    if (!isDeclarada(data)) {
 		this.TableOfVariable.add(data);
 		datos.add(data);
 	    }
 	    datos.add(lin);
 	} else {
-	    
-	    for(int i=0; i<TableOfVariable.size(); i++){
+
+	    for (int i = 0; i < TableOfVariable.size(); i++) {
 		System.out.println(TableOfVariable.elementAt(i));
-		if(TableOfVariable.elementAt(i).lastIndexOf(data)>=0){
-		    if(TableOfVariable.elementAt(i).lastIndexOf("char") >=0){
-			scanDefaul=scanCaracter;
-		    } else if(TableOfVariable.elementAt(i).lastIndexOf("float") >=0){
-			scanDefaul=scanFlotante;
+		if (TableOfVariable.elementAt(i).lastIndexOf(data) >= 0) {
+		    if (TableOfVariable.elementAt(i).lastIndexOf("char") >= 0) {
+			scanDefaul = scanCaracter;
+		    } else if (TableOfVariable.elementAt(i)
+			    .lastIndexOf("float") >= 0) {
+			scanDefaul = scanFlotante;
 		    }
 		    break;
 		}
 	    }
-	    String dato =data.substring(0,data.lastIndexOf(";"));
-	    
+	    String dato = data.substring(0, data.lastIndexOf(";"));
+
 	    String lin = scanDefaul + dato + ultimo;
-	    
-	    if(!isDeclarada(data)){
+
+	    if (!isDeclarada(data)) {
 		this.TableOfVariable.add(data);
 		datos.add(data);
 	    }
@@ -189,16 +209,16 @@ public class FormatCodeC extends FormatInstructions{
 	}
 	return datos;
     }
-    
+
     private boolean isDeclarada(String data) {
-	for(int i=0; i<this.TableOfVariable.size(); i++){
-	    if(this.TableOfVariable.elementAt(i).contains(data)){
+	for (int i = 0; i < this.TableOfVariable.size(); i++) {
+	    if (this.TableOfVariable.elementAt(i).contains(data)) {
 		return true;
 	    }
 	}
 	return false;
     }
-    
+
     public Vector<String> generateInstructionOfDataOutputForCodeC(String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "printf(" + "\" ";
@@ -207,52 +227,54 @@ public class FormatCodeC extends FormatInstructions{
 	String flotante = "%f ";
 	String separador = ",";
 	String ultimo = ");";
-	
-	String data = linea.substring(linea.lastIndexOf("\\p") + 2,linea.length()-1);
-	
+
+	String data =
+		linea.substring(linea.lastIndexOf("\\p") + 2,
+			linea.length() - 1);
+
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
-	    }
-	
+	}
+
 	String datos[] = data.split(",");
-	
+
 	String instruccion = print;
-	
-	String parteFinalDeLaInstruccion="";
-	
-	for(int i=0; i<datos.length; i++){
+
+	String parteFinalDeLaInstruccion = "";
+
+	for (int i = 0; i < datos.length; i++) {
 	    String tipo = this.getTypeOfData(datos[i]);
-	    if(tipo!=null){
-		if(tipo=="int"){
-		   instruccion = instruccion + entero;
-		}
-		else if(tipo=="float"){
+	    if (tipo != null) {
+		if (tipo == "int") {
+		    instruccion = instruccion + entero;
+		} else if (tipo == "float") {
 		    instruccion = instruccion + flotante;
-		}
-		else{
+		} else {
 		    instruccion = instruccion + caracter;
 		}
-		parteFinalDeLaInstruccion = parteFinalDeLaInstruccion + separador+datos[i];
-	    }
-	    else{
-		if(datos[i].contains("\"")){
+		parteFinalDeLaInstruccion =
+			parteFinalDeLaInstruccion + separador + datos[i];
+	    } else {
+		if (datos[i].contains("\"")) {
 		    System.out.println(datos[i]);
-		    instruccion = instruccion + datos[i].substring(1,datos[i].length()-1);
-		}
-		else{
-		    parteFinalDeLaInstruccion = parteFinalDeLaInstruccion + separador+datos[i];
+		    instruccion =
+			    instruccion
+				    + datos[i].substring(1,
+					    datos[i].length() - 1);
+		} else {
+		    parteFinalDeLaInstruccion =
+			    parteFinalDeLaInstruccion + separador + datos[i];
 		}
 	    }
 	}
-	
-	instruccion = instruccion + "\""+ parteFinalDeLaInstruccion + ultimo;
-	
+
+	instruccion = instruccion + "\"" + parteFinalDeLaInstruccion + ultimo;
+
 	System.out.println(instruccion);
-	
+
 	imprimir.add(instruccion);
-	
+
 	return imprimir;
     }
-    
-    
+
 }
