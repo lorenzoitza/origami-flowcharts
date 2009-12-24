@@ -16,6 +16,10 @@ import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 import Grafico.Help.AboutWindow;
 import Grafico.Help.HelpWindow;
+import Grafico.view.OpenFileView;
+import Grafico.view.OpenType;
+import Grafico.view.SaveFileView;
+import Grafico.view.SaveType;
 import Imagenes.ImageLoader;
 
 
@@ -153,119 +157,27 @@ public class KeyEvent {
 		break;
 	}
 	if(key+key2 == 262241){
-		if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
-				&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+	    if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
+		&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+		MainWindow.getComponents().stopEjecucion();
+	    }
+	    else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
+		    && MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 			MainWindow.getComponents().stopEjecucion();
-		}
-		else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-				&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
-			MainWindow.getComponents().stopEjecucion();
-		}
-		FileDialog dialog = new FileDialog(MainWindow.shell,SWT.OPEN);
-	    dialog.setFilterExtensions(new String[] { "*.Org","*.*" });
-	    String archivo = dialog.open();
-	    if(archivo!=null){
-	    	File file = new File(archivo);
-	    	if(file.exists()){
-	    		if(MainWindow.getComponentes().diagramas.getHoja().getSizeDiagrama()==0){
-			    	String archivo2 = dialog.getFileName();
-			    	int pos = archivo2.indexOf('.');
-			    	String name = archivo2.substring(0, pos);
-			    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
-			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
-			    	MainWindow.getComponentes().diagramas.abrir(archivo,ser);
-			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
-			    	
-		    	}
-		    	else{
-		    		MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-				    MainWindow.getComponentes().diagramas.getHoja().openFile(archivo);
-				    MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
-				    archivo = dialog.getFileName();
-				    int pos = archivo.indexOf('.');
-				    String name = archivo.substring(0, pos);
-				    MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
-			    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
-			    	MainWindow.getComponentes().diagramas.getTabItem().resetRetroceso();		 
-			    	MainWindow.getComponentes().diagramas.getTabItem().agregarRetroceso(MainWindow.getComponentes().diagramas.getHoja().getDiagrama(), MainWindow._selectionAdministrator);
-		    	}
-		    	MainWindow.getComponentes().disablePasoAPaso(false);
-		    	MainWindow.getComponents().disableAll(true);
-	    	}
-	     }
+	    }
+	    OpenFileView open = new OpenFileView();
+	    open.setOpenType(OpenType.OPEN);
+	    open.createWindow();
 	}
 	else if(key+key2 == 262247){
-		if(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir()=="null"){
-			FileDialog dialog = new FileDialog(MainWindow.shell,SWT.SAVE);
-		    dialog.setFilterExtensions(new String[] { "*.Org"});
-		    String archivo = dialog.open();
-		    if(archivo!=null){
-		    	if(dialog.getFileName().contains("\\") || dialog.getFileName().contains("/") ||
-	    				dialog.getFileName().contains(":") || dialog.getFileName().contains("*") ||
-	    						dialog.getFileName().contains("?") || dialog.getFileName().contains("<") ||
-	    						dialog.getFileName().contains(">") || dialog.getFileName().contains("|") ||
-	    						dialog.getFileName().contains("\"")){
-	    			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_ERROR| SWT.OK);
-		    		messageBox.setText("Origami");
-		    		messageBox.setMessage("El nombre de archivo, directorio o etiqueta del volum�n no es v�lido");
-		    		int seleccion = messageBox.open();
-		    		switch(seleccion){
-		    			case 64:
-		    				break;
-		    			case 128:			    	
-		    				break;
-		    		}
-	    		}
-	    		else{
-	    			boolean existe = false;
-	    			try{
-	    				File arch = new File(archivo);
-	    				if(arch.exists()){
-	    					existe = true;
-	    				}
-	    			}
-	    			catch(Exception e1){
-	    			}		    	
-	    			if(existe){
-	    				MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES | SWT.NO);
-			    		messageBox.setText("Origami");
-			    		messageBox.setMessage("El archivo ya existe. �Desea reemplazarlo?");
-			    		int seleccion = messageBox.open();
-			    		switch(seleccion){
-			    			case 64:
-						    	ser.setFile(archivo);
-						    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
-						    	ser.saveDiagram(MainWindow.getComponentes().diagramas);
-						    	archivo = dialog.getFileName();
-						    	int pos = archivo.indexOf('.');
-						    	String name = archivo.substring(0, pos);
-						    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
-						    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
-			    				break;
-			    			case 128:							
-			    				break;
-			    		}
-			    	}
-			    	else{
-				    	ser.setFile(archivo);
-				    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setDir(archivo);
-				    	boolean error = ser.saveDiagram(MainWindow.getComponentes().diagramas);
-				    	if(error){
-				    		archivo = dialog.getFileName();
-				    		int pos = archivo.indexOf('.');
-					    	String name = archivo.substring(0, pos);
-					    	MainWindow.getComponentes().diagramas.cambiarNombre("*"+name);
-					    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
-				    	}
-			    	}
-	    		}
-		    }
-		}
-		else{
-	    	ser.setFile(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir());
-	    	ser.saveDiagram(MainWindow.getComponentes().diagramas);
-	    	MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(true);
-		}
+	    SaveFileView save = new SaveFileView();
+	    if(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir()=="null"){
+		save.setSaveType(SaveType.SAVE);
+		save.createWindow();
+	    }
+	    else{
+		save.saveAction();
+	    }
 	}
 	else if(key+key2 == 262264){
 		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
