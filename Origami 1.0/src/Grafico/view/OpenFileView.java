@@ -3,12 +3,15 @@ package Grafico.view;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
+import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
 
 
 public class OpenFileView {
     
     private OpenType openType;
+    
+    private static DiagramFileManager _serializer = new DiagramFileManager();
     
     public void createWindow(){
 	FileDialog dialog = new FileDialog(MainWindow.shell,SWT.OPEN);
@@ -37,14 +40,14 @@ public class OpenFileView {
 	    String name = nomArchivo.substring(0, pos);
 	    MainWindow.getComponents()._diagrams.cambiarNombre(name);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
-	    MainWindow.getComponents()._diagrams.abrir(address,MainWindow.getSerializer());
+	    MainWindow.getComponents()._diagrams.abrir(address,_serializer);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(address);
 	    break;
 	case OPENEXAMPLE: 
     	    int pos2 = nomArchivo.indexOf('.');
     	    String name2 = nomArchivo.substring(0, pos2);
     	    MainWindow.getComponentes()._diagrams.cambiarNombre(name2);
-    	    MainWindow.getComponentes()._diagrams.abrir(address,MainWindow.getSerializer());
+    	    MainWindow.getComponentes()._diagrams.abrir(address,_serializer);
 	    break;
 	default:
 	    break;
@@ -54,7 +57,7 @@ public class OpenFileView {
 	switch (openType) {
 	case OPEN: 
 	    MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponents()._diagrams.getHoja().openFile(address);
+	    MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(address);
 	    int pos = nomArchivo.indexOf('.');
 	    String name = nomArchivo.substring(0, pos);
@@ -65,7 +68,7 @@ public class OpenFileView {
 	    break;
 	case OPENEXAMPLE: 
 	    MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponentes()._diagrams.getHoja().openFile(address);
+	    MainWindow.getComponentes()._diagrams.getHoja().openFile(address,_serializer);
 	    int pos2 = nomArchivo.indexOf('.');
 	    String name2 = nomArchivo.substring(0, pos2);
 	    MainWindow.getComponentes()._diagrams.cambiarNombre(name2);

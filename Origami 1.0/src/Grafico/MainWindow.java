@@ -13,7 +13,6 @@ import Administracion.AdminDiagrama;
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
 import Administracion.OrigamiException;
-import Administracion.Funcionalidad.DiagramFileManager;
 import Imagenes.ImageLoader;
 
 public class MainWindow {
@@ -30,8 +29,6 @@ public class MainWindow {
     
     
 
-    private static DiagramFileManager _serializer = new DiagramFileManager();
-    
     public static AdminDiagrama _diagramAdministrator;     
 
     public static AdminSeleccion _selectionAdministrator = new AdminSeleccion(); 
@@ -99,14 +96,6 @@ public class MainWindow {
 
     public Shell getShell() {
 	return shell;
-    }
-
-    public static void setSerializer(DiagramFileManager serializer) {
-	_serializer = serializer;
-    }
-
-    public static DiagramFileManager getSerializer() {
-	return _serializer;
     }
 
     public static void setComponents(Componentes components) {

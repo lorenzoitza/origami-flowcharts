@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
+import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Exporter;
 import Grafico.MainWindow;
 
@@ -14,6 +15,7 @@ public class SaveFileView {
     
     private SaveType saveType;
     
+    private static DiagramFileManager _serializer = new DiagramFileManager();
     
     public SaveType getSaveType() {
         return saveType;
@@ -23,7 +25,7 @@ public class SaveFileView {
         this.saveType = saveType;
     }
 
-    public void createWindow(){
+    public boolean createWindow(){
 	FileDialog dialog = new FileDialog(MainWindow.shell,SWT.SAVE);
 	switch (saveType) {
 	case SAVE: 
@@ -46,7 +48,6 @@ public class SaveFileView {
 	default:
 	    break;
 	}
-	
 	String archivo = dialog.open();
 	if(archivo!=null){
 	    if(dialog.getFileName().contains("\\") || dialog.getFileName().contains("/") ||
@@ -61,7 +62,7 @@ public class SaveFileView {
 		switch(seleccion){
 		case 64:
 		    break;
-		case 128:		    	
+		case 128:
 		    break;
 		}
 	    }
@@ -93,14 +94,24 @@ public class SaveFileView {
 		}
 	    }
 	}
+	else{
+	    return false;
+	}
+	return true;
     }
     
-    public void action(String nomArchivo,String address){
+    public void saveAction(){
+	_serializer.setFile(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir());
+	_serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
+	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
+    }
+    
+    private void action(String nomArchivo,String address){
 	switch (saveType) {
 	case SAVE: 
-	    MainWindow.getSerializer().setFile(nomArchivo);
+	    _serializer.setFile(nomArchivo);
 	    MainWindow.getComponentes()._diagrams.getTabItem().getSave().setDir(nomArchivo);
-	    boolean error = MainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
+	    boolean error = _serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
 	    if(error){
 		int pos = nomArchivo.indexOf('.');
 		String name = nomArchivo.substring(0, pos);
@@ -109,8 +120,8 @@ public class SaveFileView {
 	    }
 	    break;	
 	case SAVEAS: 
-	    MainWindow.getSerializer().setFile(nomArchivo);
-	    boolean error2 = MainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
+	    _serializer.setFile(nomArchivo);
+	    boolean error2 = _serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
 	    if(error2){
 		int pos = nomArchivo.indexOf('.');
 		String name = nomArchivo.substring(0, pos);
