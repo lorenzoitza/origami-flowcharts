@@ -8,6 +8,8 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.TabFolder;
 import Administracion.TabItem;
 import Grafico.*;
+import Grafico.view.SaveFileView;
+import Grafico.view.SaveType;
 
 /**
  * @version Origami 1.0
@@ -55,87 +57,16 @@ public class Guardar {
 	}
 	selec = messageBox.open();
 	switch (selec) {
-	case 64:
+	case 64: 
+	    SaveFileView save = new SaveFileView();
 	    if (tab.getTabItem().getSave().getDir() == "null") {
-		FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
-		dialog.setFilterExtensions(new String[] { "*.Org" });
-		String archivo = dialog.open();
-		if (archivo != null) {
-		    if (dialog.getFileName().contains("\\")
-			    || dialog.getFileName().contains("/")
-			    || dialog.getFileName().contains(":")
-			    || dialog.getFileName().contains("*")
-			    || dialog.getFileName().contains("?")
-			    || dialog.getFileName().contains("<")
-			    || dialog.getFileName().contains(">")
-			    || dialog.getFileName().contains("|")
-			    || dialog.getFileName().contains("\"")) {
-			MessageBox messageBox2 =
-				new MessageBox(MainWindow.shell,
-					SWT.ICON_ERROR | SWT.OK);
-			messageBox2.setText("Origami");
-			messageBox2
-				.setMessage("El nombre de archivo, directorio o etiqueta del volum�n no es v�lido");
-			int seleccion = messageBox2.open();
-			switch (seleccion) {
-			case 64:
-			    break;
-			case 128:
-			    break;
-			}
-		    } else {
-			boolean existe = false;
-			try {
-			    File arch = new File(archivo);
-			    if (arch.exists()) {
-				existe = true;
-			    }
-			} catch (Exception e1) {
-			}
-			if (existe) {
-			    MessageBox messageBox3 =
-				    new MessageBox(MainWindow.shell,
-					    SWT.ICON_WARNING | SWT.YES | SWT.NO);
-			    messageBox3.setText("Origami");
-			    messageBox3
-				    .setMessage("El archivo ya existe. �Desea reemplazarlo?");
-			    int seleccion = messageBox.open();
-			    switch (seleccion) {
-			    case 64:
-				MainWindow.getSerializer().setFile(archivo);
-				tab.getTabItem().getSave().setDir(archivo);
-				MainWindow.getSerializer().saveDiagram(tab);
-				archivo = dialog.getFileName();
-				int pos = archivo.indexOf('.');
-				String name = archivo.substring(0, pos);
-				tab.cambiarNombre("*" + name);
-				tab.getTabItem().getSave().setSave(true);
-				break;
-			    case 128:
-				break;
-			    }
-			} else {
-			    MainWindow.getSerializer().setFile(archivo);
-			    tab.getTabItem().getSave().setDir(archivo);
-			    boolean error =
-				    MainWindow.getSerializer().saveDiagram(tab);
-			    if (error) {
-				archivo = dialog.getFileName();
-				int pos = archivo.indexOf('.');
-				String name = archivo.substring(0, pos);
-				tab.cambiarNombre("*" + name);
-				tab.getTabItem().getSave().setSave(true);
-			    }
-			}
-		    }
-		} else {
+		save.setSaveType(SaveType.SAVE);
+		boolean success = save.createWindow();
+		if(success){
 		    e.doit = false;
 		}
 	    } else {
-		MainWindow.getSerializer().setFile(
-			tab.getTabItem().getSave().getDir());
-		MainWindow.getSerializer().saveDiagram(tab);
-		tab.getTabItem().getSave().setSave(true);
+		save.saveAction();
 	    }
 	    break;
 	case 128:

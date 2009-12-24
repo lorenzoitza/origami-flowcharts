@@ -19,8 +19,6 @@ import org.eclipse.swt.widgets.ScrollBar;
 import ui.events.AddFigureEvent;
 import ui.events.ChangeCursorEvent;
 import ui.events.ContextualMenuEvent;
-import Administracion.Eventos.EventoAgregarFigura;
-import Administracion.Eventos.EventoCambiarCursor;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
@@ -199,11 +197,11 @@ public class Hoja{
 		panel.setBounds(new Rectangle(0,0,0,0));
 		scaledPane.setBounds(new Rectangle(0,0,0,0));
 	}
-	public void openFile(String archivo){
+	public void openFile(String archivo,DiagramFileManager ser){
 		Rectangle r = diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.firstElement().getBounds();
         	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.removeAllElements();
         	chart.elementAt(seleccion.getSeleccionDigrama()).removeAll();
-        	CustomFile aux = MainWindow.getSerializer().recoverDiagram(archivo);
+        	CustomFile aux = ser.recoverDiagram(archivo);
         	diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama = aux.getDiagrama();
         	tab.getTabItem().getInfo().setInfo(aux.getInfo());
         	tab.getTabItem().getInfo().upDateTime();
