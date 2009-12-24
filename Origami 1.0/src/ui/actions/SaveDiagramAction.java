@@ -19,17 +19,14 @@ public class SaveDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
+	SaveFileView save = new SaveFileView();
 	if(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir()=="null"){
-	    SaveFileView save = new SaveFileView();
 	    save.setSaveType(SaveType.SAVE);
 	    save.createWindow();
 	}
 	else{
-	    MainWindow.getSerializer().setFile(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir());
-	    MainWindow.getSerializer().saveDiagram(MainWindow.getComponentes()._diagrams);
-	    MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
+	    save.saveAction();
 	}
-	
     }
 
 }
