@@ -26,8 +26,8 @@ public class ValidateDialog {
 
 	    if (!abstractFigure.instruction.instruccion.elementAt(0).
 		    instruccion.equals(instructionCode)) {
-		MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
-		MainWindow.getComponentes().diagramas.getTabItem().getInfo().setInformacion(
+		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+		MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion(
 					"/M - Se agrego"
 					+ " o modifico una "
 					+ "instruccion en una figura de tipo \""+info+"\"\n");
@@ -35,11 +35,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruction.instruccion.add(0, code);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 	if (isChanged) {
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
+		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	}
     }
     public void validate(String instructionCode, ForFigure abstractFigure,
@@ -57,8 +57,8 @@ public class ValidateDialog {
 	    if (!abstractFigure.instruction.instruccion.elementAt(0).
 		    instruccion.equals(instructionCode)) {
 
-		MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
-		MainWindow.getComponentes().diagramas.getTabItem().getInfo().setInformacion(
+		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+		MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion(
 					"/M - Se agrego"
 					+ " o modifico una "
 					+ "instruccion en una figura de tipo \""+info+"\"\n");
@@ -66,11 +66,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruction.instruccion.add(0, code);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 	if (isChanged) {
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
+		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	}
     }
     public void validate(String instructionCode, SentenceFigure abstractFigure,
@@ -80,8 +80,8 @@ public class ValidateDialog {
 	
 	if (!abstractFigure.instruccion.instruccion.equals(instructionCode)) {
 
-	    MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setInformacion(
+	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion(
 		    "/M - Se agrego " + "o modifico una "
 			    + "instruccion en una figura de tipo "
 			    + "\"proceso\"\n");
@@ -89,12 +89,12 @@ public class ValidateDialog {
 	    abstractFigure.instruccion.setInstruccionSimple(instructionCode);
 	}
 	abstractFigure.instruccion.setInstruccionSimple(instructionCode);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 
 	if (isChanged) {
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
+		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	}
     }
     public void validate(String instructionCode, WhileFigure abstractFigure,
@@ -111,9 +111,9 @@ public class ValidateDialog {
 	    if (!abstractFigure.instruccion.instruccion.elementAt(0).
 		    instruccion.equals(instructionCode)) {
 
-		MainWindow.getComponentes().diagramas.getTabItem().getSave()
+		MainWindow.getComponents()._diagrams.getTabItem().getSave()
 			.setSave(false);
-		MainWindow.getComponentes().diagramas.getTabItem().getInfo()
+		MainWindow.getComponents()._diagrams.getTabItem().getInfo()
 			.setInformacion(
 				"/M - Se agrego o modifico una "
 					+ "instruccion "
@@ -123,11 +123,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruccion.instruccion.add(0, code);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 	if (isChanged) {
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
+		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	}
     }
     public void validate(InputFigure abstractFigure, ArrayList<String> copia) {
@@ -162,8 +162,8 @@ public class ValidateDialog {
 		}
 	}
 	if (isChange(total,textBoxContent2,abstractFigure)) {
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
+		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	 }
     }
     private boolean isChange(int total,String[] texbox,InputFigure abstractFigure) {
@@ -176,15 +176,15 @@ public class ValidateDialog {
 	}
 	if (!abstractFigure.instruction.instruccion.equals(codigo)) {
 	    
-	    MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setInformacion("/M - Se " +
+	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion("/M - Se " +
 	    		"agrego o modifico una instruccion en una" +
 	    		" figura de tipo \"entrada\"\n");
 	    cambio = true;
 	}
 	abstractFigure.instruction.setInstruccionSimple(codigo);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 	return cambio;
     }
     public void validate(OutputFigure abstractFigure, ArrayList<String> copia) {
@@ -205,7 +205,7 @@ public class ValidateDialog {
 	    }
 	}
 	if (isChange2(total,textBoxContent2,abstractFigure)) {    
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setDiagrama(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	}
     }
     private boolean isChange2(int total,String[] text,OutputFigure abstractFigure) {
@@ -218,15 +218,15 @@ public class ValidateDialog {
 	}
 	if (!abstractFigure.instruction.instruccion.equals(codigo)) {
 
-	    MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
-	    MainWindow.getComponentes().diagramas.getTabItem().getInfo().setInformacion( "/M - Se " 
+	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion( "/M - Se " 
 		    + "agrego o modifico una instruccion en una"
 		    + " figura de tipo \"salida\"\n");
 	    cambio = true;
 	}
 	abstractFigure.instruction.setInstruccionSimple(codigo);
-	MainWindow.getComponentes().diagramas.getHoja().addFigure();
-	MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 	return cambio;
     }
 

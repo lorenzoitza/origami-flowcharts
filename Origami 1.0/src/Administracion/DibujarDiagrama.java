@@ -52,10 +52,10 @@ public class DibujarDiagrama extends Figure{
 			}
 			public void mousePressed(MouseEvent arg0) {
 				tab.getTabFolder().forceFocus();
-				if(MainWindow.getComponentes().console.hide){
-					if(MainWindow.getComponentes().console.hide){
+				if(MainWindow.getComponents().console.hide){
+					if(MainWindow.getComponents().console.hide){
 						if(MainWindow.menu.consoleMenuItem.getSelection()){
-							MainWindow.getComponentes().moverConsola(false);
+							MainWindow.getComponents().moverConsola(false);
 							MainWindow.menu.consoleMenuItem.setSelection(false);
 						}
 					}
@@ -123,7 +123,7 @@ public class DibujarDiagrama extends Figure{
 			MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
 		}*/
 		if(dispToolItem){
-			MainWindow.getComponentes().toolBarDisable();
+			MainWindow.getComponents().toolBarDisable();
 		}
 		dispToolItem = true;
 	}
@@ -806,7 +806,7 @@ public class DibujarDiagrama extends Figure{
 	public void getFigura(Vector<Figura> diagrama,boolean eventos){
 		Point pt = new Point();
 		if(eventos){
-			if(!MainWindow.getComponentes().isPasoAPaso){
+			if(!MainWindow.getComponents().isPasoAPaso){
 				new SelectEvent(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
@@ -820,7 +820,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -836,7 +836,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -852,7 +852,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -868,7 +868,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -884,7 +884,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new ui.events.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -900,7 +900,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponentes().isPasoAPaso){
+					if(!MainWindow.getComponents().isPasoAPaso){
 						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
@@ -1027,7 +1027,7 @@ public class DibujarDiagrama extends Figure{
 			MainWindow._editMenu.menuDisponibleFigura();
 		}*/
 		if(dispToolItem){
-			MainWindow.getComponentes().toolBarDisable();
+			MainWindow.getComponents().toolBarDisable();
 		}
 		dispToolItem = true;
 		Conexion conexion = new Conexion(tab);

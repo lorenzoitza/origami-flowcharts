@@ -68,7 +68,7 @@ public class TabFolder {
 				else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
 						&& a.GetId() == MainWindow.getComponents().paso.a.GetId()){
 					MainWindow.getComponents().stopEjecucion();
-					MainWindow.getComponentes().disablePasoAPaso(false);
+					MainWindow.getComponents().disablePasoAPaso(false);
 				}
 				if(!a.getSave().isSave()){
 					a.getSave().GuardarDiagrama(event);

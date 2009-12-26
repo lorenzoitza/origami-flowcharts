@@ -45,7 +45,7 @@ public class EventoAgregarFigura{
 	public void mousePresseds(MouseEvent e) {
 		bandera = false;
 		start = e.getLocation();
-		Figura fig = MainWindow.mainFigure;
+		Figura fig = Componentes.mainFigure;
 		if(fig!=null){
 			int a;
 			for(int z=0;z<tab.getHoja().getSizeDiagrama()-1;z++){
@@ -219,7 +219,7 @@ public class EventoAgregarFigura{
 		return false;
 	}
 	public void cambiarCursor(){
-		MainWindow.mainFigure = null;
+		Componentes.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, cursorPrincipal);
 		tab.getHoja().getChart().setCursor(cursor[0]);

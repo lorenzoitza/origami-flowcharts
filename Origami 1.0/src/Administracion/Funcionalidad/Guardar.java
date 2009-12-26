@@ -84,7 +84,7 @@ public class Guardar {
 	    tab.getHoja().getPanel().removeAll();
 	    tab.getHoja().getDibujarDiagrama().setOpaque(false);
 	    MainWindow.getComponents().diagramaData.exclude = true;
-	    MainWindow.getComponents().diagramas.getHoja().setBoundsToZero();
+	    MainWindow.getComponents()._diagrams.getHoja().setBoundsToZero();
 	    tab.getHoja().getDiagrama().removeAllElements();
 	    MainWindow.getComponents().disableAll(false);
 	}
@@ -96,16 +96,16 @@ public class Guardar {
 	    if (nombre.startsWith("*")) {
 		nombre = nombre.substring(1);
 		tab.cambiarNombre(nombre);
-		MainWindow.getComponentes().guardarDisable(false);
+		MainWindow.getComponents().guardarDisable(false);
 	    } else {
-		MainWindow.getComponentes().guardarDisable(false);
+		MainWindow.getComponents().guardarDisable(false);
 	    }
 	} else {
 	    String nombre = tab.getNombre();
 	    if (!nombre.startsWith("*")) {
 		nombre = "*" + nombre;
 		tab.cambiarNombre(nombre);
-		MainWindow.getComponentes().guardarDisable(true);
+		MainWindow.getComponents().guardarDisable(true);
 	    }
 	}
     }
@@ -113,12 +113,12 @@ public class Guardar {
     public void verificarCambio() {
 	if (save) {
 	    if (tab.getHoja().getDiagrama().size() == 2) {
-		MainWindow.getComponentes().guardarDisable(true);
+		MainWindow.getComponents().guardarDisable(true);
 	    } else {
-		MainWindow.getComponentes().guardarDisable(false);
+		MainWindow.getComponents().guardarDisable(false);
 	    }
 	} else {
-	    MainWindow.getComponentes().guardarDisable(true);
+	    MainWindow.getComponents().guardarDisable(true);
 	}
     }
 

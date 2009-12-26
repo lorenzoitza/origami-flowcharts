@@ -31,7 +31,7 @@ public class EventoCambiarCursor{
 	public boolean bandera=false;
 	private Figura figuraPrincipal;
 	private IFigure cuadro;
-	public final Cursor[] cursor = MainWindow.getComponentes().cursor;
+	public final Cursor[] cursor = MainWindow.cursor;
 	
 	public TabFolder tab;
 	/**
@@ -49,7 +49,7 @@ public class EventoCambiarCursor{
 	 * @param MouseEvent 
 	 */
 	public void mouseMoveds(MouseEvent me) {
-		figuraPrincipal = MainWindow.mainFigure;
+		figuraPrincipal = Componentes.mainFigure;
 		int a;
 		start = me.getLocation();
 		for(int z=0;z<tab.getHoja().getSizeDiagrama()-1;z++){

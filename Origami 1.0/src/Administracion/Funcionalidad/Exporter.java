@@ -187,7 +187,7 @@ public class Exporter {
 	    
 		String content = "";
 		
-		Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 		manager.formatCodeC();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");
@@ -205,7 +205,7 @@ public class Exporter {
 		
 		String content = "";
 		
-		Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 		manager.formatCodeCpp();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");

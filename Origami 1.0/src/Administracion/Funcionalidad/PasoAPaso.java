@@ -52,7 +52,7 @@ public class PasoAPaso extends Ejecutar{
 		inputActionPerformed("break 1");
 		inputActionPerformed("run");
 		recorrido();
-		MainWindow.getComponentes().paso = this;
+		MainWindow.getComponents().paso = this;
 		tab.getHoja().paso(0);
 	}
 	public String texto(String texto){
