@@ -14,8 +14,6 @@ import Grafico.MainWindow;
 
 
 public class SelectEvent extends MouseListener.Stub implements MouseMotionListener{
-	public final Cursor[] cursor = MainWindow.cursor;
-	public static Figura a ;
 	public AdminSeleccion seleccion;
 	public static TabFolder tab;
 	/**
@@ -44,14 +42,19 @@ public class SelectEvent extends MouseListener.Stub implements MouseMotionListen
 			}
 		}
 	}
+	
 	public void mouseDragged(MouseEvent arg0) {
 	}
+	
 	public void mouseEntered(MouseEvent arg0) {
 	}
+	
 	public void mouseExited(MouseEvent arg0) {	
 	}
+	
 	public void mouseHover(MouseEvent arg0) {
 	}
+	
 	public void mouseMoved(MouseEvent arg0) {	
 	}
 }

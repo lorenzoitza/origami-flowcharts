@@ -26,7 +26,6 @@ import Imagenes.ImageLoader;
 
 public class KeyEvent {
     private int key,key2=0;
-    private DiagramFileManager ser = new DiagramFileManager();
     
     public void setKey(org.eclipse.swt.events.KeyEvent e){
     	key = e.keyCode;
