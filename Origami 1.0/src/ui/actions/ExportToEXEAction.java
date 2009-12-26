@@ -16,10 +16,8 @@ import Grafico.view.SaveType;
 
 
 public class ExportToEXEAction implements SelectionListener{
-    private MainWindow mainWindow;
     
-    public ExportToEXEAction(MainWindow mainWindow ) {
-	this.mainWindow = mainWindow;
+    public ExportToEXEAction() {
     }
 
     @Override

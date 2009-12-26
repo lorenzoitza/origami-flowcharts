@@ -7,18 +7,13 @@ import Grafico.Componentes;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 
-
 public class ResetDiagramAction implements SelectionListener{
-    private MainWindow mainWindow;
     
-    public ResetDiagramAction(MainWindow mainWindow ) {
-	this.mainWindow = mainWindow;
+    public ResetDiagramAction() {
     }
 
     @Override
     public void widgetDefaultSelected(SelectionEvent arg0) {
-	// TODO Auto-generated method stub
-	
     }
 
     @Override

@@ -9,10 +9,7 @@ import Grafico.Help.AboutWindow;
 
 public class ViewAboutAction implements SelectionListener{
     
-    private MainWindow mainWindow;
-    
-    public ViewAboutAction(MainWindow mainWindow ) {
-	this.mainWindow = mainWindow;
+    public ViewAboutAction() {
     }
 
     @Override
@@ -22,7 +19,7 @@ public class ViewAboutAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	AboutWindow acercade = new AboutWindow();
-	acercade.createWindow(mainWindow.display);
+	acercade.createWindow(MainWindow.display);
 	acercade.showWindow();
     }
 

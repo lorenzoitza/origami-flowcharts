@@ -16,7 +16,7 @@ import Grafico.view.SaveType;
 
 public class ExportToCAction implements SelectionListener{
     
-    public ExportToCAction(MainWindow mainWindow ) {
+    public ExportToCAction() {
     }
 
     @Override

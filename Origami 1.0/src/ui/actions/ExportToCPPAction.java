@@ -9,7 +9,7 @@ import Grafico.view.SaveType;
 
 public class ExportToCPPAction implements SelectionListener{
     
-    public ExportToCPPAction(MainWindow mainWindow ) {
+    public ExportToCPPAction() {
     }
 
     @Override

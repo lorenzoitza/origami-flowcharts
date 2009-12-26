@@ -4,14 +4,13 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import Administracion.Funcionalidad.Codigo.Instruccion;
+import Grafico.Componentes;
 import Grafico.MainWindow;
 
 
 public class BuildCCodeAction implements SelectionListener{
-    private MainWindow mainWindow;
     
-    public BuildCCodeAction(MainWindow mainWindow ) {
-	this.mainWindow = mainWindow;
+    public BuildCCodeAction() {
     }
 
     @Override
@@ -21,8 +20,8 @@ public class BuildCCodeAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent event) {
 	Instruccion instructionCode = new Instruccion();
-	instructionCode.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
-	instructionCode.createWindow(mainWindow.display);
+	instructionCode.main(Componentes._diagrams.getHoja().getDiagrama());
+	instructionCode.createWindow(MainWindow.display);
     }
 
 }

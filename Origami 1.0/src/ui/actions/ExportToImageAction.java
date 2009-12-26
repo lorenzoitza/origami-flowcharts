@@ -16,10 +16,8 @@ import Grafico.view.SaveType;
 
 
 public class ExportToImageAction implements SelectionListener{
-    private MainWindow mainWindow;
     
-    public ExportToImageAction(MainWindow mainWindow ) {
-	this.mainWindow = mainWindow;
+    public ExportToImageAction() {
     }
 
     @Override

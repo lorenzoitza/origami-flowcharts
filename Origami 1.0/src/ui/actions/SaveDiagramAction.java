@@ -10,7 +10,7 @@ import Grafico.view.SaveType;
 
 public class SaveDiagramAction implements SelectionListener{
     
-    public SaveDiagramAction(MainWindow mainWindow ) {
+    public SaveDiagramAction() {
     }
 
     @Override
