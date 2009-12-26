@@ -17,28 +17,28 @@ public class CompileAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if (!MainWindow.getComponentes().diagramas.getTabItem().getSave().isSave()) {
+	if (!MainWindow.getComponents()._diagrams.getTabItem().getSave().isSave()) {
 		// llamo abrir la ventana para guardar
-		if (MainWindow.getComponentes().guardar()) {
-			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes().diagramas);
-			if (MainWindow.getComponentes().getEnEjecucion()) {
-			    MainWindow.getComponentes().stopEjecucion();
+		if (MainWindow.getComponents().guardar()) {
+			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
+			if (MainWindow.getComponents().getEnEjecucion()) {
+			    MainWindow.getComponents().stopEjecucion();
 			}
 			codigo.main(false, true);
 			if (codigo.isError) {
-				int aux = MainWindow.getComponentes().console.text.getText().length();
+				int aux = MainWindow.getComponents().console.text.getText().length();
 				if (aux >= 0) {
-				    MainWindow.getComponentes().console.text.setText("");
+				    MainWindow.getComponents().console.text.setText("");
 				}
-				MainWindow.getComponentes().console.text.setText(codigo.errorTipe);
-				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(
+				MainWindow.getComponents().console.text.setText(codigo.errorTipe);
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation(
 						"/Ec - Error en la compilacion:");
-				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation(
 						codigo.errorTipe);
 				codigo.deleteMainFiles();
 			} else {
-			    MainWindow.getComponentes().ejecutar(true, codigo);
-				MainWindow.getComponentes().diagramas
+			    MainWindow.getComponents().ejecutar(true, codigo);
+				MainWindow.getComponents()._diagrams
 						.getTabItem()
 						.getInfo()
 						.addInformation(
@@ -46,28 +46,28 @@ public class CompileAction implements SelectionListener{
 			}
 			if (!MainWindow.menu.consoleMenuItem.getSelection()) {
 				MainWindow.menu.consoleMenuItem.setSelection(true);
-				MainWindow.getComponentes().moverConsola(true);
+				MainWindow.getComponents().moverConsola(true);
 			}
 		}
 	} else {
-		CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes().diagramas);
-		if (MainWindow.getComponentes().getEnEjecucion()) {
-		    MainWindow.getComponentes().stopEjecucion();
+		CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
+		if (MainWindow.getComponents().getEnEjecucion()) {
+		    MainWindow.getComponents().stopEjecucion();
 		}
 		codigo.main(false, true);
 		if (codigo.isError) {
-			int aux = MainWindow.getComponentes().console.text.getText().length();
+			int aux = MainWindow.getComponents().console.text.getText().length();
 			if (aux >= 0) {
-			    MainWindow.getComponentes().console.text.setText("");
+			    MainWindow.getComponents().console.text.setText("");
 			}
-			MainWindow.getComponentes().console.text.setText(codigo.errorTipe);
+			MainWindow.getComponents().console.text.setText(codigo.errorTipe);
 			codigo.deleteMainFiles();
 		} else {
-		    MainWindow.getComponentes().ejecutar(true, codigo);
+		    MainWindow.getComponents().ejecutar(true, codigo);
 		}
 		if (!MainWindow.menu.consoleMenuItem.getSelection()) {
 			MainWindow.menu.consoleMenuItem.setSelection(true);
-			MainWindow.getComponentes().moverConsola(true);
+			MainWindow.getComponents().moverConsola(true);
 		}
 	}
     }

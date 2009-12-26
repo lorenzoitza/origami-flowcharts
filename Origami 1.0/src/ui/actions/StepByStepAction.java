@@ -29,9 +29,9 @@ public class StepByStepAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if(!MainWindow.getComponentes()._diagrams.getTabItem().getSave().isSave()){
+	if(!MainWindow.getComponents()._diagrams.getTabItem().getSave().isSave()){
 		if(mainWindow.getComponents().guardar()){
-		    CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes()._diagrams);
+		    CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
 			codigo.main(false,false);
 			if(codigo.isError){
 				int aux = mainWindow.getComponents().console.text.getText().length();
@@ -40,20 +40,20 @@ public class StepByStepAction implements SelectionListener{
 				}
 				
 				mainWindow.getComponents().console.text.setText(codigo.errorTipe);
-				MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
-				MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
 			}
 			else{
 				
 			    	mainWindow.getComponents().disablePasoAPaso(true);
 			    	mainWindow.getComponents().ejecutar(false,codigo);
-			    	MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
+			    	MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
 			}
 		}
 	}
 	else{
-	    CodeCompiler codigo = new CodeCompiler(MainWindow.getComponentes()._diagrams);
+	    CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
 		codigo.main(false,false);
 		if(codigo.isError){
 			int aux = mainWindow.getComponents().console.text.getText().length();
@@ -62,15 +62,15 @@ public class StepByStepAction implements SelectionListener{
 			}
 			
 			mainWindow.getComponents().console.text.setText(codigo.errorTipe);
-			MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
-			MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
+			MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/Ep - Error en el paso a paso:");
+			MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
 			codigo.deleteMainFiles();
 		}
 		else{
 			
 		    	mainWindow.getComponents().disablePasoAPaso(true);
 		    	mainWindow.getComponents().ejecutar(false,codigo);
-		    	MainWindow.getComponentes()._diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
+		    	MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/P - Se inicio el paso a paso de manera correcta");
 		}
 	}
 			

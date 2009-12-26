@@ -3,6 +3,7 @@ package ui.actions;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
+import Grafico.Componentes;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 
@@ -22,17 +23,17 @@ public class ResetDiagramAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	mainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-	for(int y=MainWindow.getComponentes()._diagrams.getHoja().getSizeDiagrama()-1;y>0;y--){
-	    MainWindow.getComponentes()._diagrams.getHoja().removeFigureIndexOf(y);
+	Componentes._selectionAdministrator.setFiguraSeleccionada(0);
+	for(int y=MainWindow.getComponents()._diagrams.getHoja().getSizeDiagrama()-1;y>0;y--){
+	    MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(y);
 	}
 	CircleFigure fin = new CircleFigure();
-	MainWindow.getComponentes()._diagrams.getHoja().getDiagrama().add(fin);
+	MainWindow.getComponents()._diagrams.getHoja().getDiagrama().add(fin);
 	fin.setMesagge("  Fin");
-	MainWindow.getComponentes()._diagrams.getHoja().resetScrollBar();
-	MainWindow.getComponentes()._diagrams.getHoja().addFigure();
-	MainWindow.getComponentes()._diagrams.getHoja().guardarRetroceso();
-	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(false);		
+	MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
+	MainWindow.getComponents()._diagrams.getHoja().addFigure();
+	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);		
     }
 
 }

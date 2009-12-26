@@ -16,7 +16,7 @@ public class AddInputFigureAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent event) {
-	MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+	MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 	new AddFigureLogic().addInput();
 	MainWindow.getComponents().disableCursor();
     }

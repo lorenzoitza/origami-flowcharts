@@ -24,13 +24,13 @@ public class SaveDiagramAsAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion() && MainWindow.getComponentes()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+	if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion() && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
 	    MainWindow.getComponents().stopEjecucion();
 	}
-	else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion() && MainWindow.getComponentes()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+	else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion() && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 	    MainWindow.getComponents().stopEjecucion();
 	}
-	MainWindow.getComponentes().disablePasoAPaso(false);
+	MainWindow.getComponents().disablePasoAPaso(false);
 	
 	SaveFileView save = new SaveFileView();
 	save.setSaveType(SaveType.SAVEAS);

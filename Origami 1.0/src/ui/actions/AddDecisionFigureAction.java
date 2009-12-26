@@ -10,13 +10,17 @@ import Imagenes.ImageLoader;
 
 public class AddDecisionFigureAction implements SelectionListener{
     
+    public AddDecisionFigureAction(){
+	
+    }
+    
     @Override
     public void widgetDefaultSelected(SelectionEvent arg0) {
     }
 
     @Override
     public void widgetSelected(SelectionEvent event) {
-	MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+	MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 	new AddFigureLogic().addDecision();
 	MainWindow.getComponents().disableCursor();
     }

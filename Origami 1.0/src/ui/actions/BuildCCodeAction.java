@@ -21,7 +21,7 @@ public class BuildCCodeAction implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent event) {
 	Instruccion instructionCode = new Instruccion();
-	instructionCode.main(MainWindow.getComponentes()._diagrams.getHoja().getDiagrama());
+	instructionCode.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 	instructionCode.createWindow(mainWindow.display);
     }
 
