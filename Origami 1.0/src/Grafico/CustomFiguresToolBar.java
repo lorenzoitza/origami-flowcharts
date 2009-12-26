@@ -16,6 +16,7 @@ import ui.actions.AddInputFigureAction;
 import ui.actions.AddOutputFigureAction;
 import ui.actions.AddSentenceFigureAction;
 import ui.actions.AddWhileFigureAction;
+import ui.events.KeyEvent;
 import Imagenes.ImageLoader;
 
 
@@ -44,36 +45,42 @@ public class CustomFiguresToolBar {
 	boton[0].pack();
 	boton[0].setToolTipText("Entrada");
 	boton[0].addSelectionListener(new AddInputFigureAction());
+	boton[0].addKeyListener(new KeyEvent());
 	
 	boton[1] = new Button(toolbar, SWT.FLAT);
 	boton[1].setImage(ImageLoader.getImage("Proceso.png"));
 	boton[1].pack();
 	boton[1].setToolTipText("Expresin");
 	boton[1].addSelectionListener(new AddSentenceFigureAction());
+	boton[1].addKeyListener(new KeyEvent());
 	
 	boton[2] = new Button(toolbar, SWT.FLAT);
 	boton[2].setImage(ImageLoader.getImage("If.png"));
 	boton[2].pack();
 	boton[2].setToolTipText("Decisin");
 	boton[2].addSelectionListener(new AddDecisionFigureAction());
+	boton[2].addKeyListener(new KeyEvent());
 	
 	boton[3] = new Button(toolbar, SWT.FLAT);
 	boton[3].setImage(ImageLoader.getImage("While.png"));
 	boton[3].pack();
 	boton[3].setToolTipText("Ciclo Mientras");
 	boton[3].addSelectionListener(new AddWhileFigureAction());
+	boton[3].addKeyListener(new KeyEvent());
 	
 	boton[4] = new Button(toolbar, SWT.FLAT);
 	boton[4].setImage(ImageLoader.getImage("For.png"));
 	boton[4].pack();
 	boton[4].setToolTipText("Ciclo Para");
 	boton[4].addSelectionListener(new AddForFigureAction());
+	boton[4].addKeyListener(new KeyEvent());
 	
 	boton[5] = new Button(toolbar, SWT.FLAT);
 	boton[5].setImage(ImageLoader.getImage("Salida.png"));
 	boton[5].pack();
 	boton[5].setToolTipText("Salida");
 	boton[5].addSelectionListener(new AddOutputFigureAction());
+	boton[5].addKeyListener(new KeyEvent());
 	
 	Label label = new Label(toolbar, SWT.NONE);
 	label.setVisible(false);
@@ -97,14 +104,6 @@ public class CustomFiguresToolBar {
 			}
 		}
 	});
-	for (int i = 0; i <= 5; i++) {
-		boton[i].addKeyListener(new org.eclipse.swt.events.KeyAdapter() {
-			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				MainWindow._keyEvent.setKey(e);
-				MainWindow._keyEvent.Accion();
-			}
-		});
-	}
     }
     public void disablePasoAPaso(boolean disable) {
 	if (disable) {

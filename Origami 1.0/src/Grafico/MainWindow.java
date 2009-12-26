@@ -7,7 +7,6 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import ui.events.KeyEvent;
 import ui.events.WindowEvent;
 import Administracion.OrigamiException;
 import Imagenes.ImageLoader;
@@ -18,8 +17,6 @@ public class MainWindow {
 
     public static Shell shell = new Shell(display);
 
-    public static KeyEvent _keyEvent;
-    
     private static Componentes _components;
     
     public static CustomMenu menu;
@@ -68,8 +65,6 @@ public class MainWindow {
 		}
 	    }
 	});
-
-	_keyEvent = new KeyEvent();
     }
 
     private void show() {
