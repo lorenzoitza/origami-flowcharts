@@ -13,7 +13,6 @@ import Grafico.Figuras.WhileFigure;
 public class AddFigureLogic {
     
     public void addInput() {
-	System.out.println("aaaaa");
 	InputFigure inputFigure = new InputFigure();
 	inputFigure.instruction.instruccion = "null";
 	Componentes.mainFigure = null;

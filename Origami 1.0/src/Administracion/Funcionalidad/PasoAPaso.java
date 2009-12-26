@@ -10,6 +10,8 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
 
+import ui.events.KeyEvent;
+
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
@@ -152,8 +154,9 @@ public class PasoAPaso extends Ejecutar{
 		text.setBounds(10,10,255,110);
 		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				MainWindow._keyEvent.setKey(e);
-				if(MainWindow._keyEvent.PresentEnter()){
+				KeyEvent key = new KeyEvent();
+				key.setKey(e);
+				if(key.PresentEnter()){
 					inputActionPerformed("next");
 					inputActionPerformed(text.getText());
 					capturar.close();
