@@ -14,7 +14,7 @@ import Grafico.MainWindow;
 
 
 public class SelectEvent extends MouseListener.Stub implements MouseMotionListener{
-	public final Cursor[] cursor = MainWindow.getComponentes().cursor;
+	public final Cursor[] cursor = MainWindow.cursor;
 	public static Figura a ;
 	public AdminSeleccion seleccion;
 	public static TabFolder tab;

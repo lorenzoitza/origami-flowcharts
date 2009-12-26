@@ -11,6 +11,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import Administracion.Figura;
 import Administracion.actions.AddFigureLogic;
 import Administracion.actions.ContextualMenuActions;
+import Grafico.Componentes;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 /**
@@ -48,27 +49,27 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 		agregar.setText("Agregar Codigo");
 		pegar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-				new ContextualMenuActions().Pegar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+				new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		});
 		cortar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-			    new ContextualMenuActions().Cortar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		});
 		copiar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-			    new ContextualMenuActions().Copiar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		});
 		eliminar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-			    new ContextualMenuActions().Eliminar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		});
 		agregar.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
-			    new ContextualMenuActions().agregar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().agregar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		});
 		Menu menu2 = new Menu(menu); 
@@ -90,52 +91,52 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 		decision.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addDecision();
-			    new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-			    MainWindow.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 				
 			}
 		});
 		proceso.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addSentence();
-				 new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-				 MainWindow.mainFigure = null;
+				 new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+				 Componentes.mainFigure = null;
 			}
 		});
 		entrada.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addInput();
-			    new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-			    MainWindow.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 			}
 		});
 		salida.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addOutput();
-			    new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-			    MainWindow.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 			}
 		});
 		para.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addFor();
-			    new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-			    MainWindow.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 			}
 		});
 		mientras.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addWhile();
-			    new ContextualMenuActions().insertarFigura(MainWindow.mainFigure);
-			    MainWindow.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 			}
 		});
 //		menuDisponibleFigura();
 	}
 	public void menuDisponibleFigura(){
-		if(MainWindow._selectionAdministrator.getFiguraSeleccionada() != -1){
-			if(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
-				if(MainWindow._diagramAdministrator.diagrama.size()!=0){
+		if(Componentes._selectionAdministrator.getFiguraSeleccionada() != -1){
+			if(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+				if(Componentes._diagramAdministrator.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}
 				else{
@@ -148,7 +149,7 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 				agregar.setEnabled(false);
 			}
 			else{
-				if(MainWindow._diagramAdministrator.diagrama.size()==0){
+				if(Componentes._diagramAdministrator.diagrama.size()==0){
 					pegar.setEnabled(false);
 				}
 				else{
@@ -178,7 +179,7 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 			menu.setVisible(true);
 			
 			if(fig instanceof CircleFigure){
-				if(MainWindow._diagramAdministrator.diagrama.size()!=0){
+				if(Componentes._diagramAdministrator.diagrama.size()!=0){
 					pegar.setEnabled(true);
 				}
 				else{
@@ -190,7 +191,7 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 				agregar.setEnabled(false);
 			}
 			else{
-				if(MainWindow._diagramAdministrator.diagrama.size()==0){
+				if(Componentes._diagramAdministrator.diagrama.size()==0){
 					pegar.setEnabled(false);
 				}
 				else{

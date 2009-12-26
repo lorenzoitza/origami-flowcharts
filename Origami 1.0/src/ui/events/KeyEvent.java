@@ -12,6 +12,7 @@ import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.actions.AddFigureLogic;
 import Administracion.actions.ContextualMenuActions;
+import Grafico.Componentes;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
 import Grafico.Help.AboutWindow;
@@ -34,67 +35,67 @@ public class KeyEvent {
 	public void Accion(){
 	switch(key){
 	case 49:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addInput();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 50:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addSentence();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 51:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addDecision();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 52:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addWhile();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 53:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addFor();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 54:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-		    MainWindow.getComponents().cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
+		if(!MainWindow.getComponents().isPasoAPaso){
+		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addOutput();
 		    MainWindow.getComponents().disableCursor();
 		}
 		break;
 	case 27:
-		if(!MainWindow.getComponentes().isPasoAPaso){
+		if(!MainWindow.getComponents().isPasoAPaso){
 			 Cursor[] cursor = new Cursor[1];
-			   Grafico.MainWindow.mainFigure = null;
+			   Grafico.Componentes.mainFigure = null;
 			   Cursor oldCursor = cursor[0];
 		       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		       MainWindow.getComponentes().diagramas.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
+		       MainWindow.getComponents()._diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
 		       if(oldCursor != null){
 		    	   oldCursor.dispose();
 		       }
-		       MainWindow.getComponentes().diagramas.getHoja().addFigure();
-		       MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
+		       MainWindow.getComponents()._diagrams.getHoja().addFigure();
+		       MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 		}
        break;
 	case 127:
-		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
 			}
 			else{
-			    new ContextualMenuActions().Eliminar(MainWindow.getComponentes().diagramas.getHoja().getDiagrama().elementAt(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		}
 		break;
@@ -109,27 +110,27 @@ public class KeyEvent {
 		acercade.showWindow();
 		break;
 	case 16777228:
-		if(!MainWindow.getComponentes().isPasoAPaso){
-			for(int y=MainWindow.getComponentes().diagramas.getHoja().getSizeDiagrama()-1;y>0;y--){
-				MainWindow.getComponentes().diagramas.getHoja().removeFigureIndexOf(y);
+		if(!MainWindow.getComponents().isPasoAPaso){
+			for(int y=MainWindow.getComponents()._diagrams.getHoja().getSizeDiagrama()-1;y>0;y--){
+				MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(y);
 			}
 			CircleFigure fin = new CircleFigure();
-			MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-			MainWindow.getComponentes().diagramas.getHoja().getDiagrama().add(fin);
+			Componentes._selectionAdministrator.setFiguraSeleccionada(0);
+			MainWindow.getComponents()._diagrams.getHoja().getDiagrama().add(fin);
 			fin.setMesagge("  Fin");
-			MainWindow.getComponentes().diagramas.getHoja().resetScrollBar();
-			MainWindow.getComponentes().diagramas.getHoja().addFigure();
-			MainWindow.getComponentes().diagramas.getHoja().guardarRetroceso();
-			MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
+			MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
+			MainWindow.getComponents()._diagrams.getHoja().addFigure();
+			MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+			MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
 		}
 		break;
 	case 16777229:
 		Instruccion codigo7 = new Instruccion();
-		codigo7.main(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		codigo7.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 		codigo7.createWindow(MainWindow.display);
 		break;
 	case 16777230:
-		if(!MainWindow.getComponentes().isPasoAPaso){
+		if(!MainWindow.getComponents().isPasoAPaso){
 			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
 			if(MainWindow.getComponents().getEnEjecucion()){
 				MainWindow.getComponents().stopEjecucion();
@@ -141,13 +142,13 @@ public class KeyEvent {
 					MainWindow.getComponents().console.text.setText("");
 				}
 				MainWindow.getComponents().console.text.setText(codigo.errorTipe);
-				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
-				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation(codigo.errorTipe);
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/Ec - Error en la compilacion:");
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
 			}
 			else{
 				MainWindow.getComponents().ejecutar(true,codigo);
-				MainWindow.getComponentes().diagramas.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
+				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
 			if(!MainWindow.menu.consoleMenuItem.getSelection()){
 				MainWindow.menu.consoleMenuItem.setSelection(true);
@@ -158,11 +159,11 @@ public class KeyEvent {
 	}
 	if(key+key2 == 262241){
 	    if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
-		&& MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
+		&& MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().eje.a.GetId()){
 		MainWindow.getComponents().stopEjecucion();
 	    }
 	    else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-		    && MainWindow.getComponentes().diagramas.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
+		    && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().paso.a.GetId()){
 			MainWindow.getComponents().stopEjecucion();
 	    }
 	    OpenFileView open = new OpenFileView();
@@ -171,7 +172,7 @@ public class KeyEvent {
 	}
 	else if(key+key2 == 262247){
 	    SaveFileView save = new SaveFileView();
-	    if(MainWindow.getComponentes().diagramas.getTabItem().getSave().getDir()=="null"){
+	    if(MainWindow.getComponents()._diagrams.getTabItem().getSave().getDir()=="null"){
 		save.setSaveType(SaveType.SAVE);
 		save.createWindow();
 	    }
@@ -180,43 +181,43 @@ public class KeyEvent {
 	    }
 	}
 	else if(key+key2 == 262264){
-		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || MainWindow._selectionAdministrator.getFiguraSeleccionada() == -1){
+		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Cortar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));	
-				MainWindow.getComponentes().toolBarDisable();
+			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));	
+				MainWindow.getComponents().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262243){
-		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || MainWindow._selectionAdministrator.getFiguraSeleccionada() == -1){
+		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Copiar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponentes().toolBarDisable();
+			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
+				MainWindow.getComponents().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262262){
-		if(MainWindow._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow._diagramAdministrator.diagrama.size()>0){
-			    new ContextualMenuActions().Pegar(MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponentes().toolBarDisable();
+		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
+			if(Componentes._diagramAdministrator.diagrama.size()>0){
+			    new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
+				MainWindow.getComponents().toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262254){
-		MainWindow.getComponentes().diagramas.addTabItem();
-		MainWindow.getComponentes().guardarDisable(true);
+		MainWindow.getComponents()._diagrams.addTabItem();
+		MainWindow.getComponents().guardarDisable(true);
 		MainWindow.getComponents().disableAll(true);
 	}
 	else if(key+key2 == 262266){
-		if(!MainWindow.getComponentes().isPasoAPaso){
-			TabItem item = (TabItem)MainWindow.getComponentes().diagramas.getSeleccion();
+		if(!MainWindow.getComponents().isPasoAPaso){
+			TabItem item = (TabItem)MainWindow.getComponents()._diagrams.getSeleccion();
 			item.retroceder();
-			MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
+			MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
 		}
 	}
 	else if(key+key2 == 262245){
