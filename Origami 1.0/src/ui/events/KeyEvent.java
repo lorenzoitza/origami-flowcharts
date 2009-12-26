@@ -3,6 +3,8 @@ package ui.events;
 import java.io.File;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
@@ -24,7 +26,7 @@ import Grafico.view.SaveType;
 import Imagenes.ImageLoader;
 
 
-public class KeyEvent {
+public class KeyEvent implements KeyListener{
     private int key,key2=0;
     
     public void setKey(org.eclipse.swt.events.KeyEvent e){
@@ -237,5 +239,16 @@ public class KeyEvent {
     	else{
     		return false;
     	}
+    }
+    @Override
+    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+	key = e.keyCode;
+    	key2 = e.stateMask;
+    	Accion();
+    }
+    
+    @Override
+    public void keyReleased(org.eclipse.swt.events.KeyEvent arg0) {
+
     }
 }
