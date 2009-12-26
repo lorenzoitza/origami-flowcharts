@@ -15,6 +15,8 @@ public class SaveFileView {
     
     private SaveType saveType;
     
+    private boolean isSaved=false;
+    
     private static DiagramFileManager _serializer = new DiagramFileManager();
     
     public SaveType getSaveType() {
@@ -65,6 +67,7 @@ public class SaveFileView {
 		case 128:
 		    break;
 		}
+		return false;
 	    }
 	    else{
 		boolean existe = false;
@@ -83,14 +86,15 @@ public class SaveFileView {
 		    int seleccion = messageBox.open();
 		    switch(seleccion){
 		    case 64:
-			 action(dialog.getFileName(),archivo);					    	
-			break;
-		    case 128:							
-			break;
+			 action(dialog.getFileName(),archivo);	
+			 return true;
+		    case 128:
+			return false;
 		    }
 		}
 		else{
 		    action(dialog.getFileName(),archivo);
+		    return true;
 		}
 	    }
 	}
@@ -100,10 +104,11 @@ public class SaveFileView {
 	return true;
     }
     
-    public void saveAction(){
+    public boolean saveAction(){
 	_serializer.setFile(MainWindow.getComponents()._diagrams.getTabItem().getSave().getDir());
 	_serializer.saveDiagram(MainWindow.getComponents()._diagrams);
 	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
+	return true;
     }
     
     private void action(String nomArchivo,String address){

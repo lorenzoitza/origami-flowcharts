@@ -72,12 +72,9 @@ public class CustomMenu {
     
     private Shell _shell;
     
-    private MainWindow mainWindow;
-    
-    public CustomMenu(Shell shell, MainWindow mainWindow){
+    public CustomMenu(Shell shell){
 	_shell = shell;
 	mainMenu = new Menu(_shell, SWT.BAR);
-	this.mainWindow = mainWindow;
     }
 
     public void createMenu(){
@@ -122,13 +119,13 @@ public class CustomMenu {
 	openMenuItem
 		.addSelectionListener(new OpenDiagramAction());
 	saveMenuItem
-		.addSelectionListener(new SaveDiagramAction(mainWindow));
-	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction(mainWindow));
+		.addSelectionListener(new SaveDiagramAction());
+	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction());
 	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
-	exportToCMenuItem.addSelectionListener(new ExportToCAction(mainWindow));
-	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction(mainWindow));
-	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction(mainWindow));
-	exportToImageMenuItem.addSelectionListener(new ExportToImageAction(mainWindow));
+	exportToCMenuItem.addSelectionListener(new ExportToCAction());
+	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction());
+	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction());
+	exportToImageMenuItem.addSelectionListener(new ExportToImageAction());
 	exitMenuItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent e) {
@@ -202,7 +199,7 @@ public class CustomMenu {
 	
 	tabsMenuItem.addSelectionListener(new ViewTabsAction());
 	
-	consoleMenuItem.addSelectionListener(new ViewConsoleAction(mainWindow));
+	consoleMenuItem.addSelectionListener(new ViewConsoleAction());
     }
 
     private void initOptionsMenu() {
@@ -220,12 +217,12 @@ public class CustomMenu {
 	optionsMenuItem.setMenu(optionsMenu);
 
 	stepByStepMenuItem
-	.addSelectionListener(new StepByStepAction(mainWindow));
+	.addSelectionListener(new StepByStepAction());
 
-	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction(mainWindow));
+	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction());
 	compileMenuItem.addSelectionListener(new CompileAction());
 
-	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction(mainWindow));
+	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction());
 
     }
 
@@ -241,7 +238,7 @@ public class CustomMenu {
 	
 	MenuItem examplesMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	examplesMenuItem.setText("Ejemplos");
-	examplesMenuItem.addSelectionListener(new ViewExamplesAction(mainWindow));
+	examplesMenuItem.addSelectionListener(new ViewExamplesAction());
 
 	
 	new MenuItem(helpMenu, SWT.SEPARATOR);
@@ -249,7 +246,7 @@ public class CustomMenu {
 	
 	MenuItem aboutMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	aboutMenuItem.setText("Acerca de Origami...      F2");
-	aboutMenuItem.addSelectionListener(new ViewAboutAction(mainWindow));
+	aboutMenuItem.addSelectionListener(new ViewAboutAction());
 
 	helpMenuItem.setMenu(helpMenu);
 	

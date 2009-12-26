@@ -2,12 +2,8 @@ package Grafico.Figuras;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import org.eclipse.swt.*;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.widgets.Display;
 
-import Administracion.*;
-import Grafico.MainWindow;
+import Administracion.Figura;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de Inicio y del Fin del

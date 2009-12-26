@@ -12,7 +12,7 @@ import Grafico.MainWindow;
 import Imagenes.ImageLoader;
 
 public class HelpWindow{
-	private Shell helpShell;
+    private Shell helpShell;
 	private Directory directory;
 	private Tree directoryTree;
 	private Browser browser;
@@ -184,8 +184,6 @@ public class HelpWindow{
 	public void createWindow(){
 		this.helpShell = new Shell(MainWindow.display);
 		this.helpShell.setLayout(new FillLayout());
-		
-	    
 	}
 	
 	public void showWindow(){

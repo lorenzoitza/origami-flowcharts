@@ -18,6 +18,8 @@ import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.PasoAPaso;
+import Grafico.view.SaveFileView;
+import Grafico.view.SaveType;
 
 /**
  * @version Origami 1.0
@@ -52,7 +54,6 @@ public class Componentes {
     final GridLayout layout2 = new GridLayout(1, false);
     
     
-    public DiagramFileManager ser = new DiagramFileManager();
     public Ejecutar eje;
     public PasoAPaso paso;
     private boolean enEjecucion = false;
@@ -60,13 +61,10 @@ public class Componentes {
     public boolean seleccion;
     public boolean isPasoAPaso = false;
     public CustomConsole console;
-	
-    public MainWindow mainWindow;
 
     public static Figura mainFigure = null;
 
-    public Componentes(MainWindow mainWindow) {
-	this.mainWindow = mainWindow;
+    public Componentes() {
 	initControllers();
     }
     private void initControllers() {
@@ -88,7 +86,7 @@ public class Componentes {
     }
 
     private void agregarBarraDeHerramientas() {
-	barraHerramientas= new CustomToolBar(toolData,mainWindow);
+	barraHerramientas= new CustomToolBar(toolData);
     }
 
 	private void agregarTabFolder(AdminSeleccion selec) {
@@ -98,7 +96,7 @@ public class Componentes {
 	}
 
 	public void agregarBarraFiguras() {
-	    barraFiguras= new CustomFiguresToolBar(figurasData,mainWindow);
+	    barraFiguras= new CustomFiguresToolBar(figurasData);
 	}
 
 	public void addBarraDeHerramientas(boolean seleccion) {
@@ -218,86 +216,13 @@ public class Componentes {
 	}
 
 	public boolean guardar() {
-		if (_diagrams.getTabItem().getSave().getDir() == "null") {
-			FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
-			dialog.setFilterExtensions(new String[] { "*.Org" });
-			String archivo = dialog.open();
-			if (archivo != null) {
-				if (dialog.getFileName().contains("\\")
-						|| dialog.getFileName().contains("/")
-						|| dialog.getFileName().contains(":")
-						|| dialog.getFileName().contains("*")
-						|| dialog.getFileName().contains("?")
-						|| dialog.getFileName().contains("<")
-						|| dialog.getFileName().contains(">")
-						|| dialog.getFileName().contains("|")
-						|| dialog.getFileName().contains("\"")) {
-					MessageBox messageBox = new MessageBox(MainWindow.shell,
-							SWT.ICON_ERROR | SWT.OK);
-					messageBox.setText("Origami");
-					messageBox
-							.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
-					int seleccion = messageBox.open();
-					switch (seleccion) {
-					case 64:
-						break;
-					case 128:
-						break;
-					}
-					return false;
-				} else {
-					boolean existe = false;
-					try {
-						File arch = new File(archivo);
-						if (arch.exists()) {
-							existe = true;
-						}
-					} catch (Exception e1) {
-					}
-					if (existe) {
-						MessageBox messageBox = new MessageBox(
-								MainWindow.shell, SWT.ICON_WARNING | SWT.YES
-										| SWT.NO);
-						messageBox.setText("Origami");
-						messageBox
-								.setMessage("El archivo ya existe. Desea reemplazarlo?");
-						int seleccion = messageBox.open();
-						switch (seleccion) {
-						case 64:
-							ser.setFile(archivo);
-							_diagrams.getTabItem().getSave().setDir(archivo);
-							ser.saveDiagram(_diagrams);
-							archivo = dialog.getFileName();
-							int pos = archivo.indexOf('.');
-							String name = archivo.substring(0, pos);
-							_diagrams.cambiarNombre("*" + name);
-							_diagrams.getTabItem().getSave().setSave(true);
-							return true;
-						case 128:
-							return false;
-						}
-					} else {
-						ser.setFile(archivo);
-						_diagrams.getTabItem().getSave().setDir(archivo);
-						boolean error = ser.saveDiagram(_diagrams);
-						if (error) {
-							archivo = dialog.getFileName();
-							int pos = archivo.indexOf('.');
-							String name = archivo.substring(0, pos);
-							_diagrams.cambiarNombre("*" + name);
-							_diagrams.getTabItem().getSave().setSave(true);
-						}
-						return true;
-					}
-				}
-			}
-			return false;
-		} else {
-			ser.setFile(_diagrams.getTabItem().getSave().getDir());
-			ser.saveDiagram(_diagrams);
-			_diagrams.getTabItem().getSave().setSave(true);
-			return true;
-		}
+	    SaveFileView save = new SaveFileView();
+	    if(_diagrams.getTabItem().getSave().getDir() == "null") {
+		save.setSaveType(SaveType.SAVE);
+		return save.createWindow();
+	    } else {
+		return save.saveAction();
+	    }
 	}
 
 	public void guardarDisable(boolean disable) {

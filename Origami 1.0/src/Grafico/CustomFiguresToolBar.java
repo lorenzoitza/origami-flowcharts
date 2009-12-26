@@ -16,13 +16,6 @@ import ui.actions.AddInputFigureAction;
 import ui.actions.AddOutputFigureAction;
 import ui.actions.AddSentenceFigureAction;
 import ui.actions.AddWhileFigureAction;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
 import Imagenes.ImageLoader;
 
 
@@ -30,7 +23,7 @@ public class CustomFiguresToolBar {
     public ToolBar barraFiguras;
     private Button boton[] = new Button[7];
     
-    public CustomFiguresToolBar(GridData figurasData, MainWindow mainWindow) {
+    public CustomFiguresToolBar(GridData figurasData) {
 	GridLayout layout2 = new GridLayout();
 	layout2.numColumns = 1;
 	layout2.horizontalSpacing = 0;

@@ -119,7 +119,8 @@ public class CustomConsole {
 	item.setControl(text);
 	item.setImage(ImageLoader.getImage("consola.ico"));
     }
+    
     public void setInformation(int size) {
 	this.sizeTab = size;
-}
+    }
 }

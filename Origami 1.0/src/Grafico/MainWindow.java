@@ -38,11 +38,11 @@ public class MainWindow {
     }
 
     private void initWindow() {
-	menu = new CustomMenu(shell, this);
+	menu = new CustomMenu(shell);
 	
-	setComponents(new Componentes(this));
+	_components = new Componentes();
+	_components.agregarComponentes();
 	
-	getComponents().agregarComponentes();
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
@@ -78,10 +78,6 @@ public class MainWindow {
 
     public Shell getShell() {
 	return shell;
-    }
-
-    public static void setComponents(Componentes components) {
-	_components = components;
     }
 
     public static Componentes getComponents() {
