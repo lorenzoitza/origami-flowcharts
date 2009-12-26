@@ -101,50 +101,50 @@ public class SaveFileView {
     }
     
     public void saveAction(){
-	_serializer.setFile(MainWindow.getComponentes()._diagrams.getTabItem().getSave().getDir());
-	_serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
-	MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
+	_serializer.setFile(MainWindow.getComponents()._diagrams.getTabItem().getSave().getDir());
+	_serializer.saveDiagram(MainWindow.getComponents()._diagrams);
+	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
     }
     
     private void action(String nomArchivo,String address){
 	switch (saveType) {
 	case SAVE: 
 	    _serializer.setFile(nomArchivo);
-	    MainWindow.getComponentes()._diagrams.getTabItem().getSave().setDir(nomArchivo);
-	    boolean error = _serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
+	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(nomArchivo);
+	    boolean error = _serializer.saveDiagram(MainWindow.getComponents()._diagrams);
 	    if(error){
 		int pos = nomArchivo.indexOf('.');
 		String name = nomArchivo.substring(0, pos);
-		MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
-		MainWindow.getComponentes()._diagrams.cambiarNombre(name);
+		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
+		MainWindow.getComponents()._diagrams.cambiarNombre(name);
 	    }
 	    break;	
 	case SAVEAS: 
 	    _serializer.setFile(nomArchivo);
-	    boolean error2 = _serializer.saveDiagram(MainWindow.getComponentes()._diagrams);
+	    boolean error2 = _serializer.saveDiagram(MainWindow.getComponents()._diagrams);
 	    if(error2){
 		int pos = nomArchivo.indexOf('.');
 		String name = nomArchivo.substring(0, pos);
-		MainWindow.getComponentes()._diagrams.getTabItem().getSave().setSave(true);
-		MainWindow.getComponentes()._diagrams.cambiarNombre(name);
+		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
+		MainWindow.getComponents()._diagrams.cambiarNombre(name);
 	    }	
 	    break;	     
 	case EXPORTC:
-	    Exporter expor = new Exporter(MainWindow.getComponentes()._diagrams);
+	    Exporter expor = new Exporter(MainWindow.getComponents()._diagrams);
 	    expor.codeCExport(nomArchivo);
 	    break;
 	case EXPORTCPP: 
-	    Exporter expor2 = new Exporter(MainWindow.getComponentes()._diagrams);
+	    Exporter expor2 = new Exporter(MainWindow.getComponents()._diagrams);
 	    expor2.codeCppExport(nomArchivo);
 	    break;
 	case EXPORTEXE: 
 	    nomArchivo = nomArchivo.substring(0,nomArchivo.indexOf("."));
-	    Exporter expor3 = new Exporter(MainWindow.getComponentes()._diagrams);
+	    Exporter expor3 = new Exporter(MainWindow.getComponents()._diagrams);
 	    expor3.executeFileExport(address,nomArchivo);
 	    break;
 	case EXPORTIMAGE: 
-	    Exporter expor4 = new Exporter(MainWindow.getComponentes()._diagrams);
-	    expor4.exportJPGFile(address,MainWindow.getComponentes()._diagrams.getHoja().getDiagrama(),MainWindow.getComponentes()._diagrams.getHoja().getConexion());
+	    Exporter expor4 = new Exporter(MainWindow.getComponents()._diagrams);
+	    expor4.exportJPGFile(address,MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),MainWindow.getComponents()._diagrams.getHoja().getConexion());
 	    break;
 	default:
 	    break;

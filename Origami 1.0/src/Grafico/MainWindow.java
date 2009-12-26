@@ -9,9 +9,6 @@ import org.eclipse.swt.widgets.Shell;
 
 import ui.events.KeyEvent;
 import ui.events.WindowEvent;
-import Administracion.AdminDiagrama;
-import Administracion.AdminSeleccion;
-import Administracion.Figura;
 import Administracion.OrigamiException;
 import Imagenes.ImageLoader;
 
@@ -26,27 +23,17 @@ public class MainWindow {
     private static Componentes _components;
     
     public static CustomMenu menu;
-    
-    
 
-    public static AdminDiagrama _diagramAdministrator;     
-
-    public static AdminSeleccion _selectionAdministrator = new AdminSeleccion(); 
-    
-    public static Figura mainFigure = null;
+    public static final Cursor[] cursor = new Cursor[1];
     
     
-    
-    public static Componentes getComponentes() {
-	return getComponents();
-    }
     
     public MainWindow() {
 	initWindow();
 	
 	menu.createMenu();
 	
-	initControllers();
+	
 	addListeners();
     }
 
@@ -55,8 +42,7 @@ public class MainWindow {
 	
 	setComponents(new Componentes(this));
 	
-	getComponents().agregarComponentes(_selectionAdministrator);
-	getComponents().setDiagrama(getComponents()._diagrams);
+	getComponents().agregarComponentes();
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
@@ -70,7 +56,7 @@ public class MainWindow {
 	shell.addShellListener(new ShellAdapter() {
 	    public void shellDeactivated(ShellEvent e) {
 		Cursor[] cursor = new Cursor[1];
-		mainFigure = null;
+		Componentes.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
 		Componentes._diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
@@ -84,10 +70,6 @@ public class MainWindow {
 	});
 
 	_keyEvent = new KeyEvent();
-    }
-
-    private void initControllers() {
-	_diagramAdministrator = new AdminDiagrama(_selectionAdministrator);
     }
 
     private void show() {

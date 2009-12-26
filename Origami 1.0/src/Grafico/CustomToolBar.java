@@ -60,9 +60,9 @@ public class CustomToolBar {
 	toolItem[3].setToolTipText(" Deshacer ");
 	toolItem[3].addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent event) {
-		TabItem item = (TabItem) MainWindow.getComponentes().diagramas.getSeleccion();
+		TabItem item = (TabItem) MainWindow.getComponents()._diagrams.getSeleccion();
 		item.retroceder();
-		MainWindow.getComponentes().diagramas.getTabItem().getSave().setSave(false);
+		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
 	    }
 	});
 	toolItem[4] = new ToolItem(toolbar, SWT.PUSH);
@@ -71,9 +71,9 @@ public class CustomToolBar {
 	toolItem[4].setEnabled(false);
 	toolItem[4].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(MainWindow._selectionAdministrator.getFiguraSeleccionada());
+			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada());
 			new ContextualMenuActions().Cortar(fig);
-			MainWindow.getComponentes().toolBarDisable();
+			MainWindow.getComponents().toolBarDisable();
 		}
 	});
 	toolItem[5] = new ToolItem(toolbar, SWT.PUSH);
@@ -82,11 +82,11 @@ public class CustomToolBar {
 	toolItem[5].setEnabled(false);
 	toolItem[5].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
-					MainWindow._selectionAdministrator
+			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Copiar(fig);
-			MainWindow.getComponentes().toolBarDisable();
+			MainWindow.getComponents().toolBarDisable();
 		}
 	});
 	toolItem[6] = new ToolItem(toolbar, SWT.PUSH);
@@ -95,11 +95,11 @@ public class CustomToolBar {
 	toolItem[6].setEnabled(false);
 	toolItem[6].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
-					MainWindow._selectionAdministrator
+			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Pegar(fig);
-			MainWindow.getComponentes().toolBarDisable();
+			MainWindow.getComponents().toolBarDisable();
 		}
 	});
 	
@@ -110,8 +110,8 @@ public class CustomToolBar {
 	toolItem[7].setEnabled(false);
 	toolItem[7].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponentes().diagramas.getHoja().getFigureIndexOf(
-					MainWindow._selectionAdministrator
+			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Eliminar(fig);
 		}
@@ -126,7 +126,7 @@ public class CustomToolBar {
 			/*Instruccion codigo = new Instruccion();
 			codigo.main(diagramas.getHoja().getDiagrama(), true);
 			codigo.ventana(MainWindow.display);*/
-		    Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		    Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 		    manager.formatCodeC();
 		    System.out.println(manager.getInstructionsFormat());
 		}
@@ -141,7 +141,7 @@ public class CustomToolBar {
 			/*Instruccion codigo = new Instruccion();
 			codigo.main(diagramas.getHoja().getDiagrama(), false);
 			codigo.ventana(MainWindow.display);*/
-		    Manager manager = new Manager(MainWindow.getComponentes().diagramas.getHoja().getDiagrama());
+		    Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
 		    manager.formatCodeCpp();
 		    System.out.println(manager.getInstructionsFormat());
 		}
@@ -164,10 +164,10 @@ public class CustomToolBar {
 	toolItem[12].setToolTipText("Paso Siguiente");
 	toolItem[12].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			if (MainWindow.getComponentes().paso.ventanaLeer) {
-			    MainWindow.getComponentes().paso.ventanaLeer();
+			if (MainWindow.getComponents().paso.ventanaLeer) {
+			    MainWindow.getComponents().paso.ventanaLeer();
 			} else {
-			    MainWindow.getComponentes().next();
+			    MainWindow.getComponents().next();
 			}
 		}
 	});
@@ -177,10 +177,10 @@ public class CustomToolBar {
 	toolItem[13].setToolTipText("Terminar Ejecucion");
 	toolItem[13].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			if (MainWindow.getComponentes().isPasoAPaso) {
-				MainWindow.getComponentes().disablePasoAPaso(false);
+			if (MainWindow.getComponents().isPasoAPaso) {
+				MainWindow.getComponents().disablePasoAPaso(false);
 			}
-			MainWindow.getComponentes().stopEjecucion();
+			MainWindow.getComponents().stopEjecucion();
 		}
 	});
 	

@@ -5,13 +5,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
+import Administracion.AdminDiagrama;
 import Administracion.AdminSeleccion;
+import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
@@ -25,10 +26,14 @@ import Administracion.Funcionalidad.PasoAPaso;
 public class Componentes {
     public static TabFolder _diagrams;
     
+    public static AdminDiagrama _diagramAdministrator;
+    
+    public static AdminSeleccion _selectionAdministrator = new AdminSeleccion(); 
+    
     public CustomToolBar barraHerramientas;
     public CustomFiguresToolBar barraFiguras;
-	
-	
+    
+    
     private final GridData toolData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
     private final GridData tabData = new GridData(SWT.FILL, SWT.FILL, true,
@@ -45,36 +50,36 @@ public class Componentes {
     private boolean consolaMax = false;
     public final GridLayout layout = new GridLayout(2, false);
     final GridLayout layout2 = new GridLayout(1, false);
-	
-	
-	
-    public TabFolder diagramas;
+    
+    
     public DiagramFileManager ser = new DiagramFileManager();
-    public final Cursor[] cursor = new Cursor[1];
-	
-	
     public Ejecutar eje;
     public PasoAPaso paso;
     private boolean enEjecucion = false;
-	
+
     public boolean seleccion;
     public boolean isPasoAPaso = false;
     public CustomConsole console;
 	
     public MainWindow mainWindow;
 
+    public static Figura mainFigure = null;
+
     public Componentes(MainWindow mainWindow) {
 	this.mainWindow = mainWindow;
+	initControllers();
     }
-
-    public void agregarComponentes(AdminSeleccion selec) {
+    private void initControllers() {
+	_diagramAdministrator = new AdminDiagrama(_selectionAdministrator);
+    }
+    public void agregarComponentes() {
 //	    agregarBarraFiguras();
 		layout.horizontalSpacing = layout.verticalSpacing = 0;
 		layout.marginWidth = layout.marginHeight = 0;
 		layout.numColumns = 2;
 		
 		agregarBarraDeHerramientas();
-		agregarTabFolder(selec);
+		agregarTabFolder(_selectionAdministrator);
 		
 		
 		
@@ -133,10 +138,6 @@ public class Componentes {
 			MainWindow.shell.layout();
 		}
 		boolFiguras = seleccion;
-	}
-
-	public void setDiagrama(TabFolder diagramas) {
-		this.diagramas = diagramas;
 	}
 
 	public void moverConsola(boolean seleccionado) {
@@ -201,7 +202,7 @@ public class Componentes {
 			figurasData.exclude = true;
 			barraFiguras.barraFiguras.setBounds(0, 0, 0, 0);
 			diagramaData.exclude = true;
-			diagramas.getHoja().setBoundsToZero();
+			_diagrams.getHoja().setBoundsToZero();
 			consolaData.exclude = false;
 			consolaData.grabExcessHorizontalSpace = true;
 			consolaData.grabExcessVerticalSpace = true;
@@ -217,7 +218,7 @@ public class Componentes {
 	}
 
 	public boolean guardar() {
-		if (diagramas.getTabItem().getSave().getDir() == "null") {
+		if (_diagrams.getTabItem().getSave().getDir() == "null") {
 			FileDialog dialog = new FileDialog(MainWindow.shell, SWT.SAVE);
 			dialog.setFilterExtensions(new String[] { "*.Org" });
 			String archivo = dialog.open();
@@ -264,27 +265,27 @@ public class Componentes {
 						switch (seleccion) {
 						case 64:
 							ser.setFile(archivo);
-							diagramas.getTabItem().getSave().setDir(archivo);
-							ser.saveDiagram(diagramas);
+							_diagrams.getTabItem().getSave().setDir(archivo);
+							ser.saveDiagram(_diagrams);
 							archivo = dialog.getFileName();
 							int pos = archivo.indexOf('.');
 							String name = archivo.substring(0, pos);
-							diagramas.cambiarNombre("*" + name);
-							diagramas.getTabItem().getSave().setSave(true);
+							_diagrams.cambiarNombre("*" + name);
+							_diagrams.getTabItem().getSave().setSave(true);
 							return true;
 						case 128:
 							return false;
 						}
 					} else {
 						ser.setFile(archivo);
-						diagramas.getTabItem().getSave().setDir(archivo);
-						boolean error = ser.saveDiagram(diagramas);
+						_diagrams.getTabItem().getSave().setDir(archivo);
+						boolean error = ser.saveDiagram(_diagrams);
 						if (error) {
 							archivo = dialog.getFileName();
 							int pos = archivo.indexOf('.');
 							String name = archivo.substring(0, pos);
-							diagramas.cambiarNombre("*" + name);
-							diagramas.getTabItem().getSave().setSave(true);
+							_diagrams.cambiarNombre("*" + name);
+							_diagrams.getTabItem().getSave().setSave(true);
 						}
 						return true;
 					}
@@ -292,9 +293,9 @@ public class Componentes {
 			}
 			return false;
 		} else {
-			ser.setFile(diagramas.getTabItem().getSave().getDir());
-			ser.saveDiagram(diagramas);
-			diagramas.getTabItem().getSave().setSave(true);
+			ser.setFile(_diagrams.getTabItem().getSave().getDir());
+			ser.saveDiagram(_diagrams);
+			_diagrams.getTabItem().getSave().setSave(true);
 			return true;
 		}
 	}
@@ -305,23 +306,23 @@ public class Componentes {
 	}
 
 	public void toolBarDisable() {
-		if (MainWindow._selectionAdministrator.getFiguraSeleccionada() == -1) {
+		if (_selectionAdministrator.getFiguraSeleccionada() == -1) {
 			for (int i = 4; i <= 7; i++) {
 			    barraHerramientas.toolItem[i].setEnabled(false);
 			}
 		} else {
-			if (MainWindow._selectionAdministrator.getFiguraSeleccionada() != 0) {
+			if (_selectionAdministrator.getFiguraSeleccionada() != 0) {
 				for (int i = 4; i <= 7; i++) {
 				    barraHerramientas.toolItem[i].setEnabled(true);
 				}
-				if (MainWindow._diagramAdministrator.diagrama.size() == 0) {
+				if (_diagramAdministrator.diagrama.size() == 0) {
 				    barraHerramientas.toolItem[6].setEnabled(false);
 				}
 			} else {
 				for (int i = 4; i <= 7; i++) {
 				    barraHerramientas.toolItem[i].setEnabled(false);
 				}
-				if (MainWindow._diagramAdministrator.diagrama.size() != 0) {
+				if (_diagramAdministrator.diagrama.size() != 0) {
 				    barraHerramientas.toolItem[6].setEnabled(true);
 				}
 			}
@@ -372,7 +373,7 @@ public class Componentes {
 			eje.ejecutar(this, "main.exe", codigo);
 			seleccion = true;
 		} else {
-			if (diagramas.getHoja().getSizeDiagrama() == 2) {
+			if (_diagrams.getHoja().getSizeDiagrama() == 2) {
 				MessageBox messageBox = new MessageBox(MainWindow.shell,
 						SWT.ICON_INFORMATION | SWT.YES);
 				messageBox.setText("Origami");
@@ -390,8 +391,7 @@ public class Componentes {
 				ejecucionDisable();
 				disablePasoAPaso(false);
 			} else {
-				paso = new PasoAPaso(_diagrams,
-						MainWindow._selectionAdministrator);
+				paso = new PasoAPaso(_diagrams,_selectionAdministrator);
 				paso.ejecutar(this, "gdb", codigo);
 				paso.main();
 				seleccion = false;
@@ -418,11 +418,11 @@ public class Componentes {
 			disablePasoAPaso(false);
 			paso.stopEjecutar();
 			paso.colaConexiones.clear();
-			int diag = diagramas.selec.getSeleccionDigrama();
+			int diag = _diagrams.selec.getSeleccionDigrama();
 			paso.tab.selec.setSeleccionDiagrama(paso.a.GetId());
 			paso.limpiarPasoAnterior();
-			diagramas.getHoja().pasoInicio = false;
-			diagramas.getHoja().addFigure();
+			_diagrams.getHoja().pasoInicio = false;
+			_diagrams.getHoja().addFigure();
 			paso.tab.selec.setSeleccionDiagrama(diag);
 			console.text.setEditable(true);
 		}
@@ -466,8 +466,8 @@ public class Componentes {
 	public void disablePasoAPaso(boolean disable) {
 		if (disable) {
 			isPasoAPaso = true;
-			diagramas.selec.setFiguraSeleccionada(-1);
-			diagramas.getHoja().addFigure();
+			_diagrams.selec.setFiguraSeleccionada(-1);
+			_diagrams.getHoja().addFigure();
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			
@@ -478,7 +478,7 @@ public class Componentes {
 
 		} else {
 			isPasoAPaso = false;
-			diagramas.getHoja().addFigure();
+			_diagrams.getHoja().addFigure();
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			

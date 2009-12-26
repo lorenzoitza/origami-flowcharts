@@ -49,19 +49,19 @@ public class CustomConsole {
 	tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 		public void minimize(CTabFolderEvent event) {
 			MainWindow.menu.consoleMenuItem.setSelection(false);
-			MainWindow.getComponentes().moverConsola(false);
+			MainWindow.getComponents().moverConsola(false);
 			tabFolder.setMaximized(false);
 		}
 
 		public void maximize(CTabFolderEvent event) {
-		    MainWindow.getComponentes().maxConsola(true);
+		    MainWindow.getComponents().maxConsola(true);
 			tabFolder.forceFocus();
 			text.forceFocus();
 			tabFolder.setMaximized(true);
 		}
 
 		public void restore(CTabFolderEvent event) {
-		    MainWindow.getComponentes().moverConsola(true);
+		    MainWindow.getComponents().moverConsola(true);
 			tabFolder.forceFocus();
 			text.forceFocus();
 			tabFolder.setMinimized(false);
@@ -82,7 +82,7 @@ public class CustomConsole {
 				e.doit = false;
 			}
 			if (e.keyCode == 13 || e.keyCode == 16777296) {
-			    MainWindow.getComponentes().setText(MainWindow.getComponentes().texto());
+			    MainWindow.getComponents().setText(MainWindow.getComponents().texto());
 			}
 		}
 
@@ -95,10 +95,10 @@ public class CustomConsole {
 	final ToolItem bot2 = new ToolItem(toolBarFolder, SWT.PUSH);
 	bot.addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			if (MainWindow.getComponentes().isPasoAPaso) {
-				MainWindow.getComponentes().disablePasoAPaso(false);
+			if (MainWindow.getComponents().isPasoAPaso) {
+				MainWindow.getComponents().disablePasoAPaso(false);
 			}
-			MainWindow.getComponentes().stopEjecucion();
+			MainWindow.getComponents().stopEjecucion();
 		}
 	});
 	bot.setEnabled(false);

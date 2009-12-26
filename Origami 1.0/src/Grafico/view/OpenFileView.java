@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import Administracion.Funcionalidad.DiagramFileManager;
+import Grafico.Componentes;
 import Grafico.MainWindow;
 
 
@@ -46,8 +47,8 @@ public class OpenFileView {
 	case OPENEXAMPLE: 
     	    int pos2 = nomArchivo.indexOf('.');
     	    String name2 = nomArchivo.substring(0, pos2);
-    	    MainWindow.getComponentes()._diagrams.cambiarNombre(name2);
-    	    MainWindow.getComponentes()._diagrams.abrir(address,_serializer);
+    	    MainWindow.getComponents()._diagrams.cambiarNombre(name2);
+    	    MainWindow.getComponents()._diagrams.abrir(address,_serializer);
 	    break;
 	default:
 	    break;
@@ -56,7 +57,7 @@ public class OpenFileView {
     public void action2(String nomArchivo,String address){
 	switch (openType) {
 	case OPEN: 
-	    MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
+	    Componentes._selectionAdministrator.setFiguraSeleccionada(0);
 	    MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(address);
 	    int pos = nomArchivo.indexOf('.');
@@ -67,11 +68,11 @@ public class OpenFileView {
 	    MainWindow.getComponents()._diagrams.getTabItem().agregarRetroceso(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(), MainWindow.getComponents()._diagrams.selec);
 	    break;
 	case OPENEXAMPLE: 
-	    MainWindow._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponentes()._diagrams.getHoja().openFile(address,_serializer);
+	    Componentes._selectionAdministrator.setFiguraSeleccionada(0);
+	    MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    int pos2 = nomArchivo.indexOf('.');
 	    String name2 = nomArchivo.substring(0, pos2);
-	    MainWindow.getComponentes()._diagrams.cambiarNombre(name2);
+	    MainWindow.getComponents()._diagrams.cambiarNombre(name2);
 	    break;
 	default:
 	    break;
