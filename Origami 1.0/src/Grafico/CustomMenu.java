@@ -14,7 +14,6 @@ import ui.listener.AddInputFigureAction;
 import ui.listener.AddOutputFigureAction;
 import ui.listener.AddSentenceFigureAction;
 import ui.listener.AddWhileFigureAction;
-import ui.listener.BuildCCodeAction;
 import ui.listener.CompileAction;
 import ui.listener.ContextualMenuEvent;
 import ui.listener.ExportToCAction;
@@ -28,6 +27,7 @@ import ui.listener.SaveDiagramAction;
 import ui.listener.SaveDiagramAsAction;
 import ui.listener.StepByStepAction;
 import ui.listener.ViewAboutAction;
+import ui.listener.ViewCodeCAction;
 import ui.listener.ViewConsoleAction;
 import ui.listener.ViewExamplesAction;
 import ui.listener.ViewFiguresBarAction;
@@ -225,7 +225,7 @@ public class CustomMenu {
 	stepByStepMenuItem
 	.addSelectionListener(new StepByStepAction());
 
-	buildCodeMenuItem.addSelectionListener(new BuildCCodeAction());
+	buildCodeMenuItem.addSelectionListener(new ViewCodeCAction());
 	compileMenuItem.addSelectionListener(new CompileAction());
 
 	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction());

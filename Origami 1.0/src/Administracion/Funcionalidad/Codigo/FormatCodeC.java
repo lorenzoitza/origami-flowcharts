@@ -14,7 +14,6 @@ public class FormatCodeC extends FormatInstructions {
     @Override
     public void applyFormat() {
 	divideDataInputForCodeC();
-	// generateInstructionOfDataOutputForCodeC();
 	code =
 		("#include <stdio.h>\n" + "#include <stdlib.h>"
 			+ "\nint main(int argc, char argv[])\n{\n");
@@ -36,7 +35,7 @@ public class FormatCodeC extends FormatInstructions {
 	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("Leer:") >= 0) {
 
 		Vector<String> dataSeparate =
-			generateInstructionOfDataInputForCodeC2(codeOfFigure
+			generateInstructionOfDataInputForCodeC(codeOfFigure
 				.elementAt(indexCodeFigure));
 
 		int indexCharacterL =
@@ -125,16 +124,13 @@ public class FormatCodeC extends FormatInstructions {
 	}
     }
 
-    private Vector<String> generateInstructionOfDataInputForCodeC2(String linea) {
+    private Vector<String> generateInstructionOfDataInputForCodeC(String linea) {
 	Vector<String> datos = new Vector<String>();
-	;
 	String scanCaracter = "scanf(" + "\"" + "%" + "c" + "\"" + "," + "&";
 	String scanEnteros = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String scanFlotante = "scanf(" + "\"" + "%" + "f" + "\"" + "," + "&";
 	String scanDefaul = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 	String ultimo = ");";
-
-	System.out.println("la linea tiene: " + linea);
 
 	String data =
 		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
@@ -143,7 +139,6 @@ public class FormatCodeC extends FormatInstructions {
 	    data = data.substring(1);
 	}
 
-	System.out.println("data: " + data);
 
 	if (data.lastIndexOf("int ") >= 0) {
 	    String dato =
@@ -186,7 +181,6 @@ public class FormatCodeC extends FormatInstructions {
 	} else {
 
 	    for (int i = 0; i < TableOfVariable.size(); i++) {
-		System.out.println(TableOfVariable.elementAt(i));
 		if (TableOfVariable.elementAt(i).lastIndexOf(data) >= 0) {
 		    if (TableOfVariable.elementAt(i).lastIndexOf("char") >= 0) {
 			scanDefaul = scanCaracter;
@@ -209,17 +203,8 @@ public class FormatCodeC extends FormatInstructions {
 	}
 	return datos;
     }
-
-    private boolean isDeclarada(String data) {
-	for (int i = 0; i < this.TableOfVariable.size(); i++) {
-	    if (this.TableOfVariable.elementAt(i).contains(data)) {
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    public Vector<String> generateInstructionOfDataOutputForCodeC(String linea) {
+    
+    private Vector<String> generateInstructionOfDataOutputForCodeC(String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "printf(" + "\" ";
 	String entero = "%d ";
@@ -256,7 +241,6 @@ public class FormatCodeC extends FormatInstructions {
 			parteFinalDeLaInstruccion + separador + datos[i];
 	    } else {
 		if (datos[i].contains("\"")) {
-		    System.out.println(datos[i]);
 		    instruccion =
 			    instruccion
 				    + datos[i].substring(1,
@@ -269,8 +253,6 @@ public class FormatCodeC extends FormatInstructions {
 	}
 
 	instruccion = instruccion + "\"" + parteFinalDeLaInstruccion + ultimo;
-
-	System.out.println(instruccion);
 
 	imprimir.add(instruccion);
 

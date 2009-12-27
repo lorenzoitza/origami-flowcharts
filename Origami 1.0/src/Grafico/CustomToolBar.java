@@ -17,6 +17,8 @@ import ui.listener.NewDiagramAction;
 import ui.listener.OpenDiagramAction;
 import ui.listener.SaveDiagramAction;
 import ui.listener.StepByStepAction;
+import ui.listener.ViewCodeCAction;
+import ui.listener.ViewCodeCppAction;
 import Administracion.Figura;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.Codigo.Manager;
@@ -120,31 +122,14 @@ public class CustomToolBar {
 	toolItem[8] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[8].setImage(ImageLoader.getImage("codigo.png"));
 	toolItem[8].setToolTipText("Generar Codigo");
-	toolItem[8].addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent event) {
-			/*Instruccion codigo = new Instruccion();
-			codigo.main(diagramas.getHoja().getDiagrama(), true);
-			codigo.ventana(MainWindow.display);*/
-		    Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
-		    manager.formatCodeC();
-		    System.out.println(manager.getInstructionsFormat());
-		}
-	});
+	toolItem[8].addSelectionListener(new ViewCodeCAction());
 	
 	
 	toolItem[9] = new ToolItem(toolbar, SWT.PUSH);
 	toolItem[9].setImage(ImageLoader.getImage("codigoCpp.png"));
 	toolItem[9].setToolTipText("Generar Codigo C++");
-	toolItem[9].addSelectionListener(new SelectionAdapter() {
-		public void widgetSelected(SelectionEvent event) {
-			/*Instruccion codigo = new Instruccion();
-			codigo.main(diagramas.getHoja().getDiagrama(), false);
-			codigo.ventana(MainWindow.display);*/
-		    Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
-		    manager.formatCodeCpp();
-		    System.out.println(manager.getInstructionsFormat());
-		}
-	});
+	toolItem[9].addSelectionListener(new ViewCodeCppAction());
+	
 	new ToolItem(toolbar, SWT.SEPARATOR);
 
 	toolItem[10] = new ToolItem(toolbar, SWT.PUSH);

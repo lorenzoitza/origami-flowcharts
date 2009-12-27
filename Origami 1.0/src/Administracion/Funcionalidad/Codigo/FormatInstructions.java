@@ -31,6 +31,15 @@ public abstract class FormatInstructions {
     	this.codeOfFigure = codeOfFigure;
     }
     
+    protected boolean isDeclarada(String data) {
+	for (int i = 0; i < this.TableOfVariable.size(); i++) {
+	    if (this.TableOfVariable.elementAt(i).contains(data)) {
+		return true;
+	    }
+	}
+	return false;
+    }
+    
     protected String getTypeOfData(String variable) {
 	for (int i = 0; i < TableOfVariable.size(); i++) {
 	    if (TableOfVariable.elementAt(i).lastIndexOf(variable) > 0) {

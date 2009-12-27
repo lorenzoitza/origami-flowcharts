@@ -64,7 +64,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	    } else if (codeOfFigure.elementAt(x).lastIndexOf("\\p") >= 0) {
 
 		Vector<String> lineas =
-			generateInstructionOfDataOutputForCodeCpp2(codeOfFigure
+			generateInstructionOfDataOutputForCodeCpp(codeOfFigure
 				.elementAt(x));
 
 		int indexCharacterP = codeOfFigure.elementAt(x).indexOf("p");
@@ -125,24 +125,12 @@ public class FormatCodeCpp extends FormatInstructions {
 	}
     }
 
-    private boolean isDeclarada(String data) {
-	for (int i = 0; i < this.TableOfVariable.size(); i++) {
-	    if (this.TableOfVariable.elementAt(i).contains(data)) {
-		return true;
-	    }
-	}
-	return false;
-    }
-
-    public Vector<String> generateInstructionOfDataInputForCodeCpp(String linea) {
+    private Vector<String> generateInstructionOfDataInputForCodeCpp(String linea) {
 	Vector<String> datos = new Vector<String>();
 	String scan = "cin>>";
 	String ultimo = ";";
 	String lin = "";
 	String dato = "";
-
-	System.out.println("-----------");
-	System.out.println(linea);
 
 	String data =
 		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
@@ -184,7 +172,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	return datos;
     }
 
-    public Vector<String> generateInstructionOfDataOutputForCodeCpp2(
+    private Vector<String> generateInstructionOfDataOutputForCodeCpp(
 	    String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "cout ";
@@ -208,8 +196,6 @@ public class FormatCodeCpp extends FormatInstructions {
 	}
 
 	instruccion = instruccion + ultimo;
-
-	System.out.println(instruccion);
 
 	imprimir.add(instruccion);
 

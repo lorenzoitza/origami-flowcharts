@@ -126,9 +126,9 @@ public class KeyEvent implements KeyListener{
 		}
 		break;
 	case 16777229:
-		Instruccion codigo7 = new Instruccion();
-		codigo7.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
-		codigo7.createWindow(MainWindow.display);
+//		Instruccion codigo7 = new Instruccion();
+//		codigo7.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+//		codigo7.createWindow(MainWindow.display);
 		break;
 	case 16777230:
 		if(!MainWindow.getComponents().isPasoAPaso){
