@@ -7,6 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 
@@ -23,8 +24,9 @@ import Imagenes.ImageLoader;
 public class CustomFiguresToolBar {
     public ToolBar barraFiguras;
     private Button boton[] = new Button[7];
+    private Display display;
     
-    public CustomFiguresToolBar(GridData figurasData) {
+    public CustomFiguresToolBar(GridData figurasData, Display display) {
 	GridLayout layout2 = new GridLayout();
 	layout2.numColumns = 1;
 	layout2.horizontalSpacing = 0;
@@ -37,6 +39,8 @@ public class CustomFiguresToolBar {
 	barraFiguras.setCursor(new Cursor(null, SWT.CURSOR_ARROW));
 	getBotones(barraFiguras);
 	barraFiguras.setLayout(layout2);
+	
+	this.display = display;
     }
     
     public void getBotones(ToolBar toolbar) {
@@ -44,42 +48,42 @@ public class CustomFiguresToolBar {
 	boton[0].setImage(ImageLoader.getImage("Entrada.png"));
 	boton[0].pack();
 	boton[0].setToolTipText("Entrada");
-	boton[0].addSelectionListener(new AddInputFigureAction());
+	boton[0].addSelectionListener(new AddInputFigureAction(display));
 	boton[0].addKeyListener(new KeyEvent());
 	
 	boton[1] = new Button(toolbar, SWT.FLAT);
 	boton[1].setImage(ImageLoader.getImage("Proceso.png"));
 	boton[1].pack();
 	boton[1].setToolTipText("Expresin");
-	boton[1].addSelectionListener(new AddSentenceFigureAction());
+	boton[1].addSelectionListener(new AddSentenceFigureAction(display));
 	boton[1].addKeyListener(new KeyEvent());
 	
 	boton[2] = new Button(toolbar, SWT.FLAT);
 	boton[2].setImage(ImageLoader.getImage("If.png"));
 	boton[2].pack();
 	boton[2].setToolTipText("Decisin");
-	boton[2].addSelectionListener(new AddDecisionFigureAction());
+	boton[2].addSelectionListener(new AddDecisionFigureAction(display));
 	boton[2].addKeyListener(new KeyEvent());
 	
 	boton[3] = new Button(toolbar, SWT.FLAT);
 	boton[3].setImage(ImageLoader.getImage("While.png"));
 	boton[3].pack();
 	boton[3].setToolTipText("Ciclo Mientras");
-	boton[3].addSelectionListener(new AddWhileFigureAction());
+	boton[3].addSelectionListener(new AddWhileFigureAction(display));
 	boton[3].addKeyListener(new KeyEvent());
 	
 	boton[4] = new Button(toolbar, SWT.FLAT);
 	boton[4].setImage(ImageLoader.getImage("For.png"));
 	boton[4].pack();
 	boton[4].setToolTipText("Ciclo Para");
-	boton[4].addSelectionListener(new AddForFigureAction());
+	boton[4].addSelectionListener(new AddForFigureAction(display));
 	boton[4].addKeyListener(new KeyEvent());
 	
 	boton[5] = new Button(toolbar, SWT.FLAT);
 	boton[5].setImage(ImageLoader.getImage("Salida.png"));
 	boton[5].pack();
 	boton[5].setToolTipText("Salida");
-	boton[5].addSelectionListener(new AddOutputFigureAction());
+	boton[5].addSelectionListener(new AddOutputFigureAction(display));
 	boton[5].addKeyListener(new KeyEvent());
 	
 	Label label = new Label(toolbar, SWT.NONE);

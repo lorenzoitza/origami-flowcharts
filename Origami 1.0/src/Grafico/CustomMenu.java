@@ -3,6 +3,7 @@ package Grafico;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
@@ -72,8 +73,13 @@ public class CustomMenu {
     
     private Shell _shell;
     
-    public CustomMenu(Shell shell){
-	_shell = shell;
+    private Display display;
+    
+    public CustomMenu(Shell shell, Display display){
+	this._shell = shell;
+	
+	this.display = display;
+	
 	mainMenu = new Menu(_shell, SWT.BAR);
     }
 
@@ -162,17 +168,17 @@ public class CustomMenu {
 	outputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	outputMenuItem.setText("Salida   ");
 
-	inputMenuItem.addSelectionListener(new AddInputFigureAction());
+	inputMenuItem.addSelectionListener(new AddInputFigureAction(display));
 	
-	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction());
+	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction(display));
 	
-	sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction());
+	sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction(display));
 	
-	outputMenuItem.addSelectionListener(new AddOutputFigureAction());
+	outputMenuItem.addSelectionListener(new AddOutputFigureAction(display));
 	
-	forMenuItem.addSelectionListener(new AddForFigureAction());
+	forMenuItem.addSelectionListener(new AddForFigureAction(display));
 	
-	whileMenuItem.addSelectionListener(new AddWhileFigureAction());
+	whileMenuItem.addSelectionListener(new AddWhileFigureAction(display));
 
     }
 

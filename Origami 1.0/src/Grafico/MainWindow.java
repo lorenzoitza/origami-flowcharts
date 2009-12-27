@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import ui.events.WindowEvent;
+import ui.actions.CloseWindowAction;
 import Administracion.OrigamiException;
 import Imagenes.ImageLoader;
 
@@ -35,15 +35,15 @@ public class MainWindow {
     }
 
     private void initWindow() {
-	menu = new CustomMenu(shell);
+	menu = new CustomMenu(shell, display);
 	
-	_components = new Componentes();
+	_components = new Componentes(display);
 	_components.agregarComponentes();
 	
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new WindowEvent(getComponents()._diagrams, getComponents()));
+	shell.addShellListener(new CloseWindowAction(getComponents()._diagrams, getComponents()));
 	shell.setMenuBar(menu.mainMenu);
 	shell.setLayout(getComponents().layout);
 	shell.pack();

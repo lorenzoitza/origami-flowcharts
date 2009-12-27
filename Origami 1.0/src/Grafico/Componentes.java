@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
@@ -64,7 +65,10 @@ public class Componentes {
 
     public static Figura mainFigure = null;
 
-    public Componentes() {
+    private Display display;
+    
+    public Componentes(Display display) {
+	this.display = display;
 	initControllers();
     }
     private void initControllers() {
@@ -96,7 +100,7 @@ public class Componentes {
 	}
 
 	public void agregarBarraFiguras() {
-	    barraFiguras= new CustomFiguresToolBar(figurasData);
+	    barraFiguras= new CustomFiguresToolBar(figurasData, display);
 	}
 
 	public void addBarraDeHerramientas(boolean seleccion) {
