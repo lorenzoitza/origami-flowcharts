@@ -25,7 +25,7 @@ public class AddWhileFigureAction implements SelectionListener{
     public void widgetSelected(SelectionEvent event) {
 	MainWindow.cursor[0] = new Cursor(display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 	new AddFigureLogic().addWhile();
-	MainWindow.getComponents().disableCursor();
+	new AddFigureLogic().disableCursor();
     }
 
 }

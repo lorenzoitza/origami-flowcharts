@@ -39,42 +39,42 @@ public class KeyEvent implements KeyListener{
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addInput();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 50:
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addSentence();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 51:
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addDecision();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 52:
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addWhile();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 53:
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addFor();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 54:
 		if(!MainWindow.getComponents().isPasoAPaso){
 		    MainWindow.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addOutput();
-		    MainWindow.getComponents().disableCursor();
+		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 27:
@@ -187,7 +187,7 @@ public class KeyEvent implements KeyListener{
 			}
 			else{
 			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));	
-				MainWindow.getComponents().toolBarDisable();
+				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}
 	}
@@ -197,7 +197,7 @@ public class KeyEvent implements KeyListener{
 			}
 			else{
 			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponents().toolBarDisable();
+				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}
 	}
@@ -205,7 +205,7 @@ public class KeyEvent implements KeyListener{
 		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
 			if(Componentes._diagramAdministrator.diagrama.size()>0){
 			    new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponents().toolBarDisable();
+				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}
 	}

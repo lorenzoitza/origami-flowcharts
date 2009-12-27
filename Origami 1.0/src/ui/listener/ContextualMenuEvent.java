@@ -99,8 +99,8 @@ public class ContextualMenuEvent extends MouseListener.Stub{
 		proceso.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 			    new AddFigureLogic().addSentence();
-				 new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
-				 Componentes.mainFigure = null;
+			    new ContextualMenuActions().insertarFigura(Componentes.mainFigure);
+			    Componentes.mainFigure = null;
 			}
 		});
 		entrada.addSelectionListener(new SelectionAdapter() {

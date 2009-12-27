@@ -4,7 +4,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import Administracion.Funcionalidad.CodeCompiler;
+import Grafico.Componentes;
 import Grafico.MainWindow;
+import Grafico.view.SaveFileView;
+import Grafico.view.SaveType;
 
 
 public class CompileAction implements SelectionListener{
@@ -14,12 +17,22 @@ public class CompileAction implements SelectionListener{
 	// TODO Auto-generated method stub
 	
     }
-
+    
+    public boolean guardar() {
+	SaveFileView save = new SaveFileView();
+	if(Componentes._diagrams.getTabItem().getSave().getDir() == "null") {
+	    save.setSaveType(SaveType.SAVE);
+	    return save.createWindow();
+	} else {
+	    return save.saveAction();
+	}
+    }
+    
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	if (!MainWindow.getComponents()._diagrams.getTabItem().getSave().isSave()) {
 		// llamo abrir la ventana para guardar
-		if (MainWindow.getComponents().guardar()) {
+		if (guardar()) {
 			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
 			if (MainWindow.getComponents().getEnEjecucion()) {
 			    MainWindow.getComponents().stopEjecucion();
