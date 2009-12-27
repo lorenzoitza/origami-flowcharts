@@ -5,9 +5,9 @@ import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.SWT;
 
-import ui.actions.ContextualMenuEvent;
-import ui.actions.DoubleClickEvento;
-import ui.actions.SelectEvent;
+import ui.listener.ContextualMenuEvent;
+import ui.listener.DoubleClickEvento;
+import ui.listener.SelectEvent;
 import Grafico.*;
 import Grafico.Figuras.SelectionSquare;
 import Grafico.Figuras.InputFigure;
@@ -869,7 +869,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().isPasoAPaso){
-						new ui.actions.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
+						new ui.listener.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
@@ -885,7 +885,7 @@ public class DibujarDiagrama extends Figure{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().isPasoAPaso){
-						new ui.actions.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
+						new ui.listener.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuEvent(diagrama.elementAt(x));
 						new SelectEvent(diagrama.elementAt(x),selec,tab);
 					}
