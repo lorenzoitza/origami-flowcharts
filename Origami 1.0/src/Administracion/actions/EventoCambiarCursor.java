@@ -1,4 +1,4 @@
-package Administracion.Eventos;
+package Administracion.actions;
 
 import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;

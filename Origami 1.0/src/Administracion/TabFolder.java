@@ -13,7 +13,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 
-import ui.events.KeyEvent;
+import ui.actions.KeyEvent;
 
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.DiagramFileManager;

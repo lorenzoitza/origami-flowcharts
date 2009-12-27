@@ -16,9 +16,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.ScrollBar;
 
-import ui.events.AddFigureEvent;
-import ui.events.ChangeCursorEvent;
-import ui.events.ContextualMenuEvent;
+import ui.actions.AddFigureEvent;
+import ui.actions.ChangeCursorEvent;
+import ui.actions.ContextualMenuEvent;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
 import Grafico.Figuras.CircleFigure;
