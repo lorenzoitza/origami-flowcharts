@@ -17,7 +17,7 @@ import ui.actions.AddInputFigureAction;
 import ui.actions.AddOutputFigureAction;
 import ui.actions.AddSentenceFigureAction;
 import ui.actions.AddWhileFigureAction;
-import ui.events.KeyEvent;
+import ui.actions.KeyEvent;
 import Imagenes.ImageLoader;
 
 

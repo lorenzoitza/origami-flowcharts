@@ -16,6 +16,7 @@ import ui.actions.AddSentenceFigureAction;
 import ui.actions.AddWhileFigureAction;
 import ui.actions.BuildCCodeAction;
 import ui.actions.CompileAction;
+import ui.actions.ContextualMenuEvent;
 import ui.actions.ExportToCAction;
 import ui.actions.ExportToCPPAction;
 import ui.actions.ExportToEXEAction;
@@ -33,7 +34,6 @@ import ui.actions.ViewFiguresBarAction;
 import ui.actions.ViewHelpContentsAction;
 import ui.actions.ViewTabsAction;
 import ui.actions.ViewToolbarAction;
-import ui.events.ContextualMenuEvent;
 
 
 public class CustomMenu {
