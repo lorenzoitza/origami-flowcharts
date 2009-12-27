@@ -5,8 +5,7 @@ import java.util.Vector;
 import Administracion.Figura;
 
 public class Manager {
-	
-	private Vector<Figura> figures;
+    private Vector<Figura> figures;
 	
 	private FormatInstructions format;
 	
