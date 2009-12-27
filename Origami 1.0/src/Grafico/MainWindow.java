@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import ui.actions.CloseWindowAction;
+import ui.listener.CloseWindowAction;
 import Administracion.OrigamiException;
 import Imagenes.ImageLoader;
 

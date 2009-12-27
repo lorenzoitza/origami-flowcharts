@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import ui.actions.KeyEvent;
+import ui.listener.KeyEvent;
 import Imagenes.ImageLoader;
 
 public abstract class AbstractInputOutputDialog<Figure> extends

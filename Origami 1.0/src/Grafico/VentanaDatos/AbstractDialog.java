@@ -6,7 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
-import ui.actions.KeyEvent;
+import ui.listener.KeyEvent;
 
 public abstract class AbstractDialog<Figure> {
 

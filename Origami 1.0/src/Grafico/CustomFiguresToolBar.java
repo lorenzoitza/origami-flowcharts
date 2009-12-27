@@ -11,13 +11,13 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 
-import ui.actions.AddDecisionFigureAction;
-import ui.actions.AddForFigureAction;
-import ui.actions.AddInputFigureAction;
-import ui.actions.AddOutputFigureAction;
-import ui.actions.AddSentenceFigureAction;
-import ui.actions.AddWhileFigureAction;
-import ui.actions.KeyEvent;
+import ui.listener.AddDecisionFigureAction;
+import ui.listener.AddForFigureAction;
+import ui.listener.AddInputFigureAction;
+import ui.listener.AddOutputFigureAction;
+import ui.listener.AddSentenceFigureAction;
+import ui.listener.AddWhileFigureAction;
+import ui.listener.KeyEvent;
 import Imagenes.ImageLoader;
 
 
