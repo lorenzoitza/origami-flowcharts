@@ -48,8 +48,7 @@ public class Componentes {
     private boolean boolFiguras = true;
     private boolean consolaMax = false;
     public final GridLayout layout = new GridLayout(2, false);
-    final GridLayout layout2 = new GridLayout(1, false);
-    
+
     
     public Ejecutar eje;
     public PasoAPaso paso;
