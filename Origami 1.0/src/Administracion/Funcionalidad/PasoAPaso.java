@@ -10,7 +10,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
 
-import ui.actions.KeyEvent;
+import ui.listener.KeyEvent;
 
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
