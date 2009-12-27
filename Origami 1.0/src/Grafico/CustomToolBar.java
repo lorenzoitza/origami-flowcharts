@@ -72,7 +72,7 @@ public class CustomToolBar {
 		public void widgetSelected(SelectionEvent event) {
 			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada());
 			new ContextualMenuActions().Cortar(fig);
-			MainWindow.getComponents().toolBarDisable();
+			toolBarDisable();
 		}
 	});
 	toolItem[5] = new ToolItem(toolbar, SWT.PUSH);
@@ -85,7 +85,7 @@ public class CustomToolBar {
 				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Copiar(fig);
-			MainWindow.getComponents().toolBarDisable();
+			toolBarDisable();
 		}
 	});
 	toolItem[6] = new ToolItem(toolbar, SWT.PUSH);
@@ -98,7 +98,7 @@ public class CustomToolBar {
 				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Pegar(fig);
-			MainWindow.getComponents().toolBarDisable();
+			toolBarDisable();
 		}
 	});
 	
@@ -209,6 +209,29 @@ public class CustomToolBar {
 	    public void widgetSelected(SelectionEvent event) {
 	    }
 	});
+    }
+    public void toolBarDisable() {
+	if (Componentes._selectionAdministrator.getFiguraSeleccionada() == -1) {
+		for (int i = 4; i <= 7; i++) {
+		    toolItem[i].setEnabled(false);
+		}
+	} else {
+		if (Componentes._selectionAdministrator.getFiguraSeleccionada() != 0) {
+			for (int i = 4; i <= 7; i++) {
+			    toolItem[i].setEnabled(true);
+			}
+			if (Componentes._diagramAdministrator.diagrama.size() == 0) {
+			    toolItem[6].setEnabled(false);
+			}
+		} else {
+			for (int i = 4; i <= 7; i++) {
+			    toolItem[i].setEnabled(false);
+			}
+			if (Componentes._diagramAdministrator.diagrama.size() != 0) {
+			    toolItem[6].setEnabled(true);
+			}
+		}
+	}
     }
     public void disablePasoAPaso(boolean disable) {
 	if (disable) {

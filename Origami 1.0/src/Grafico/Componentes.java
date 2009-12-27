@@ -8,7 +8,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
 import Administracion.AdminDiagrama;
@@ -16,11 +15,8 @@ import Administracion.AdminSeleccion;
 import Administracion.Figura;
 import Administracion.TabFolder;
 import Administracion.Funcionalidad.CodeCompiler;
-import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.PasoAPaso;
-import Grafico.view.SaveFileView;
-import Grafico.view.SaveType;
 
 /**
  * @version Origami 1.0
@@ -219,48 +215,9 @@ public class Componentes {
 		MainWindow.shell.layout();
 	}
 
-	public boolean guardar() {
-	    SaveFileView save = new SaveFileView();
-	    if(_diagrams.getTabItem().getSave().getDir() == "null") {
-		save.setSaveType(SaveType.SAVE);
-		return save.createWindow();
-	    } else {
-		return save.saveAction();
-	    }
-	}
-
 	public void guardarDisable(boolean disable) {
 		barraHerramientas.toolItem[2].setEnabled(disable);
 		MainWindow.menu.saveMenuItem.setEnabled(disable);
-	}
-
-	public void toolBarDisable() {
-		if (_selectionAdministrator.getFiguraSeleccionada() == -1) {
-			for (int i = 4; i <= 7; i++) {
-			    barraHerramientas.toolItem[i].setEnabled(false);
-			}
-		} else {
-			if (_selectionAdministrator.getFiguraSeleccionada() != 0) {
-				for (int i = 4; i <= 7; i++) {
-				    barraHerramientas.toolItem[i].setEnabled(true);
-				}
-				if (_diagramAdministrator.diagrama.size() == 0) {
-				    barraHerramientas.toolItem[6].setEnabled(false);
-				}
-			} else {
-				for (int i = 4; i <= 7; i++) {
-				    barraHerramientas.toolItem[i].setEnabled(false);
-				}
-				if (_diagramAdministrator.diagrama.size() != 0) {
-				    barraHerramientas.toolItem[6].setEnabled(true);
-				}
-			}
-		}
-	}
-	public void disableCursor() {
-		_diagrams.getHoja().getChart().disableCursor(
-		_diagrams.getHoja().getDiagrama(),
-		_diagrams.getHoja().getChart());
 	}
 
 	public void ejecucionDisable() {
