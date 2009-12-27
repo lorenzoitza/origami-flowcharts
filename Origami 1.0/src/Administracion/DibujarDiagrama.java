@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT;
 import ui.listener.ContextualMenuEvent;
 import ui.listener.DoubleClickEvento;
 import ui.listener.SelectEvent;
+import Administracion.actions.RecorridoDiagrama;
 import Grafico.*;
 import Grafico.Figuras.SelectionSquare;
 import Grafico.Figuras.InputFigure;
@@ -123,7 +124,7 @@ public class DibujarDiagrama extends Figure{
 			MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
 		}*/
 		if(dispToolItem){
-			MainWindow.getComponents().toolBarDisable();
+			MainWindow.getComponents().barraHerramientas.toolBarDisable();
 		}
 		dispToolItem = true;
 	}
@@ -462,11 +463,11 @@ public class DibujarDiagrama extends Figure{
 		while(true){	
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont++;
-				i=recorridoCiclo(diagrama,i);
+				i=RecorridoDiagrama.recorridoCiclo(diagrama,i);
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
-				i=recorridoCiclo3(diagrama,i)+4;
+				i=RecorridoDiagrama.recorridoCiclo3(diagrama,i)+4;
 				if(cont>cont2){
 					cont2=cont;  
 				}
@@ -490,15 +491,15 @@ public class DibujarDiagrama extends Figure{
 	}
 	public int ifIzquierda2(Vector<Figura> diagrama,int i,int fin){
 		int cont=0,cont2=0;
-		while(true){	
+		while(true){
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont =cont + diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
-				i=recorridoCiclo(diagrama,i);
+				i=RecorridoDiagrama.recorridoCiclo(diagrama,i);
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-				cont =cont + diagrama.elementAt(recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
-				i = recorridoCiclo3(diagrama,i)+5;
+				cont =cont + diagrama.elementAt(RecorridoDiagrama.recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
+				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
 				cont-=35;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
@@ -539,7 +540,7 @@ public class DibujarDiagrama extends Figure{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
-				i=recorridoCiclo3(diagrama,i)+5;
+				i=RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
 				bandera = false;
 				if(cont>cont2){
 					cont2=cont;  
@@ -571,12 +572,12 @@ public class DibujarDiagrama extends Figure{
 				i++;
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-				cont =cont + diagrama.elementAt(recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
+				cont =cont + diagrama.elementAt(RecorridoDiagrama.recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
 				if(cont>cont2){
 					cont2=cont;  
 				}
-				i = recorridoCiclo3(diagrama,i)+5;
+				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
 				if(cont>cont2){
@@ -592,76 +593,6 @@ public class DibujarDiagrama extends Figure{
 	}
 	/**
 	 * 
-	 * Este metodo recibe un if y devuelve la
-	 * localiozacion de la parte no del if.
-	 * 
-	 * @param diagrama
-	 * @param i
-	 * @return int
-	 */
-	public int recorridoCiclo(Vector<Figura> diagrama,int i){
-		int x=diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
-		x=diagrama.elementAt(i).getBounds().x-x;
-		int y=diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2;
-		i++;
-		while(true){
-			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
-				break;
-			}
-			i++;
-		}
-		return i;
-	}
-	/**
-	 * 
-	 * Este metodo recibe la localizacion 
-	 * del principio de la parte No del if
-	 * y te devuelve la localizacion del final
-	 * de dicha parte.
-	 * 
-	 * @param diagrama
-	 * @param i
-	 * @return int
-	 */
-	public int recorridoCiclo2(Vector<Figura> diagrama,int i){
-		int x=diagrama.elementAt(i).getBounds().x;
-		int y=diagrama.elementAt(i-1).getBounds().y;
-		i++;
-		while(true){
-			if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
-				break;
-			}
-			i++;
-		}
-		return i;
-	}
-	/**
-	 * 
-	 * Este metodo recibe un For o While
-	 * y te devuelve la localizacion del 
-	 * final de dicha figura.
-	 * 
-	 * @param diagrama
-	 * @param i
-	 * @return int
-	 */
-	public int recorridoCiclo3(Vector<Figura> diagrama,int i){
-        int x=diagrama.elementAt(i).getBounds().x + diagrama.elementAt(i).getBounds().width/2;
-        int y=diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2;;
-        i++;
-        while(true){
-            if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x
-                    && diagrama.elementAt(i+1) instanceof Elipse && diagrama.elementAt(i+2) instanceof Elipse
-                    && diagrama.elementAt(i+1).getBounds().y == diagrama.elementAt(i).getBounds().y
-                    && diagrama.elementAt(i+2).getBounds().y == y ){
-                break;
-            }
-            i++;
-        }
-        return i;
-    }
-	/**
-	 * 
 	 * Este metodo recorre toda la
 	 * anidacion de un For o While y 
 	 * regresa la distancia de la figura
@@ -674,7 +605,7 @@ public class DibujarDiagrama extends Figure{
 	public double recorridoFW(Vector<Figura> diagrama,int i){
 		double x=0.0,x2=0.0,xDer=0.0,xIzq=0.0;
 		boolean bandera=false,bandera2=false;
-		int fin = recorridoCiclo3(diagrama,i-1);
+		int fin = RecorridoDiagrama.recorridoCiclo3(diagrama,i-1);
 		double lugar = (double)diagrama.elementAt(i-1).getBounds().x + diagrama.elementAt(i-1).getBounds().width/2.0;
 		double X = (double)(diagrama.elementAt(i-1).getBounds().x + diagrama.elementAt(i-1).getBounds().width/2.0)/lugar;
 		if(lugar>0.0){
@@ -1027,7 +958,7 @@ public class DibujarDiagrama extends Figure{
 			MainWindow._editMenu.menuDisponibleFigura();
 		}*/
 		if(dispToolItem){
-			MainWindow.getComponents().toolBarDisable();
+			MainWindow.getComponents().barraHerramientas.toolBarDisable();
 		}
 		dispToolItem = true;
 		Conexion conexion = new Conexion(tab);

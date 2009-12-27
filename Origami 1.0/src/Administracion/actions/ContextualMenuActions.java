@@ -41,8 +41,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			Componentes._diagramAdministrator.diagrama.removeAllElements();
     			if(fig instanceof DecisionFigure){
-    				y = recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
-    				y = recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
+    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     				Componentes._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(x));
@@ -52,7 +52,7 @@ public class ContextualMenuActions {
     				}
     			} 
     			else if(fig instanceof ForFigure){
-    				y = recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     				Componentes._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(x));
@@ -62,7 +62,7 @@ public class ContextualMenuActions {
     				}
     			}
     			else if(fig instanceof WhileFigure){
-    				y = recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     				Componentes._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(x));
@@ -93,8 +93,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			Componentes._diagramAdministrator.diagrama.removeAllElements();
     			if(fig instanceof DecisionFigure){
-    				y = recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
-    				y = recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
+				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     					if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(x) instanceof DecisionFigure){
@@ -148,7 +148,7 @@ public class ContextualMenuActions {
     				}
     			} 
     			else if(fig instanceof ForFigure || fig instanceof WhileFigure){
-    				y = recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(x) instanceof DecisionFigure){
@@ -478,7 +478,6 @@ public class ContextualMenuActions {
     		pregunta.setText("¿De que lado deseas insertar la nueva figura?");
     		pregunta.setFont(newFont);
     		Label imagen = new Label(shell, SWT.NONE); 
-    		//Image question = new Image(Ventana.display,CargarImagenes.getImagen("Pregunta.PNG"));
     		imagen.setImage(ImageLoader.getImage("Pregunta.png"));
     		imagen.setBounds(25,10,50,50);
     		shell.setMaximized(false);
@@ -530,8 +529,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			if(fig instanceof DecisionFigure){
     				tipo="si";
-    				y = recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
-    				y = recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
+    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     					MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(x);
@@ -540,7 +539,7 @@ public class ContextualMenuActions {
     			} 
     			else if(fig instanceof ForFigure){
     				tipo="para";
-    				y = recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(x);
@@ -549,7 +548,7 @@ public class ContextualMenuActions {
     			}
     			else if(fig instanceof WhileFigure){
     				tipo="mientras";
-    				y = recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(x);
@@ -607,75 +606,5 @@ public class ContextualMenuActions {
     	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
     	MainWindow.getComponents()._diagrams.getHoja().addFigure();
     	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
-    }
-    /**
-     * 
-     * Este metodo recibe un if y devuelve la
-     * localiozacion de la parte no del if.
-     * 
-     * @param diagrama
-     * @param i
-     * @return int
-     */
-    public int recorridoCiclo(Vector<Figura> diagrama,int i){
-    	int x=diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
-    	x=diagrama.elementAt(i).getBounds().x-x;
-    	int y=diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2;
-    	i++;
-    	while(true){
-    		if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
-    			break;
-    		}
-    		i++;
-    	}
-    	return i;
-    }
-    /**
-     * 
-     * Este metodo recibe la localizacion 
-     * del principio de la parte No del if
-     * y te devuelve la localizacion del final
-     * de dicha parte.
-     * 
-     * @param diagrama
-     * @param i
-     * @return int
-     */
-    public int recorridoCiclo2(Vector<Figura> diagrama,int i){
-    	int x=diagrama.elementAt(i).getBounds().x;
-    	int y=diagrama.elementAt(i-1).getBounds().y;
-    	i++;
-    	while(true){
-    		if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x && diagrama.elementAt(i).getBounds().y==y){
-    			break;
-    		}
-    		i++;
-    	}
-    	return i;
-    }
-    /**
-     * 
-     * Este metodo recibe un For o While
-     * y te devuelve la localizacion del 
-     * final de dicha figura.
-     * 
-     * @param diagrama
-     * @param i
-     * @return int
-     */
-    public int recorridoCiclo3(Vector<Figura> diagrama,int i){
-    int x=diagrama.elementAt(i).getBounds().x + diagrama.elementAt(i).getBounds().width/2;
-    int y=diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2;;
-    i++;
-    while(true){
-        if(diagrama.elementAt(i) instanceof Elipse && diagrama.elementAt(i).getBounds().x==x
-                && diagrama.elementAt(i+1) instanceof Elipse && diagrama.elementAt(i+2) instanceof Elipse
-                && diagrama.elementAt(i+1).getBounds().y == diagrama.elementAt(i).getBounds().y
-                && diagrama.elementAt(i+2).getBounds().y == y ){
-            break;
-        }
-        i++;
-    }
-    return i;
     }
 }
