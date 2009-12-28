@@ -1,8 +1,10 @@
 package Administracion.Funcionalidad;
 
 import java.io.*;
-import Administracion.Funcionalidad.Codigo.Instruccion;
+import Administracion.Funcionalidad.Codigo.Instruction;
+import Administracion.Funcionalidad.Codigo.Manager;
 import Administracion.TabFolder;
+import Grafico.MainWindow;
 
 /**
  * @version Origami 1.0
@@ -39,11 +41,11 @@ public class CodeCompiler {
     }
 
     public boolean createExecuteFile(String fileName) {
-	Instruccion code = new Instruccion();
+	Instruction code = new Instruction();
 
 	String comand = "cmd /c gcc -g -o " + fileName + " " + fileName + ".c";
 
-	code.main(selectedTab.getHoja().getDiagrama());
+	code.getInstructionOfDiagram(selectedTab.getHoja().getDiagrama());
 	boolean error = false;
 
 	try {
@@ -82,25 +84,29 @@ public class CodeCompiler {
     }
 
     public void saveCode(boolean isCCode, boolean inExecution) {
-	Instruccion codigo = new Instruccion();
+	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	//Instruction codigo = new Instruction();
 
 	if (isCCode) {
 
 	    source = new File("main.c");
-	    codigo.main(selectedTab.getHoja().getDiagrama());
+	    //codigo.main(selectedTab.getHoja().getDiagrama());
+	    managerCode.formatCodeC();
 	} else if (!isCCode && inExecution) {
 
 	    source = new File("main.cpp");
-	    codigo.main(selectedTab.getHoja().getDiagrama());
+	    //codigo.main(selectedTab.getHoja().getDiagrama());
+	    managerCode.formatCodeCpp();
 	} else if (!isCCode && !inExecution) {
 
 	    source = new File("main.cpp");
-	    codigo.generateGDB(selectedTab.getHoja().getDiagrama());
+	    //codigo.generateGDB(selectedTab.getHoja().getDiagrama());
+	    managerCode.formatCodeGDB();
 	}
 	try {
 
 	    PrintWriter pw = new PrintWriter(source);
-	    pw.write(codigo.totalCode);
+	    pw.write(managerCode.getInstructionsFormat());
 	    pw.close();
 	} catch (Exception e) {
 	    e.printStackTrace();

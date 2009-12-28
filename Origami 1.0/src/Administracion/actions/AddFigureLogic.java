@@ -1,6 +1,6 @@
 package Administracion.actions;
 
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
 import Grafico.Componentes;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.ForFigure;
@@ -26,7 +26,7 @@ public class AddFigureLogic {
     }
     public void addDecision() {
 	DecisionFigure decisionFigure = new DecisionFigure();
-	InstruccionSimple codigo = new InstruccionSimple();
+	InstructionSimple codigo = new InstructionSimple();
 	codigo.setInstruccionSimple("null");
 	decisionFigure.instruction.instruccion.add(0,codigo);
 	Componentes.mainFigure = null;
@@ -34,7 +34,7 @@ public class AddFigureLogic {
     }
     public void addFor() {
 	ForFigure forFigure = new ForFigure();
-	InstruccionSimple codigo = new InstruccionSimple();
+	InstructionSimple codigo = new InstructionSimple();
 	codigo.setInstruccionSimple("null");
 	forFigure.instruction.instruccion.add(0,codigo);
 	Componentes.mainFigure = null;
@@ -54,7 +54,7 @@ public class AddFigureLogic {
     }
     public void addWhile() {
 	WhileFigure whileFigure = new WhileFigure();
-	InstruccionSimple instructionCode = new InstruccionSimple();
+	InstructionSimple instructionCode = new InstructionSimple();
 	instructionCode.setInstruccionSimple("null");
 	whileFigure.instruccion.instruccion.add(0,instructionCode);
 	Componentes.mainFigure = null;

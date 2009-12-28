@@ -6,7 +6,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import Administracion.Figura;
-import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
+import Administracion.Funcionalidad.Codigo.InstructionComposed;
 
 /**
  * Esta clase es la que crea y dibujar la figura del For.
@@ -16,7 +16,7 @@ import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
  */
 public class ForFigure extends Figura {
 
-    public InstruccionCompuesta instruction = new InstruccionCompuesta();
+    public InstructionComposed instruction = new InstructionComposed();
 
     public ForFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));

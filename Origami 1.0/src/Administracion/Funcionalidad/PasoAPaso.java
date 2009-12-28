@@ -15,7 +15,8 @@ import ui.listener.KeyEvent;
 import Administracion.AdminSeleccion;
 import Administracion.TabFolder;
 import Administracion.TabItem;
-import Administracion.Funcionalidad.Codigo.Instruccion;
+import Administracion.Funcionalidad.Codigo.Instruction;
+import Administracion.Funcionalidad.Codigo.Manager;
 import Administracion.actions.RecorridoDiagrama;
 import Grafico.MainWindow;
 import Grafico.Figuras.*;
@@ -195,9 +196,13 @@ public class PasoAPaso extends Ejecutar{
 		capturar.open();
 	}
 	public boolean verificarLectura(int linea){
-		Instruccion codigo = new Instruccion();
-		codigo.generateGDB(tab.getHoja().getDiagrama());
-		String auxCodigo[] = codigo.totalCode.split("\n");
+	    	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		//Instruction codigo = new Instruction();
+	    	managerCode.formatCodeGDB();
+		//codigo.generateGDB(tab.getHoja().getDiagrama());
+		
+		
+		String auxCodigo[] = managerCode.getInstructionsFormat().split("\n");
 		for(int i=0; i<auxCodigo.length; i++){
 			if(i+1==linea){
 				if(auxCodigo[i].indexOf("cin>>")!=-1){
@@ -804,9 +809,11 @@ public class PasoAPaso extends Ejecutar{
 		tab.getHoja().getFigureIndexOf(0).getPosicion().removeAllElements();
 		tab.getHoja().getFigureIndexOf(0).setPosicion(4);
 
-		Instruccion codigo = new Instruccion();
-		codigo.generateGDB(tab.getHoja().getDiagrama());
-		String auxCodigo[] = codigo.totalCode.split("\n");	
+		Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		//Instruction codigo = new Instruction();
+		managerCode.formatCodeGDB();
+		//codigo.generateGDB(tab.getHoja().getDiagrama());
+		String auxCodigo[] = managerCode.getInstructionsFormat().split("\n");	
 		NoEstaIf.removeAllElements();
 		NoEstaWhile.removeAllElements();
 		for(int x=0;x<auxCodigo.length;x++){

@@ -4,7 +4,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import Administracion.*;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de entrada.
@@ -14,7 +14,7 @@ import Administracion.Funcionalidad.Codigo.InstruccionSimple;
  */
 public class InputFigure extends Figura {
 
-    public InstruccionSimple instruction = new InstruccionSimple();
+    public InstructionSimple instruction = new InstructionSimple();
 
     public InputFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));

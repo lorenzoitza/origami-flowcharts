@@ -1,7 +1,7 @@
 package Administracion.actions;
 
 import java.util.ArrayList;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
 import Grafico.MainWindow;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.ForFigure;
@@ -18,7 +18,7 @@ public class ValidateDialog {
 	boolean isChanged = false;
 	
 	
-	InstruccionSimple code = new InstruccionSimple();
+	InstructionSimple code = new InstructionSimple();
 	
 	code.setInstruccionSimple(instructionCode);
 
@@ -48,7 +48,7 @@ public class ValidateDialog {
 	boolean isChanged = false;
 	
 	
-	InstruccionSimple code = new InstruccionSimple();
+	InstructionSimple code = new InstructionSimple();
 	
 	code.setInstruccionSimple(instructionCode);
 
@@ -103,7 +103,7 @@ public class ValidateDialog {
 	boolean isChanged = false;
 	
 	
-	InstruccionSimple code = new InstruccionSimple();
+	InstructionSimple code = new InstructionSimple();
 	
 	code.setInstruccionSimple(instructionCode);
 	if (abstractFigure.instruccion.instruccion.size() > 0) {

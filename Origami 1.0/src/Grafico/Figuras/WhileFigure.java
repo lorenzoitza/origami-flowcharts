@@ -14,7 +14,7 @@ import Administracion.Funcionalidad.Codigo.*;
  */
 public class WhileFigure extends Figura {
 
-    public InstruccionCompuesta instruccion = new InstruccionCompuesta();
+    public InstructionComposed instruccion = new InstructionComposed();
 
     public WhileFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));

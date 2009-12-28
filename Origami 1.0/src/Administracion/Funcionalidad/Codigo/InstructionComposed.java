@@ -7,6 +7,6 @@ import java.util.Vector;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class InstruccionCompuesta  extends Instruccion{
-	public Vector<InstruccionSimple> instruccion = new Vector<InstruccionSimple>();
+public class InstructionComposed  extends Instruction{
+	public Vector<InstructionSimple> instruccion = new Vector<InstructionSimple>();
 }

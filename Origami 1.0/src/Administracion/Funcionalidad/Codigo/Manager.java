@@ -20,8 +20,8 @@ public class Manager {
 	}
 	
 	public void formatCodeC(){
-		Instruccion getCodeOfFigures = new Instruccion();
-		Vector<String> result = getCodeOfFigures.main(figures);
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
 		System.out.println(result);
 		format = new FormatCodeC(result,getCodeOfFigures.getVariablesTable());
 		format.applyFormat();
@@ -29,12 +29,18 @@ public class Manager {
 	}
 	
 	public void formatCodeCpp(){
-		Instruccion getCodeOfFigures = new Instruccion();
-		Vector<String> result = getCodeOfFigures.main(figures);
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
 		System.out.println(result);
 		format = new FormatCodeCpp(result,getCodeOfFigures.getVariablesTable());
 		format.applyFormat();
 		this.instructionsFormat = format.getInstructionsFormat();
+	}
+	
+	public void formatCodeGDB(){
+	    	format = new FormatCodeGDB();
+	    	format.applyFormat();
+	    	this.instructionsFormat = format.getInstructionsFormat();
 	}
 	
 	public String getInstructionsFormat(){

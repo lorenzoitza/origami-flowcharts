@@ -6,7 +6,7 @@ package Administracion.Funcionalidad.Codigo;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class InstruccionSimple extends Instruccion{
+public class InstructionSimple extends Instruction{
 	public String instruccion;
 	/**
 	 * Este metodo cambia el parametro 

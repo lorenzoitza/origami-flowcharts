@@ -56,4 +56,43 @@ public abstract class FormatInstructions {
 	}
 	return null;
     }
+    
+    protected String getCodeGDB(String codigoTotal){
+	CharSequence valor = "=";
+	CharSequence entero = "int";
+	CharSequence flotante = "float";
+	CharSequence caracter = "char";
+	CharSequence impresion = "cout";
+	String[] lineas = codigoTotal.split("\n");
+	codigoTotal="";
+	for(int i=0; i<lineas.length; i++){
+		if(i>3 && (!lineas[i].contains(impresion)) && (lineas[i].contains(entero) || lineas[i].contains(flotante) || lineas[i].contains(caracter)) ){
+			if(!lineas[i].contains(valor)){
+				while(lineas[i].startsWith(" ")){
+					lineas[i] = lineas[i].substring(1);
+				}
+				if(lineas[i].startsWith("int")){
+					String[] copia = lineas[i].split(";");
+					lineas[i] = copia[0] + " = 0;";
+				}
+				else if(lineas[i].startsWith("char")){
+					String[] copia = lineas[i].split(";");
+					lineas[i] = copia[0] + " = '0';";
+				}
+				else if (lineas[i].startsWith("float")){
+					String[] copia = lineas[i].split(";");
+					lineas[i] = copia[0] + " = 0.0;";
+				}
+			}
+		}
+		else if(lineas[i].contains(impresion)){
+			while(lineas[i].startsWith(" ")){
+				lineas[i] = lineas[i].substring(1);
+			}					
+			lineas[i] = lineas[i].replaceFirst("endl;", "\".,.\"<<endl;");
+		}
+		codigoTotal=codigoTotal + lineas[i]+"\n";
+	}
+	return codigoTotal;
+    }
 }

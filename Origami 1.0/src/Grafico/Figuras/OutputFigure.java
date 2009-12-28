@@ -2,7 +2,7 @@ package Grafico.Figuras;
 
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
-import Administracion.Funcionalidad.Codigo.InstruccionSimple;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
@@ -14,7 +14,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
  */
 public class OutputFigure extends Figura {
 
-    public InstruccionSimple instruction = new InstruccionSimple();
+    public InstructionSimple instruction = new InstructionSimple();
 
     public OutputFigure() {
 	setBounds(new Rectangle(100, 100, 80, 40));

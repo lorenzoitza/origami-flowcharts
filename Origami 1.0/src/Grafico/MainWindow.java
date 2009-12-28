@@ -23,8 +23,6 @@ public class MainWindow {
 
     public static final Cursor[] cursor = new Cursor[1];
     
-    
-    
     public MainWindow() {
 	initWindow();
 	

@@ -2,13 +2,13 @@ package Grafico.Figuras;
 
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
-import Administracion.Funcionalidad.Codigo.InstruccionCompuesta;
+import Administracion.Funcionalidad.Codigo.InstructionComposed;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class DecisionFigure extends Figura {
 
-    public InstruccionCompuesta instruction = new InstruccionCompuesta();
+    public InstructionComposed instruction = new InstructionComposed();
 
     public DecisionFigure() {
 	setBounds(new Rectangle(100, 100, 80, 40));

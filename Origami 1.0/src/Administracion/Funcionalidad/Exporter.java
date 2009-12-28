@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import Administracion.*;
-import Administracion.Funcionalidad.Codigo.Instruccion;
+import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
 import Grafico.MainWindow;
 import Grafico.Figuras.*;
