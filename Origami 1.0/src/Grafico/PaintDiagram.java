@@ -19,7 +19,6 @@ import Administracion.Figura;
 import Administracion.TabFolder;
 import Grafico.Figuras.SelectionSquare;
 
-
 public class PaintDiagram extends Figure {
     public static AdminSeleccion selec;
     public TabFolder tab;
@@ -120,7 +119,7 @@ public class PaintDiagram extends Figure {
     }
     
     public void disableCursor(Vector<Figura> diagrama, Figure chart){
-	pintar(diagrama,chart);
+	agregarFiguras(diagrama,chart);
 	
 	Conexion conexion = new Conexion(tab);
 	conexion.crearConexiones(diagrama);
