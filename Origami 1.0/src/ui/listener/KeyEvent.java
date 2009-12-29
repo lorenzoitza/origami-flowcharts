@@ -11,7 +11,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.TabItem;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
-import Administracion.Funcionalidad.Codigo.Instruccion;
 import Administracion.actions.AddFigureLogic;
 import Administracion.actions.ContextualMenuActions;
 import Grafico.Componentes;
