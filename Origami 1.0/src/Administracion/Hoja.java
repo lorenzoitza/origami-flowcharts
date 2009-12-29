@@ -20,7 +20,6 @@ import ui.listener.AddFigureEvent;
 import ui.listener.ChangeCursorEvent;
 import ui.listener.ContextualMenuEvent;
 import Administracion.Funcionalidad.DiagramFileManager;
-import Grafico.Conexion;
 import Grafico.MainWindow;
 import Grafico.PaintDiagram;
 import Grafico.TabFolder;
