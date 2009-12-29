@@ -5,8 +5,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
-import Administracion.TabFolder;
-import Administracion.TabItem;
 import Grafico.*;
 import Grafico.view.SaveFileView;
 import Grafico.view.SaveType;

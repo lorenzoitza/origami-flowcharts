@@ -1,11 +1,14 @@
-package Administracion;
+package Grafico;
 
 import java.util.Vector;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 
+import Administracion.AdminDiagrama;
+import Administracion.AdminSeleccion;
+import Administracion.Figura;
+import Administracion.Informacion;
 import Administracion.Funcionalidad.Guardar;
 import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;

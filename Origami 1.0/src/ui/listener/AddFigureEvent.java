@@ -6,8 +6,8 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 
 import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
 import Administracion.actions.EventoAgregarFigura;
+import Grafico.TabFolder;
 
 public class AddFigureEvent extends MouseMotionListener.Stub implements MouseListener{
     private EventoAgregarFigura ev;

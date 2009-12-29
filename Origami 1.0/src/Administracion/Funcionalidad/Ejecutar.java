@@ -5,9 +5,9 @@ import java.io.*;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
-import Administracion.TabItem;
 import Grafico.Componentes;
 import Grafico.MainWindow;
+import Grafico.TabItem;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez

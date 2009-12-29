@@ -5,10 +5,10 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.MessageBox;
-import Administracion.TabFolder;
-import Administracion.TabItem;
 import Grafico.Componentes;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
+import Grafico.TabItem;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez

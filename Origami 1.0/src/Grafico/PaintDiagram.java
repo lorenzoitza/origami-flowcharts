@@ -13,10 +13,8 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import Administracion.AdminSeleccion;
-import Administracion.Conexion;
 import Administracion.DibujarDiagrama;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Grafico.Figuras.SelectionSquare;
 
 public class PaintDiagram extends Figure {

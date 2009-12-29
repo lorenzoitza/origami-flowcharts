@@ -13,12 +13,12 @@ import org.eclipse.swt.widgets.*;
 import ui.listener.KeyEvent;
 
 import Administracion.AdminSeleccion;
-import Administracion.TabFolder;
-import Administracion.TabItem;
 import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
 import Administracion.actions.RecorridoDiagrama;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
+import Grafico.TabItem;
 import Grafico.Figuras.*;
 /**
  * @version Origami 1.0

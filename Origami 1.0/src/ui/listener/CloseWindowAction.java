@@ -3,8 +3,8 @@ package ui.listener;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 
-import Administracion.TabFolder;
 import Grafico.Componentes;
+import Grafico.TabFolder;
 import Grafico.view.CloseWindowView;
 
 

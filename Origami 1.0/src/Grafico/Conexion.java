@@ -1,10 +1,12 @@
-package Administracion;
+package Grafico;
 
 import java.util.Vector;
 import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+
+import Administracion.Figura;
 import Grafico.Figuras.*;
 /**
  * Esta clase establece las conexiones

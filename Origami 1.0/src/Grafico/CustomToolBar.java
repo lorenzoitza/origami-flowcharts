@@ -20,7 +20,6 @@ import ui.listener.StepByStepAction;
 import ui.listener.ViewCodeCAction;
 import ui.listener.ViewCodeCppAction;
 import Administracion.Figura;
-import Administracion.TabItem;
 import Administracion.Funcionalidad.Codigo.Manager;
 import Administracion.actions.ContextualMenuActions;
 import Imagenes.ImageLoader;

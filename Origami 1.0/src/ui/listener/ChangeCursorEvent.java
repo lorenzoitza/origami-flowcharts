@@ -5,9 +5,9 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 
-import Administracion.TabFolder;
 import Administracion.actions.EventoCambiarCursor;
 import Grafico.CustomMenu;
+import Grafico.TabFolder;
 
 
 public class ChangeCursorEvent  extends MouseMotionListener.Stub implements MouseListener{

@@ -13,8 +13,10 @@ import org.eclipse.swt.widgets.Shell;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
+import Grafico.Conexion;
 import Grafico.MainWindow;
 import Grafico.PaintDiagram;
+import Grafico.TabFolder;
 import Grafico.Figuras.*;
 
 /**

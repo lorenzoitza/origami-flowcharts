@@ -3,8 +3,8 @@ package Administracion.Funcionalidad;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 import Administracion.CustomFile;
-import Administracion.TabFolder;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
 
 
 public class DiagramFileManager {

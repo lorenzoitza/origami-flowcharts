@@ -6,7 +6,6 @@ import org.eclipse.swt.*;
 import org.eclipse.swt.graphics.Cursor;
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Grafico.*;
 import Grafico.Figuras.DecisionFigureEnd;
 import Grafico.Figuras.ForFigure;

@@ -10,6 +10,7 @@ import ui.listener.DoubleClickEvento;
 import ui.listener.SelectEvent;
 import Administracion.actions.RecorridoDiagrama;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
 import Grafico.Figuras.CircleFigure;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.DecisionFigureEnd;

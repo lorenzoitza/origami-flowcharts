@@ -1,4 +1,4 @@
-package Administracion;
+package Grafico;
 
 import java.util.Vector;
 
@@ -15,9 +15,12 @@ import org.eclipse.swt.widgets.Display;
 
 import ui.listener.KeyEvent;
 
+import Administracion.AdminDiagrama;
+import Administracion.AdminSeleccion;
+import Administracion.Figura;
+import Administracion.Hoja;
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.DiagramFileManager;
-import Grafico.MainWindow;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
@@ -30,53 +33,54 @@ public class TabFolder {
 	public AdminSeleccion selec;
 	
 	public TabFolder(Display display,AdminSeleccion seleccion){
-		selec = seleccion;
-		key = new KeyEvent();
-		tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
-		hoja = new Hoja(display,this,selec);
-		addTabItem();
-		tabFolder.forceFocus();
-		tabFolder.pack();
-		tabFolder.setCursor(new Cursor(null,SWT.CURSOR_ARROW));
-		tabFolder.setSimple(false);
-		tabFolder.setTabHeight(24);
-		Color title = display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND);
-		Color title2 = display.getSystemColor(SWT.COLOR_TITLE_FOREGROUND);
-		Color title3 = display.getSystemColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT);
-		tabFolder.setSelectionForeground(title);
-		tabFolder.setSelectionBackground(new Color[]{title2,title3},new int []{100},true);
-		tabFolder.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
-			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				key.setKey(e);
-				key.Accion();
-			}
-		});
-		tabFolder.addSelectionListener(new SelectionAdapter() {
-			 public void widgetSelected(SelectionEvent event) {
-				 TabItem a = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
-				 cambiar(a); 
-				 a.getSave().verificarCambio();
-			}
-		});
-		tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
-			public void close(CTabFolderEvent event) {
-				TabItem a = (TabItem)event.item;
-				if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
+		this.selec = seleccion;
+		this.key = new KeyEvent();
+		this.tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
+		this.hoja = new Hoja(display,this,selec);
+		
+		initTabFolder();
+	}
+	private void initTabFolder(){
+	    this.tabFolder.forceFocus();
+	    this.tabFolder.pack();
+	    this.tabFolder.setCursor(new Cursor(null,SWT.CURSOR_ARROW));
+	    this.tabFolder.setSimple(false);
+	    this.tabFolder.setTabHeight(24);
+	    Color title = this.tabFolder.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND);
+	    Color title2 = this.tabFolder.getDisplay().getSystemColor(SWT.COLOR_TITLE_FOREGROUND);
+	    Color title3 = this.tabFolder.getDisplay().getSystemColor(SWT.COLOR_TITLE_BACKGROUND_GRADIENT);
+	    this.tabFolder.setSelectionForeground(title);
+	    this.tabFolder.setSelectionBackground(new Color[]{title2,title3},new int []{100},true);
+	    this.tabFolder.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
+		public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
+		    key.setKey(e);
+		    key.Accion();
+		    }});
+	    this.tabFolder.addSelectionListener(new SelectionAdapter() {
+		public void widgetSelected(SelectionEvent event) {
+		    TabItem a = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
+		    cambiar(a); 
+		    a.getSave().verificarCambio();
+		    }});
+	    this.tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
+		public void close(CTabFolderEvent event) {
+		    TabItem a = (TabItem)event.item;
+		    if(MainWindow.getComponents().eje != null && MainWindow.getComponents().getEnEjecucion()
 						&& a.GetId() == MainWindow.getComponents().eje.a.GetId()){
-					MainWindow.getComponents().stopEjecucion();
-				}
-				else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
-						&& a.GetId() == MainWindow.getComponents().paso.a.GetId()){
-					MainWindow.getComponents().stopEjecucion();
-					MainWindow.getComponents().disablePasoAPaso(false);
-				}
-				if(!a.getSave().isSave()){
-					a.getSave().GuardarDiagrama(event);
-				}
-				else{
-					Guardar.cerrar(a.GetId());
-				}
+			MainWindow.getComponents().stopEjecucion();
 			}
+		    else if(MainWindow.getComponents().paso != null && MainWindow.getComponents().getEnEjecucion()
+						&& a.GetId() == MainWindow.getComponents().paso.a.GetId()){
+			MainWindow.getComponents().stopEjecucion();
+			MainWindow.getComponents().disablePasoAPaso(false);
+			}
+		    if(!a.getSave().isSave()){
+			a.getSave().GuardarDiagrama(event);
+			}
+		    else{
+			Guardar.cerrar(a.GetId());
+			}
+		    }
 		});
 	}
 	public void agregarRetroceso(Vector<Figura> diagrama){
@@ -95,7 +99,7 @@ public class TabFolder {
 		selec.setFiguraSeleccionada(seleccion);
 		hoja.addFigure();
 	}
-	public final void cambiar(TabItem a){
+	private final void cambiar(TabItem a){
 		selec.setSeleccionDiagrama(a.GetId());
 		hoja.cambiarPanel(this);
 		hoja.resetScrollBar();
@@ -104,12 +108,12 @@ public class TabFolder {
 		TabItem tab;
 		int id=0;
 		for(int x=0;x<tabFolder.getItemCount();x++){
-			tab = (TabItem)tabFolder.getItem(x);
-			if(tab.GetId()==a.GetId()){
-				id=x;
-				selec.setSeleccionDiagrama(tab.GetId());
-				hoja.cambiarPanel(this);
-				return id;
+		    tab = (TabItem)tabFolder.getItem(x);
+		    if(tab.GetId()==a.GetId()){
+			id=x;
+			selec.setSeleccionDiagrama(tab.GetId());
+			hoja.cambiarPanel(this);
+			return id;
 			}
 		}
 		return 0;
@@ -135,18 +139,18 @@ public class TabFolder {
 	}
 	public void cambiarNombre(String name){
 		if(tabFolder.getSelectionIndex()!=-1){
-		TabItem item = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
-		item.setText(name);
+		    TabItem item = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
+		    item.setText(name);
 		}
 		else{
-			contador++;
-			TabItem item = new TabItem(tabFolder, SWT.NONE);
-			item.setTabFolder(this);
-			item.SetId(contador);
-			item.setText(name);
-			selec.setSeleccionDiagrama(contador);
-			selec.setFiguraSeleccionada(0);
-			seleccionarTabItem();
+		    contador++;
+		    TabItem item = new TabItem(tabFolder, SWT.NONE);
+		    item.setTabFolder(this);
+		    item.SetId(contador);
+		    item.setText(name);
+		    selec.setSeleccionDiagrama(contador);
+		    selec.setFiguraSeleccionada(0);
+		    seleccionarTabItem();
 		}
 	}
 	public TabItem getTabItem(){

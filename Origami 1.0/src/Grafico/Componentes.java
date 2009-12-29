@@ -13,7 +13,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import Administracion.AdminDiagrama;
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.Ejecutar;
 import Administracion.Funcionalidad.PasoAPaso;
@@ -90,6 +89,7 @@ public class Componentes {
 
 	private void agregarTabFolder(AdminSeleccion selec) {
 		_diagrams = new TabFolder(MainWindow.display, selec);
+		_diagrams.addTabItem();
 		tabData.heightHint = 0;
 		_diagrams.getTabFolder().setLayoutData(tabData);
 	}

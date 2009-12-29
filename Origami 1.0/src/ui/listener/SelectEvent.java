@@ -8,8 +8,8 @@ import org.eclipse.swt.graphics.Cursor;
 
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
 import Grafico.view.EventoSeleccionar;
 
 

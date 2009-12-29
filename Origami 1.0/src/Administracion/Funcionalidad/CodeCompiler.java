@@ -3,8 +3,8 @@ package Administracion.Funcionalidad;
 import java.io.*;
 import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
-import Administracion.TabFolder;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
 
 /**
  * @version Origami 1.0

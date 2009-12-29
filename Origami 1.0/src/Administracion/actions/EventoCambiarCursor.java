@@ -7,7 +7,6 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 import Administracion.AdminDiagrama;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Grafico.*;
 import Grafico.Figuras.InputFigure;
 import Grafico.Figuras.ForFigure;

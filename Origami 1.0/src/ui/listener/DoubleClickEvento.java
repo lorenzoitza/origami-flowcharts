@@ -5,8 +5,8 @@ import org.eclipse.draw2d.MouseListener;
 
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
-import Administracion.TabFolder;
 import Grafico.MainWindow;
+import Grafico.TabFolder;
 import Grafico.Figuras.DecisionFigure;
 import Grafico.Figuras.ForFigure;
 import Grafico.Figuras.InputFigure;

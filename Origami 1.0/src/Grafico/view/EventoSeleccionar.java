@@ -2,7 +2,7 @@ package Grafico.view;
 
 
 import Administracion.Figura;
-import Administracion.TabFolder;
+import Grafico.TabFolder;
 
 /**
  * 

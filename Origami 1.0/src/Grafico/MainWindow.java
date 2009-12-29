@@ -82,14 +82,8 @@ public class MainWindow {
 	    MainWindow mainWindow = new MainWindow();
 	    mainWindow.show();
 	    
-	    int bandera = 0;
-
-	    while (!shell.isDisposed() && bandera <= 15) {
-		while (!display.readAndDispatch()) {
-		    Componentes._diagrams.getHoja().resetScrollBar();
-		    bandera++;
-		}
-	    }
+	    Componentes._diagrams.getHoja().resetScrollBar();
+	    
 	    while (!shell.isDisposed()) {
 		while (!display.readAndDispatch()) {
 		    display.sleep();
