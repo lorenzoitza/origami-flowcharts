@@ -94,7 +94,7 @@ public class Figura extends Figure implements Serializable {
 	this.posicion = posicion;
     }
 
-    protected void setSeleccion(boolean seleccion) {
+    public void setSeleccion(boolean seleccion) {
 	this.seleccion = seleccion;
     }
 

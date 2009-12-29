@@ -21,14 +21,16 @@ import ui.listener.ChangeCursorEvent;
 import ui.listener.ContextualMenuEvent;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Grafico.MainWindow;
+import Grafico.PaintDiagram;
 import Grafico.Figuras.CircleFigure;
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
 public class Hoja{
-	private Vector<DibujarDiagrama> chart = new Vector<DibujarDiagrama>();
-	private Vector<AdminDiagrama> diagrama = new Vector<AdminDiagrama>();
+    private Vector<PaintDiagram> chart = new Vector<PaintDiagram>();
+	
+    private Vector<AdminDiagrama> diagrama = new Vector<AdminDiagrama>();
 	private Vector<Conexion> connection = new Vector<Conexion>();
 	private AdminSeleccion seleccion; 
 	private Figure panel = new Figure();
@@ -82,7 +84,7 @@ public class Hoja{
 	}
 	public void addDiagrama(){
 		contador++;
-		DibujarDiagrama uno = new DibujarDiagrama(seleccion,tab);
+		PaintDiagram uno = new PaintDiagram(seleccion,tab);
 		AdminDiagrama dos = new AdminDiagrama(seleccion);
 		Conexion tres = new Conexion(tab);
 		chart.insertElementAt(uno,contador);
@@ -171,7 +173,7 @@ public class Hoja{
 	public void insertFigureIndexOf(Figura figura,int i){
 		diagrama.elementAt(seleccion.getSeleccionDigrama()).diagrama.insertElementAt(figura, i);
 	}
-	public DibujarDiagrama getDibujarDiagrama(){
+	public PaintDiagram getDibujarDiagrama(){
 		return chart.elementAt(seleccion.getSeleccionDigrama());
 	}
 	public Figure getPanel(){
@@ -242,10 +244,10 @@ public class Hoja{
 	public AdminDiagrama getAdminDiagramaIndexOf(int i){
 		return diagrama.elementAt(i);
 	}
-	public Vector<DibujarDiagrama> getCharts(){
+	public Vector<PaintDiagram> getCharts(){
 		return chart;
 	}
-	public DibujarDiagrama getChart(){
+	public PaintDiagram getChart(){
 		return chart.elementAt(seleccion.getSeleccionDigrama());
 	}
 	public ScalableLayeredPane getScaledPane() {

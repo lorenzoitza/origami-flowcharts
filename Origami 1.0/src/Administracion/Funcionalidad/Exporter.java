@@ -14,6 +14,7 @@ import Administracion.*;
 import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
 import Grafico.MainWindow;
+import Grafico.PaintDiagram;
 import Grafico.Figuras.*;
 
 /**
@@ -90,7 +91,7 @@ public class Exporter {
 		}
 	}
 
-	private DibujarDiagrama getSize(Vector<Figura> sourceDiagram, Conexion connection) {
+	private PaintDiagram getSize(Vector<Figura> sourceDiagram, Conexion connection) {
 		
 		int x1Coord = sourceDiagram.elementAt(0).getBounds().x;
 		
@@ -111,7 +112,7 @@ public class Exporter {
 		}
 		int width = x2Coord - x1Coord;
 		int height = y1Coord - y2Coord;
-		DibujarDiagrama panel = new DibujarDiagrama(width, height);
+		PaintDiagram panel = new PaintDiagram(width, height);
 		
 		if (width <= 0) {
 			
@@ -123,6 +124,7 @@ public class Exporter {
 		Conexion conex = new Conexion(selectedTab);
 		conex.crearConexiones(sourceDiagram);
 		panel.agregarConexiones(conex.getConexion(), panel);
+		
 		return panel;
 	}
 
