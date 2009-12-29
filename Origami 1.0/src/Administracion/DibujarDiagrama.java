@@ -32,8 +32,7 @@ public class DibujarDiagrama{
     private int derecha, izquierda;
     public static AdminSeleccion selec;
     public TabFolder tab;
-    Vector<Figura> diagramaFinalTotal = new Vector<Figura>();
-	
+   	
 	
     public DibujarDiagrama(AdminSeleccion selecc,TabFolder tabfolder){
 	selec = selecc;
@@ -51,15 +50,12 @@ public class DibujarDiagrama{
 	getFigura(diagrama,true);
 	diagrama.firstElement().setSeleccion(false);
 	
-	diagramaFinalTotal.removeAllElements();
-	diagramaFinalTotal.add(diagrama.firstElement());
-	
 	for(int i=1;i<diagrama.size();i++){
 	    if(diagrama.elementAt(i) instanceof DecisionFigure){
-		i= anidarIf(diagrama,i,diagramaFinalTotal)-1;
+		i= anidarIf(diagrama,i)-1;
 	    }
 	    else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-		i= anidarFW(diagrama,i,diagramaFinalTotal)-1;
+		i= anidarFW(diagrama,i)-1;
 	    }
 	    else{
 		if(diagrama.elementAt(i-1) instanceof Elipse){
@@ -76,30 +72,24 @@ public class DibujarDiagrama{
 		    punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 		    diagrama.elementAt(i).setLocation(punto);
 		}
-		diagramaFinalTotal.add(diagrama.elementAt(i));
 	    }	
 	}
-	
-	return diagramaFinalTotal;
+	return diagrama;
     }
     public Vector<Figura> agregarFigurasExportar(Vector<Figura> diagrama,int lugar,int alt){   
-	Vector<Figura> diagramaFinal = new Vector<Figura>();
-	
 	int x;
 	diagrama.firstElement().getBounds().x = lugar;
 	diagrama.firstElement().getBounds().y = alt;
 	
 	diagrama.firstElement().setSeleccion(false);
 	
-	diagramaFinalTotal.removeAllElements();
-	diagramaFinalTotal.add(diagrama.firstElement());
 	
 	for(int i=1;i<diagrama.size();i++){
 	    if(diagrama.elementAt(i) instanceof DecisionFigure){
-		i= anidarIf(diagrama,i,diagramaFinalTotal)-1;
+		i= anidarIf(diagrama,i)-1;
 	    }
 	    else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-		i= anidarFW(diagrama,i,diagramaFinalTotal)-1;
+		i= anidarFW(diagrama,i)-1;
 	    }
 	    else{
 		if(diagrama.elementAt(i-1) instanceof Elipse){
@@ -116,11 +106,10 @@ public class DibujarDiagrama{
 		    punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 		    diagrama.elementAt(i).setLocation(punto);
 		}
-		diagramaFinalTotal.add(diagrama.elementAt(i));
 	    }	
 	}
 	
-	return diagramaFinalTotal;
+	return diagrama;
     }	
 	/**
 	 * Recibe un if y administra la localizacion
@@ -131,7 +120,7 @@ public class DibujarDiagrama{
 	 * @param i
 	 * @return int 
 	 */
-	public int anidarIf(Vector<Figura> diagrama,int i,  Vector<Figura> diagramaFinal){
+	public int anidarIf(Vector<Figura> diagrama,int i){
 		int pda,pia,x,der2=0,der3=0,masDerecha,masIzquierda,total;
 		while(true){
 			if(diagrama.elementAt(i-1) instanceof Elipse){
@@ -145,43 +134,39 @@ public class DibujarDiagrama{
 				punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 				diagrama.elementAt(i).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(i));
+				
 				
 				//derecha arriba 
 				punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2);
 				diagrama.elementAt(i+1).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(i+1));
+				
 				
 				while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
 						diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
-					pda = anidarIf(diagrama,pda,diagramaFinal); 
+					pda = anidarIf(diagrama,pda); 
 				}
 
 				//derecha abajo
 				if(diagrama.elementAt(pda-1) instanceof Elipse){
 					punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(pda-1).getBounds().y+diagrama.elementAt(pda-1).getBounds().height+70);
 					diagrama.elementAt(pda).setLocation(punto);
-					
-					diagramaFinal.add(diagrama.elementAt(pda));
 				}
 				else{
 					punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(pda-1).getBounds().y+diagrama.elementAt(pda-1).getBounds().height+50);
 					diagrama.elementAt(pda).setLocation(punto);
 
-					diagramaFinal.add(diagrama.elementAt(pda));
 				}
 				
 				//izquierda arriba
 				punto.setLocation(diagrama.elementAt(i).getBounds().x-40,diagrama.elementAt(i+1).getBounds().y);
 				diagrama.elementAt(pda+1).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda+1));
 				
 				pia = pda+2; 
 				while(diagrama.elementAt(pia) instanceof InputFigure || diagrama.elementAt(pia) instanceof SentenceFigure || diagrama.elementAt(pia) instanceof OutputFigure ||
 						diagrama.elementAt(pia) instanceof WhileFigure || diagrama.elementAt(pia) instanceof ForFigure || diagrama.elementAt(pia) instanceof DecisionFigure){
-					pia = anidarIf(diagrama,pia,diagramaFinal); 
+					pia = anidarIf(diagrama,pia); 
 				}
 				
 				//izquierda abajo
@@ -189,14 +174,12 @@ public class DibujarDiagrama{
 					punto.setLocation(diagrama.elementAt(i).getBounds().x-40,diagrama.elementAt(pia-1).getBounds().y+diagrama.elementAt(pia-1).getBounds().height+70);
 					diagrama.elementAt(pia).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pia));
 				}
 				else{
 					punto.setLocation(diagrama.elementAt(i).getBounds().x-40,diagrama.elementAt(pia-1).getBounds().y+diagrama.elementAt(pia-1).getBounds().height+50);
 					diagrama.elementAt(pia).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pia));
 				}
 				
 				derecha = diagrama.elementAt(pda).getLocation().y;
@@ -204,21 +187,18 @@ public class DibujarDiagrama{
 				if(derecha>izquierda){
 					punto.setLocation(diagrama.elementAt(pia).getLocation().x,derecha);
 					diagrama.elementAt(pia).setLocation(punto);
-					
-					diagramaFinal.add(diagrama.elementAt(pia));				
+									
 				}
 				else{
 					punto.setLocation(diagrama.elementAt(pda).getLocation().x,izquierda);
 					diagrama.elementAt(pda).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pda));
 					
 				}
 				punto.setLocation(diagrama.elementAt(i).getBounds().x,diagrama.elementAt(pia).getBounds().y-20);
 				diagrama.elementAt(pia+1).setBounds(new Rectangle(punto.x, punto.y,80,40));
 				
-				diagramaFinal.add(diagrama.elementAt(pia+1));
 				
 				der2 = ifIzquierda(diagrama,i+2,pda);
 				der3 = ifDerecha(diagrama,pda+2,pia);
@@ -247,41 +227,39 @@ public class DibujarDiagrama{
 					diagrama.elementAt(i+1).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(i+1));
+					
 					
 					punto.setLocation(diagrama.elementAt(pda).getBounds().x+der2,diagrama.elementAt(pda).getBounds().y);
 					diagrama.elementAt(pda).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pda));
+					
 					
 					punto.setLocation(diagrama.elementAt(pda+1).getBounds().x-der2,diagrama.elementAt(pda+1).getBounds().y);
 					diagrama.elementAt(pda+1).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pda+1));
 					
 					punto.setLocation(diagrama.elementAt(pia).getBounds().x-der2,diagrama.elementAt(pia).getBounds().y);
 					diagrama.elementAt(pia).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pia));
 					pda=i+2;
 					while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
 							diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
-						pda = anidarIf(diagrama,pda,diagramaFinal); 
+						pda = anidarIf(diagrama,pda); 
 					}
 					pia = pda+2; 
 					while(diagrama.elementAt(pia) instanceof InputFigure || diagrama.elementAt(pia) instanceof SentenceFigure || diagrama.elementAt(pia) instanceof OutputFigure ||
 							diagrama.elementAt(pia) instanceof WhileFigure || diagrama.elementAt(pia) instanceof ForFigure || diagrama.elementAt(pia) instanceof DecisionFigure){
-						pia = anidarIf(diagrama,pia,diagramaFinal); 
+						pia = anidarIf(diagrama,pia); 
 					}
 				}
 				i=pia+2;
 				break;
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-				i = anidarFW(diagrama,i,diagramaFinal)-1;
+				i = anidarFW(diagrama,i)-1;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
 				break;
@@ -291,7 +269,7 @@ public class DibujarDiagrama{
 				diagrama.elementAt(i).setLocation(punto);
 				
 				
-				diagramaFinal.add(diagrama.elementAt(i));
+				
 			}
 			i++;
 		}
@@ -306,8 +284,8 @@ public class DibujarDiagrama{
 	 * @param i
 	 * @return int
 	 */
-	public int anidarFW(Vector<Figura> diagrama ,int i, Vector<Figura> diagramaFinal){
-		int x,pda;
+	public int anidarFW(Vector<Figura> diagrama ,int i){
+	    int x,pda;
 		while(true){
 			if(diagrama.elementAt(i-1) instanceof Elipse){
 				x = diagrama.elementAt(i-1).getBounds().x-40;
@@ -320,48 +298,42 @@ public class DibujarDiagrama{
 				punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 				diagrama.elementAt(i).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(i));
+				
 				
 				while(diagrama.elementAt(pda) instanceof InputFigure || diagrama.elementAt(pda) instanceof SentenceFigure || diagrama.elementAt(pda) instanceof OutputFigure ||
 						diagrama.elementAt(pda) instanceof WhileFigure || diagrama.elementAt(pda) instanceof ForFigure || diagrama.elementAt(pda) instanceof DecisionFigure){
-					pda = anidarFW(diagrama,pda,diagramaFinal);
+					pda = anidarFW(diagrama,pda);
 				}
 				
 				//abajo
 				punto.setLocation(diagrama.elementAt(pda-1).getBounds().x +diagrama.elementAt(pda-1).getBounds().width/2 ,diagrama.elementAt(pda-1).getBounds().y+90);
 				diagrama.elementAt(pda).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda));
+				
 				
 				//abajo izquierda
 				punto.setLocation(diagrama.elementAt(i).getBounds().x-35,diagrama.elementAt(pda).getBounds().y);
 				diagrama.elementAt(pda+1).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda+1));
+				
 				
 				//izquierda arriba
 				punto.setLocation(diagrama.elementAt(pda+1).getBounds().x,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 				diagrama.elementAt(pda+2).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda+2));
 				
 				//derecha arriba
 				punto.setLocation(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width+35,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 				diagrama.elementAt(pda+3).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda+3));
 				
 				//derecha abajo
 				punto.setLocation(diagrama.elementAt(pda+3).getBounds().x,diagrama.elementAt(pda).getBounds().y + 30);
 				diagrama.elementAt(pda+4).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(pda+4));
-				
 				//abajo abajo
 				punto.setLocation(diagrama.elementAt(pda).getBounds().x,diagrama.elementAt(pda+4).getBounds().y);
 				diagrama.elementAt(pda+5).setLocation(punto);
-				
-				diagramaFinal.add(diagrama.elementAt(pda+5));
 				
 				int der = (int)recorridoFW(diagrama,i+1);
                
@@ -372,58 +344,51 @@ public class DibujarDiagrama{
 					diagrama.elementAt(pda+1).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pda+1));
+					
 					
 					//izquierda arriba
 					punto.setLocation(diagrama.elementAt(pda+1).getBounds().x,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 					diagrama.elementAt(pda+2).setLocation(punto);
 					
-					
-					diagramaFinal.add(diagrama.elementAt(pda+2));
 					
 					//derecha arriba
 					punto.setLocation(diagrama.elementAt(pda+3).getBounds().x+der,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 					diagrama.elementAt(pda+3).setLocation(punto);
 					
 					
-					diagramaFinal.add(diagrama.elementAt(pda+3));
-					
 					//derecha abajo
 					punto.setLocation(diagrama.elementAt(pda+3).getBounds().x,diagrama.elementAt(pda).getBounds().y + 30);
 					diagrama.elementAt(pda+4).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pda+4));
 				}
 				else{
 					//abajo izquierda
 					punto.setLocation(diagrama.elementAt(pda+1).getBounds().x+der,diagrama.elementAt(pda).getBounds().y);
 					diagrama.elementAt(pda+1).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pda+1));
+					
 					
 					//izquierda arriba
 					punto.setLocation(diagrama.elementAt(pda+1).getBounds().x,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 					diagrama.elementAt(pda+2).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pda+2));
+					
 					
 					//derecha arriba
 					punto.setLocation(diagrama.elementAt(pda+3).getBounds().x-der,diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2);
 					diagrama.elementAt(pda+3).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pda+4));
 					
 					//derecha abajo
 					punto.setLocation(diagrama.elementAt(pda+3).getBounds().x,diagrama.elementAt(pda).getBounds().y + 30);
 					diagrama.elementAt(pda+4).setLocation(punto);
 					
-					diagramaFinal.add(diagrama.elementAt(pda+4));
 				}
 				i= pda+6;
 				break;
 			}
 			else if(diagrama.elementAt(i) instanceof DecisionFigure){
-				i = anidarIf(diagrama,i,diagramaFinal)-1;
+				i = anidarIf(diagrama,i)-1;
 			}
 			else if(diagrama.elementAt(i) instanceof Elipse){
 				break;
@@ -432,7 +397,7 @@ public class DibujarDiagrama{
 				punto.setLocation(x,diagrama.elementAt(i-1).getBounds().y+diagrama.elementAt(i-1).getBounds().height+50);
 				diagrama.elementAt(i).setLocation(punto);
 				
-				diagramaFinal.add(diagrama.elementAt(i));
+				
 			}
 			i++;
 		}
@@ -886,4 +851,5 @@ public class DibujarDiagrama{
 			}
 		}
 	}
+
 }
