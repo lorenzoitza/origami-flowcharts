@@ -13,6 +13,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import Administracion.AdminSeleccion;
+import Administracion.Conexion;
 import Administracion.DibujarDiagrama;
 import Administracion.Figura;
 import Grafico.Figuras.SelectionSquare;
