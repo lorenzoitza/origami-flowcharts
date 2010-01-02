@@ -71,7 +71,7 @@ public class CustomToolBar {
 	toolItem[4].setEnabled(false);
 	toolItem[4].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada());
+			Figura fig = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada());
 			new ContextualMenuActions().Cortar(fig);
 			toolBarDisable();
 		}
@@ -82,7 +82,7 @@ public class CustomToolBar {
 	toolItem[5].setEnabled(false);
 	toolItem[5].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+			Figura fig = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(
 				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Copiar(fig);
@@ -95,7 +95,7 @@ public class CustomToolBar {
 	toolItem[6].setEnabled(false);
 	toolItem[6].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+			Figura fig = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(
 				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Pegar(fig);
@@ -110,7 +110,7 @@ public class CustomToolBar {
 	toolItem[7].setEnabled(false);
 	toolItem[7].addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
-			Figura fig = MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(
+			Figura fig = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(
 				Componentes._selectionAdministrator
 							.getFiguraSeleccionada());
 			new ContextualMenuActions().Eliminar(fig);

@@ -5,6 +5,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+
 import Grafico.*;
 import Grafico.view.SaveFileView;
 import Grafico.view.SaveType;
@@ -26,7 +27,7 @@ public class Guardar {
     }
 
     public boolean isDiagrama(int selec) {
-	if (tab.getHoja().getSizeDiagrama() == 2) {
+	if (tab.getTabItem().getLeaf().getSizeDiagrama() == 2) {
 	    return false;
 	} else {
 	    return true;
@@ -79,11 +80,14 @@ public class Guardar {
 
     public static void cerrar(int i) {
 	if (tab.getItemCount() == 1) {
-	    tab.getHoja().getPanel().removeAll();
-	    tab.getHoja().getDibujarDiagrama().setOpaque(false);
+	    BaseDeDiagrama.getInstance().getPanel().removeAll();
+	    //tab.getHoja().getPanel().removeAll();
+	    
+	    tab.getTabItem().getLeaf().getDibujarDiagrama().setOpaque(false);
 	    MainWindow.getComponents().diagramaData.exclude = true;
-	    MainWindow.getComponents()._diagrams.getHoja().setBoundsToZero();
-	    tab.getHoja().getDiagrama().removeAllElements();
+	    BaseDeDiagrama.getInstance().setBoundsToZero();
+	    //MainWindow.getComponents()._diagrams.getHoja().setBoundsToZero();
+	    tab.getTabItem().getLeaf().getDiagrama().removeAllElements();
 	    MainWindow.getComponents().disableAll(false);
 	}
     }
@@ -110,7 +114,7 @@ public class Guardar {
 
     public void verificarCambio() {
 	if (save) {
-	    if (tab.getHoja().getDiagrama().size() == 2) {
+	    if (tab.getTabItem().getLeaf().getDiagrama().size() == 2) {
 		MainWindow.getComponents().guardarDisable(true);
 	    } else {
 		MainWindow.getComponents().guardarDisable(false);

@@ -51,11 +51,11 @@ public class EventoCambiarCursor{
 		figuraPrincipal = Componentes.mainFigure;
 		int a;
 		start = me.getLocation();
-		for(int z=0;z<tab.getHoja().getSizeDiagrama()-1;z++){
+		for(int z=0;z<tab.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
 			if(Verificar(z,z+1)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z+1) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof DecisionFigure){
 				a = verificarDerecha(z+1);
 				if(bandera){
 					break;
@@ -65,7 +65,7 @@ public class EventoCambiarCursor{
 					break;
 				}
 		 	 }
-			if(tab.getHoja().getFigureIndexOf(z+1) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z+1) instanceof WhileFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof WhileFigure){
 				a = verificarAbajo(z+1);
 				z=a+4;
 				if(bandera){
@@ -76,7 +76,7 @@ public class EventoCambiarCursor{
 		if(!bandera){
 			Remarcar(false);
 		}
-		tooltip(tab.getHoja().getAdminDiagrama());
+		tooltip(tab.getTabItem().getLeaf().getAdminDiagrama());
 	}
 
 	/**
@@ -95,11 +95,11 @@ public class EventoCambiarCursor{
 		int a;
 		z = z+2;//sig figura
 		
-		while(tab.getHoja().getFigureIndexOf(z)!=null){
+		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
 			if(Verificar(x,z)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z);
 				if(bandera){
 					break;
@@ -109,10 +109,10 @@ public class EventoCambiarCursor{
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z);
 				z=a+5;
 				if(bandera){
@@ -138,11 +138,11 @@ public class EventoCambiarCursor{
 		int x = z;//for
 		int a;
 		z = z+1;//sig figura
-		while(tab.getHoja().getFigureIndexOf(z)!=null){
+		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
 			if(Verificar(x,z)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z);
 				if(bandera){
 					break;
@@ -152,10 +152,10 @@ public class EventoCambiarCursor{
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z);
 				z=a+4;
 				x=z;
@@ -182,23 +182,23 @@ public class EventoCambiarCursor{
 	 */
 	public boolean Verificar(int i,int j){ 
 		bandera = false;
-		if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse && tab.getHoja().getFigureIndexOf(j) instanceof Elipse){
-			if(start.x >= tab.getHoja().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getHoja().getFigureIndexOf(i).getBounds().x+15 && 
-					start.y >= tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y <= tab.getHoja().getFigureIndexOf(j).getBounds().y){
+		if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse && tab.getTabItem().getLeaf().getFigureIndexOf(j) instanceof Elipse){
+			if(start.x >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+15 && 
+					start.y >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y <= tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
 				Remarcar(true);
 				bandera = true;
 				return true;
 			}
 		}
-		else if(tab.getHoja().getFigureIndexOf(i).getBounds().x + tab.getHoja().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getHoja().getFigureIndexOf(i).getBounds().x+1 && 
-				tab.getHoja().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y+tab.getHoja().getFigureIndexOf(i).getBounds().height+1){
+		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x + tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+1 && 
+			tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y+tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().height+1){
 			Remarcar(true);
 			bandera = true;
 			return true;
 		}
-		else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse ){ 
-			if(start.x>=tab.getHoja().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getHoja().getFigureIndexOf(i).getBounds().x+75 
-					&& start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y<=tab.getHoja().getFigureIndexOf(j).getBounds().y){
+		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse ){ 
+			if(start.x>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+75 
+					&& start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y<=tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
 				Remarcar(true);
 				bandera = true;
 				return true;

@@ -89,6 +89,7 @@ public class Componentes {
 
 	private void agregarTabFolder(AdminSeleccion selec) {
 		_diagrams = new TabFolder(MainWindow.display, selec);
+		BaseDeDiagrama.getInstance();
 		_diagrams.addTabItem();
 		tabData.heightHint = 0;
 		_diagrams.getTabFolder().setLayoutData(tabData);
@@ -199,7 +200,8 @@ public class Componentes {
 			figurasData.exclude = true;
 			barraFiguras.barraFiguras.setBounds(0, 0, 0, 0);
 			diagramaData.exclude = true;
-			_diagrams.getHoja().setBoundsToZero();
+			BaseDeDiagrama.getInstance().setBoundsToZero();
+			//_diagrams.getHoja().setBoundsToZero();
 			consolaData.exclude = false;
 			consolaData.grabExcessHorizontalSpace = true;
 			consolaData.grabExcessVerticalSpace = true;
@@ -258,7 +260,7 @@ public class Componentes {
 			eje.ejecutar(this, "main.exe", codigo);
 			seleccion = true;
 		} else {
-			if (_diagrams.getHoja().getSizeDiagrama() == 2) {
+			if (_diagrams.getTabItem().getLeaf().getSizeDiagrama() == 2) {
 				MessageBox messageBox = new MessageBox(MainWindow.shell,
 						SWT.ICON_INFORMATION | SWT.YES);
 				messageBox.setText("Origami");
@@ -306,8 +308,9 @@ public class Componentes {
 			int diag = _diagrams.selec.getSeleccionDigrama();
 			paso.tab.selec.setSeleccionDiagrama(paso.a.GetId());
 			paso.limpiarPasoAnterior();
-			_diagrams.getHoja().pasoInicio = false;
-			_diagrams.getHoja().addFigure();
+			_diagrams.getTabItem().getLeaf().pasoInicio = false;
+			//_diagrams.getHoja().pasoInicio = false;
+			_diagrams.getTabItem().getLeaf().addFigure();
 			paso.tab.selec.setSeleccionDiagrama(diag);
 			console.text.setEditable(true);
 		}
@@ -352,7 +355,7 @@ public class Componentes {
 		if (disable) {
 			isPasoAPaso = true;
 			_diagrams.selec.setFiguraSeleccionada(-1);
-			_diagrams.getHoja().addFigure();
+			_diagrams.getTabItem().getLeaf().addFigure();
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			
@@ -363,7 +366,7 @@ public class Componentes {
 
 		} else {
 			isPasoAPaso = false;
-			_diagrams.getHoja().addFigure();
+			_diagrams.getTabItem().getLeaf().addFigure();
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			

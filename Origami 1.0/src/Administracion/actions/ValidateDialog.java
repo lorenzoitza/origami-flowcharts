@@ -35,11 +35,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruction.instruccion.add(0, code);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 	if (isChanged) {
 	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	}
     }
     public void validate(String instructionCode, ForFigure abstractFigure,
@@ -66,11 +66,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruction.instruccion.add(0, code);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 	if (isChanged) {
 	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	}
     }
     public void validate(String instructionCode, SentenceFigure abstractFigure,
@@ -89,12 +89,12 @@ public class ValidateDialog {
 	    abstractFigure.instruccion.setInstruccionSimple(instructionCode);
 	}
 	abstractFigure.instruccion.setInstruccionSimple(instructionCode);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 
 	if (isChanged) {
 	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	}
     }
     public void validate(String instructionCode, WhileFigure abstractFigure,
@@ -123,11 +123,11 @@ public class ValidateDialog {
 	    }
 	}
 	abstractFigure.instruccion.instruccion.add(0, code);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 	if (isChanged) {
 	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	}
     }
     public void validate(InputFigure abstractFigure, ArrayList<String> copia) {
@@ -163,7 +163,7 @@ public class ValidateDialog {
 	}
 	if (isChange(total,textBoxContent2,abstractFigure)) {
 	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	 }
     }
     private boolean isChange(int total,String[] texbox,InputFigure abstractFigure) {
@@ -183,8 +183,8 @@ public class ValidateDialog {
 	    cambio = true;
 	}
 	abstractFigure.instruction.setInstruccionSimple(codigo);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 	return cambio;
     }
     public void validate(OutputFigure abstractFigure, ArrayList<String> copia) {
@@ -205,7 +205,7 @@ public class ValidateDialog {
 	    }
 	}
 	if (isChange2(total,textBoxContent2,abstractFigure)) {    
-	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	}
     }
     private boolean isChange2(int total,String[] text,OutputFigure abstractFigure) {
@@ -225,8 +225,8 @@ public class ValidateDialog {
 	    cambio = true;
 	}
 	abstractFigure.instruction.setInstruccionSimple(codigo);
-	MainWindow.getComponents()._diagrams.getHoja().addFigure();
-	MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 	return cambio;
     }
 

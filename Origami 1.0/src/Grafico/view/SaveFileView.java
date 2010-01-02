@@ -149,7 +149,7 @@ public class SaveFileView {
 	    break;
 	case EXPORTIMAGE: 
 	    Exporter expor4 = new Exporter(MainWindow.getComponents()._diagrams);
-	    expor4.exportJPGFile(address,MainWindow.getComponents()._diagrams.getHoja().getDiagrama(),MainWindow.getComponents()._diagrams.getHoja().getConexion());
+	    expor4.exportJPGFile(address,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getConexion());
 	    break;
 	default:
 	    break;

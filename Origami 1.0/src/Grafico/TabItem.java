@@ -7,6 +7,7 @@ import org.eclipse.swt.custom.CTabItem;
 
 import Administracion.AdminDiagrama;
 import Administracion.AdminSeleccion;
+import Administracion.CustomLeaf;
 import Administracion.Figura;
 import Administracion.Informacion;
 import Administracion.Funcionalidad.Guardar;
@@ -28,13 +29,26 @@ public class TabItem extends CTabItem{
 	private Guardar save = new Guardar();
 	private TabFolder tab;
 	public Informacion info = new Informacion();
+	public AdminSeleccion selec;
 	
-	public TabItem(CTabFolder arg0, int arg1) {
+	private CustomLeaf leaf;
+	
+	public TabItem(CTabFolder arg0, int arg1,AdminSeleccion selec) {
 		super(arg0, arg1);
+		this.selec = selec;
 	}
 	public void setTabFolder(TabFolder tabfolder){
 		tab = tabfolder;
 		save.setTabFolder(tab);
+	}
+	public void initLeaf(){
+		leaf = new CustomLeaf(tab,selec);
+	}
+	public CustomLeaf getLeaf(){
+	    return leaf;
+	}
+	public void enabledLeaf(){
+	    leaf.enabledCustomLeaf();
 	}
 	public void SetId(int id){
 		this.Id = id;
@@ -118,7 +132,7 @@ public class TabItem extends CTabItem{
 	}
 	public void addInfo(){
 		info.setInformacion("Inicio un nuevo diagrama");
-		info.setDiagrama(tab.getHoja().getDiagrama());
+		info.setDiagrama(tab.getTabItem().getLeaf().getDiagrama());
 	}
 	public Guardar getSave() {
 		return save;

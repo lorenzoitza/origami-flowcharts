@@ -112,7 +112,7 @@ public class FormatCodeGDB extends FormatInstructions{
     
     @Override
     public void applyFormat() {
-	 Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	 Manager manager = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	 manager.formatCodeCpp();
 	 this.code = getCodeGDB(manager.getInstructionsFormat());
 	 fixStepByStep();

@@ -13,9 +13,9 @@ import org.eclipse.swt.widgets.*;
 import ui.listener.KeyEvent;
 
 import Administracion.AdminSeleccion;
-import Administracion.Funcionalidad.Codigo.Instruction;
 import Administracion.Funcionalidad.Codigo.Manager;
 import Administracion.actions.RecorridoDiagrama;
+import Grafico.BaseDeDiagrama;
 import Grafico.MainWindow;
 import Grafico.TabFolder;
 import Grafico.TabItem;
@@ -57,7 +57,8 @@ public class PasoAPaso extends Ejecutar{
 		inputActionPerformed("run");
 		recorrido();
 		MainWindow.getComponents().paso = this;
-		tab.getHoja().paso(0);
+		//tab.getHoja().paso(0);
+		tab.getTabItem().getLeaf().paso(0);
 	}
 	public String texto(String texto){
 		String salida= "";
@@ -143,11 +144,11 @@ public class PasoAPaso extends Ejecutar{
 	public void limpiarPasoAnterior(){
 		if(colaPintaFinIf.size()>0){
 			for(int i=0; i<colaPintaFinIf.size(); i++){
-				tab.getHoja().getDiagrama().elementAt(i).setPasoAPaso(false);
+				tab.getTabItem().getLeaf().getDiagrama().elementAt(i).setPasoAPaso(false);
 			}
 		}
-		for(int i=0; i<tab.getHoja().getSizeDiagrama(); i++){
-			tab.getHoja().getDiagrama().elementAt(i).setPasoAPaso(false);
+		for(int i=0; i<tab.getTabItem().getLeaf().getSizeDiagrama(); i++){
+			tab.getTabItem().getLeaf().getDiagrama().elementAt(i).setPasoAPaso(false);
 		}
 	}
 	public void ventanaLeer(){
@@ -196,7 +197,7 @@ public class PasoAPaso extends Ejecutar{
 		capturar.open();
 	}
 	public boolean verificarLectura(int linea){
-	    	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	    	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 	    	managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getHoja().getDiagrama());
@@ -217,10 +218,10 @@ public class PasoAPaso extends Ejecutar{
 		colaConexiones.clear();
 		Color blue = MainWindow.display.getSystemColor(SWT.COLOR_RED);
 		int i=0;
-		tab.getHoja().getDiagrama().elementAt(figuraAnterior).setPasoAPaso(false);
-		for(int figura=0; figura<tab.getHoja().getDiagrama().size(); figura++){
-			for(int lineass=0; lineass<tab.getHoja().getDiagrama().elementAt(figura).getPosicion().size(); lineass++){
-				if(tab.getHoja().getDiagrama().elementAt(figura).getPosicion().elementAt(lineass)==linea){
+		tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior).setPasoAPaso(false);
+		for(int figura=0; figura<tab.getTabItem().getLeaf().getDiagrama().size(); figura++){
+			for(int lineass=0; lineass<tab.getTabItem().getLeaf().getDiagrama().elementAt(figura).getPosicion().size(); lineass++){
+				if(tab.getTabItem().getLeaf().getDiagrama().elementAt(figura).getPosicion().elementAt(lineass)==linea){
 					i=figura;
 				}
 			}
@@ -229,37 +230,38 @@ public class PasoAPaso extends Ejecutar{
 			sendNext();							
 		}
 		else{
-			if(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof DecisionFigure){
 				if(!revisaFin(i)){
-					tab.getHoja().paso(i);
-					int fig=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),figuraAnterior))+1;
+					//tab.getHoja().paso(i);
+					tab.getTabItem().getLeaf().paso(i);
+					int fig=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior))+1;
 					//IF VACIO
-					if(i>fig || (i<figuraAnterior && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure))){
+					if(i>fig || (i<figuraAnterior && (tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure))){
 						colaDiagramas.push(figuraAnterior);
-						if(colaFinDiagramas.size()!=0 && tab.getHoja().getDiagrama().elementAt(figuraAnterior).getPosicion().elementAt(0)+1==colaFinDiagramas.get(0)){
+						if(colaFinDiagramas.size()!=0 && tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior).getPosicion().elementAt(0)+1==colaFinDiagramas.get(0)){
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
-							fig=RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),figuraAnterior)-2;
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							fig=RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)-2;
 							dibujaFinIf(fig,blue);
 						}
 						else{
 							obtieneContCiclos(fig,fig);	
 							conexion=fig-4+contCiclos;
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							dibujaFinIf(fig-2,blue);
 						}
-						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure)){
+						if((i<figuraAnterior) && (tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure)){
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						}
 						contCiclos++;
 					}//INICIO DE IF CON ELEMENTOS
@@ -269,9 +271,9 @@ public class PasoAPaso extends Ejecutar{
 							conexion=i-2+contCiclos;
 						}
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaDiagramas.push(figuraAnterior);
 					}
 					setScroll(i);
@@ -279,109 +281,110 @@ public class PasoAPaso extends Ejecutar{
 			}
 			else{
 				if(!revisaFin(i)){
-					tab.getHoja().paso(i);
-					if(colaDiagramas.size()!=0 && ((figuraAnterior == RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-2)
-							|| (figuraAnterior == RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))-1))){
+					//tab.getHoja().paso(i);
+					tab.getTabItem().getLeaf().paso(i);
+					if(colaDiagramas.size()!=0 && ((figuraAnterior == RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-2)
+							|| (figuraAnterior == RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))-1))){
 						int fig=figuraAnterior;//LADO DERECHO
-						if(figuraAnterior == RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-2){
-							fig=RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-2;
+						if(figuraAnterior == RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-2){
+							fig=RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-2;
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion).setForegroundColor(blue);
 						}//LADO IZQUIERDO
-						else if((figuraAnterior == RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))-1)){							
-							fig=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))-1;
+						else if((figuraAnterior == RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))-1)){							
+							fig=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))-1;
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion).setForegroundColor(blue);
 						}
 						dibujaFinIf(fig,blue);
-						if((i<figuraAnterior) && (tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure)){
+						if((i<figuraAnterior) && (tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure)){
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 							colaConexiones.add(conexion);
-							tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+							tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						}
 						contCiclos++;
 					}//CUANDO SALE DE UN CICLO FOR O WHILE Y REGRESA EN UN CICLO FOR O WHILE (ANIDADO)
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && 
-							(tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior){
-						int lastFig = RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+3;
+					else if((tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && 
+							(tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior){
+						int lastFig = RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+3;
 						obtieneContCiclos(lastFig,lastFig);	
 						conexion=lastFig-1+contCiclos;
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
-						dibujaFinIf(RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+5,blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						dibujaFinIf(RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+5,blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						contCiclos++;
 					}//CUANDO REGRESA EN UN CICLO FOR O WHILE
-					else if(((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior)
-							|| ((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && 
-									(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
+					else if(((tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure) && i<figuraAnterior)
+							|| ((tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure) && 
+									(tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
 									&& i==figuraAnterior)){
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
-						if(((tab.getHoja().getDiagrama().elementAt(i) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(i) instanceof WhileFigure) && 
-								(tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						if(((tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(i) instanceof WhileFigure) && 
+								(tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)
 								&& i==figuraAnterior)){
 							conexion-=4;
 						}
 					}//CUANDO SALE DE UN CICLO FOR O WHILE
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && i==RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6){
+					else if((tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && i==RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6){
 						obtieneContCiclos(i,i);
 						conexion=i-4+contCiclos;
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 					}//CUANDO SALE DE UN CICLO FOR O WHILE AL FINAL DE UN IF
-					else if((tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && (colaDiagramas.size()!=0) 
-							&& ((RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6 == RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-1)
-									|| (RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6 == RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))))
-									&& i>=RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6){
+					else if((tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure || tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure) && (colaDiagramas.size()!=0) 
+							&& ((RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6 == RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-1)
+									|| (RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6 == RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))))
+									&& i>=RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6){
 						
-						obtieneContCiclos(RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6,RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6);
-						conexion=RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+6-4+contCiclos;
+						obtieneContCiclos(RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6,RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6);
+						conexion=RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+6-4+contCiclos;
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
-						dibujaFinIf(RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),figuraAnterior)+5,blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt((conexion++)).setForegroundColor(blue);
+						dibujaFinIf(RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),figuraAnterior)+5,blue);
 					}//CUANDO SE CONECTAN DOS FIGURAS SIMPLES
 					else{
-						if((figuraAnterior+1==i && (tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure 
-								|| tab.getHoja().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)) 
-								|| (i>=2 && tab.getHoja().getDiagrama().elementAt(i-2) instanceof DecisionFigureEnd)){
+						if((figuraAnterior+1==i && (tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof ForFigure 
+								|| tab.getTabItem().getLeaf().getDiagrama().elementAt(figuraAnterior) instanceof WhileFigure)) 
+								|| (i>=2 && tab.getTabItem().getLeaf().getDiagrama().elementAt(i-2) instanceof DecisionFigureEnd)){
 							obtieneContCiclos(figuraAnterior,figuraAnterior);
 							conexion=i-1+contCiclos;
 						}
 						colaConexiones.add(conexion);
-						tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+						tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 					}
 					setScroll(i);
 				}
@@ -390,7 +393,7 @@ public class PasoAPaso extends Ejecutar{
 		figuraAnterior=i;
 	}
 	private boolean revisaFin(int i){
-		if(i+1==tab.getHoja().getSizeDiagrama()){//si es el final del diagrama
+		if(i+1==tab.getTabItem().getLeaf().getSizeDiagrama()){//si es el final del diagrama
 			MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_INFORMATION | SWT.YES );
 			messageBox.setText("Origami");
 			messageBox.setMessage("La ejecución ha terminado.");
@@ -403,7 +406,8 @@ public class PasoAPaso extends Ejecutar{
 				default:
 					break;
 			}
-			tab.getHoja().resetScrollBar();
+			BaseDeDiagrama.getInstance().resetScrollBar();
+			//tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
 			MainWindow.getComponents().stopEjecucion();
 			return true;
@@ -416,25 +420,25 @@ public class PasoAPaso extends Ejecutar{
 			vertical=400;
 		}
 		int x=0,y=0;
-		if(tab.getHoja().getDiagrama().elementAt(fig).getBounds().x < tab.getHoja().getHScrollBar().getSelection()){
-			x=tab.getHoja().getDiagrama().elementAt(fig).getBounds().x-400;
+		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x < BaseDeDiagrama.getInstance().getHScrollBar().getSelection()){
+			x=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x-400;
 		}
-		else if(tab.getHoja().getDiagrama().elementAt(fig).getBounds().x - tab.getHoja().getHScrollBar().getSelection() >= 830){ 
-			x=tab.getHoja().getHScrollBar().getSelection()+tab.getHoja().getDiagrama().elementAt(fig).getBounds().x-400;
-		}
-		else{
-			x = tab.getHoja().getHScrollBar().getSelection();
-		}
-		if(tab.getHoja().getDiagrama().elementAt(fig).getBounds().y < tab.getHoja().getVScrollBar().getSelection()){
-			y=tab.getHoja().getDiagrama().elementAt(fig).getBounds().y-100;
-		}
-		else if(tab.getHoja().getDiagrama().elementAt(fig).getBounds().y - tab.getHoja().getVScrollBar().getSelection() >= vertical){ 
-			y=tab.getHoja().getDiagrama().elementAt(fig).getBounds().y-150;
+		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x - BaseDeDiagrama.getInstance().getHScrollBar().getSelection() >= 830){ 
+			x=BaseDeDiagrama.getInstance().getHScrollBar().getSelection()+tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x-400;
 		}
 		else{
-			y=tab.getHoja().getVScrollBar().getSelection();
+			x = BaseDeDiagrama.getInstance().getHScrollBar().getSelection();
 		}
-		tab.getHoja().setScrollBar(x, y);
+		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y < BaseDeDiagrama.getInstance().getVScrollBar().getSelection()){
+			y=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y-100;
+		}
+		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y - BaseDeDiagrama.getInstance().getVScrollBar().getSelection() >= vertical){ 
+			y=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y-150;
+		}
+		else{
+			y=BaseDeDiagrama.getInstance().getVScrollBar().getSelection();
+		}
+		BaseDeDiagrama.getInstance().setScrollBar(x, y);
 	}
 	/**
 	 * Dibuja los finales de ifs aunque esten anidados.
@@ -442,48 +446,48 @@ public class PasoAPaso extends Ejecutar{
 	 * @param blue Color azul para conexiones.
 	 */
 	private void dibujaFinIf(int fig,Color blue){
-		while(colaDiagramas.size()!=0 && ((fig == RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-2)
-				|| (fig == RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))-1))){
-			int alcance=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()));
+		while(colaDiagramas.size()!=0 && ((fig == RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-2)
+				|| (fig == RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))-1))){
+			int alcance=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()));
 			obtieneContCiclos(alcance-1,alcance);
-			if(fig == RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst())-2){
-				tab.getHoja().paso(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1);
-				tab.getHoja().getDiagrama().elementAt(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1).setDerIzqFin(true);
-				colaPintaFinIf.add(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1);
-				fig=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1;
-				conexion=contCiclos+RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.pop()));
+			if(fig == RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst())-2){
+				tab.getTabItem().getLeaf().paso(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1);
+				tab.getTabItem().getLeaf().getDiagrama().elementAt(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1).setDerIzqFin(true);
+				colaPintaFinIf.add(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1);
+				fig=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1;
+				conexion=contCiclos+RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.pop()));
 				colaConexiones.add(conexion);
-				tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
-				tab.getHoja().getConexion().getConexion().elementAt(++conexion).setForegroundColor(blue);
+				tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+				tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(++conexion).setForegroundColor(blue);
 				colaConexiones.add(conexion);
 				conexion++;
 				colaFinDiagramas.pop();
 			}//LADO IZQUIERDO
-			else if((fig == RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))-1)){							
-				tab.getHoja().paso(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1);
-				tab.getHoja().getDiagrama().elementAt(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1).setDerIzqFin(false);
-				colaPintaFinIf.add(RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1);
-				fig=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.peekFirst()))+1;
-				conexion=contCiclos+RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),colaDiagramas.pop()))+1;
+			else if((fig == RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))-1)){							
+				tab.getTabItem().getLeaf().paso(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1);
+				tab.getTabItem().getLeaf().getDiagrama().elementAt(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1).setDerIzqFin(false);
+				colaPintaFinIf.add(RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1);
+				fig=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.peekFirst()))+1;
+				conexion=contCiclos+RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),colaDiagramas.pop()))+1;
 				colaConexiones.add(conexion);
-				tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+				tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 				colaConexiones.add(conexion);
-				tab.getHoja().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
+				tab.getTabItem().getLeaf().getConexion().getConexion().elementAt(conexion++).setForegroundColor(blue);
 			}	
 		}
 	}
 	private void obtieneContCiclos(int distancia,int var){
 		contCiclos=0;
 		for(int element=0;element<=distancia;element++){
-			if(tab.getHoja().getDiagrama().elementAt(element) instanceof DecisionFigure){
-				int finCicloIf=RecorridoDiagrama.recorridoCiclo2(tab.getHoja().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getHoja().getDiagrama(),element))+1;
+			if(tab.getTabItem().getLeaf().getDiagrama().elementAt(element) instanceof DecisionFigure){
+				int finCicloIf=RecorridoDiagrama.recorridoCiclo2(tab.getTabItem().getLeaf().getDiagrama(),RecorridoDiagrama.recorridoCiclo(tab.getTabItem().getLeaf().getDiagrama(),element))+1;
 				if(var>=finCicloIf){
 					contCiclos++;
 				}
 			}
-			else if(tab.getHoja().getDiagrama().elementAt(element) instanceof WhileFigure ||
-					tab.getHoja().getDiagrama().elementAt(element) instanceof ForFigure){
-				int finCicloFW = RecorridoDiagrama.recorridoCiclo3(tab.getHoja().getDiagrama(),element);
+			else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(element) instanceof WhileFigure ||
+					tab.getTabItem().getLeaf().getDiagrama().elementAt(element) instanceof ForFigure){
+				int finCicloFW = RecorridoDiagrama.recorridoCiclo3(tab.getTabItem().getLeaf().getDiagrama(),element);
 				if(var>=finCicloFW){
 					contCiclos++;
 				}
@@ -660,21 +664,21 @@ public class PasoAPaso extends Ejecutar{
 	 */
 	public void recorrido(){
 		String aux = ";";
-		int fin = tab.getHoja().getSizeDiagrama();
+		int fin = tab.getTabItem().getLeaf().getSizeDiagrama();
 		int cont = 4;
 		boolean casoA = true;
 		int contadorDeLlaves =0;
 		for(int i=0; i<fin;i++){
-			tab.getHoja().getFigureIndexOf(i).getPosicion().removeAllElements();
+			tab.getTabItem().getLeaf().getFigureIndexOf(i).getPosicion().removeAllElements();
 		}
 		for(int i=0; i<fin;i++){
-			if(tab.getHoja().getFigureIndexOf(i) instanceof InputFigure){
-				InputFigure entrada = (InputFigure)tab.getHoja().getFigureIndexOf(i);
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof InputFigure){
+				InputFigure entrada = (InputFigure)tab.getTabItem().getLeaf().getFigureIndexOf(i);
 				String str = entrada.instruction.instruccion;
 				int pos=str.indexOf(aux);
 				while(true){
 					if(pos!=-1){
-						tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+						tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 						//analizar si hay que poner uno mas...
 						String analizar = str.substring(0,pos);
 						int mas = analizarLeer(analizar);
@@ -682,12 +686,12 @@ public class PasoAPaso extends Ejecutar{
 							//cont = cont + analizarLeer(analizar);
 							if(mas==1){
 								cont++;
-								tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+								tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 							}
 							else{
 								while(mas!=1){
 									cont++;
-									tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+									tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 									mas--;
 								}
 							}
@@ -701,13 +705,13 @@ public class PasoAPaso extends Ejecutar{
 					}
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof OutputFigure){
-				OutputFigure salida = (OutputFigure)tab.getHoja().getFigureIndexOf(i);
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof OutputFigure){
+				OutputFigure salida = (OutputFigure)tab.getTabItem().getLeaf().getFigureIndexOf(i);
 				String str = salida.instruction.instruccion;		
 				int pos=str.indexOf(aux);
 				while(true){
 					if(pos!=-1){
-						tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+						tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 						pos = salida.instruction.instruccion.indexOf(aux,pos+1);
 						cont++;
 					}
@@ -716,23 +720,23 @@ public class PasoAPaso extends Ejecutar{
 					}
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof DecisionFigure){
-				tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof DecisionFigure){
+				tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 				cont++;
-				if(tab.getHoja().getFigureIndexOf(i+1) instanceof Elipse && tab.getHoja().getFigureIndexOf(i+2) instanceof Elipse){
+				if(tab.getTabItem().getLeaf().getFigureIndexOf(i+1) instanceof Elipse && tab.getTabItem().getLeaf().getFigureIndexOf(i+2) instanceof Elipse){
 					casoA = false;
 				}
 				else{
 					casoA = true;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof DecisionFigureEnd){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof DecisionFigureEnd){
 				cont++;
 			}
-			else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse){
 				contadorDeLlaves = 1;
 				i++;
-				while(tab.getHoja().getFigureIndexOf(i) instanceof Elipse){
+				while(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse){
 					contadorDeLlaves++;
 					i++;
 					if(contadorDeLlaves==6){
@@ -792,8 +796,8 @@ public class PasoAPaso extends Ejecutar{
 				contadorDeLlaves=0;
 			}
 			else{
-				if(tab.getHoja().getFigureIndexOf(i) instanceof CircleFigure){
-					tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+				if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof CircleFigure){
+					tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 					cont++;
 					/**
 					 * caso especial debido a que el primer corchete despues del main esta abajo por lo que ocupa una 
@@ -801,18 +805,18 @@ public class PasoAPaso extends Ejecutar{
 					 */
 				}
 				else{
-					tab.getHoja().getFigureIndexOf(i).setPosicion(cont);
+					tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 					cont++;
 				}
 			}
 		}
-		tab.getHoja().getFigureIndexOf(0).getPosicion().removeAllElements();
-		tab.getHoja().getFigureIndexOf(0).setPosicion(4);
+		tab.getTabItem().getLeaf().getFigureIndexOf(0).getPosicion().removeAllElements();
+		tab.getTabItem().getLeaf().getFigureIndexOf(0).setPosicion(4);
 
-		Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+		Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 		managerCode.formatCodeGDB();
-		//codigo.generateGDB(tab.getHoja().getDiagrama());
+		//codigo.generateGDB(tab.getTabItem().getLeaf().getDiagrama());
 		String auxCodigo[] = managerCode.getInstructionsFormat().split("\n");	
 		NoEstaIf.removeAllElements();
 		NoEstaWhile.removeAllElements();

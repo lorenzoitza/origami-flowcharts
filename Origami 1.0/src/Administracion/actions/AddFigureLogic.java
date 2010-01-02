@@ -13,9 +13,9 @@ import Grafico.Figuras.WhileFigure;
 public class AddFigureLogic {
     
     public void disableCursor() {
-	Componentes._diagrams.getHoja().getChart().disableCursor(
-	Componentes._diagrams.getHoja().getDiagrama(),
-	Componentes._diagrams.getHoja().getChart());
+	Componentes._diagrams.getTabItem().getLeaf().getChart().disableCursor(
+	Componentes._diagrams.getTabItem().getLeaf().getDiagrama(),
+	Componentes._diagrams.getTabItem().getLeaf().getChart());
     }
     
     public void addInput() {

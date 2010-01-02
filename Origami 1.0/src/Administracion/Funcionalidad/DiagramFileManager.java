@@ -18,7 +18,7 @@ public class DiagramFileManager {
 
 	try {
 	    CustomFile seriliazableFile =
-		    new CustomFile(selectedTab.getHoja().getDiagrama());
+		    new CustomFile(selectedTab.getTabItem().getLeaf().getDiagrama());
 	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo()
 		    .getInfo());
 	    

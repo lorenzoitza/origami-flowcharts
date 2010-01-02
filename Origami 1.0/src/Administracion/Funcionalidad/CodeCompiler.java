@@ -45,7 +45,7 @@ public class CodeCompiler {
 
 	String comand = "cmd /c gcc -g -o " + fileName + " " + fileName + ".c";
 
-	code.getInstructionOfDiagram(selectedTab.getHoja().getDiagrama());
+	code.getInstructionOfDiagram(selectedTab.getTabItem().getLeaf().getDiagrama());
 	boolean error = false;
 
 	try {
@@ -84,7 +84,7 @@ public class CodeCompiler {
     }
 
     public void saveCode(boolean isCCode, boolean inExecution) {
-	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	//Instruction codigo = new Instruction();
 
 	if (isCCode) {

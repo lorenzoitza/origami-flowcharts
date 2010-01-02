@@ -18,7 +18,7 @@ public class ViewCodeCAction implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	Manager manager = new Manager(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+	Manager manager = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	manager.formatCodeC();
 	DiagramCodeView view = new DiagramCodeView(manager.getInstructionsFormat());
 	view.createWindow();

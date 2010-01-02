@@ -26,7 +26,7 @@ public class OpenFileView {
 	}
 	String archivo = dialog.open();
 	if(archivo!=null){
-            if(MainWindow.getComponents()._diagrams.getHoja().getSizeDiagrama()==0){
+            if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama()==0){
         	action(dialog.getFileName(), archivo);
             }
             else{
@@ -58,18 +58,20 @@ public class OpenFileView {
 	switch (openType) {
 	case OPEN: 
 	    Componentes._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
+	    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().openFile(address,_serializer);
+	    //MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(address);
 	    int pos = nomArchivo.indexOf('.');
 	    String name = nomArchivo.substring(0, pos);
 	    MainWindow.getComponents()._diagrams.cambiarNombre(name);
 	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(true);
 	    MainWindow.getComponents()._diagrams.getTabItem().resetRetroceso();		 
-	    MainWindow.getComponents()._diagrams.getTabItem().agregarRetroceso(MainWindow.getComponents()._diagrams.getHoja().getDiagrama(), MainWindow.getComponents()._diagrams.selec);
+	    MainWindow.getComponents()._diagrams.getTabItem().agregarRetroceso(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(), MainWindow.getComponents()._diagrams.selec);
 	    break;
 	case OPENEXAMPLE: 
 	    Componentes._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
+	    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().openFile(address,_serializer);
+	    //MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    int pos2 = nomArchivo.indexOf('.');
 	    String name2 = nomArchivo.substring(0, pos2);
 	    MainWindow.getComponents()._diagrams.cambiarNombre(name2);

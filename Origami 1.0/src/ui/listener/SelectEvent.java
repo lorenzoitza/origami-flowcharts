@@ -38,7 +38,7 @@ public class SelectEvent extends MouseListener.Stub implements MouseMotionListen
 			
 			seleccion.setFiguraSeleccionada(EventoSeleccionar.NumeroDelDiagrama(fig,tab));
 			if(seleccion.getFiguraSeleccionada()!=-1){
-				tab.getHoja().addFigure();
+				tab.getTabItem().getLeaf().addFigure();
 			}
 		}
 	}

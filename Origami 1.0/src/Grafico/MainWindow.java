@@ -54,12 +54,12 @@ public class MainWindow {
 		Componentes.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		Componentes._diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
+		Componentes._diagrams.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
 		if (oldCursor != null) {
 		    oldCursor.dispose();
 		}
 		if (Componentes._diagrams.getItemCount() != 0) {
-		    Componentes._diagrams.getHoja().addFigure();
+		    Componentes._diagrams.getTabItem().getLeaf().addFigure();
 		}
 	    }
 	});
@@ -82,7 +82,8 @@ public class MainWindow {
 	    MainWindow mainWindow = new MainWindow();
 	    mainWindow.show();
 	    
-	    Componentes._diagrams.getHoja().resetScrollBar();
+	    //Componentes._diagrams.getHoja().resetScrollBar();
+	    BaseDeDiagrama.getInstance().resetScrollBar();
 	    
 	    while (!shell.isDisposed()) {
 		while (!display.readAndDispatch()) {

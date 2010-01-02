@@ -8,10 +8,12 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
+
 import Administracion.Funcionalidad.CodeCompiler;
 import Administracion.Funcionalidad.DiagramFileManager;
 import Administracion.actions.AddFigureLogic;
 import Administracion.actions.ContextualMenuActions;
+import Grafico.BaseDeDiagrama;
 import Grafico.Componentes;
 import Grafico.MainWindow;
 import Grafico.TabItem;
@@ -82,20 +84,21 @@ public class KeyEvent implements KeyListener{
 			   Grafico.Componentes.mainFigure = null;
 			   Cursor oldCursor = cursor[0];
 		       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		       MainWindow.getComponents()._diagrams.getHoja().getDibujarDiagrama().setCursor(cursor[0]);
+		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
 		       if(oldCursor != null){
 		    	   oldCursor.dispose();
 		       }
-		       MainWindow.getComponents()._diagrams.getHoja().addFigure();
-		       MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
+		       //MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 		}
        break;
 	case 127:
 		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
 			}
 			else{
-			    new ContextualMenuActions().Eliminar(MainWindow.getComponents()._diagrams.getHoja().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		}
 		break;
@@ -111,16 +114,18 @@ public class KeyEvent implements KeyListener{
 		break;
 	case 16777228:
 		if(!MainWindow.getComponents().isPasoAPaso){
-			for(int y=MainWindow.getComponents()._diagrams.getHoja().getSizeDiagrama()-1;y>0;y--){
-				MainWindow.getComponents()._diagrams.getHoja().removeFigureIndexOf(y);
+			for(int y=MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
+				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(y);
 			}
 			CircleFigure fin = new CircleFigure();
 			Componentes._selectionAdministrator.setFiguraSeleccionada(0);
-			MainWindow.getComponents()._diagrams.getHoja().getDiagrama().add(fin);
+			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().add(fin);
 			fin.setMesagge("  Fin");
-			MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
-			MainWindow.getComponents()._diagrams.getHoja().addFigure();
-			MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+			BaseDeDiagrama.getInstance().resetScrollBar();
+			//MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
+			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+			//MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
 			MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
 		}
 		break;
@@ -182,20 +187,20 @@ public class KeyEvent implements KeyListener{
 	}
 	else if(key+key2 == 262264){
 		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
+			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));	
+			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));	
 				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}
 	}
 	else if(key+key2 == 262243){
 		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
+			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || Componentes._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}
@@ -203,7 +208,7 @@ public class KeyEvent implements KeyListener{
 	else if(key+key2 == 262262){
 		if(Componentes._selectionAdministrator.getFiguraSeleccionada()!=-1){
 			if(Componentes._diagramAdministrator.diagrama.size()>0){
-			    new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getHoja().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(Componentes._selectionAdministrator.getFiguraSeleccionada()));
 				MainWindow.getComponents().barraHerramientas.toolBarDisable();
 			}
 		}

@@ -18,7 +18,6 @@ import ui.listener.KeyEvent;
 import Administracion.AdminDiagrama;
 import Administracion.AdminSeleccion;
 import Administracion.Figura;
-import Administracion.Hoja;
 import Administracion.Funcionalidad.Guardar;
 import Administracion.Funcionalidad.DiagramFileManager;
 /**
@@ -29,14 +28,14 @@ public class TabFolder {
 	private CTabFolder tabFolder;
 	private int contador = -1;
 	private KeyEvent key;
-	private Hoja hoja;
+	//private Hoja hoja;
 	public AdminSeleccion selec;
 	
 	public TabFolder(Display display,AdminSeleccion seleccion){
 		this.selec = seleccion;
 		this.key = new KeyEvent();
 		this.tabFolder = new CTabFolder(MainWindow.shell,SWT.BORDER | SWT.CLOSE);
-		this.hoja = new Hoja(display,this,selec);
+		//this.hoja = new Hoja(display,this,selec);
 		
 		initTabFolder();
 	}
@@ -58,9 +57,17 @@ public class TabFolder {
 		    }});
 	    this.tabFolder.addSelectionListener(new SelectionAdapter() {
 		public void widgetSelected(SelectionEvent event) {
+		    
+		    
 		    TabItem a = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
-		    cambiar(a); 
+		    selec.setSeleccionDiagrama(a.GetId());
+		    a.getLeaf().enabledCustomLeaf();
+		    BaseDeDiagrama.getInstance().resetScrollBar();
+		    //cambiar(a); 
 		    a.getSave().verificarCambio();
+		    //disable el panel que esta seleccionado
+		    //enabled el panel nuevo
+		    
 		    }});
 	    this.tabFolder.addCTabFolder2Listener(new CTabFolder2Adapter() {
 		public void close(CTabFolderEvent event) {
@@ -88,21 +95,17 @@ public class TabFolder {
 		panel.agregarRetroceso(diagrama,selec);
 	}
 	public void retroceder(Vector<AdminDiagrama> diagrama,int pos,int seleccion){
-		Hoja hoja = getHoja();
-		hoja.resetScrollBar();
-		for(int y=hoja.getDiagrama().size()-1;y>0;y--){
-			hoja.getDiagrama().removeElementAt(y);
+		//Hoja hoja = getHoja();
+		BaseDeDiagrama.getInstance().resetScrollBar();
+		//hoja.resetScrollBar();
+		for(int y=getTabItem().getLeaf().getDiagrama().size()-1;y>0;y--){
+		    getTabItem().getLeaf().getDiagrama().removeElementAt(y);
 		}
 		for(int i=1; i<diagrama.elementAt(pos).diagrama.size(); i++){
-			hoja.getDiagrama().add(diagrama.elementAt(pos).diagrama.elementAt(i));
+		    getTabItem().getLeaf().getDiagrama().add(diagrama.elementAt(pos).diagrama.elementAt(i));
 		}
 		selec.setFiguraSeleccionada(seleccion);
-		hoja.addFigure();
-	}
-	private final void cambiar(TabItem a){
-		selec.setSeleccionDiagrama(a.GetId());
-		hoja.cambiarPanel(this);
-		hoja.resetScrollBar();
+		getTabItem().getLeaf().addFigure();
 	}
 	public int obtenId(TabItem a){
 		TabItem tab;
@@ -112,7 +115,8 @@ public class TabFolder {
 		    if(tab.GetId()==a.GetId()){
 			id=x;
 			selec.setSeleccionDiagrama(tab.GetId());
-			hoja.cambiarPanel(this);
+			getTabItem().getLeaf().enabledCustomLeaf();
+			//hoja.cambiarPanel(this);
 			return id;
 			}
 		}
@@ -121,14 +125,16 @@ public class TabFolder {
 	public void addTabItem(){
 		contador++;
 		int aux = contador +1;
-		TabItem item = new TabItem(tabFolder, SWT.NONE);
+		TabItem item = new TabItem(tabFolder, SWT.NONE,selec);
 		item.setTabFolder(this);
 		item.setText("Diagrama "+ aux);
 		item.SetId(contador);
 		selec.setSeleccionDiagrama(contador);
-		hoja.addDiagrama();
+		item.initLeaf();
+		//hoja.addDiagrama();
 		seleccionarTabItem();
-		hoja.cambiarPanel(this);
+		item.enabledLeaf();
+		//hoja.cambiarPanel(this);
 		item.addInfo();
 	}
 	private void seleccionarTabItem(){
@@ -144,7 +150,7 @@ public class TabFolder {
 		}
 		else{
 		    contador++;
-		    TabItem item = new TabItem(tabFolder, SWT.NONE);
+		    TabItem item = new TabItem(tabFolder, SWT.NONE,selec);
 		    item.setTabFolder(this);
 		    item.SetId(contador);
 		    item.setText(name);
@@ -161,11 +167,9 @@ public class TabFolder {
 		TabItem item = (TabItem)tabFolder.getItem(tabFolder.getSelectionIndex());
 		return item.getText();
 	}
-	public Hoja getHoja(){
-		return hoja;
-	}
 	public void abrir(String archivo,DiagramFileManager ser ){
-		hoja.openNewFile(archivo,ser);
+		//hoja.openNewFile(archivo,ser);
+		getTabItem().getLeaf().openNewFile(archivo, ser);
 		setSeleccion(0);
 		selec.setFiguraSeleccionada(-1);	
 	}

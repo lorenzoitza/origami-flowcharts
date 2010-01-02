@@ -47,18 +47,18 @@ public class EventoAgregarFigura{
 		Figura fig = Componentes.mainFigure;
 		if(fig!=null){
 			int a;
-			for(int z=0;z<tab.getHoja().getSizeDiagrama()-1;z++){
+			for(int z=0;z<tab.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
 				if(Verificar(z,z+1,fig)){
 					break;
 				}
-				if(tab.getHoja().getFigureIndexOf(z+1) instanceof DecisionFigure){
+				if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof DecisionFigure){
 					a = verificarDerecha(z+1,fig);
 					z = verificarDerecha(a,fig); 
 					if(bandera){
 						break;
 					}
 			 	 }
-				if(tab.getHoja().getFigureIndexOf(z+1) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z+1) instanceof WhileFigure){
+				if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof WhileFigure){
 					a = verificarAbajo(z+1,fig);
 					z=a+4;
 					if(bandera){
@@ -70,7 +70,7 @@ public class EventoAgregarFigura{
 		else{
 			selec.setFiguraSeleccionada(-1);
 			if(tab.getItemCount()!=0){
-				tab.getHoja().addFigure();
+				tab.getTabItem().getLeaf().addFigure();
 			}
 		}
 	}
@@ -88,21 +88,21 @@ public class EventoAgregarFigura{
 		int x = z+1;
 		int a;
 		z = z+2;
-		while(tab.getHoja().getFigureIndexOf(z)!=null){
+		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
 			if(Verificar(x,z,fig)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z,fig);
 				z = verificarDerecha(a,fig)+1;
 				if(bandera){
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z,fig);
 				z=a+5;
 				if(bandera){
@@ -111,7 +111,7 @@ public class EventoAgregarFigura{
 			}
 			x=z;
 			z++;
-			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigureEnd){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigureEnd){
 				break;
 			}
 		}
@@ -131,21 +131,21 @@ public class EventoAgregarFigura{
 		int x = z;//for
 		int a;
 		z = z+1;//sig figura
-		while(tab.getHoja().getFigureIndexOf(z)!=null){
+		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
 			if(Verificar(x,z,fig)){
 				break;
 			}
-			if(tab.getHoja().getFigureIndexOf(z) instanceof DecisionFigure){
+			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
 				a = verificarDerecha(z,fig);
 				z = verificarDerecha(a,fig)+1;
 				if(bandera){
 					break;
 				}
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof Elipse){
 				break;
 			}
-			else if(tab.getHoja().getFigureIndexOf(z) instanceof ForFigure || tab.getHoja().getFigureIndexOf(z) instanceof WhileFigure){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
 				a = verificarAbajo(z,fig);
 				z=a+4;
 				x=z;
@@ -171,44 +171,44 @@ public class EventoAgregarFigura{
 	 * @return boolean
 	 */
 	public boolean Verificar(int i,int j,Figura fig){
-		if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse && tab.getHoja().getFigureIndexOf(j) instanceof Elipse){
-			if(start.x >= tab.getHoja().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getHoja().getFigureIndexOf(i).getBounds().x+15 && 
-					start.y >= tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y <= tab.getHoja().getFigureIndexOf(j).getBounds().y){
-				tab.getHoja().getAdminDiagrama().ordenar(i, fig);
+		if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse && tab.getTabItem().getLeaf().getFigureIndexOf(j) instanceof Elipse){
+			if(start.x >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+15 && 
+					start.y >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y <= tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
+				tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
 				tab.getTabItem().getSave().setSave(false);
 				tab.getTabItem().getInfo().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 				tab.getTabItem().getInfo().setFigura(fig);
-				tab.getTabItem().getInfo().setDiagrama(tab.getHoja().getDiagrama());
-				tab.getHoja().addFigure();
-				tab.getHoja().guardarRetroceso();
+				tab.getTabItem().getInfo().setDiagrama(tab.getTabItem().getLeaf().getDiagrama());
+				tab.getTabItem().getLeaf().addFigure();
+				tab.getTabItem().getLeaf().guardarRetroceso();
 				cambiarCursor();
 				bandera = true;
 				return true;
 			}
 		}
-		else if(tab.getHoja().getFigureIndexOf(i).getBounds().x + tab.getHoja().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getHoja().getFigureIndexOf(i).getBounds().x+1 && 
-				tab.getHoja().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y+tab.getHoja().getFigureIndexOf(i).getBounds().height+1){
-			tab.getHoja().getAdminDiagrama().ordenar(i, fig);
+		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x + tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+1 && 
+				tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y+tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().height+1){
+			tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
 			tab.getTabItem().getSave().setSave(false);
 			tab.getTabItem().getInfo().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 			tab.getTabItem().getInfo().setFigura(fig);
-			tab.getTabItem().getInfo().setDiagrama(tab.getHoja().getDiagrama());
-			tab.getHoja().addFigure();
-			tab.getHoja().guardarRetroceso();
+			tab.getTabItem().getInfo().setDiagrama(tab.getTabItem().getLeaf().getDiagrama());
+			tab.getTabItem().getLeaf().addFigure();
+			tab.getTabItem().getLeaf().guardarRetroceso();
 			cambiarCursor();
 			bandera = true;
 			return true;
 		}
-		else if(tab.getHoja().getFigureIndexOf(i) instanceof Elipse ){ 
-			if(start.x>=tab.getHoja().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getHoja().getFigureIndexOf(i).getBounds().x+75 
-					&& start.y>=tab.getHoja().getFigureIndexOf(i).getBounds().y && start.y<=tab.getHoja().getFigureIndexOf(j).getBounds().y){
-				tab.getHoja().getAdminDiagrama().ordenar(i, fig);
+		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse ){ 
+			if(start.x>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+75 
+					&& start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y<=tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
+				tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
 				tab.getTabItem().getSave().setSave(false);
 				tab.getTabItem().getInfo().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 				tab.getTabItem().getInfo().setFigura(fig);
-				tab.getTabItem().getInfo().setDiagrama(tab.getHoja().getDiagrama());
-				tab.getHoja().addFigure();
-				tab.getHoja().guardarRetroceso();
+				tab.getTabItem().getInfo().setDiagrama(tab.getTabItem().getLeaf().getDiagrama());
+				tab.getTabItem().getLeaf().addFigure();
+				tab.getTabItem().getLeaf().guardarRetroceso();
 				cambiarCursor();
 				bandera = true;
 				return true;
@@ -221,7 +221,7 @@ public class EventoAgregarFigura{
 		Componentes.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, cursorPrincipal);
-		tab.getHoja().getChart().setCursor(cursor[0]);
+		tab.getTabItem().getLeaf().getChart().setCursor(cursor[0]);
 		if (oldCursor != null){
 			oldCursor.dispose();
 		}
