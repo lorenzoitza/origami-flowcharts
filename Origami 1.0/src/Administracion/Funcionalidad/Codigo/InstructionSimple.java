@@ -7,14 +7,14 @@ package Administracion.Funcionalidad.Codigo;
  * @author Juan Ku, Victor Rodriguez
  */
 public class InstructionSimple extends Instruction{
-	public String instruccion;
+	public String simpleInstruction;
 	/**
 	 * Este metodo cambia el parametro 
 	 * existente del codigo de la figura del diagrama.
 	 * @param instruccion
 	 */
 	public void setInstruccionSimple(String instruccion){
-		this.instruccion = instruccion;
+		this.simpleInstruction = instruccion;
 	}
 	/**
 	 * Este metodo devuelve el contenido del 
@@ -22,6 +22,6 @@ public class InstructionSimple extends Instruction{
 	 * @return  String
 	 */
 	public String getInstruccionSimple(){		
-		return this.instruccion;
+		return this.simpleInstruction;
 	}
 }

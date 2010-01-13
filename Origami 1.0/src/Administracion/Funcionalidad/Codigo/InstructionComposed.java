@@ -8,5 +8,5 @@ import java.util.Vector;
  * @author Juan Ku, Victor Rodriguez
  */
 public class InstructionComposed  extends Instruction{
-	public Vector<InstructionSimple> instruccion = new Vector<InstructionSimple>();
+	public Vector<InstructionSimple> simpleInstructionList = new Vector<InstructionSimple>();
 }
