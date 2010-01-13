@@ -6,7 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.InputFigure;
 import Imagenes.ImageLoader;
 
@@ -153,7 +153,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 		copia.add(((Text) scrolledCompositeContent[x]).getText());
 	    }
 	    
-	    new ValidateDialog().validate(abstractFigure, copia);
+	    new DialogValidator().validate(abstractFigure, copia);
 	}
     }
 

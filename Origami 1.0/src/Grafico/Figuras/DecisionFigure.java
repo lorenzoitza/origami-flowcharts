@@ -1,14 +1,18 @@
 package Grafico.Figuras;
 
+import java.util.Vector;
+
 import org.eclipse.draw2d.Graphics;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.InstructionComposed;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
+
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 public class DecisionFigure extends Figura {
 
-    public InstructionComposed instruction = new InstructionComposed();
+    public InstructionComposed instructionComposed = new InstructionComposed();
 
     public DecisionFigure() {
 	setBounds(new Rectangle(100, 100, 80, 40));
@@ -98,14 +102,27 @@ public class DecisionFigure extends Figura {
     }
 
     private String getInstructionCode() {
-    	return instruction.instruccion.firstElement().getInstruccionSimple();
+    	return instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple();
     }
 
     private boolean isInstruction() {
 	boolean isNull = getInstructionCode() == null;
 	
-	boolean isEmpty = instruction.instruccion.size() <= 1;
+	boolean isEmpty = instructionComposed.simpleInstructionList.size() <= 1;
 	
 	return (!isEmpty) && (!isNull);
     }
+
+    
+	public boolean equalInstructions(String instructionCode) {
+		return getInstructionCode().equals(instructionCode);
+	}
+	
+	public void addInstructionSimple(InstructionSimple instructionSimple){
+		instructionComposed.simpleInstructionList.add(0, instructionSimple);
+	}
+	
+	public boolean isEmpyInstructionList() {
+		return instructionComposed.simpleInstructionList.isEmpty();
+	}
 }

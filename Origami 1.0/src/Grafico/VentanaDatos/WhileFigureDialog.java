@@ -2,7 +2,7 @@ package Grafico.VentanaDatos;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.WhileFigure;
 
 public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
@@ -23,7 +23,7 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 		String instructionCode =
 			"while(" + conditionTextField.getText() + "){";
 
-		new ValidateDialog().validate(instructionCode, abstractFigure,"si");
+		new DialogValidator().validate(instructionCode, abstractFigure,"mientras");
 	    }
 	}
     }
@@ -50,14 +50,14 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
     @Override
     public void initTextFields() {
-	if (abstractFigure.instruccion.instruccion.firstElement()
+	if (abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 		.getInstruccionSimple().compareTo("") != 0
-		&& abstractFigure.instruccion.instruccion.firstElement()
+		&& abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			.getInstruccionSimple().compareTo("null") != 0) {
 	    String conditionOfWhile = "";
 
 	    String instructionCode =
-		    abstractFigure.instruccion.instruccion.firstElement()
+		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			    .getInstruccionSimple();
 
 	    for (int charIndex = 0; charIndex < instructionCode.length();

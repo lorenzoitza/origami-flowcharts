@@ -7,6 +7,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import Administracion.Figura;
 import Administracion.Funcionalidad.Codigo.InstructionComposed;
+import Administracion.Funcionalidad.Codigo.InstructionSimple;
 
 /**
  * Esta clase es la que crea y dibujar la figura del For.
@@ -16,7 +17,7 @@ import Administracion.Funcionalidad.Codigo.InstructionComposed;
  */
 public class ForFigure extends Figura {
 
-    public InstructionComposed instruction = new InstructionComposed();
+    public InstructionComposed instructionComposed = new InstructionComposed();
 
     public ForFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));
@@ -120,7 +121,7 @@ public class ForFigure extends Figura {
     }
     
     private String getInstructionCode(){
-	return instruction.instruccion.firstElement().getInstruccionSimple();
+	return instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple();
     }
     
     
@@ -143,4 +144,16 @@ public class ForFigure extends Figura {
 	
 	return instructionCode;
     }
+    
+    public boolean equalInstructions(String instructionCode) {
+		return getInstructionCode().equals(instructionCode);
+	}
+	
+	public void addInstructionSimple(InstructionSimple instructionSimple){
+		instructionComposed.simpleInstructionList.add(0, instructionSimple);
+	}
+	
+	public boolean isEmpyInstructionList() {
+		return instructionComposed.simpleInstructionList.isEmpty();
+	}
 }

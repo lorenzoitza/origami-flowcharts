@@ -2,7 +2,7 @@ package Grafico.VentanaDatos;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.SentenceFigure;
 
 public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
@@ -31,7 +31,7 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 			variableTextField.getText() + " = "
 				+ dataTextField.getText() + ";";
 		
-		new ValidateDialog().validate(code, abstractFigure,"si");
+		new DialogValidator().validate(code, abstractFigure,"sentencia");
 		
 	    }
 	}

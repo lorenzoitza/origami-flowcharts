@@ -14,7 +14,7 @@ import Administracion.Funcionalidad.Codigo.*;
  */
 public class WhileFigure extends Figura {
 
-    public InstructionComposed instruccion = new InstructionComposed();
+    public InstructionComposed instructionComposed = new InstructionComposed();
 
     public WhileFigure() {
 		setBounds(new Rectangle(100, 100, 80, 40));
@@ -45,10 +45,10 @@ public class WhileFigure extends Figura {
     }
 
     private boolean isInstruction() {
-    	boolean isNull = instruccion.instruccion.firstElement().getInstruccionSimple() == null;
+    	boolean isNull = instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple() == null;
     	
     	//boolean variable qu necesito saber exactamente para que querian.
-		return instruccion.instruccion.size() > 1 && (!isNull);
+		return instructionComposed.simpleInstructionList.size() > 1 && (!isNull);
     }
 
     private PointList constructPolygonPoints() {
@@ -88,7 +88,7 @@ public class WhileFigure extends Figura {
     }
     
     private String constructInstructionText(){
-    	String instructionCode = instruccion.instruccion.firstElement().getInstruccionSimple();
+    	String instructionCode = instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple();
     	
     	int maxLenght = 11;
     	
@@ -109,4 +109,19 @@ public class WhileFigure extends Figura {
 	    return instructionText;
 	    
     }
+    private String getInstructionCode() {
+    	return instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple();
+    }
+    
+    public boolean equalInstructions(String instructionCode) {
+		return getInstructionCode().equals(instructionCode);
+	}
+	
+	public void addInstructionSimple(InstructionSimple instructionSimple){
+		instructionComposed.simpleInstructionList.add(0, instructionSimple);
+	}
+	
+	public boolean isEmpyInstructionList() {
+		return instructionComposed.simpleInstructionList.isEmpty();
+	}
 }

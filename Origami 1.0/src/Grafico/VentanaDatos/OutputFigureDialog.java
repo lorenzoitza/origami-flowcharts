@@ -6,7 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
 
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.OutputFigure;
 
 /**
@@ -160,7 +160,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 	    for (int x = 0; x < scrolledCompositeContent.length; x += 2) {
 		copia.add(((Text) scrolledCompositeContent[x]).getText());
 	    }
-	    new ValidateDialog().validate(abstractFigure, copia);
+	    new DialogValidator().validate(abstractFigure, copia);
 	}
     }
 

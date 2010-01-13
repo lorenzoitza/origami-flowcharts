@@ -1,11 +1,12 @@
 package Grafico.VentanaDatos;
 
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.DecisionFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.origami.debug.Debugger;
 
 public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 
@@ -13,9 +14,9 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     
     private Label informationLabel;
 
-    public DecisionFigureDialog(Shell shell, DecisionFigure figura) {
+    public DecisionFigureDialog(Shell shell, DecisionFigure decisionFigure) {
 
-	super(shell, figura);
+	super(shell, decisionFigure);
     }
     @Override
     protected void create() {
@@ -27,12 +28,13 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     @Override
     protected void validate(boolean band) {
 	if (band) {
-	    if (conditionTextField.getText() != "") {
-
+		Debugger.debug(this.getClass(), " entro a metodo validate"+band);
+	    if ( !conditionTextField.getText().isEmpty() ) {
+	    	Debugger.debug(this.getClass(), "cadena de condicion no vacia");
 		String instructionCode =
 			"if(" + conditionTextField.getText() + "){";
 
-		new ValidateDialog().validate(instructionCode, abstractFigure,"si");
+		new DialogValidator().validate(instructionCode, abstractFigure,"si");
 	    }
 	}
     }
@@ -60,7 +62,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     @Override
     public void initTextFields() {
 	String conditionIfFigure =
-		abstractFigure.instruction.instruccion.firstElement()
+		abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			.getInstruccionSimple();
 
 	if ((conditionIfFigure.compareTo("null") != 0)

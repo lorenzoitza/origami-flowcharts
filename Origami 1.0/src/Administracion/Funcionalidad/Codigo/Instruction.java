@@ -92,13 +92,14 @@ public class Instruction implements Serializable {
 
 	int codeSize = 0;
 
-	if (figure.instruction.instruccion.elementAt(0) != null) {
+	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
 
-	    if (isValidInstruction(figure.instruction.instruccion.firstElement()
+	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
 		    .getInstruccionSimple())) {
 
 		code.add(identator
-			+ figure.instruction.instruccion.elementAt(0)
+
+			+ figure.instructionComposed.simpleInstructionList.elementAt(0)
 				.getInstruccionSimple());
 	    } else {
 		code.add(identator + "if(){");
@@ -132,13 +133,14 @@ public class Instruction implements Serializable {
 
 	int outputIndex = index;
 
-	if (figure.instruction.instruccion.elementAt(0) != null) {
+	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
 
-	    if (isValidInstruction(figure.instruction.instruccion.firstElement()
+	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
+
 		    .getInstruccionSimple())) {
 
 		code.add(identator
-			+ figure.instruction.instruccion.elementAt(0)
+			+ figure.instructionComposed.simpleInstructionList.elementAt(0)
 				.getInstruccionSimple());
 	    } else {
 		code.add(identator + "for(){");
@@ -161,14 +163,14 @@ public class Instruction implements Serializable {
 
 	int outputIndex = index;
 
-	if (figure.instruccion.instruccion.elementAt(0) != null) {
 
-	    if (isValidInstruction(figure.instruccion.instruccion.firstElement()
-		    .getInstruccionSimple())) {
+	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
+	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
+	    		.getInstruccionSimple())) {
 
 		code.add(identator
-			+ figure.instruccion.instruccion.elementAt(0)
-				.getInstruccionSimple());
+			+ figure.instructionComposed.simpleInstructionList.elementAt(0));
+			
 	    } else {
 		code.add(identator + "while(){");
 	    }

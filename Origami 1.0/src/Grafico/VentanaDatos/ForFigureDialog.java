@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import Administracion.actions.ValidateDialog;
+import Administracion.actions.DialogValidator;
 import Grafico.Figuras.ForFigure;
 
 public class ForFigureDialog extends AbstractDialog<ForFigure> {
@@ -61,7 +61,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 		instructionCode += ";" + counterExpressionTextField.getText();
 		instructionCode += "){";
 		
-		new ValidateDialog().validate(instructionCode, abstractFigure,"para");
+		new DialogValidator().validate(instructionCode, abstractFigure,"para");
 	    }
 	}
     }
@@ -98,7 +98,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	String counterExpression = "";
 
 	instructionCode =
-		abstractFigure.instruction.instruccion.firstElement()
+		abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			.getInstruccionSimple();
 	instructionCode = instructionCode.replaceFirst("for", "");
 	instructionCode = instructionCode.replace("(", "");
@@ -108,7 +108,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	if ((instructionCode.compareTo("null") != 0)
 		&& (instructionCode.compareTo("") != 0)) {
 	    String[] forExpressions =
-		    abstractFigure.instruction.instruccion.firstElement()
+		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			    .getInstruccionSimple().split(";");
 	    for (int charIndex = 0; 
 	    	charIndex < forExpressions[0].length(); 

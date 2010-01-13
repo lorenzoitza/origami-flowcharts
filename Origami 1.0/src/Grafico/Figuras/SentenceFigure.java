@@ -57,8 +57,8 @@ public class SentenceFigure extends Figura {
 
     private boolean isInstruction() {
     	//Que pedo con esta comprobacion!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
-		return instruccion.instruccion != "null"
-			&& instruccion.instruccion.compareTo("null") != 0;
+		return instruccion.simpleInstruction != "null"
+			&& instruccion.simpleInstruction.compareTo("null") != 0;
     }
 
     private void drawInstruction(Graphics graphics) {
@@ -97,4 +97,20 @@ public class SentenceFigure extends Figura {
 	    
 	    return instructionText;
     }
+    
+    private String getInstructionCode() {
+    	return instruccion.getInstruccionSimple();
+    }
+	
+    public boolean equalInstructions(String instructionCode) {
+		return getInstructionCode().equals(instructionCode);
+	}
+	
+	public void addInstructionSimple(InstructionSimple instructionSimple){
+		instruccion.setInstruccionSimple(instructionSimple.getInstruccionSimple());
+	}
+	
+	public boolean isEmpyInstructionList() {
+		return false;
+	}
 }
