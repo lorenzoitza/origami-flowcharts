@@ -674,7 +674,7 @@ public class PasoAPaso extends Ejecutar{
 		for(int i=0; i<fin;i++){
 			if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof InputFigure){
 				InputFigure entrada = (InputFigure)tab.getTabItem().getLeaf().getFigureIndexOf(i);
-				String str = entrada.instruction.instruccion;
+				String str = entrada.instruction.simpleInstruction;
 				int pos=str.indexOf(aux);
 				while(true){
 					if(pos!=-1){
@@ -707,12 +707,12 @@ public class PasoAPaso extends Ejecutar{
 			}
 			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof OutputFigure){
 				OutputFigure salida = (OutputFigure)tab.getTabItem().getLeaf().getFigureIndexOf(i);
-				String str = salida.instruction.instruccion;		
+				String str = salida.instruction.simpleInstruction;		
 				int pos=str.indexOf(aux);
 				while(true){
 					if(pos!=-1){
 						tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
-						pos = salida.instruction.instruccion.indexOf(aux,pos+1);
+						pos = salida.instruction.simpleInstruction.indexOf(aux,pos+1);
 						cont++;
 					}
 					else{

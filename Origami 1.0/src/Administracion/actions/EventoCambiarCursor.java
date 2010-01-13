@@ -251,10 +251,10 @@ public class EventoCambiarCursor{
 		for(int k=0; k<diagrama.diagrama.size(); k++){
 			if(diagrama.diagrama.elementAt(k) instanceof DecisionFigure){
 				DecisionFigure a = (DecisionFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruction.instruccion.elementAt(0).instruccion;
+				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instruction.instruccion.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(2,subStr.length());
 					subStr="Si"+subStr;
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
@@ -265,10 +265,10 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof ForFigure){
 				ForFigure a = (ForFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruction.instruccion.elementAt(0).instruccion;
+				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instruction.instruccion.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(3,subStr.length());
 					subStr="Para"+subStr;
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
@@ -279,10 +279,10 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof WhileFigure){
 				WhileFigure a = (WhileFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruccion.instruccion.elementAt(0).instruccion;
+				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instruccion.instruccion.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(5,subStr.length());
 					subStr="Mientras"+subStr;
 					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
@@ -293,7 +293,7 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof SentenceFigure){
 				SentenceFigure a = (SentenceFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruccion.instruccion;
+				dato = a.instruccion.simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
 				if(dato != "null" && dato.compareTo("null")!=0){
@@ -308,7 +308,7 @@ public class EventoCambiarCursor{
 				dato = "";
 				String[] variables2 = new String[50];
 				String[] variables = new String[50];
-				variables =  a.instruction.instruccion.split(";");
+				variables =  a.instruction.simpleInstruction.split(";");
 				int cont =0;
 				for(int x=0;x<variables.length;x++){
 					variables[x] = variables[x].replace("\\", "");
@@ -339,7 +339,7 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagrama.elementAt(k) instanceof InputFigure){
 				InputFigure a = (InputFigure)diagrama.diagrama.elementAt(k);
-				dato = a.instruction.instruccion;
+				dato = a.instruction.simpleInstruction;
 				dato = dato.replaceAll(";", ",");
 				if(dato.length()>0){
 					dato = dato.substring(0, dato.length()-1);

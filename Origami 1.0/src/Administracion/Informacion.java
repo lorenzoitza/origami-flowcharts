@@ -76,7 +76,7 @@ public class Informacion implements Serializable{
 		for(int i=0; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -95,7 +95,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
@@ -113,7 +113,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof WhileFigure){
 				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
@@ -131,7 +131,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion;
+				instruccion = aux.instruccion.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -139,7 +139,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof InputFigure){
 				InputFigure aux = (InputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -147,7 +147,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof OutputFigure){
 				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
 				}
@@ -183,7 +183,7 @@ public class Informacion implements Serializable{
 		for(int i=posicion; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -202,7 +202,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
@@ -219,7 +219,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof WhileFigure){
 				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
@@ -236,7 +236,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion;
+				instruccion = aux.instruccion.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -244,7 +244,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof InputFigure){
 				InputFigure aux = (InputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -252,7 +252,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof OutputFigure){
 				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
 				}
@@ -290,7 +290,7 @@ public class Informacion implements Serializable{
 		for(int i=posicion; i<diagrama.size(); i++){
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				DecisionFigure aux = (DecisionFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
@@ -309,7 +309,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure){
 				ForFigure aux = (ForFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
@@ -326,7 +326,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof WhileFigure){
 				WhileFigure aux = (WhileFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion.elementAt(0).instruccion;
+				instruccion = aux.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
@@ -343,7 +343,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.instruccion;
+				instruccion = aux.instruccion.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -351,7 +351,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof InputFigure){
 				InputFigure aux = (InputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -359,7 +359,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof OutputFigure){
 				OutputFigure aux = (OutputFigure)diagrama.elementAt(i);
-				instruccion = aux.instruction.instruccion;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(2,instruccion.length()-1);
 				}

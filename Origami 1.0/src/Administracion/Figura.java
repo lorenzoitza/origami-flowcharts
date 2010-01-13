@@ -113,4 +113,6 @@ public class Figura extends Figure implements Serializable {
     public void setDerIzqFin(boolean derIzqFin) {
 	DerIzqFin = derIzqFin;
     }
+    
+    
 }

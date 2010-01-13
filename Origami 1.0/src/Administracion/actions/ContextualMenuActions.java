@@ -100,43 +100,43 @@ public class ContextualMenuActions {
     					if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
     						DecisionFigure copia = new DecisionFigure();
     						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruction.instruccion.size(); j++){
-    							copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
     						ForFigure copia = new ForFigure();
     						ForFigure actual = (ForFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruction.instruccion.size(); j++){
-    							copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
     						WhileFigure copia = new WhileFigure();
     						WhileFigure actual = (WhileFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-    							copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
     						SentenceFigure copia = new SentenceFigure();
     						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruccion.instruccion = actual.instruccion.instruccion;
+    						copia.instruccion.simpleInstruction = actual.instruccion.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     						InputFigure copia = new InputFigure();
     						InputFigure actual = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruction.instruccion = actual.instruction.instruccion;
+    						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     						OutputFigure copia = new OutputFigure();
     						OutputFigure actual = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruction.instruccion = actual.instruction.instruccion;
+    						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else{
@@ -154,43 +154,43 @@ public class ContextualMenuActions {
     					if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
     						DecisionFigure copia = new DecisionFigure();
     						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruction.instruccion.size(); j++){
-    							copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
     						ForFigure copia = new ForFigure();
     						ForFigure actual = (ForFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruction.instruccion.size(); j++){
-    							copia.instruction.instruccion.add(actual.instruction.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
     						WhileFigure copia = new WhileFigure();
     						WhileFigure actual = (WhileFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						for(int j=0; j<actual.instruccion.instruccion.size(); j++){
-    							copia.instruccion.instruccion.add(actual.instruccion.instruccion.elementAt(j));	
+    						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
+    							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
     						SentenceFigure copia = new SentenceFigure();
     						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruccion.instruccion = actual.instruccion.instruccion;
+    						copia.instruccion.simpleInstruction = actual.instruccion.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     						InputFigure copia = new InputFigure();
     						InputFigure actual = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruction.instruccion = actual.instruction.instruccion;
+    						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     						OutputFigure copia = new OutputFigure();
     						OutputFigure actual = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
-    						copia.instruction.instruccion = actual.instruction.instruccion;
+    						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						Componentes._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else{
@@ -205,20 +205,20 @@ public class ContextualMenuActions {
     				if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     					InputFigure figura = new InputFigure();
     					InputFigure figura2 = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf( x );
-    					figura.instruction.instruccion = figura2.instruction.instruccion;
+    					figura.instruction.simpleInstruction = figura2.instruction.simpleInstruction;
     					Componentes._diagramAdministrator.diagrama.add(index,figura);
     				}
     				else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     					OutputFigure figura = new OutputFigure();
     					OutputFigure figura2 = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x );
-    					figura.instruction.instruccion = figura2.instruction.instruccion;
+    					figura.instruction.simpleInstruction = figura2.instruction.simpleInstruction;
     					Componentes._diagramAdministrator.diagrama.add(index,figura);
     
     				}
     				else{
     					SentenceFigure figura = new SentenceFigure();
     					SentenceFigure figura2 = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf( x);
-    					figura.instruccion.instruccion = figura2.instruccion.instruccion;
+    					figura.instruccion.simpleInstruction = figura2.instruccion.simpleInstruction;
     					Componentes._diagramAdministrator.diagrama.add(index,figura);
     				}
     			}
@@ -244,8 +244,8 @@ public class ContextualMenuActions {
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof DecisionFigure){
     				DecisionFigure nueva = new DecisionFigure();
     				DecisionFigure aux = (DecisionFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				for(int x=0;x<aux.instruction.instruccion.size(); x++){
-    					nueva.instruction.instruccion.add(x,aux.instruction.instruccion.elementAt(x));
+    				for(int x=0;x<aux.instructionComposed.simpleInstructionList.size(); x++){
+    					nueva.instructionComposed.simpleInstructionList.add(x,aux.instructionComposed.simpleInstructionList.elementAt(x));
     				}
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
@@ -253,8 +253,8 @@ public class ContextualMenuActions {
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof ForFigure){
     				ForFigure nueva = new ForFigure();
     				ForFigure aux = (ForFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				for(int x=0;x<aux.instruction.instruccion.size(); x++){
-    					nueva.instruction.instruccion.add(x,aux.instruction.instruccion.elementAt(x));
+    				for(int x=0;x<aux.instructionComposed.simpleInstructionList.size(); x++){
+    					nueva.instructionComposed.simpleInstructionList.add(x,aux.instructionComposed.simpleInstructionList.elementAt(x));
     				}
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
@@ -262,8 +262,8 @@ public class ContextualMenuActions {
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof WhileFigure){
     				WhileFigure nueva = new WhileFigure();
     				WhileFigure aux = (WhileFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				for(int x=0;x<aux.instruccion.instruccion.size(); x++){
-    					nueva.instruccion.instruccion.add(x,aux.instruccion.instruccion.elementAt(x));
+    				for(int x=0;x<aux.instructionComposed.simpleInstructionList.size(); x++){
+    					nueva.instructionComposed.simpleInstructionList.add(x,aux.instructionComposed.simpleInstructionList.elementAt(x));
     				}
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
@@ -271,21 +271,21 @@ public class ContextualMenuActions {
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof OutputFigure){
     				OutputFigure nueva = new OutputFigure();
     				OutputFigure aux = (OutputFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				nueva.instruction.instruccion=aux.instruction.instruccion;
+    				nueva.instruction.simpleInstruction=aux.instruction.simpleInstruction;
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
     			}
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof InputFigure){
     				InputFigure nueva = new InputFigure();
     				InputFigure aux = (InputFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				nueva.instruction.instruccion=aux.instruction.instruccion;
+    				nueva.instruction.simpleInstruction=aux.instruction.simpleInstruction;
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
     			}
     			else if(Componentes._diagramAdministrator.diagrama.elementAt(i) instanceof SentenceFigure){
     				SentenceFigure nueva = new SentenceFigure();
     				SentenceFigure aux = (SentenceFigure)Componentes._diagramAdministrator.diagrama.elementAt(i);
-    				nueva.instruccion.instruccion=aux.instruccion.instruccion;
+    				nueva.instruccion.simpleInstruction=aux.instruccion.simpleInstruction;
     				Componentes._diagramAdministrator.diagrama.remove(i);
     				Componentes._diagramAdministrator.diagrama.insertElementAt(nueva,i);
     			}

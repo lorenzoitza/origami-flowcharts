@@ -20,7 +20,7 @@ public class AddFigureLogic {
     
     public void addInput() {
 	InputFigure inputFigure = new InputFigure();
-	inputFigure.instruction.instruccion = "null";
+	inputFigure.instruction.simpleInstruction = "null";
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = inputFigure;
     }
@@ -28,7 +28,7 @@ public class AddFigureLogic {
 	DecisionFigure decisionFigure = new DecisionFigure();
 	InstructionSimple codigo = new InstructionSimple();
 	codigo.setInstruccionSimple("null");
-	decisionFigure.instruction.instruccion.add(0,codigo);
+	decisionFigure.instructionComposed.simpleInstructionList.add(0,codigo);
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = decisionFigure;
     }
@@ -36,19 +36,19 @@ public class AddFigureLogic {
 	ForFigure forFigure = new ForFigure();
 	InstructionSimple codigo = new InstructionSimple();
 	codigo.setInstruccionSimple("null");
-	forFigure.instruction.instruccion.add(0,codigo);
+	forFigure.instructionComposed.simpleInstructionList.add(0,codigo);
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = forFigure;
     }
     public void addOutput() {
 	OutputFigure outPutFigure = new OutputFigure();
-	outPutFigure.instruction.instruccion = "null";
+	outPutFigure.instruction.simpleInstruction = "null";
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = outPutFigure;
     }
     public void addSentence() {
 	SentenceFigure sentenceFigure = new SentenceFigure();
-	sentenceFigure.instruccion.instruccion = "null";
+	sentenceFigure.instruccion.simpleInstruction = "null";
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = sentenceFigure;
     }
@@ -56,7 +56,7 @@ public class AddFigureLogic {
 	WhileFigure whileFigure = new WhileFigure();
 	InstructionSimple instructionCode = new InstructionSimple();
 	instructionCode.setInstruccionSimple("null");
-	whileFigure.instruccion.instruccion.add(0,instructionCode);
+	whileFigure.instructionComposed.simpleInstructionList.add(0,instructionCode);
 	Componentes.mainFigure = null;
 	Componentes.mainFigure = whileFigure;
     }

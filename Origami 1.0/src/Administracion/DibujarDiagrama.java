@@ -678,7 +678,7 @@ public class DibujarDiagrama{
 					DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					DecisionFigure figura = new DecisionFigure();
-					figura.instruction = figuras.instruction;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -694,7 +694,7 @@ public class DibujarDiagrama{
 					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					ForFigure figura = new ForFigure();
-					figura.instruction = figuras.instruction;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -710,7 +710,7 @@ public class DibujarDiagrama{
 					WhileFigure figuras = (WhileFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					WhileFigure figura = new WhileFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
@@ -778,7 +778,7 @@ public class DibujarDiagrama{
 					DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					DecisionFigure figura = new DecisionFigure();
-					figura.instruction = figuras.instruction;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -789,7 +789,7 @@ public class DibujarDiagrama{
 					ForFigure figuras = (ForFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					ForFigure figura = new ForFigure();
-					figura.instruction = figuras.instruction;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -800,7 +800,7 @@ public class DibujarDiagrama{
 					WhileFigure figuras = (WhileFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					WhileFigure figura = new WhileFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
