@@ -22,33 +22,43 @@ import Administracion.Funcionalidad.PasoAPaso;
  * @author Juan Ku, Victor Rodriguez
  */
 public class Componentes {
-    public static TabFolder _diagrams;
-    
     public static AdminDiagrama _diagramAdministrator;
-    
     public static AdminSeleccion _selectionAdministrator = new AdminSeleccion(); 
     
-    public CustomToolBar barraHerramientas;
-    public CustomFiguresToolBar barraFiguras;
     
     
-    private final GridData toolData = new GridData(SWT.FILL, SWT.FILL, true,
+    private Display display;
+    
+    private CustomMenu menu;
+    
+    private CustomFiguresToolBar figuresToolBar;
+    
+    private GridData toolBarData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
-    private final GridData tabData = new GridData(SWT.FILL, SWT.FILL, true,
+    private GridData tabData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
-    private final GridData figurasData = new GridData(SWT.FILL, SWT.FILL,
+    private GridData figuresToolBarData = new GridData(SWT.FILL, SWT.FILL,
 			false, true, 1, 1);
-    public final GridData diagramaData = new GridData(SWT.FILL, SWT.FILL, true,
-			true, 1, 1);
-    public final GridData consolaData = new GridData(SWT.FILL, SWT.FILL, false,
-			false, 2, 1);
-    private boolean boolTool = true;
-    private boolean boolPestaas = true;
-    private boolean boolFiguras = true;
-    private boolean consolaMax = false;
-    public final GridLayout layout = new GridLayout(2, false);
-
     
+    private boolean isToolBarAvailable = true;
+    
+    private boolean isTabAvailable = true;
+    
+    private boolean isFigureToolBarAvailable = true;
+    
+    private boolean isConsoleMaximized = false;
+    
+    
+    
+    public static TabFolder _diagrams;
+    
+    public CustomToolBar barraHerramientas;
+    
+    public GridData diagramaData = new GridData(SWT.FILL, SWT.FILL, true,
+			true, 1, 1);
+    public GridData consolaData = new GridData(SWT.FILL, SWT.FILL, false,
+			false, 2, 1);
+
     public Ejecutar eje;
     public PasoAPaso paso;
     private boolean enEjecucion = false;
@@ -59,17 +69,17 @@ public class Componentes {
 
     public static Figura mainFigure = null;
 
-    private Display display;
+
     
-    public Componentes(Display display) {
+    public Componentes(Display display, CustomMenu menu) {
 	this.display = display;
+	this.menu = menu;
 	initControllers();
     }
     private void initControllers() {
 	_diagramAdministrator = new AdminDiagrama(_selectionAdministrator);
     }
-    public void agregarComponentes() {
-//	    agregarBarraFiguras();
+    public void agregarComponentes(GridLayout layout) {
 		layout.horizontalSpacing = layout.verticalSpacing = 0;
 		layout.marginWidth = layout.marginHeight = 0;
 		layout.numColumns = 2;
@@ -78,13 +88,14 @@ public class Componentes {
 		agregarTabFolder(_selectionAdministrator);
 		
 		
-		
-		console = new CustomConsole();
-		console.agregarConsola(consolaData);
+
+		consolaData.exclude = true;
+		console = new CustomConsole(consolaData);
     }
 
     private void agregarBarraDeHerramientas() {
-	barraHerramientas= new CustomToolBar(toolData);
+	toolBarData.heightHint = 23;
+	barraHerramientas= new CustomToolBar(toolBarData);
     }
 
 	private void agregarTabFolder(AdminSeleccion selec) {
@@ -96,24 +107,25 @@ public class Componentes {
 	}
 
 	public void agregarBarraFiguras() {
-	    barraFiguras= new CustomFiguresToolBar(figurasData, display);
+	    figuresToolBarData.widthHint = 62;
+	    figuresToolBar= new CustomFiguresToolBar(figuresToolBarData, display);
 	}
 
 	public void addBarraDeHerramientas(boolean seleccion) {
-		if (!consolaMax) {
+		if (!isConsoleMaximized) {
 			if (!seleccion) {
-				toolData.exclude = true;
-				barraHerramientas.barraHerramientas.setBounds(0, 0, 0, 0);
+				toolBarData.exclude = true;
+				barraHerramientas.getToolBar().setBounds(0, 0, 0, 0);
 			} else {
-				toolData.exclude = false;
+				toolBarData.exclude = false;
 			}
 			MainWindow.shell.layout();
 		}
-		boolTool = seleccion;
+		isToolBarAvailable = seleccion;
 	}
 
 	public void addTabFolder(boolean seleccion) {
-		if (!consolaMax) {
+		if (!isConsoleMaximized) {
 			if (!seleccion) {
 				tabData.exclude = true;
 				_diagrams.getTabFolder().setBounds(0, 0, 0, 0);
@@ -122,121 +134,112 @@ public class Componentes {
 			}
 			MainWindow.shell.layout();
 		}
-		boolPestaas = seleccion;
+		isTabAvailable = seleccion;
 	}
 
 	public void addBarraFiguras(boolean seleccion) {
-		if (!consolaMax) {
+		if (!isConsoleMaximized) {
 			if (!seleccion) {
-				figurasData.exclude = true;
-				barraFiguras.barraFiguras.setBounds(0, 0, 0, 0);
+				figuresToolBarData.exclude = true;
+				figuresToolBar.getBarraFiguras().setBounds(0, 0, 0, 0);
 			} else {
-				figurasData.exclude = false;
+				figuresToolBarData.exclude = false;
 			}
 			MainWindow.shell.layout();
 		}
-		boolFiguras = seleccion;
+		isFigureToolBarAvailable = seleccion;
 	}
 
 	public void moverConsola(boolean seleccionado) {
 		if (seleccionado) {
-			if (boolTool) {
-				toolData.exclude = false;
+			if (isToolBarAvailable) {
+				toolBarData.exclude = false;
 			}
-			if (boolPestaas) {
+			if (isTabAvailable) {
 				tabData.exclude = false;
 			}
-			if (boolFiguras) {
-				figurasData.exclude = false;
+			if (isFigureToolBarAvailable) {
+				figuresToolBarData.exclude = false;
 			}
 			diagramaData.exclude = false;
+			
+			
 			consolaData.grabExcessHorizontalSpace = false;
 			consolaData.grabExcessVerticalSpace = false;
-			consolaMax = false;
-
-			if (console.item.isDisposed()) {
-			    console.createTab();
-			}
-			console.tabFolder.forceFocus();
-			console.item.setControl(console.text);
-			console.text.forceFocus();
+			
+			console.createConsole();
+			
 			consolaData.exclude = false;
 			consolaData.heightHint = 150;
+			
+			isConsoleMaximized = false;
 		} else {
-			if (boolTool) {
-				toolData.exclude = false;
+			if (isToolBarAvailable) {
+				toolBarData.exclude = false;
 			}
-			if (boolPestaas) {
+			if (isTabAvailable) {
 				tabData.exclude = false;
 			}
-			if (boolFiguras) {
-				figurasData.exclude = false;
+			if (isFigureToolBarAvailable) {
+				figuresToolBarData.exclude = false;
 			}
 			diagramaData.exclude = false;
+			
+			
 			consolaData.grabExcessHorizontalSpace = false;
 			consolaData.grabExcessVerticalSpace = false;
 			consolaData.exclude = true;
-			consolaMax = false;
-			console.tabFolder.setBounds(0, 0, 0, 0);
+			isConsoleMaximized = false;
+			console.cTabFolder.setBounds(0, 0, 0, 0);
 		}
 		MainWindow.shell.layout();
 	}
 
 	public void maxConsola(boolean seleccionado) {
 		if (seleccionado) {
-			if (toolData.exclude) {
-				boolTool = false;
+			if (toolBarData.exclude) {
+				isToolBarAvailable = false;
 			}
 			if (tabData.exclude) {
-				boolPestaas = false;
+				isTabAvailable = false;
 			}
-			if (figurasData.exclude) {
-				boolFiguras = false;
+			if (figuresToolBarData.exclude) {
+				isFigureToolBarAvailable = false;
 			}
-			toolData.exclude = true;
-			barraHerramientas.barraHerramientas.setBounds(0, 0, 0, 0);
+			toolBarData.exclude = true;
+			barraHerramientas.getToolBar().setBounds(0, 0, 0, 0);
 			tabData.exclude = true;
 			_diagrams.getTabFolder().setBounds(0, 0, 0, 0);
-			figurasData.exclude = true;
-			barraFiguras.barraFiguras.setBounds(0, 0, 0, 0);
+			figuresToolBarData.exclude = true;
+			figuresToolBar.getBarraFiguras().setBounds(0, 0, 0, 0);
 			diagramaData.exclude = true;
 			BaseDeDiagrama.getInstance().setBoundsToZero();
-			//_diagrams.getHoja().setBoundsToZero();
+			
+			
 			consolaData.exclude = false;
 			consolaData.grabExcessHorizontalSpace = true;
 			consolaData.grabExcessVerticalSpace = true;
-			consolaMax = true;
-			if (console.item.isDisposed()) {
-			    console.createTab();
-			}
-			console.tabFolder.forceFocus();
-			console.item.setControl(console.text);
-			console.text.forceFocus();
+			isConsoleMaximized = true;
+			
+			console.createConsole();
+			
 		}
 		MainWindow.shell.layout();
 	}
 
 	public void guardarDisable(boolean disable) {
-		barraHerramientas.toolItem[2].setEnabled(disable);
-		MainWindow.menu.saveMenuItem.setEnabled(disable);
+		barraHerramientas.getToolItems().get(2).setEnabled(disable);
+		menu.getSaveMenuItem().setEnabled(disable);
 	}
 
 	public void ejecucionDisable() {
 		if (enEjecucion) {
 		    console.bot.setEnabled(true);
-			barraHerramientas.toolItem[13].setEnabled(true);
+			barraHerramientas.getToolItems().get(13).setEnabled(true);
 		} else {
 			console.bot.setEnabled(false);
-			barraHerramientas.toolItem[13].setEnabled(false);
+			barraHerramientas.getToolItems().get(13).setEnabled(false);
 		}
-	}
-
-	public String texto() {
-		String texto = console.text.getText();
-		String[] linea = console.text.getText().split("\n");
-		texto = linea[linea.length - 1].substring(0, linea[linea.length - 1]
-				.length());
-		return texto;
 	}
 
 	public void setText(String text) {
@@ -282,7 +285,7 @@ public class Componentes {
 				paso.ejecutar(this, "gdb", codigo);
 				paso.main();
 				seleccion = false;
-				MainWindow.getComponents().barraHerramientas.toolItem[12].setEnabled(true);
+				MainWindow.getComponents().barraHerramientas.getToolItems().get(12).setEnabled(true);
 				console.text.setEditable(false);
 				console.text.setBackground(MainWindow.display
 						.getSystemColor(SWT.COLOR_WHITE));
@@ -296,7 +299,7 @@ public class Componentes {
 	}
 
 	public void stopEjecucion() {
-	    barraHerramientas.toolItem[12].setEnabled(false);
+	    barraHerramientas.getToolItems().get(12).setEnabled(false);
 		enEjecucion = false;
 		ejecucionDisable();
 		if (seleccion) {
@@ -333,7 +336,7 @@ public class Componentes {
 
 	public void next() {
 		if (enEjecucion) {
-		    barraHerramientas.toolItem[12].setEnabled(false);
+		    barraHerramientas.getToolItems().get(12).setEnabled(false);
 			paso.sendNext();
 		}
 		final Timer timer = new Timer();
@@ -341,7 +344,7 @@ public class Componentes {
 			public void run() {
 				MainWindow.display.syncExec(new Runnable() {
 					public void run() {
-						MainWindow.getComponents().barraHerramientas.toolItem[12]
+						MainWindow.getComponents().barraHerramientas.getToolItems().get(12)
 								.setEnabled(true);
 					}
 				});
@@ -359,10 +362,10 @@ public class Componentes {
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			
-			barraFiguras.disablePasoAPaso(disable);
+			figuresToolBar.setEnabledAllButtons(!disable);
 			
 			
-			MainWindow.menu.disablePasoAPaso(disable);
+			menu.setEnabledStepByStepMenuItems(!disable);
 
 		} else {
 			isPasoAPaso = false;
@@ -370,18 +373,18 @@ public class Componentes {
 			
 			barraHerramientas.disablePasoAPaso(disable);
 			
-			barraFiguras.disablePasoAPaso(disable);
+			figuresToolBar.setEnabledAllButtons(!disable);
 
-			MainWindow.menu.disablePasoAPaso(disable);
+			menu.setEnabledStepByStepMenuItems(!disable);
 		}
 	}
 
 	public void disableAll(boolean disable) {
 	    barraHerramientas.disablePasoAPaso(disable);
 	    
-	    barraFiguras.disablePasoAPaso(disable);
+	    figuresToolBar.setEnabledAllButtons(disable);
 	    
-	    MainWindow.menu.disablePasoAPaso(disable);
+	    menu.setEnabledAllMenuItems(disable);
 	    
 	    guardarDisable(disable);
 	}

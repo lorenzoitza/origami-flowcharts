@@ -35,107 +35,123 @@ import ui.listener.ViewHelpContentsAction;
 import ui.listener.ViewTabsAction;
 import ui.listener.ViewToolbarAction;
 
-
 public class CustomMenu {
-    public static MenuItem consoleMenuItem;
-
-    public static MenuItem figuresBarMenuItem;
-
-    public static MenuItem decisionMenuItem;
-
-    public static MenuItem sentenceMenuItem;
-
-    public static MenuItem inputMenuItem;
-
-    public static MenuItem outputMenuItem;
-
-    public static MenuItem forMenuItem;
-
-    public static MenuItem whileMenuItem;
-
-    public static MenuItem exportMenuItem;
-
-    public static MenuItem resetDiagramMenuItem;
-
-    public static MenuItem stepByStepMenuItem;
-
-    public static MenuItem compileMenuItem;
-
-    public static MenuItem saveMenuItem;
-
-    public static MenuItem saveAsMenuItem;
-
-    public static MenuItem buildCodeMenuItem;
-
-    public static ContextualMenuEvent _editMenu;
-    
-    public static Menu mainMenu;
-    
-    private Shell _shell;
+    private Shell shell;
     
     private Display display;
     
+    private Menu mainMenu;
+    
+    private MenuItem figuresBarMenuItem;
+
+    private MenuItem decisionMenuItem;
+
+    private MenuItem sentenceMenuItem;
+
+    private MenuItem inputMenuItem;
+
+    private MenuItem outputMenuItem;
+
+    private MenuItem forMenuItem;
+
+    private MenuItem whileMenuItem;
+
+    private MenuItem exportMenuItem;
+
+    private MenuItem resetDiagramMenuItem;
+
+    private MenuItem stepByStepMenuItem;
+
+    private MenuItem compileMenuItem;
+
+    private MenuItem saveMenuItem;
+
+    private MenuItem saveAsMenuItem;
+
+    private MenuItem buildCodeMenuItem;
+
+    private static MenuItem consoleMenuItem;
+
+    private static ContextualMenuEvent _editMenu;
+
     public CustomMenu(Shell shell, Display display){
-	this._shell = shell;
+	this.shell = shell;
 	
 	this.display = display;
 	
-	mainMenu = new Menu(_shell, SWT.BAR);
+	mainMenu = new Menu(shell, SWT.BAR);
+	
+	createMenu();
     }
 
-    public void createMenu(){
+    private void createMenu(){
 	initFileMenu();
+	
 	initEditMenu();
+	
 	initFiguresMenu();
+	
 	initViewMenu();
+	
 	initOptionsMenu();
+	
 	initHelpMenu();
     }
     
     private void initFileMenu() {
+	Menu fileMenu = new Menu(shell, SWT.DROP_DOWN);
+	
 	MenuItem fileMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	fileMenuItem.setText("Archivo ");
-	Menu fileMenu = new Menu(_shell, SWT.DROP_DOWN);
 	fileMenuItem.setMenu(fileMenu);
+	
 	MenuItem openMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	openMenuItem.setText("Abrir...                      Ctrl+A");
+	openMenuItem.addSelectionListener(new OpenDiagramAction());
+	
 	saveMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	saveMenuItem.setText("Guardar                     Ctrl+G");
+	saveMenuItem.addSelectionListener(new SaveDiagramAction());
+	
 	saveAsMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	saveAsMenuItem.setText("Guardar como...                 ");
+	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction());
+	
 	MenuItem newDiagramMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	newDiagramMenuItem.setText("Nuevo Diagrama        Ctrl+N");
+	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
+	
 	new MenuItem(fileMenu, SWT.SEPARATOR);
+	
 	Menu exportMenu = new Menu(fileMenu);
+	
 	exportMenuItem = new MenuItem(fileMenu, SWT.CASCADE);
 	exportMenuItem.setText("Exportar");
 	exportMenuItem.setMenu(exportMenu);
+	
 	MenuItem exportToCMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToCMenuItem.setText("Codigo C");
+	exportToCMenuItem.addSelectionListener(new ExportToCAction());
+	
 	MenuItem exportToCPPMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToCPPMenuItem.setText("Codigo C++");
+	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction());
+	
 	MenuItem exportToEXEMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToEXEMenuItem.setText("Ejecutable");
+	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction());
+	
 	MenuItem exportToImageMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToImageMenuItem.setText("Imagen JPG");
+	exportToImageMenuItem.addSelectionListener(new ExportToImageAction());
+	
 	new MenuItem(fileMenu, SWT.SEPARATOR);
+	
 	MenuItem exitMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	exitMenuItem.setText("Salir                            Alt+F4");
-
-	openMenuItem
-		.addSelectionListener(new OpenDiagramAction());
-	saveMenuItem
-		.addSelectionListener(new SaveDiagramAction());
-	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction());
-	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
-	exportToCMenuItem.addSelectionListener(new ExportToCAction());
-	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction());
-	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction());
-	exportToImageMenuItem.addSelectionListener(new ExportToImageAction());
 	exitMenuItem.addSelectionListener(new SelectionAdapter() {
-
 	    public void widgetSelected(SelectionEvent e) {
-		_shell.close();
+		shell.close();
 	    }
 	});
     }
@@ -143,157 +159,159 @@ public class CustomMenu {
     private void initEditMenu() {
 	MenuItem editMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	editMenuItem.setText("Edicion ");
-	Menu editMenu = new Menu(_shell, SWT.DROP_DOWN);
+	Menu editMenu = new Menu(shell, SWT.DROP_DOWN);
 	_editMenu = new ContextualMenuEvent();
 	_editMenu.menu(editMenu);
 	editMenuItem.setMenu(editMenu);
-
     }
 
     private void initFiguresMenu() {
+	Menu figuresMenu = new Menu(shell, SWT.DROP_DOWN);
+	
 	MenuItem figuresMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	figuresMenuItem.setText("Figuras ");
-	Menu figuresMenu = new Menu(_shell, SWT.DROP_DOWN);
 	figuresMenuItem.setMenu(figuresMenu);
+	
 	inputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	inputMenuItem.setText("Entrada   ");
-	sentenceMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
-	sentenceMenuItem.setText("Expresion     ");
-	decisionMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
-	decisionMenuItem.setText("Decisin   ");
-	whileMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
-	whileMenuItem.setText("Ciclo Mientras");
-	forMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
-	forMenuItem.setText("Ciclo Para  ");
-	outputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
-	outputMenuItem.setText("Salida   ");
-
 	inputMenuItem.addSelectionListener(new AddInputFigureAction(display));
 	
-	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction(display));
-	
+	sentenceMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
+	sentenceMenuItem.setText("Expresion     ");
 	sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction(display));
 	
-	outputMenuItem.addSelectionListener(new AddOutputFigureAction(display));
+	decisionMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
+	decisionMenuItem.setText("Decisin   ");
+	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction(display));
 	
+	whileMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
+	whileMenuItem.setText("Ciclo Mientras");
+	whileMenuItem.addSelectionListener(new AddWhileFigureAction(display));
+	
+	forMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
+	forMenuItem.setText("Ciclo Para  ");
 	forMenuItem.addSelectionListener(new AddForFigureAction(display));
 	
-	whileMenuItem.addSelectionListener(new AddWhileFigureAction(display));
-
+	outputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
+	outputMenuItem.setText("Salida   ");
+	outputMenuItem.addSelectionListener(new AddOutputFigureAction(display));
     }
 
     private void initViewMenu() {
+	Menu viewMenu = new Menu(shell, SWT.DROP_DOWN);
+	
 	MenuItem viewMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	viewMenuItem.setText("Ver ");
-	Menu viewMenu = new Menu(_shell, SWT.DROP_DOWN);
 	viewMenuItem.setMenu(viewMenu);
+	
 	MenuItem toolbarMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	toolbarMenuItem.setText(" Barra De Herramientas   ");
 	toolbarMenuItem.setSelection(true);
+	toolbarMenuItem.addSelectionListener(new ViewToolbarAction());
+	
 	MenuItem tabsMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	tabsMenuItem.setText(" Barra De Diagramas       ");
 	tabsMenuItem.setSelection(true);
+	tabsMenuItem.addSelectionListener(new ViewTabsAction());
+	
 	figuresBarMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	figuresBarMenuItem.setText(" Barra De Figuras       ");
 	figuresBarMenuItem.setSelection(true);
-	consoleMenuItem = new MenuItem(viewMenu, SWT.CHECK);
-	consoleMenuItem.setText(" Consola     ");
-
-	toolbarMenuItem.addSelectionListener(new ViewToolbarAction());
-	
 	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarAction());
 	
-	tabsMenuItem.addSelectionListener(new ViewTabsAction());
-	
+	consoleMenuItem = new MenuItem(viewMenu, SWT.CHECK);
+	consoleMenuItem.setText(" Consola     ");
 	consoleMenuItem.addSelectionListener(new ViewConsoleAction());
     }
 
     private void initOptionsMenu() {
+	Menu optionsMenu = new Menu(shell, SWT.DROP_DOWN);
+	
 	MenuItem optionsMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	optionsMenuItem.setText("Opciones ");
-	Menu optionsMenu = new Menu(_shell, SWT.DROP_DOWN);
+	optionsMenuItem.setMenu(optionsMenu);
+	
 	buildCodeMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	buildCodeMenuItem.setText("Codigo Fuente C        F4");
+	buildCodeMenuItem.addSelectionListener(new ViewCodeCAction());
+	
 	compileMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	compileMenuItem.setText("Compilar/Ejecutar      F5");
+	compileMenuItem.addSelectionListener(new CompileAction());
+	
 	resetDiagramMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	resetDiagramMenuItem.setText("Restablecer diagrama          F3");
+	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction());
+	
 	stepByStepMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	stepByStepMenuItem.setText("Paso A Paso");
-	optionsMenuItem.setMenu(optionsMenu);
-
-	stepByStepMenuItem
-	.addSelectionListener(new StepByStepAction());
-
-	buildCodeMenuItem.addSelectionListener(new ViewCodeCAction());
-	compileMenuItem.addSelectionListener(new CompileAction());
-
-	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction());
-
+	stepByStepMenuItem.addSelectionListener(new StepByStepAction());
     }
 
     private void initHelpMenu() {
+	Menu helpMenu = new Menu(shell, SWT.DROP_DOWN);
+	
 	MenuItem helpMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	helpMenuItem.setText("Ayuda");
-	Menu helpMenu = new Menu(_shell, SWT.DROP_DOWN);
+	helpMenuItem.setMenu(helpMenu);
 	
 	MenuItem helpContentsMenuItem = new MenuItem(helpMenu, SWT.PUSH);
-	helpContentsMenuItem
-		.setText("Contenidos de Ayuda                             F1");
+	helpContentsMenuItem.setText("Contenidos de Ayuda                             F1");
 	helpContentsMenuItem.addSelectionListener(new ViewHelpContentsAction());
 	
 	MenuItem examplesMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	examplesMenuItem.setText("Ejemplos");
 	examplesMenuItem.addSelectionListener(new ViewExamplesAction());
 
-	
-	new MenuItem(helpMenu, SWT.SEPARATOR);
-	
+	new MenuItem(helpMenu, SWT.SEPARATOR);	
 	
 	MenuItem aboutMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	aboutMenuItem.setText("Acerca de Origami...      F2");
 	aboutMenuItem.addSelectionListener(new ViewAboutAction());
+    }
+    
+    public void setEnabledStepByStepMenuItems(boolean isEnabled) {
+	decisionMenuItem.setEnabled(isEnabled);
+	sentenceMenuItem.setEnabled(isEnabled);
+	inputMenuItem.setEnabled(isEnabled);
+	outputMenuItem.setEnabled(isEnabled);
+	forMenuItem.setEnabled(isEnabled);
+	whileMenuItem.setEnabled(isEnabled);
+	exportMenuItem.setEnabled(isEnabled);
+	compileMenuItem.setEnabled(isEnabled);
+	resetDiagramMenuItem.setEnabled(isEnabled);
+	stepByStepMenuItem.setEnabled(isEnabled);
+    }
+    
+    public void setEnabledAllMenuItems(boolean isEnabled) {
+	decisionMenuItem.setEnabled(isEnabled);
+	sentenceMenuItem.setEnabled(isEnabled);
+	inputMenuItem.setEnabled(isEnabled);
+	outputMenuItem.setEnabled(isEnabled);
+	forMenuItem.setEnabled(isEnabled);
+	whileMenuItem.setEnabled(isEnabled);
+	exportMenuItem.setEnabled(isEnabled);
+	compileMenuItem.setEnabled(isEnabled);
+	resetDiagramMenuItem.setEnabled(isEnabled);
+	stepByStepMenuItem.setEnabled(isEnabled);
+	saveAsMenuItem.setEnabled(isEnabled);
+	buildCodeMenuItem.setEnabled(isEnabled);
+    }
+    
+    public Menu getMainMenu() {
+        return mainMenu;
+    }
 
-	helpMenuItem.setMenu(helpMenu);
-	
+    public MenuItem getSaveMenuItem() {
+        return saveMenuItem;
     }
-    public void disablePasoAPaso(boolean disable) {
-	if (disable) {
-	    decisionMenuItem.setEnabled(false);
-	    sentenceMenuItem.setEnabled(false);
-	    inputMenuItem.setEnabled(false);
-	    outputMenuItem.setEnabled(false);
-	    forMenuItem.setEnabled(false);
-	    whileMenuItem.setEnabled(false);
-	    exportMenuItem.setEnabled(false);
-	    compileMenuItem.setEnabled(false);
-	    resetDiagramMenuItem.setEnabled(false);
-	    stepByStepMenuItem.setEnabled(false);
-	} else {
-	    decisionMenuItem.setEnabled(true);
-	    sentenceMenuItem.setEnabled(true);
-	    inputMenuItem.setEnabled(true);
-	    outputMenuItem.setEnabled(true);
-	    forMenuItem.setEnabled(true);
-	    whileMenuItem.setEnabled(true);
-	    exportMenuItem.setEnabled(true);
-	    compileMenuItem.setEnabled(true);
-	    resetDiagramMenuItem.setEnabled(true);
-	    stepByStepMenuItem.setEnabled(true);
-	}
+
+    public static MenuItem getConsoleMenuItem() {
+        return consoleMenuItem;
     }
-    public void disableAll(boolean disable) {
-	decisionMenuItem.setEnabled(disable);
-	sentenceMenuItem.setEnabled(disable);
-	inputMenuItem.setEnabled(disable);
-	outputMenuItem.setEnabled(disable);
-	forMenuItem.setEnabled(disable);
-	whileMenuItem.setEnabled(disable);
-	exportMenuItem.setEnabled(disable);
-	compileMenuItem.setEnabled(disable);
-	resetDiagramMenuItem.setEnabled(disable);
-	stepByStepMenuItem.setEnabled(disable);
-	saveAsMenuItem.setEnabled(disable);
-	buildCodeMenuItem.setEnabled(disable);
+
+    public static ContextualMenuEvent get_editMenu() {
+        return _editMenu;
     }
+    
 }

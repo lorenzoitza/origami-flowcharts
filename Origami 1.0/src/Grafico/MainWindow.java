@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
@@ -13,41 +14,51 @@ import Imagenes.ImageLoader;
 
 public class MainWindow {
 
-    public static Display display = new Display();
+    public static Display display;
 
-    public static Shell shell = new Shell(display);
+    public static Shell shell;
 
-    private static Componentes _components;
+    private static Componentes components;
     
-    public static CustomMenu menu;
+    private CustomMenu menu;
 
     public static final Cursor[] cursor = new Cursor[1];
-    
-    public MainWindow() {
-	initWindow();
-	
-	menu.createMenu();
-	
-	
-	addListeners();
-    }
 
-    private void initWindow() {
+    private GridLayout shellLayout;
+
+    public MainWindow() {
+	display = new Display();
+	
+	shell = new Shell(display);
+	
 	menu = new CustomMenu(shell, display);
 	
-	_components = new Componentes(display);
-	_components.agregarComponentes();
+	components = new Componentes(display, menu);
 	
+	shellLayout = new GridLayout(2, false);
+	
+	addWindowComponents();
+	
+	addShellProperties();
+	
+	addShellListeners();
+    }
+
+    private void addWindowComponents(){
+	components.agregarComponentes(shellLayout);
+    }
+    
+    private void addShellProperties() {
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new CloseWindowAction(getComponents()._diagrams, getComponents()));
-	shell.setMenuBar(menu.mainMenu);
-	shell.setLayout(getComponents().layout);
+	shell.addShellListener(new CloseWindowAction(Componentes._diagrams, getComponents()));
+	shell.setMenuBar(menu.getMainMenu());
+	shell.setLayout(shellLayout);
 	shell.pack();
     }
 
-    private void addListeners() {
+    private void addShellListeners() {
 	shell.addShellListener(new ShellAdapter() {
 	    public void shellDeactivated(ShellEvent e) {
 		Cursor[] cursor = new Cursor[1];
@@ -69,12 +80,8 @@ public class MainWindow {
 	shell.open();
     }
 
-    public Shell getShell() {
-	return shell;
-    }
-
     public static Componentes getComponents() {
-	return _components;
+	return components;
     }
 
     public static void main(String args[]) throws OrigamiException {
@@ -82,7 +89,6 @@ public class MainWindow {
 	    MainWindow mainWindow = new MainWindow();
 	    mainWindow.show();
 	    
-	    //Componentes._diagrams.getHoja().resetScrollBar();
 	    BaseDeDiagrama.getInstance().resetScrollBar();
 	    
 	    while (!shell.isDisposed()) {

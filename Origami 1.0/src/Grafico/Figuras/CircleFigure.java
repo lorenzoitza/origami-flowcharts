@@ -12,6 +12,7 @@ import Administracion.Figura;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class CircleFigure extends Figura {
 
     private String mesagge;
@@ -22,12 +23,6 @@ public class CircleFigure extends Figura {
 	this.rectangle = bounds;
     }
 
-    /**
-     * Este metodo coloca el mensaje de inicio o fin.
-     * 
-     * @param mensaje
-     */
-
     public void setMesagge(String mensaje) {
     	this.mesagge = mensaje;
     }
@@ -36,12 +31,6 @@ public class CircleFigure extends Figura {
     	return mesagge;
     }
 
-    
-    /**
-     * Este metodo es el encargado de dibujar la figura.
-     * 
-     * @param Graphics
-     */
     public void paint(Graphics graphics) {
     	
 	selectLineTipe(graphics);

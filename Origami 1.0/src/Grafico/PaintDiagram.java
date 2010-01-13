@@ -19,11 +19,16 @@ import Administracion.Figura;
 import Grafico.Figuras.SelectionSquare;
 
 public class PaintDiagram extends Figure {
-    public static AdminSeleccion selec;
-    public TabFolder tab;
-    public static boolean dispToolItem = false; 
-    public static Vector<SelectionSquare> seleccion = new Vector<SelectionSquare>();
-    DibujarDiagrama dibujarDiagrama;
+    
+    private AdminSeleccion selec;
+    
+    private TabFolder tab;
+    
+    private boolean dispToolItem = false; 
+    
+    private Vector<SelectionSquare> seleccion = new Vector<SelectionSquare>();
+    
+    private DibujarDiagrama dibujarDiagrama;
     
     public PaintDiagram(AdminSeleccion selecc,TabFolder tabfolder){
 	setBorder(new MarginBorder(5));
@@ -40,9 +45,9 @@ public class PaintDiagram extends Figure {
 		tab.getTabFolder().forceFocus();
 		if(MainWindow.getComponents().console.hide){
 		    if(MainWindow.getComponents().console.hide){
-			if(MainWindow.menu.consoleMenuItem.getSelection()){
+			if(CustomMenu.getConsoleMenuItem().getSelection()){
 			    MainWindow.getComponents().moverConsola(false);
-			    MainWindow.menu.consoleMenuItem.setSelection(false);
+			    CustomMenu.getConsoleMenuItem().setSelection(false);
 			}
 		    }
 		}			
@@ -83,18 +88,15 @@ public class PaintDiagram extends Figure {
 	
 	if(selec.getFiguraSeleccionada()!=-1){
 		agregarSeleccion(diagramaFinalTotal,chart);
-		MainWindow.menu._editMenu.menuDisponibleFigura();
+		CustomMenu.get_editMenu().menuDisponibleFigura();
 	}
-	/*else if(MainWindow.first){		//quitado del MainWindow y no se encontro error aun se corrigio agregando una linea en la clase 
-		MainWindow._editMenu.menuDisponibleFigura();	//EventoCambiarCursor en el metodo mouseReleased
-	}*/
 	if(dispToolItem){
 		MainWindow.getComponents().barraHerramientas.toolBarDisable();
 	}
 	dispToolItem = true;
     }
     
-    public static void agregarSeleccion(Vector<Figura> diagrama,Figure chart){
+    private void agregarSeleccion(Vector<Figura> diagrama,Figure chart){
 	int x,y,width,height;
 	x = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().x;
 	y = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().y;
@@ -113,7 +115,7 @@ public class PaintDiagram extends Figure {
 	for(int i=0; i<4; i++){
 		chart.add(seleccion.elementAt(i));
 	}
-	MainWindow.menu._editMenu.menuDisponibleFigura();
+	CustomMenu.get_editMenu().menuDisponibleFigura();
 	diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
     }
     
