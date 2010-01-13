@@ -15,6 +15,7 @@ import Administracion.actions.AddFigureLogic;
 import Administracion.actions.ContextualMenuActions;
 import Grafico.BaseDeDiagrama;
 import Grafico.Componentes;
+import Grafico.CustomMenu;
 import Grafico.MainWindow;
 import Grafico.TabItem;
 import Grafico.Figuras.CircleFigure;
@@ -155,8 +156,8 @@ public class KeyEvent implements KeyListener{
 				MainWindow.getComponents().ejecutar(true,codigo);
 				MainWindow.getComponents()._diagrams.getTabItem().getInfo().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
-			if(!MainWindow.menu.consoleMenuItem.getSelection()){
-				MainWindow.menu.consoleMenuItem.setSelection(true);
+			if(!CustomMenu.getConsoleMenuItem().getSelection()){
+			    CustomMenu.getConsoleMenuItem().setSelection(true);
 				MainWindow.getComponents().moverConsola(true);
 			}
 		}

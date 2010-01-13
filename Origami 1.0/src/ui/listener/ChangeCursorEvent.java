@@ -31,7 +31,7 @@ public class ChangeCursorEvent  extends MouseMotionListener.Stub implements Mous
 	 * @param MouseEvent 
 	 */
 	public void mouseReleased(MouseEvent e){
-	    CustomMenu._editMenu.menuDisponibleFigura();
+	    CustomMenu.get_editMenu().menuDisponibleFigura();
 	}
 	public void mouseClicked(MouseEvent e) {
   	}

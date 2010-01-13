@@ -5,6 +5,7 @@ import org.eclipse.swt.events.SelectionListener;
 
 import Administracion.Funcionalidad.CodeCompiler;
 import Grafico.Componentes;
+import Grafico.CustomMenu;
 import Grafico.MainWindow;
 import Grafico.view.SaveFileView;
 import Grafico.view.SaveType;
@@ -57,8 +58,8 @@ public class CompileAction implements SelectionListener{
 						.addInformation(
 								"/C - Se Compilo el diagrama de manera correcta");
 			}
-			if (!MainWindow.menu.consoleMenuItem.getSelection()) {
-				MainWindow.menu.consoleMenuItem.setSelection(true);
+			if (!CustomMenu.getConsoleMenuItem().getSelection()) {
+			    CustomMenu.getConsoleMenuItem().setSelection(true);
 				MainWindow.getComponents().moverConsola(true);
 			}
 		}
@@ -78,8 +79,8 @@ public class CompileAction implements SelectionListener{
 		} else {
 		    MainWindow.getComponents().ejecutar(true, codigo);
 		}
-		if (!MainWindow.menu.consoleMenuItem.getSelection()) {
-			MainWindow.menu.consoleMenuItem.setSelection(true);
+		if (!CustomMenu.getConsoleMenuItem().getSelection()) {
+		    CustomMenu.getConsoleMenuItem().setSelection(true);
 			MainWindow.getComponents().moverConsola(true);
 		}
 	}
