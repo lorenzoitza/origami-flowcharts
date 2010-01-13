@@ -1,10 +1,12 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import Administracion.*;
+
+import origami.administration.*;
+
 
 public class DecisionFigureEnd extends Figura {
 

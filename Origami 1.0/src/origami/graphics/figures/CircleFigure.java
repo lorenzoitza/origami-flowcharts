@@ -1,9 +1,11 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import Administracion.Figura;
+import origami.administration.Figura;
+
+
 
 /**
  * Esta clase es la que crea y dibujar a la figura de Inicio y del Fin del

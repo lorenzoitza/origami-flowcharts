@@ -1,8 +1,10 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
-import Administracion.*;
+
+import origami.administration.*;
+
 
 
 public class Elipse extends Figura {

@@ -1,14 +1,16 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import java.util.Vector;
 
 import org.eclipse.draw2d.Graphics;
-import Administracion.*;
-import Administracion.Funcionalidad.Codigo.InstructionComposed;
-import Administracion.Funcionalidad.Codigo.InstructionSimple;
 
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
+
+import origami.administration.*;
+import origami.administration.funtionality.code.InstructionComposed;
+import origami.administration.funtionality.code.InstructionSimple;
+
 
 public class DecisionFigure extends Figura {
 

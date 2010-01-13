@@ -1,13 +1,15 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import java.awt.Point;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import Administracion.Figura;
-import Administracion.Funcionalidad.Codigo.InstructionComposed;
-import Administracion.Funcionalidad.Codigo.InstructionSimple;
+
+import origami.administration.Figura;
+import origami.administration.funtionality.code.InstructionComposed;
+import origami.administration.funtionality.code.InstructionSimple;
+
 
 /**
  * Esta clase es la que crea y dibujar la figura del For.

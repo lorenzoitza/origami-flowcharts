@@ -1,10 +1,12 @@
-package Grafico.Figuras;
+package origami.graphics.figures;
 
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
-import Administracion.Figura;
-import Administracion.Funcionalidad.Codigo.*;
+
+import origami.administration.Figura;
+import origami.administration.funtionality.code.*;
+
 
 /**
  * Esta clase es la que crea y dibujar a la figura del While.
