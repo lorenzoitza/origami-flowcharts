@@ -1,8 +1,9 @@
-package Imagenes;
+package origami.images;
 
 import org.eclipse.swt.graphics.Image;
 
-import Grafico.MainWindow;
+import origami.graphics.MainWindow;
+
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
