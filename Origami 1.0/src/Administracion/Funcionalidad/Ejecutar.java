@@ -74,7 +74,7 @@ public class Ejecutar implements ExecProcessor {
 		runCommandActionPerformed(instruccion);
 	}
 	public void stopEjecutar(){
-		MainWindow.getComponents().barraHerramientas.toolItem[12].setEnabled(false);
+		MainWindow.getComponents().barraHerramientas.getToolItems().get(12).setEnabled(false);
 		if(execHelper != null){
 			execHelper.stopEjecucion();	
 		}
