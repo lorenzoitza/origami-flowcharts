@@ -1,11 +1,12 @@
 /**
  * 
  */
-package org.origami.debug;
+package origami.debug;
 
 import java.util.Calendar;
 
-import Grafico.view.OpenType;
+import origami.graphics.view.OpenType;
+
 
 /**
  * Clase que ayuda a debugear en Origami.
@@ -23,7 +24,7 @@ public class Debugger {
 	}
 	
 	public static void debug(Class<?> clazz, String message){
-		System.out.println(getTime()+" DEBUG] "+clazz.getSimpleName()+" --> "+message);
+		System.out.println(getTime()+" DEBUG] "+clazz.getCanonicalName()+" --> "+message);
 	}
 	
 	public static void error(Class<?> clazz, String message){
