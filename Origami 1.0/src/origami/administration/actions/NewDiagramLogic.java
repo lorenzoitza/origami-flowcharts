@@ -1,6 +1,6 @@
-package Administracion.actions;
+package origami.administration.actions;
 
-import Grafico.MainWindow;
+import origami.graphics.MainWindow;
 
 public class NewDiagramLogic {
     

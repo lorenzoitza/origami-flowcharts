@@ -1,13 +1,13 @@
-package Administracion.actions;
+package origami.administration.actions;
 
-import Administracion.Funcionalidad.Codigo.InstructionSimple;
-import Grafico.Componentes;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
+import origami.administration.funtionality.code.InstructionSimple;
+import origami.graphics.Componentes;
+import origami.graphics.figures.DecisionFigure;
+import origami.graphics.figures.ForFigure;
+import origami.graphics.figures.InputFigure;
+import origami.graphics.figures.OutputFigure;
+import origami.graphics.figures.SentenceFigure;
+import origami.graphics.figures.WhileFigure;
 
 
 public class AddFigureLogic {

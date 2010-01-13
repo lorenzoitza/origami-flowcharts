@@ -1,21 +1,23 @@
-package Administracion.actions;
+package origami.administration.actions;
 
 import org.eclipse.draw2d.*;
 import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
-import Administracion.AdminDiagrama;
-import Administracion.Figura;
-import Grafico.*;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
-import Grafico.Figuras.Elipse;
-import Imagenes.ImageLoader;
+
+import origami.administration.AdminDiagrama;
+import origami.administration.Figura;
+import origami.graphics.*;
+import origami.graphics.figures.DecisionFigure;
+import origami.graphics.figures.Elipse;
+import origami.graphics.figures.ForFigure;
+import origami.graphics.figures.InputFigure;
+import origami.graphics.figures.OutputFigure;
+import origami.graphics.figures.SentenceFigure;
+import origami.graphics.figures.WhileFigure;
+import origami.images.ImageLoader;
+
 
 /**
  * Esta clase establece la propiedad de Drag & Drop 

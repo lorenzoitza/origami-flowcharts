@@ -1,9 +1,11 @@
-package Administracion.actions;
+package origami.administration.actions;
 
 import java.util.Vector;
 
-import Administracion.Figura;
-import Grafico.Figuras.Elipse;
+import origami.administration.Figura;
+import origami.graphics.figures.Elipse;
+
+
 
 
 public class RecorridoDiagrama {

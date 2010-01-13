@@ -1,4 +1,4 @@
-package Administracion.actions;
+package origami.administration.actions;
 
 import java.util.Vector;
 
@@ -11,24 +11,26 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import Administracion.Figura;
-import Grafico.Componentes;
-import Grafico.MainWindow;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.DecisionFigureEnd;
-import Grafico.Figuras.Elipse;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
-import Grafico.VentanaDatos.DecisionFigureDialog;
-import Grafico.VentanaDatos.ForFigureDialog;
-import Grafico.VentanaDatos.InputFigureDialog;
-import Grafico.VentanaDatos.OutputFigureDialog;
-import Grafico.VentanaDatos.SentenceFigureDialog;
-import Grafico.VentanaDatos.WhileFigureDialog;
-import Imagenes.ImageLoader;
+import origami.administration.Figura;
+import origami.graphics.Componentes;
+import origami.graphics.MainWindow;
+import origami.graphics.dialogs.DecisionFigureDialog;
+import origami.graphics.dialogs.ForFigureDialog;
+import origami.graphics.dialogs.InputFigureDialog;
+import origami.graphics.dialogs.OutputFigureDialog;
+import origami.graphics.dialogs.SentenceFigureDialog;
+import origami.graphics.dialogs.WhileFigureDialog;
+import origami.graphics.figures.DecisionFigure;
+import origami.graphics.figures.DecisionFigureEnd;
+import origami.graphics.figures.Elipse;
+import origami.graphics.figures.ForFigure;
+import origami.graphics.figures.InputFigure;
+import origami.graphics.figures.OutputFigure;
+import origami.graphics.figures.SentenceFigure;
+import origami.graphics.figures.WhileFigure;
+import origami.images.ImageLoader;
+
+
 
 
 public class ContextualMenuActions {
