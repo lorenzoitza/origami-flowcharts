@@ -1,4 +1,4 @@
-package Grafico.Help;
+package origami.graphics.Help;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
@@ -8,8 +8,9 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
-import Grafico.MainWindow;
-import Imagenes.ImageLoader;
+
+import origami.graphics.MainWindow;
+import origami.images.ImageLoader;
 
 public class HelpWindow{
     private Shell helpShell;

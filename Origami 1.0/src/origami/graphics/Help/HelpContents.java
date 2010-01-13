@@ -1,4 +1,4 @@
-package Grafico.Help;
+package origami.graphics.Help;
 
 import org.eclipse.swt.browser.Browser;
 

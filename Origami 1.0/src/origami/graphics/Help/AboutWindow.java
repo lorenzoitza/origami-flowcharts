@@ -1,8 +1,9 @@
-package Grafico.Help;
+package origami.graphics.Help;
 
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
-import Imagenes.ImageLoader;
+
+import origami.images.ImageLoader;
 
 /**
  * Esta clase crea la ventana informacion
