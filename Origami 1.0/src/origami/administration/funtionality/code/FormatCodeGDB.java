@@ -1,6 +1,6 @@
-package Administracion.Funcionalidad.Codigo;
+package origami.administration.funtionality.code;
 
-import Grafico.MainWindow;
+import origami.graphics.MainWindow;
 
 public class FormatCodeGDB extends FormatInstructions{
     

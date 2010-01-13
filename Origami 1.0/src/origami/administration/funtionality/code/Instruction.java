@@ -1,14 +1,16 @@
-package Administracion.Funcionalidad.Codigo;
+package origami.administration.funtionality.code;
 
 import java.io.Serializable;
 import java.util.Vector;
-import Administracion.Figura;
-import Grafico.Figuras.InputFigure;
-import Grafico.Figuras.ForFigure;
-import Grafico.Figuras.DecisionFigure;
-import Grafico.Figuras.OutputFigure;
-import Grafico.Figuras.SentenceFigure;
-import Grafico.Figuras.WhileFigure;
+
+import origami.administration.Figura;
+import origami.graphics.figures.DecisionFigure;
+import origami.graphics.figures.ForFigure;
+import origami.graphics.figures.InputFigure;
+import origami.graphics.figures.OutputFigure;
+import origami.graphics.figures.SentenceFigure;
+import origami.graphics.figures.WhileFigure;
+
 
 /**
  * Esta clase es la base administra el codigo agregado por el usuario.

@@ -1,4 +1,4 @@
-package Administracion.Funcionalidad.Codigo;
+package origami.administration.funtionality.code;
 /**
  * Esta clase es la que almacena
  * el codigo generado de cualquier figura
