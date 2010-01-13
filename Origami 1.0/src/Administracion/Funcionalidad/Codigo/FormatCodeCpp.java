@@ -14,7 +14,7 @@ public class FormatCodeCpp extends FormatInstructions {
     @Override
     public void applyFormat() {
 	divideDataInputForCodeCpp();
-	code =
+	codeSource =
 		("#include <iostream>\n" + "using namespace std;\n"
 			+ "int main(int argc, char argv[])\n{\n");
 	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
@@ -23,67 +23,66 @@ public class FormatCodeCpp extends FormatInstructions {
 	    int pos = str.indexOf("null");
 	    if (pos < 0) {
 		
-		code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
+		codeSource = codeSource + codeOfFigure.elementAt(indexCodeFigure) + "\n";
 	    }
 	}
-	code = code + "      return 0;\n" + "}\n";
+	codeSource = codeSource + "      return 0;\n" + "}\n";
     }
-
+    //identificar que nombre debe ser el correcto
     private void divideDataInputForCodeCpp() {
-	int j;
 
-	for (int x = 0; x < codeOfFigure.size(); x++) {
+	for (int indexCode = 0; indexCode < codeOfFigure.size(); indexCode++) {
 
-	    if (codeOfFigure.elementAt(x).lastIndexOf("Leer:") >= 0) {
+	    if (codeOfFigure.elementAt(indexCode).lastIndexOf(dataInput) >= 0) {
 
 		Vector<String> lineas =
-			generateInstructionOfDataInputForCodeCpp(codeOfFigure
-				.elementAt(x));
+			changeInstructionOfDataInputForCodeCpp(codeOfFigure
+				.elementAt(indexCode));
 
-		String tab = codeOfFigure.elementAt(x);
+		String tab = codeOfFigure.elementAt(indexCode);
 
-		j = codeOfFigure.elementAt(x).indexOf("L");
+		int j = codeOfFigure.elementAt(indexCode).indexOf("L");
 
 		tab = tab.substring(0, j);
 
 		removeLinesRepeated(lineas);
 
-		codeOfFigure.removeElementAt(x);
+		codeOfFigure.removeElementAt(indexCode);
 
 		for (int k = 0; k < lineas.size(); k++) {
 
 		    String lin = tab + lineas.elementAt(k);
 
-		    codeOfFigure.insertElementAt(lin, x);
+		    codeOfFigure.insertElementAt(lin, indexCode);
 
-		    x++;
+		    indexCode++;
 
 		}
 
-		x--;
-	    } else if (codeOfFigure.elementAt(x).lastIndexOf("\\p") >= 0) {
+		indexCode--;
+	    } else if (codeOfFigure.elementAt(indexCode).lastIndexOf(dataOutput) >= 0) {
 
 		Vector<String> lineas =
-			generateInstructionOfDataOutputForCodeCpp(codeOfFigure
-				.elementAt(x));
+			changeInstructionOfDataOutputForCodeCpp(codeOfFigure
+				.elementAt(indexCode));
 
-		int indexCharacterP = codeOfFigure.elementAt(x).indexOf("p");
+		int indexCharacterP = codeOfFigure.elementAt(indexCode).indexOf("p");
 
 		String space =
-			codeOfFigure.elementAt(x).substring(0,
+			codeOfFigure.elementAt(indexCode).substring(0,
 				indexCharacterP - 1);
 
-		codeOfFigure.removeElementAt(x);
+		codeOfFigure.removeElementAt(indexCode);
 
 		for (int k = 0; k < lineas.size(); k++) {
 
 		    String lin = space + lineas.elementAt(k);
 
-		    codeOfFigure.insertElementAt(lin, x);
+		    codeOfFigure.insertElementAt(lin, indexCode);
 
-		    x++;
+		    indexCode++;
 		}
-		x--;
+		indexCode--;
 	    }
 	}
     }
@@ -125,7 +124,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	}
     }
 
-    private Vector<String> generateInstructionOfDataInputForCodeCpp(String linea) {
+    private Vector<String> changeInstructionOfDataInputForCodeCpp(String linea) {
 	Vector<String> datos = new Vector<String>();
 	String scan = "cin>>";
 	String ultimo = ";";
@@ -133,7 +132,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	String dato = "";
 
 	String data =
-		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
+		linea.substring(linea.lastIndexOf(dataInput) + 5, linea.length());
 
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
@@ -172,7 +171,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	return datos;
     }
 
-    private Vector<String> generateInstructionOfDataOutputForCodeCpp(
+    private Vector<String> changeInstructionOfDataOutputForCodeCpp(
 	    String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "cout ";
@@ -180,7 +179,7 @@ public class FormatCodeCpp extends FormatInstructions {
 	String ultimo = "<< endl;";
 
 	String data =
-		linea.substring(linea.lastIndexOf("\\p") + 2,
+		linea.substring(linea.lastIndexOf(dataOutput) + 2,
 			linea.length() - 1);
 
 	while (data.startsWith(" ")) {

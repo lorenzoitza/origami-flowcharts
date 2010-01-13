@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.*;
 import ui.listener.KeyEvent;
 
 import Administracion.AdminSeleccion;
-import Administracion.Funcionalidad.Codigo.Manager;
+import Administracion.Funcionalidad.Codigo.ManagerCodeFormat;
 import Administracion.actions.RecorridoDiagrama;
 import Grafico.BaseDeDiagrama;
 import Grafico.MainWindow;
@@ -197,7 +197,7 @@ public class PasoAPaso extends Ejecutar{
 		capturar.open();
 	}
 	public boolean verificarLectura(int linea){
-	    	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+	    	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 	    	managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getHoja().getDiagrama());
@@ -813,7 +813,7 @@ public class PasoAPaso extends Ejecutar{
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).getPosicion().removeAllElements();
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).setPosicion(4);
 
-		Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 		managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getTabItem().getLeaf().getDiagrama());

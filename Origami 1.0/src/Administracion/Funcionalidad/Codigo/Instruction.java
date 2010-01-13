@@ -86,19 +86,19 @@ public class Instruction implements Serializable {
     private int addDecisionFigureInstructionToString(Vector<Figura> figures,
 	    int index) {
 
-	DecisionFigure f = (DecisionFigure) figures.elementAt(index);
+	DecisionFigure figure = (DecisionFigure) figures.elementAt(index);
 
 	int outputIndex = index;
 
 	int codeSize = 0;
 
-	if (f.instruction.instruccion.elementAt(0) != null) {
+	if (figure.instruction.instruccion.elementAt(0) != null) {
 
-	    if (isValidInstruction(f.instruction.instruccion.firstElement()
+	    if (isValidInstruction(figure.instruction.instruccion.firstElement()
 		    .getInstruccionSimple())) {
 
 		code.add(identator
-			+ f.instruction.instruccion.elementAt(0)
+			+ figure.instruction.instruccion.elementAt(0)
 				.getInstruccionSimple());
 	    } else {
 		code.add(identator + "if(){");
@@ -128,17 +128,17 @@ public class Instruction implements Serializable {
     private int addForFigureInstructionToString(Vector<Figura> figures,
 	    int index) {
 
-	ForFigure f = (ForFigure) figures.elementAt(index);
+	ForFigure figure = (ForFigure) figures.elementAt(index);
 
 	int outputIndex = index;
 
-	if (f.instruction.instruccion.elementAt(0) != null) {
+	if (figure.instruction.instruccion.elementAt(0) != null) {
 
-	    if (isValidInstruction(f.instruction.instruccion.firstElement()
+	    if (isValidInstruction(figure.instruction.instruccion.firstElement()
 		    .getInstruccionSimple())) {
 
 		code.add(identator
-			+ f.instruction.instruccion.elementAt(0)
+			+ figure.instruction.instruccion.elementAt(0)
 				.getInstruccionSimple());
 	    } else {
 		code.add(identator + "for(){");
@@ -157,17 +157,17 @@ public class Instruction implements Serializable {
     private int addWhileFigureInstructionToString(Vector<Figura> figures,
 	    int index) {
 
-	WhileFigure f = (WhileFigure) figures.elementAt(index);
+	WhileFigure figure = (WhileFigure) figures.elementAt(index);
 
 	int outputIndex = index;
 
-	if (f.instruccion.instruccion.elementAt(0) != null) {
+	if (figure.instruccion.instruccion.elementAt(0) != null) {
 
-	    if (isValidInstruction(f.instruccion.instruccion.firstElement()
+	    if (isValidInstruction(figure.instruccion.instruccion.firstElement()
 		    .getInstruccionSimple())) {
 
 		code.add(identator
-			+ f.instruccion.instruccion.elementAt(0)
+			+ figure.instruccion.instruccion.elementAt(0)
 				.getInstruccionSimple());
 	    } else {
 		code.add(identator + "while(){");
@@ -212,13 +212,13 @@ public class Instruction implements Serializable {
     private int addInputFigureInstructionToString(Vector<Figura> figures,
 	    int index) {
 
-	InputFigure f = ((InputFigure) figures.elementAt(index));
+	InputFigure figure = ((InputFigure) figures.elementAt(index));
 
 	int outputIndex = index;
 
-	if (f.instruction.getInstruccionSimple() != null) {
+	if (figure.instruction.getInstruccionSimple() != null) {
 	    String[] instructions;
-	    String instruction = f.instruction.getInstruccionSimple();
+	    String instruction = figure.instruction.getInstruccionSimple();
 	    instructions = instruction.split(";");
 
 	    for (int instructionIndex = 0; instructionIndex < instructions.length; instructionIndex++) {
@@ -283,12 +283,12 @@ public class Instruction implements Serializable {
     private int addSentenceFigureInstructionToString(Vector<Figura> figures,
 	    int index) {
 
-	SentenceFigure f = (SentenceFigure) figures.elementAt(index);
+	SentenceFigure figure = (SentenceFigure) figures.elementAt(index);
 
 	int outputIndex = index;
 
-	if (f.instruccion.getInstruccionSimple() != null) {
-	    code.add(identator + f.instruccion.getInstruccionSimple());
+	if (figure.instruccion.getInstruccionSimple() != null) {
+	    code.add(identator + figure.instruccion.getInstruccionSimple());
 	}
 	return outputIndex;
     }
@@ -304,7 +304,6 @@ public class Instruction implements Serializable {
 
 	    return "char ";
 	}
-	//return previousDeclaration;
 	return "";
     }
 
@@ -331,7 +330,6 @@ public class Instruction implements Serializable {
 
 	    variable = "Leer: " + previousDeclaration + variable;
 	}
-	// aux = "Leer: " + aux;
 	moreVariables.remove(variableIndex);
 	moreVariables.insertElementAt(variable, variableIndex);
 	return declaration;

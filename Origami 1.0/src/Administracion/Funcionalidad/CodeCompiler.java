@@ -2,7 +2,7 @@ package Administracion.Funcionalidad;
 
 import java.io.*;
 import Administracion.Funcionalidad.Codigo.Instruction;
-import Administracion.Funcionalidad.Codigo.Manager;
+import Administracion.Funcionalidad.Codigo.ManagerCodeFormat;
 import Grafico.MainWindow;
 import Grafico.TabFolder;
 
@@ -84,7 +84,7 @@ public class CodeCompiler {
     }
 
     public void saveCode(boolean isCCode, boolean inExecution) {
-	Manager managerCode = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 	//Instruction codigo = new Instruction();
 
 	if (isCCode) {

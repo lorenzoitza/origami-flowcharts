@@ -4,14 +4,14 @@ import java.util.Vector;
 
 import Administracion.Figura;
 
-public class Manager {
+public class ManagerCodeFormat {
     private Vector<Figura> figures;
 	
 	private FormatInstructions format;
 	
 	private String instructionsFormat;
 	
-	public Manager(Vector<Figura> figures){
+	public ManagerCodeFormat(Vector<Figura> figures){
 		this.figures = figures;
 	}
 	

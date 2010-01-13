@@ -14,7 +14,7 @@ public class FormatCodeC extends FormatInstructions {
     @Override
     public void applyFormat() {
 	divideDataInputForCodeC();
-	code =
+	codeSource =
 		("#include <stdio.h>\n" + "#include <stdlib.h>"
 			+ "\nint main(int argc, char argv[])\n{\n");
 	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
@@ -23,19 +23,19 @@ public class FormatCodeC extends FormatInstructions {
 	    int pos = str.indexOf("null");
 	    if (pos < 0) {
 		
-		code = code + codeOfFigure.elementAt(indexCodeFigure) + "\n";
+		codeSource = codeSource + codeOfFigure.elementAt(indexCodeFigure) + "\n";
 	    }
 	}
-	code = code + "      system(\"PAUSE\");\n      return 0;\n" + "}\n";
+	codeSource = codeSource + "      system(\"PAUSE\");\n      return 0;\n" + "}\n";
     }
-
+    //identificar que nombre debe ser el correcto
     private void divideDataInputForCodeC() {
 	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
 
-	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf("Leer:") >= 0) {
+	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf(dataInput) >= 0) {
 
 		Vector<String> dataSeparate =
-			generateInstructionOfDataInputForCodeC(codeOfFigure
+			changeInstructionOfDataInputForCodeC(codeOfFigure
 				.elementAt(indexCodeFigure));
 
 		int indexCharacterL =
@@ -59,10 +59,10 @@ public class FormatCodeC extends FormatInstructions {
 		}
 		indexCodeFigure--;
 	    } else if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf(
-		    "\\p") >= 0) {
+		    dataOutput) >= 0) {
 
 		Vector<String> dataSeparate =
-			generateInstructionOfDataOutputForCodeC(codeOfFigure
+			changeInstructionOfDataOutputForCodeC(codeOfFigure
 				.elementAt(indexCodeFigure));
 
 		int indexCharacterP =
@@ -124,7 +124,7 @@ public class FormatCodeC extends FormatInstructions {
 	}
     }
 
-    private Vector<String> generateInstructionOfDataInputForCodeC(String linea) {
+    private Vector<String> changeInstructionOfDataInputForCodeC(String linea) {
 	Vector<String> datos = new Vector<String>();
 	String scanCaracter = "scanf(" + "\"" + "%" + "c" + "\"" + "," + "&";
 	String scanEnteros = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
@@ -133,7 +133,7 @@ public class FormatCodeC extends FormatInstructions {
 	String ultimo = ");";
 
 	String data =
-		linea.substring(linea.lastIndexOf("Leer:") + 5, linea.length());
+		linea.substring(linea.lastIndexOf(dataInput) + 5, linea.length());
 
 	while (data.startsWith(" ")) {
 	    data = data.substring(1);
@@ -204,7 +204,7 @@ public class FormatCodeC extends FormatInstructions {
 	return datos;
     }
     
-    private Vector<String> generateInstructionOfDataOutputForCodeC(String linea) {
+    private Vector<String> changeInstructionOfDataOutputForCodeC(String linea) {
 	Vector<String> imprimir = new Vector<String>();
 	String print = "printf(" + "\" ";
 	String entero = "%d ";
@@ -214,7 +214,7 @@ public class FormatCodeC extends FormatInstructions {
 	String ultimo = ");";
 
 	String data =
-		linea.substring(linea.lastIndexOf("\\p") + 2,
+		linea.substring(linea.lastIndexOf(dataOutput) + 2,
 			linea.length() - 1);
 
 	while (data.startsWith(" ")) {

@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import Administracion.*;
 import Administracion.Funcionalidad.Codigo.Instruction;
-import Administracion.Funcionalidad.Codigo.Manager;
+import Administracion.Funcionalidad.Codigo.ManagerCodeFormat;
 import Grafico.MainWindow;
 import Grafico.PaintDiagram;
 import Grafico.TabFolder;
@@ -190,7 +190,7 @@ public class Exporter {
 	    
 		String content = "";
 		
-		Manager manager = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeC();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");
@@ -208,7 +208,7 @@ public class Exporter {
 		
 		String content = "";
 		
-		Manager manager = new Manager(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeCpp();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");

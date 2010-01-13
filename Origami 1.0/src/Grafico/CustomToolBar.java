@@ -20,7 +20,7 @@ import ui.listener.StepByStepAction;
 import ui.listener.ViewCodeCAction;
 import ui.listener.ViewCodeCppAction;
 import Administracion.Figura;
-import Administracion.Funcionalidad.Codigo.Manager;
+import Administracion.Funcionalidad.Codigo.ManagerCodeFormat;
 import Administracion.actions.ContextualMenuActions;
 import Imagenes.ImageLoader;
 
