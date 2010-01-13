@@ -1,12 +1,14 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.ForFigure;
+
+import origami.administration.actions.DialogValidator;
+import origami.graphics.figures.ForFigure;
+
 
 public class ForFigureDialog extends AbstractDialog<ForFigure> {
     

@@ -1,4 +1,4 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,11 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.*;
 
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.OutputFigure;
+import origami.administration.actions.DialogValidator;
+import origami.debug.Debugger;
+import origami.graphics.figures.OutputFigure;
+
+
 
 /**
  * Crea la ventana para introducir los datos de una figura de salida.
@@ -154,14 +157,28 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
     protected void validate(boolean band) {
 	if (band) {
 	    scrolledCompositeContent = composite.getChildren();
-
-	    ArrayList<String> copia = new ArrayList<String>();
 	    
-	    for (int x = 0; x < scrolledCompositeContent.length; x += 2) {
-		copia.add(((Text) scrolledCompositeContent[x]).getText());
+	    String inputCode = "";
+	    
+	    for (int contentIndex = 0; contentIndex < scrolledCompositeContent.length; contentIndex += 2) {
+		
+		String inputText = ((Text) scrolledCompositeContent[contentIndex]).getText().trim();
+		Debugger.debug(this.getClass(),"inputTex"+inputText);
+		
+		if(!inputText.isEmpty() && !inputText.startsWith("Escribe") && inputText.compareToIgnoreCase("null") != 0){
+		    
+		    inputCode += concatenatCode(inputText);
+		    Debugger.debug(this.getClass(),"cconcate"+inputCode);
+		}
 	    }
-	    new DialogValidator().validate(abstractFigure, copia);
+	    
+	    new DialogValidator().validate(abstractFigure, inputCode,"salida");
+	    
 	}
+    }
+    
+    private String concatenatCode(String inputCode){
+	return "\\" + "p"+inputCode+";";
     }
 
 }

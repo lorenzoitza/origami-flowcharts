@@ -1,9 +1,11 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.SentenceFigure;
+
+import origami.administration.actions.DialogValidator;
+import origami.graphics.figures.SentenceFigure;
+
 
 public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 

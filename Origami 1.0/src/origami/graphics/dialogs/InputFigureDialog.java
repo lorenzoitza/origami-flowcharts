@@ -1,4 +1,4 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import java.util.ArrayList;
 
@@ -6,9 +6,12 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.InputFigure;
-import Imagenes.ImageLoader;
+
+import origami.administration.actions.DialogValidator;
+import origami.debug.Debugger;
+import origami.graphics.figures.InputFigure;
+import origami.images.ImageLoader;
+
 
 /**
  * Crea la ventana para introducir los datos de una figura de entrada.
@@ -147,14 +150,37 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     protected void validate(boolean band) {
 	if (band) {
 	    scrolledCompositeContent = composite.getChildren();
-	    ArrayList<String> copia = new ArrayList<String>();
 	    
-	    for (int x = 0; x < scrolledCompositeContent.length; x += 3) {
-		copia.add(((Text) scrolledCompositeContent[x]).getText());
+	    String inputCode = "";
+	    
+	    for (int contentIndex = 0; contentIndex < scrolledCompositeContent.length; contentIndex += 3) {
+		
+		String inputText = ((Text) scrolledCompositeContent[contentIndex]).getText().trim();
+		Debugger.debug(this.getClass(),"inputTex"+inputText);
+		
+		if(!inputText.isEmpty() && !inputText.startsWith("Escribe") && inputText.compareToIgnoreCase("null") != 0){
+		    
+		    inputCode += concatenatCode(inputText);
+		    Debugger.debug(this.getClass(),"cconcate"+inputCode);
+		}
 	    }
 	    
-	    new DialogValidator().validate(abstractFigure, copia);
+	    new DialogValidator().validate(abstractFigure, inputCode,"entrada");
 	}
+    }
+    
+    private String concatenatCode(String inputCode){
+	if(inputCode.startsWith("Leer:")){
+	    String codeTempCopy = inputCode.substring(5).trim();
+	    if (!codeTempCopy.isEmpty()) {//no es vacio
+		inputCode = "Leer: " + codeTempCopy;
+	    }
+	}
+	return inputCode+";";
+	
+	
+	
+	
     }
 
 }

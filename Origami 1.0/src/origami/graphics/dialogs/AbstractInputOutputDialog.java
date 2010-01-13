@@ -1,4 +1,4 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -14,8 +14,9 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
-import ui.listener.KeyEvent;
-import Imagenes.ImageLoader;
+import origami.images.ImageLoader;
+import origami.ui.listeners.KeyEvent;
+
 
 public abstract class AbstractInputOutputDialog<Figure> extends
 		AbstractDialog<Figure> {

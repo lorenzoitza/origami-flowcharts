@@ -1,12 +1,14 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.DecisionFigure;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.origami.debug.Debugger;
+
+import origami.administration.actions.DialogValidator;
+import origami.debug.Debugger;
+import origami.graphics.figures.DecisionFigure;
+
 
 public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 

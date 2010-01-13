@@ -1,4 +1,4 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -6,7 +6,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
-import ui.listener.KeyEvent;
+import origami.ui.listeners.KeyEvent;
+
 
 public abstract class AbstractDialog<Figure> {
 

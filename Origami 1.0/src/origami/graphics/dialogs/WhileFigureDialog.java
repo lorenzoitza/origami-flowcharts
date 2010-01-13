@@ -1,9 +1,11 @@
-package Grafico.VentanaDatos;
+package origami.graphics.dialogs;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.*;
-import Administracion.actions.DialogValidator;
-import Grafico.Figuras.WhileFigure;
+
+import origami.administration.actions.DialogValidator;
+import origami.graphics.figures.WhileFigure;
+
 
 public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
