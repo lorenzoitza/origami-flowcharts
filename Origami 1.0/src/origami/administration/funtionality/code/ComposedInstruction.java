@@ -7,6 +7,6 @@ import java.util.Vector;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class ComposedSourceCode  extends AbstractSourceCode{
-	public Vector<SimpleSourceCode> simpleInstructionList = new Vector<SimpleSourceCode>();
+public class ComposedInstruction  extends Instruction{
+	public Vector<SimpleInstruction> simpleInstructionList = new Vector<SimpleInstruction>();
 }

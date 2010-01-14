@@ -22,7 +22,7 @@ public class ManagerCodeFormat {
 	}
 	
 	public void formatCodeC(){
-		AbstractSourceCode getCodeOfFigures = new AbstractSourceCode();
+		Instruction getCodeOfFigures = new Instruction();
 		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
 		System.out.println(result);
 		format = new CcodeFormatter(result,getCodeOfFigures.getVariablesTable());
@@ -31,7 +31,7 @@ public class ManagerCodeFormat {
 	}
 	
 	public void formatCodeCpp(){
-		AbstractSourceCode getCodeOfFigures = new AbstractSourceCode();
+		Instruction getCodeOfFigures = new Instruction();
 		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
 		System.out.println(result);
 		format = new CppCodeFormatter(result,getCodeOfFigures.getVariablesTable());

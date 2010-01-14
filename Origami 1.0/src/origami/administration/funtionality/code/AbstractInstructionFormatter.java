@@ -58,8 +58,8 @@ public abstract class AbstractInstructionFormatter {
 		temporalLine = temporalLine.substring(0, position) + _temporalLine;
 		position = temporalLine.indexOf(" ");
 	    }
-	    for (int j = 0; j < codeOfFigure.size(); j++) {
-		temporalLine_ = codeOfFigure.elementAt(j);
+	    for (int figureWithCode = 0; figureWithCode < codeOfFigure.size(); figureWithCode++) {
+		temporalLine_ = codeOfFigure.elementAt(figureWithCode);
 		while (temporalLine_.startsWith(" ")) {
 		    temporalLine_ = temporalLine_.substring(1);
 		}
@@ -82,15 +82,15 @@ public abstract class AbstractInstructionFormatter {
     }
     
     protected String getTypeOfData(String variable) {
-	for (int index = 0; index < TableOfVariable.size(); index++) {
-	    if (TableOfVariable.elementAt(index).lastIndexOf(variable) > 0) {
-		if (TableOfVariable.elementAt(index).lastIndexOf("int") >= 0) {
+	for (int variableInTable = 0; variableInTable < TableOfVariable.size(); variableInTable++) {
+	    if (TableOfVariable.elementAt(variableInTable).lastIndexOf(variable) > 0) {
+		if (TableOfVariable.elementAt(variableInTable).lastIndexOf("int") >= 0) {
 		    return "int";
 		}
-		if (TableOfVariable.elementAt(index).lastIndexOf("char") >= 0) {
+		if (TableOfVariable.elementAt(variableInTable).lastIndexOf("char") >= 0) {
 		    return "char";
 		}
-		if (TableOfVariable.elementAt(index).lastIndexOf("float") >= 0) {
+		if (TableOfVariable.elementAt(variableInTable).lastIndexOf("float") >= 0) {
 		    return "float";
 		}
 	    }

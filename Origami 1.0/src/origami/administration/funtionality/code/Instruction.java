@@ -12,13 +12,6 @@ import origami.graphics.figures.SentenceFigure;
 import origami.graphics.figures.WhileFigure;
 
 
-/**
- * Esta clase es la base administra el codigo agregado por el usuario.
- * 
- * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez
- * 
- */
 public class Instruction implements Serializable {
 
     private Vector<String> code = new Vector<String>();
@@ -34,26 +27,20 @@ public class Instruction implements Serializable {
     }
 
     public Vector<String> getInstructionOfDiagram(Vector<Figura> diagrama) {
-	addFiguresInstructionToString(diagrama, 1);
+	getCodeFromFigures(diagrama, 1);
 	return code;
     }
 
 
     private boolean isValidInstruction(String decision) {
-	boolean notIsNull = decision.compareTo("null") != 0;
-	boolean notIsEmpty = decision.compareTo("") != 0;
-	return notIsNull && notIsEmpty;
+	boolean isNotNull = decision.compareTo("null") != 0;
+	boolean isNotEmpty = decision.compareTo("") != 0;
+	return isNotNull && isNotEmpty;
     }
 
-    /**
-     * Este metodo recorre el vector de figuras y agrega cada instruccion de
-     * cada figura a un vector de string.
-     * 
-     * @param diagram
-     * @param x
-     * @return int
-     */
-    private int addFiguresInstructionToString(Vector<Figura> figures,
+
+     
+    private int getCodeFromFigures(Vector<Figura> figures,
 	    int startIndex) {
 
 	int index;
@@ -62,19 +49,19 @@ public class Instruction implements Serializable {
 
 	    if (figures.elementAt(index) instanceof DecisionFigure) {
 
-		index = addDecisionFigureInstructionToString(figures, index);
+		index = getCodeFromDecisionFigure(figures, index);
 	    } else if (figures.elementAt(index) instanceof ForFigure) {
 
-		index = addForFigureInstructionToString(figures, index);
+		index = getCodeFromForFigure(figures, index);
 	    } else if (figures.elementAt(index) instanceof WhileFigure) {
 
-		index = addWhileFigureInstructionToString(figures, index);
+		index = getCodeFromWhileFigure(figures, index);
 	    } else if (figures.elementAt(index) instanceof OutputFigure) {
 
-		index = addOutputFigureInstructionToString(figures, index);
+		index = getCodeFromOutputFigure(figures, index);
 	    } else if (figures.elementAt(index) instanceof InputFigure) {
 
-		index = addInputFigureInstructionToString(figures, index);
+		index = getCodeFromInputFigure(figures, index);
 	    } else if (figures.elementAt(index) instanceof SentenceFigure) {
 
 		addSentenceFigureInstructionToString(figures, index);
@@ -85,7 +72,7 @@ public class Instruction implements Serializable {
 	return index;
     }
     
-    private int addDecisionFigureInstructionToString(Vector<Figura> figures,
+    private int getCodeFromDecisionFigure(Vector<Figura> figures,
 	    int index) {
 
 	DecisionFigure figure = (DecisionFigure) figures.elementAt(index);
@@ -95,9 +82,11 @@ public class Instruction implements Serializable {
 	int codeSize = 0;
 
 	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
+	    
+	    String simpleInstruction = figure.instructionComposed.simpleInstructionList.firstElement()
+	    .getInstruccionSimple();
 
-	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
-		    .getInstruccionSimple())) {
+	    if (isValidInstruction(simpleInstruction)) {
 
 		code.add(identator
 
@@ -107,18 +96,18 @@ public class Instruction implements Serializable {
 		code.add(identator + "if(){");
 	    }
 	}
-	tabula(true);
-	outputIndex = addFiguresInstructionToString(figures, index + 2);
+	changeIndetator(true);
+	outputIndex = getCodeFromFigures(figures, index + 2);
 
-	tabula(false);
+	changeIndetator(false);
 	code.add(identator + "}");
 	codeSize = code.size();
 
-	tabula(true);
+	changeIndetator(true);
 	outputIndex =
-		addFiguresInstructionToString(figures, outputIndex + 2) + 1;
+		getCodeFromFigures(figures, outputIndex + 2) + 1;
 
-	tabula(false);
+	changeIndetator(false);
 	if (code.size() > codeSize) {
 
 	    String copy = new String(identator + "else{");
@@ -128,7 +117,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int addForFigureInstructionToString(Vector<Figura> figures,
+    private int getCodeFromForFigure(Vector<Figura> figures,
 	    int index) {
 
 	ForFigure figure = (ForFigure) figures.elementAt(index);
@@ -148,17 +137,17 @@ public class Instruction implements Serializable {
 		code.add(identator + "for(){");
 	    }
 	}
-	tabula(true);
-	outputIndex = addFiguresInstructionToString(figures, index + 1);
+	changeIndetator(true);
+	outputIndex = getCodeFromFigures(figures, index + 1);
 
-	tabula(false);
+	changeIndetator(false);
 	code.add(identator + "}");
 	outputIndex += 5;
 
 	return outputIndex;
     }
 
-    private int addWhileFigureInstructionToString(Vector<Figura> figures,
+    private int getCodeFromWhileFigure(Vector<Figura> figures,
 	    int index) {
 
 	WhileFigure figure = (WhileFigure) figures.elementAt(index);
@@ -177,17 +166,17 @@ public class Instruction implements Serializable {
 		code.add(identator + "while(){");
 	    }
 	}
-	tabula(true);
-	outputIndex = addFiguresInstructionToString(figures, index + 1);
+	changeIndetator(true);
+	outputIndex = getCodeFromFigures(figures, index + 1);
 
-	tabula(false);
+	changeIndetator(false);
 	code.add(identator + "}");
 	outputIndex += 5;
 
 	return outputIndex;
     }
 
-    private int addOutputFigureInstructionToString(Vector<Figura> figures,
+    private int getCodeFromOutputFigure(Vector<Figura> figures,
 	    int index) {
 
 	OutputFigure figure = ((OutputFigure) figures.elementAt(index));
@@ -213,7 +202,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int addInputFigureInstructionToString(Vector<Figura> figures,
+    private int getCodeFromInputFigure(Vector<Figura> figures,
 	    int index) {
 
 	InputFigure figure = ((InputFigure) figures.elementAt(index));
@@ -230,40 +219,40 @@ public class Instruction implements Serializable {
 		if (instructions[instructionIndex].indexOf(",") != -1) {
 
 		    System.out.println("before: "+instructions[instructionIndex]);
-		    Vector<String> moreVariables =
-			    moreVariables(instructions[instructionIndex], null);
-		    for(int i=0; i<moreVariables.size(); i++){
-			System.out.println("after: "+moreVariables.elementAt(i));
+		    Vector<String> getSetencesWithFormattedVariables =
+			    getFormattedVariables(instructions[instructionIndex], null);
+		    for(int variableIndex=0; variableIndex<getSetencesWithFormattedVariables.size(); variableIndex++){
+			System.out.println("after: "+getSetencesWithFormattedVariables.elementAt(variableIndex));
 		    }
 		    
-		    if (moreVariables.elementAt(0).indexOf("Leer:") >= 0) {
+		    if (getSetencesWithFormattedVariables.elementAt(0).indexOf("Leer:") >= 0) {
 
 			int indexAux =
-				moreVariables.elementAt(0).indexOf("Leer:") + 5;
+				getSetencesWithFormattedVariables.elementAt(0).indexOf("Leer:") + 5;
 			String previousDeclaration =
-				moreVariables.elementAt(0).substring(indexAux);
+				getSetencesWithFormattedVariables.elementAt(0).substring(indexAux);
 
-			previousDeclaration = getDataTipe(previousDeclaration);
+			previousDeclaration = getDataType(previousDeclaration);
 
-			for (int variableIndex = 1; variableIndex < moreVariables
+			for (int variableIndex = 1; variableIndex < getSetencesWithFormattedVariables
 				.size(); variableIndex++) {
 
-			    changeVariablesContent(moreVariables,
+			    changeVariablesContent(getSetencesWithFormattedVariables,
 				    previousDeclaration, variableIndex);
 			}
 		    }
-		    for (int variableIndex = 0; variableIndex < moreVariables
+		    for (int variableIndex = 0; variableIndex < getSetencesWithFormattedVariables
 			    .size(); variableIndex++) {
 
 			code.add(identator
-				+ moreVariables.elementAt(variableIndex) + ";");
+				+ getSetencesWithFormattedVariables.elementAt(variableIndex) + ";");
 			int readIndex =
-				moreVariables.elementAt(variableIndex).indexOf(
+				getSetencesWithFormattedVariables.elementAt(variableIndex).indexOf(
 					"Leer:");
 
 			if (readIndex == -1) {
 
-			    variablesTable.add(moreVariables
+			    variablesTable.add(getSetencesWithFormattedVariables
 				    .elementAt(variableIndex)
 				    + ";");
 			}
@@ -297,24 +286,24 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private String getDataTipe(String previousDeclaration) {
-	if (previousDeclaration.contains("int ")) {
+    private String getDataType(String dataType) {
+	if (dataType.contains("int ")) {
 
 	    return "int ";
-	} else if (previousDeclaration.contains("float ")) {
+	} else if (dataType.contains("float ")) {
 
 	    return "float ";
-	} else if (previousDeclaration.contains("char ")) {
+	} else if (dataType.contains("char ")) {
 
 	    return "char ";
 	}
 	return "";
     }
 
-    private String changeVariablesContent(Vector<String> moreVariables,
+    private String changeVariablesContent(Vector<String> listVariables,
 	    String previousDeclaration, int variableIndex) {
 
-	String variable = moreVariables.elementAt(variableIndex);
+	String variable = listVariables.elementAt(variableIndex);
 
 	String declaration = previousDeclaration;
 
@@ -334,69 +323,63 @@ public class Instruction implements Serializable {
 
 	    variable = "Leer: " + previousDeclaration + variable;
 	}
-	moreVariables.remove(variableIndex);
-	moreVariables.insertElementAt(variable, variableIndex);
+	listVariables.remove(variableIndex);
+	listVariables.insertElementAt(variable, variableIndex);
 	return declaration;
     }
 
-    /*
-     * arreglar posterior mente este metodo que es el que separa los datos de entrada
-     * declaraciones de arrays junto con variables
-     * Ejemplo:
-     * int array[2] = {0,1},j,float k
-     * 
-     */
-    private Vector<String> moreVariables(String line, String tipe) {
+
+    private Vector<String> getFormattedVariables(String sentenceLine, String variableType) {
 	Vector<String> variables = new Vector<String>();
 	
-	if(line.lastIndexOf("Leer:")!=-1){
-	    if(line.lastIndexOf("{")!=-1){
-		//coloco la palabre Leer: y tiene inicializado un arreglo???
+	if(sentenceLine.lastIndexOf("Leer:")!=-1){
+	    if(sentenceLine.lastIndexOf("{")!=-1){
+		
 	    }
 	    else{
-		//entrada
-		String lines[]=line.split(",");
-		String data = lines[0].substring(lines[0].indexOf(":"));
-		String previousTipe = getDataTipe(data);
-		variables.add(lines[0]);
-		for(int i=1; i<lines.length; i++){
-		    String type = getDataTipe(lines[i]);
-		    if(type!=""){
-			previousTipe = type;
-			variables.add("Leer: "+lines[i]);
+		
+		String tokenizedSentences[] = sentenceLine.split(",");
+		String data = tokenizedSentences[0].substring(tokenizedSentences[0].indexOf(":"));
+		String previousDataType = getDataType(data);
+		variables.add(tokenizedSentences[0]);
+		for(int tokenizedSentence = 1; tokenizedSentence <tokenizedSentences.length; tokenizedSentence++){
+		    String dataTypeOfVariable = getDataType(tokenizedSentences[tokenizedSentence ]);
+		    if(dataTypeOfVariable!=""){
+			previousDataType = dataTypeOfVariable;
+			variables.add("Leer: "+tokenizedSentences[tokenizedSentence ]);
 		    }
 		    else{
-			variables.add("Leer: "+previousTipe+" "+lines[i]);
+			variables.add("Leer: "+previousDataType+" "+tokenizedSentences[tokenizedSentence]);
 		    }
 		}
 	    }
 	}
 	else{
-	    if(line.lastIndexOf("{")!=-1){
+	    if(sentenceLine.lastIndexOf("{")!=-1){
 		//array inicializado
-		variables.add(line);
+		variables.add(sentenceLine);
 	    }
 	    else{
 		//declaraciones normales
-		 String lines[]=line.split(",");
-		 String previousTipe = getDataTipe(lines[0]);
-		 variables.add(lines[0]);
-		 for(int i=1; i<lines.length; i++){
-		     String type = getDataTipe(lines[i]);
-		     if(type!=""){
-			 previousTipe = type;
-			 variables.add(lines[i]);
+		 String tokenizedSentences[] = sentenceLine.split(",");
+		 String dataTypeOfVariable = getDataType(tokenizedSentences[0]);
+		 variables.add(tokenizedSentences[0]);
+		 for(int tokenizedSentence = 1; tokenizedSentence <tokenizedSentences.length; tokenizedSentence++){
+		     String newDatatype = getDataType(tokenizedSentences[tokenizedSentence ]);
+		     if(newDatatype!=""){
+			 dataTypeOfVariable = newDatatype;
+			 variables.add(tokenizedSentences[tokenizedSentence ]);
 		     }
 		     else{
-			 variables.add(previousTipe+lines[i]);
+			 variables.add(dataTypeOfVariable+tokenizedSentences[tokenizedSentence ]);
 		     }
 		 }
 	    }
 	}
 	return variables;
     }
-    private void tabula(boolean isMayor) {
-	if (isMayor) {
+    private void changeIndetator(boolean on) {
+	if (on) {
 	    
 	    identator = identator + "    ";
 	} else {

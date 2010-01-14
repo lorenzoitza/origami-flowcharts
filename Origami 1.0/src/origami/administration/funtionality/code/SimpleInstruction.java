@@ -6,7 +6,7 @@ package origami.administration.funtionality.code;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class SimpleSourceCode extends AbstractSourceCode{
+public class SimpleInstruction extends Instruction{
 	public String simpleInstruction;
 	/**
 	 * Este metodo cambia el parametro 
