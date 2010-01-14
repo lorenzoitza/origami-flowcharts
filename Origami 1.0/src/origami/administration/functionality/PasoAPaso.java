@@ -1,4 +1,4 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import java.util.LinkedList;
 import java.util.Vector;
@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.*;
 
 import origami.administration.AdminSelection;
 import origami.administration.actions.DiagramCiclePath;
-import origami.administration.funtionality.code.ManagerCodeFormat;
+import origami.administration.functionality.code.ManagerCodeFormat;
 import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;

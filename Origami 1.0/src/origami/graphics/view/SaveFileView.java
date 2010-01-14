@@ -6,8 +6,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
-import origami.administration.funtionality.DiagramExporter;
-import origami.administration.funtionality.DiagramFileManager;
+import origami.administration.functionality.DiagramExporter;
+import origami.administration.functionality.DiagramFileManager;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
 

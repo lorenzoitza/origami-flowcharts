@@ -1,9 +1,9 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import java.io.*;
 
-import origami.administration.funtionality.code.Instruction;
-import origami.administration.funtionality.code.ManagerCodeFormat;
+import origami.administration.functionality.code.Instruction;
+import origami.administration.functionality.code.ManagerCodeFormat;
 import origami.graphics.WindowWidgets;
 import origami.graphics.widgets.TabFolder;
 

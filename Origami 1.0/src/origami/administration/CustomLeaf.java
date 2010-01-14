@@ -5,7 +5,7 @@ import java.util.Vector;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import origami.administration.funtionality.DiagramFileManager;
+import origami.administration.functionality.DiagramFileManager;
 import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;

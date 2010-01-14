@@ -1,7 +1,7 @@
 package origami.administration.actions;
 
 import origami.administration.ApplicationState;
-import origami.administration.funtionality.code.SimpleInstruction;
+import origami.administration.functionality.code.SimpleInstruction;
 import origami.graphics.WindowWidgets;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;

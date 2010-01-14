@@ -1,4 +1,4 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

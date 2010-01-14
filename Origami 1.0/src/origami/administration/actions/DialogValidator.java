@@ -3,7 +3,7 @@ package origami.administration.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import origami.administration.funtionality.code.SimpleInstruction;
+import origami.administration.functionality.code.SimpleInstruction;
 import origami.graphics.WindowWidgets;
 
 public class DialogValidator {

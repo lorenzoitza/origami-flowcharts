@@ -1,4 +1,4 @@
-package origami.administration.funtionality.code;
+package origami.administration.functionality.code;
 
 import java.util.Vector;
 

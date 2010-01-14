@@ -10,7 +10,7 @@ import origami.administration.AdminSelection;
 import origami.administration.CustomLeaf;
 import origami.administration.FigureStructure;
 import origami.administration.Information;
-import origami.administration.funtionality.SaveDiagramController;
+import origami.administration.functionality.SaveDiagramController;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;
 import origami.graphics.figures.InputFigure;

@@ -1,4 +1,4 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import java.io.*;
 import java.nio.channels.FileChannel;
@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import origami.administration.*;
-import origami.administration.funtionality.code.ManagerCodeFormat;
+import origami.administration.functionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
 import origami.graphics.WindowWidgets;

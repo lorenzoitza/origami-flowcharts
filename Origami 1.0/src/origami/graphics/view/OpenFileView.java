@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import origami.administration.ApplicationState;
-import origami.administration.funtionality.DiagramFileManager;
+import origami.administration.functionality.DiagramFileManager;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
 

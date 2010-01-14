@@ -5,7 +5,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.*;
-import origami.administration.funtionality.code.SimpleInstruction;
+import origami.administration.functionality.code.SimpleInstruction;
 
 /**
  * Esta clase es la que crea y dibujar a la figura de entrada.

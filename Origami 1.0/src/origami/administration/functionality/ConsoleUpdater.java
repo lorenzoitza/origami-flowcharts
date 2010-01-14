@@ -1,4 +1,4 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;

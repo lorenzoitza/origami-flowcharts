@@ -1,4 +1,4 @@
-package origami.administration.funtionality.code;
+package origami.administration.functionality.code;
 
 @SuppressWarnings("serial")
 public class SimpleInstruction extends Instruction{

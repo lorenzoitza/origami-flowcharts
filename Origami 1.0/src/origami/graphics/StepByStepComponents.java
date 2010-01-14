@@ -8,9 +8,9 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
 import origami.administration.ApplicationState;
-import origami.administration.funtionality.CodeCompiler;
-import origami.administration.funtionality.ConsoleController;
-import origami.administration.funtionality.PasoAPaso;
+import origami.administration.functionality.CodeCompiler;
+import origami.administration.functionality.ConsoleController;
+import origami.administration.functionality.PasoAPaso;
 import origami.graphics.widgets.CustomFiguresToolBar;
 import origami.graphics.widgets.CustomMenu;
 

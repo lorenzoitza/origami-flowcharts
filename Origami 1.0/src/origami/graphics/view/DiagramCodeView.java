@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 
-import origami.administration.funtionality.DiagramExporter;
+import origami.administration.functionality.DiagramExporter;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
 import origami.images.ImageLoader;

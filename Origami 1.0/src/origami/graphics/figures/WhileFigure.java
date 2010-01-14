@@ -5,7 +5,8 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.FigureStructure;
-import origami.administration.funtionality.code.*;
+import origami.administration.functionality.code.ComposedInstruction;
+import origami.administration.functionality.code.SimpleInstruction;
 
 /**
  * Esta clase es la que crea y dibujar a la figura del While.

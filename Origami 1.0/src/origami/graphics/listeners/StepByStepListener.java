@@ -3,7 +3,7 @@ package origami.graphics.listeners;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import origami.administration.funtionality.CodeCompiler;
+import origami.administration.functionality.CodeCompiler;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
 import origami.graphics.view.SaveFileView;

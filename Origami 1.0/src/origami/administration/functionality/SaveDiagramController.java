@@ -1,4 +1,4 @@
-package origami.administration.funtionality;
+package origami.administration.functionality;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
