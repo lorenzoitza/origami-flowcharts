@@ -61,4 +61,24 @@ public class AddFigureLogic {
 	ApplicationState.mainFigure = null;
 	ApplicationState.mainFigure = whileFigure;
     }
+    public void changeCursotTo(String figure){
+	if(figure.contentEquals("cursorEntrada.png")){
+	    addInput();
+	}
+	else if(figure.contentEquals("cursorIf.png")){
+	    addDecision();
+	}
+	else if(figure.contentEquals("cursorFor.png")){
+	    addFor();
+	}
+	else if(figure.contentEquals("cursorSalida.png")){
+	    addOutput();
+	}
+	else if(figure.contentEquals("cursorProceso.png")){
+	    addSentence();
+	}
+	else if(figure.contentEquals("cursorWhile.png")){
+	    addWhile();
+	}
+    }
 }

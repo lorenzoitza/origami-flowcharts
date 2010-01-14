@@ -1,4 +1,4 @@
-TOTAL ERRORES: 41
+TOTAL ERRORES: 48
 
 ****************************************************************************************************************************
 Rastreo de pila proveniente de getStackTrace:
@@ -434,4 +434,140 @@ org.eclipse.swt.widgets.Widget                          Widget.java             
 org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
 org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
 Grafico.MainWindow                                      MainWindow.java         223     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        15      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        15      getImage
+origami.graphics.widgets.CustomFiguresToolBar           CustomFiguresToolBar.java100     initToolBarButtons
+origami.graphics.widgets.CustomFiguresToolBar           CustomFiguresToolBar.java46      <init>
+origami.graphics.Componentes                            Componentes.java        90      agregarBarraFiguras
+origami.graphics.BaseDeDiagrama                         BaseDeDiagrama.java     34      <init>
+origami.graphics.BaseDeDiagrama                         BaseDeDiagrama.java     44      getInstance
+origami.graphics.Componentes                            Componentes.java        82      agregarTabFolder
+origami.graphics.Componentes                            Componentes.java        69      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+origami.graphics.StepByStepComponents                   StepByStepComponents.java58      stopEjecucion
+origami.graphics.widgets.CustomToolBar$7                CustomToolBar.java      223     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+origami.graphics.MainWindow                             MainWindow.java         95      main
 

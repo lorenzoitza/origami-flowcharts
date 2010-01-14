@@ -34,7 +34,7 @@ public class SelectionListener extends MouseListener.Stub implements
 	if (e.button == leftClick || e.button == rightClick) {
 	    Figura figure = ((Figura) e.getSource());
 	    seleccion.setSelectedFigure(getFigureIndex(figure));
-	    if (seleccion.getSelectedFigure() != -1) {
+	    if (seleccion.getSelectedFigure()!= -1) {
 		currentTab.getTabItem().getLeaf().addFigure();
 	    }
 	}
