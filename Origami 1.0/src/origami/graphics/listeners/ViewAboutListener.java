@@ -4,7 +4,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import origami.graphics.MainWindow;
-import origami.graphics.Help.AboutWindow;
+import origami.graphics.Help42.AboutWindow;
 
 public class ViewAboutListener implements SelectionListener{
     
