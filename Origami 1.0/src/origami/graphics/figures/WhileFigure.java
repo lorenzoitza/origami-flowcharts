@@ -50,11 +50,9 @@ public class WhileFigure extends Figura {
     }
 
     private boolean isInstruction() {
-	boolean isNull =
-		instructionComposed.simpleInstructionList.firstElement()
-			.getInstruccionSimple() == null;
+	boolean isNull = instructionComposed.getFirstInstructionSimple() == null;
 	
-	return instructionComposed.simpleInstructionList.size() > 1
+	return instructionComposed.getListSize() > 1
 		&& (!isNull);
     }
 
@@ -96,8 +94,7 @@ public class WhileFigure extends Figura {
 
     private String constructInstructionText() {
 	String instructionCode =
-		instructionComposed.simpleInstructionList.firstElement()
-			.getInstruccionSimple();
+		instructionComposed.getFirstInstructionSimple();
 
 	int maxLenght = 11;
 
@@ -122,19 +119,18 @@ public class WhileFigure extends Figura {
     }
 
     private String getInstructionCode() {
-	return instructionComposed.simpleInstructionList.firstElement()
-		.getInstruccionSimple();
+	return instructionComposed.getFirstInstructionSimple();
     }
 
     public boolean equalInstructions(String instructionCode) {
 	return getInstructionCode().equals(instructionCode);
     }
 
-    public void addInstructionSimple(SimpleInstruction instructionSimple) {
-	instructionComposed.simpleInstructionList.add(0, instructionSimple);
+    public void addInstructionSimple(SimpleInstruction simpleInstruction) {
+	instructionComposed.addFirstSimpleInstruction(simpleInstruction);
     }
 
     public boolean isEmpyInstructionList() {
-	return instructionComposed.simpleInstructionList.isEmpty();
+	return instructionComposed.isEmptyList();
     }
 }

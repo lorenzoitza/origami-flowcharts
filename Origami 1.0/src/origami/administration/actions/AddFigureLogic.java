@@ -29,7 +29,7 @@ public class AddFigureLogic {
 	DecisionFigure decisionFigure = new DecisionFigure();
 	SimpleInstruction codigo = new SimpleInstruction();
 	codigo.setInstruccionSimple("null");
-	decisionFigure.instructionComposed.simpleInstructionList.add(0,codigo);
+	decisionFigure.instructionComposed.addFirstSimpleInstruction(codigo);
 	ApplicationState.mainFigure = null;
 	ApplicationState.mainFigure = decisionFigure;
     }
@@ -37,7 +37,7 @@ public class AddFigureLogic {
 	ForFigure forFigure = new ForFigure();
 	SimpleInstruction codigo = new SimpleInstruction();
 	codigo.setInstruccionSimple("null");
-	forFigure.instructionComposed.simpleInstructionList.add(0,codigo);
+	forFigure.instructionComposed.addFirstSimpleInstruction(codigo);
 	ApplicationState.mainFigure = null;
 	ApplicationState.mainFigure = forFigure;
     }
@@ -57,7 +57,7 @@ public class AddFigureLogic {
 	WhileFigure whileFigure = new WhileFigure();
 	SimpleInstruction instructionCode = new SimpleInstruction();
 	instructionCode.setInstruccionSimple("null");
-	whileFigure.instructionComposed.simpleInstructionList.add(0,instructionCode);
+	whileFigure.instructionComposed.addFirstSimpleInstruction(instructionCode);
 	ApplicationState.mainFigure = null;
 	ApplicationState.mainFigure = whileFigure;
     }

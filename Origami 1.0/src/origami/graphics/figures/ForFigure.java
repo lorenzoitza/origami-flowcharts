@@ -126,8 +126,7 @@ public class ForFigure extends Figura {
     }
 
     private String getInstructionCode() {
-	return instructionComposed.simpleInstructionList.firstElement()
-		.getInstruccionSimple();
+	return instructionComposed.getFirstInstructionSimple();
     }
 
     private boolean isInstruction() {
@@ -154,11 +153,11 @@ public class ForFigure extends Figura {
 	return getInstructionCode().equals(instructionCode);
     }
 
-    public void addInstructionSimple(SimpleInstruction instructionSimple) {
-	instructionComposed.simpleInstructionList.add(0, instructionSimple);
+    public void addInstructionSimple(SimpleInstruction simpleInstruction) {
+	instructionComposed.addFirstSimpleInstruction(simpleInstruction);
     }
 
     public boolean isEmpyInstructionList() {
-	return instructionComposed.simpleInstructionList.isEmpty();
+	return instructionComposed.isEmptyList();
     }
 }

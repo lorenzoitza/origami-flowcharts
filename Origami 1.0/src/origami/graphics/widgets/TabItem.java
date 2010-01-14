@@ -87,31 +87,22 @@ public class TabItem extends CTabItem {
 	    if (diagrama.elementAt(index) instanceof DecisionFigure) {
 		DecisionFigure copia = new DecisionFigure();
 		DecisionFigure actual = (DecisionFigure) diagrama.elementAt(index);
-		for (int element = 0; element < actual.instructionComposed.simpleInstructionList
-			.size(); element++) {
-		    copia.instructionComposed.simpleInstructionList
-			    .add(actual.instructionComposed.simpleInstructionList
-				    .elementAt(element));
+		for (int element = 0; element < actual.instructionComposed.getListSize(); element++) {
+		    copia.instructionComposed.addSimpleInstruction(actual.instructionComposed.getSimpleInstructionAt(element));
 		}
 		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof ForFigure) {
 		ForFigure copia = new ForFigure();
 		ForFigure actual = (ForFigure) diagrama.elementAt(index);
-		for (int element = 0; element < actual.instructionComposed.simpleInstructionList
-			.size(); element++) {
-		    copia.instructionComposed.simpleInstructionList
-			    .add(actual.instructionComposed.simpleInstructionList
-				    .elementAt(element));
+		for (int element = 0; element < actual.instructionComposed.getListSize(); element++) {
+		    copia.instructionComposed.addSimpleInstruction(actual.instructionComposed.getSimpleInstructionAt(element));
 		}
 		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof WhileFigure) {
 		WhileFigure copia = new WhileFigure();
 		WhileFigure actual = (WhileFigure) diagrama.elementAt(index);
-		for (int element = 0; element < actual.instructionComposed.simpleInstructionList
-			.size(); element++) {
-		    copia.instructionComposed.simpleInstructionList
-			    .add(actual.instructionComposed.simpleInstructionList
-				    .elementAt(element));
+		for (int element = 0; element < actual.instructionComposed.getListSize(); element++) {
+		    copia.instructionComposed.addSimpleInstruction(actual.instructionComposed.getSimpleInstructionAt(element));
 		}
 		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof SentenceFigure) {

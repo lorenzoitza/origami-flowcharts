@@ -106,27 +106,27 @@ public class DecisionFigure extends Figura {
     }
 
     private String getInstructionCode() {
-    	return instructionComposed.simpleInstructionList.firstElement().getInstruccionSimple();
+    	return instructionComposed.getFirstInstructionSimple();
     }
 
     private boolean isInstruction() {
 	boolean isNull = getInstructionCode() == null;
 	
-	boolean isEmpty = instructionComposed.simpleInstructionList.size() <= 1;
+	boolean isEmpty = instructionComposed.getListSize() <= 1;
 	
 	return (!isEmpty) && (!isNull);
     }
 
     
-	public boolean equalInstructions(String instructionCode) {
-		return getInstructionCode().equals(instructionCode);
-	}
-	
-	public void addInstructionSimple(SimpleInstruction instructionSimple){
-		instructionComposed.simpleInstructionList.add(0, instructionSimple);
-	}
-	
-	public boolean isEmpyInstructionList() {
-		return instructionComposed.simpleInstructionList.isEmpty();
-	}
+    public boolean equalInstructions(String instructionCode) {
+	return getInstructionCode().equals(instructionCode);
+    }
+
+    public void addInstructionSimple(SimpleInstruction simpleInstruction) {
+	instructionComposed.addFirstSimpleInstruction(simpleInstruction);
+    }
+
+    public boolean isEmpyInstructionList() {
+	return instructionComposed.isEmptyList();
+    }
 }

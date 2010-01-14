@@ -6,7 +6,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.*;
 import origami.administration.funtionality.code.SimpleInstruction;
-import origami.debug.Debugger;
 
 
 /**
@@ -102,7 +101,7 @@ public class OutputFigure extends Figura {
 		cont++;
 	    }
 	}
-	Debugger.debug(this.getClass(), "contador: "+ cont);
+	
 	for (int variableIndex = 0; variableIndex < cont; variableIndex++) {
 
 	    if (!finalVariables[variableIndex].isEmpty()) {

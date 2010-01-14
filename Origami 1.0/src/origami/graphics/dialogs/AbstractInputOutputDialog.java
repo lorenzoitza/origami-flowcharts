@@ -168,7 +168,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 		return new SelectionAdapter() {
 	
 		    public void widgetSelected(SelectionEvent e) {
-			Debugger.debug(this.getClass(), "widget selectd "+composite.getChildren().length+"  "+numHorizComponents);
+			
 			addTextComponent(composite.getChildren().length
 				/ numHorizComponents);
 			scrolledCompositeContent = composite.getChildren();

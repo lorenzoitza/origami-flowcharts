@@ -64,8 +64,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     @Override
     public void initTextFields() {
 	String conditionIfFigure =
-		abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-			.getInstruccionSimple();
+		abstractFigure.instructionComposed.getFirstInstructionSimple();
 
 	if ((conditionIfFigure.compareTo("null") != 0)
 		&& (!conditionIfFigure.isEmpty())) {

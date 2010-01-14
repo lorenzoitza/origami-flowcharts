@@ -255,10 +255,10 @@ public class EventoCambiarCursor{
 		for(int k=0; k<diagrama.diagram.size(); k++){
 			if(diagrama.diagram.elementAt(k) instanceof DecisionFigure){
 				DecisionFigure a = (DecisionFigure)diagrama.diagram.elementAt(k);
-				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
+				dato = a.instructionComposed.getFirstInstructionSimple();
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.getListSize() > 1){
 					subStr=subStr.substring(2,subStr.length());
 					subStr="Si"+subStr;
 					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
@@ -269,10 +269,10 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagram.elementAt(k) instanceof ForFigure){
 				ForFigure a = (ForFigure)diagrama.diagram.elementAt(k);
-				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
+				dato = a.instructionComposed.getFirstInstructionSimple();
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.getListSize() > 1){
 					subStr=subStr.substring(3,subStr.length());
 					subStr="Para"+subStr;
 					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
@@ -283,10 +283,10 @@ public class EventoCambiarCursor{
 			}
 			else if(diagrama.diagram.elementAt(k) instanceof WhileFigure){
 				WhileFigure a = (WhileFigure)diagrama.diagram.elementAt(k);
-				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
+				dato = a.instructionComposed.getFirstInstructionSimple();
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
-				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
+				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.getListSize() > 1){
 					subStr=subStr.substring(5,subStr.length());
 					subStr="Mientras"+subStr;
 					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));

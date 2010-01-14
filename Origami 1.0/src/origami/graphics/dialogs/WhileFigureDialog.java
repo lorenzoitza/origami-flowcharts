@@ -52,15 +52,12 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
     @Override
     public void initTextFields() {
-	if (!abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-		.getInstruccionSimple().isEmpty()
-		&& abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-			.getInstruccionSimple().compareTo("null") != 0) {
+	if (!abstractFigure.instructionComposed.getFirstInstructionSimple().isEmpty()
+		&& abstractFigure.instructionComposed.getFirstInstructionSimple().compareTo("null") != 0) {
 	    String conditionOfWhile = "";
 
 	    String instructionCode =
-		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-			    .getInstruccionSimple();
+		    abstractFigure.instructionComposed.getFirstInstructionSimple();
 
 	    for (int charIndex = 0; charIndex < instructionCode.length(); charIndex++) {
 

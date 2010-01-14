@@ -81,17 +81,15 @@ public class Instruction implements Serializable {
 
 	int codeSize = 0;
 
-	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
+	if (figure.instructionComposed.getFirstInstructionSimple() != null) {
 	    
-	    String simpleInstruction = figure.instructionComposed.simpleInstructionList.firstElement()
-	    .getInstruccionSimple();
+	    String simpleInstruction = figure.instructionComposed.getFirstInstructionSimple();
 
 	    if (isValidInstruction(simpleInstruction)) {
 
 		code.add(identator
 
-			+ figure.instructionComposed.simpleInstructionList.elementAt(0)
-				.getInstruccionSimple());
+			+ figure.instructionComposed.getFirstInstructionSimple());
 	    } else {
 		code.add(identator + "if(){");
 	    }
@@ -124,15 +122,12 @@ public class Instruction implements Serializable {
 
 	int outputIndex = index;
 
-	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
+	if (figure.instructionComposed.getFirstInstructionSimple() != null) {
 
-	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
-
-		    .getInstruccionSimple())) {
+	    if (isValidInstruction(figure.instructionComposed.getFirstInstructionSimple())) {
 
 		code.add(identator
-			+ figure.instructionComposed.simpleInstructionList.elementAt(0)
-				.getInstruccionSimple());
+			+ figure.instructionComposed.getFirstInstructionSimple());
 	    } else {
 		code.add(identator + "for(){");
 	    }
@@ -155,12 +150,11 @@ public class Instruction implements Serializable {
 	int outputIndex = index;
 
 
-	if (figure.instructionComposed.simpleInstructionList.elementAt(0) != null) {
-	    if (isValidInstruction(figure.instructionComposed.simpleInstructionList.firstElement()
-	    		.getInstruccionSimple())) {
+	if (figure.instructionComposed.getFirstInstructionSimple() != null) {
+	    if (isValidInstruction(figure.instructionComposed.getFirstInstructionSimple())) {
 
 		code.add(identator
-			+ figure.instructionComposed.simpleInstructionList.elementAt(0));
+			+ figure.instructionComposed.getFirstInstructionSimple());
 			
 	    } else {
 		code.add(identator + "while(){");

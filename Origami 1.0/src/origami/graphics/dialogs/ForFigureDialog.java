@@ -100,8 +100,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	String counterExpression = "";
 
 	instructionCode =
-		abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-			.getInstruccionSimple();
+		abstractFigure.instructionComposed.getFirstInstructionSimple();
 	instructionCode = instructionCode.replaceFirst("for", "");
 	instructionCode = instructionCode.replace("(", "");
 	instructionCode = instructionCode.replace(")", "");
@@ -109,8 +108,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 
 	if ((instructionCode.compareTo("null") != 0) && (!instructionCode.isEmpty())) {
 	    String[] forExpressions =
-		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-			    .getInstruccionSimple().split(";");
+		    abstractFigure.instructionComposed.getFirstInstructionSimple().split(";");
 	    for (int charIndex = 0; 
 	    	charIndex < forExpressions[0].length(); 
 	    	charIndex++) {
