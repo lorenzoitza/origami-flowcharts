@@ -315,7 +315,7 @@ public class CustomToolBar {
 	    toolItems.get(back).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(stopExecute).setEnabled(true);
+	    toolItems.get(stopExecute).setEnabled(false);
 	    toolItems.get(exportCodeC).setEnabled(true);
 	    toolItems.get(exportCodeCpp).setEnabled(true);
 	    toolItems.get(exportExe).setEnabled(true);

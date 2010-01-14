@@ -77,7 +77,7 @@ public class SaveFileView {
 	    save(fileName,fileAdress);
 	    break;
 	case SAVEAS:
-	    saveAs(fileName);
+	    saveAs(fileName,fileAdress);
 	    break;
 	case EXPORTC:
 	    exportC(fileName);
@@ -165,8 +165,9 @@ public class SaveFileView {
 	}
     }
 
-    private void saveAs(String fileName) {
+    private void saveAs(String fileName,String fileAdress) {
 	serializer.setFile(fileName);
+	serializer.setFile(fileAdress);
 	boolean isError =
 		serializer.saveDiagram(MainWindow.getComponents()._diagrams);
 	if (isError) {
