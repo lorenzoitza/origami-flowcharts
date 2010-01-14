@@ -6,17 +6,17 @@ import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 
 import origami.administration.AdminSelection;
-import origami.administration.actions.EventoAgregarFigura;
+import origami.administration.actions.AddFigureVerification;
 import origami.graphics.widgets.TabFolder;
 
 public class AddFigureListener extends MouseMotionListener.Stub implements MouseListener{
     
-    private EventoAgregarFigura event;
+    private AddFigureVerification addFigureVerification;
 	
     public AddFigureListener(Figure figure, AdminSelection selecc, TabFolder tabfolder) {
 	figure.addMouseMotionListener(this);
 	figure.addMouseListener(this);
-	event = new EventoAgregarFigura(selecc,tabfolder);
+	addFigureVerification = new AddFigureVerification(selecc,tabfolder);
     }
 
     public void mouseReleased(MouseEvent e){
@@ -29,7 +29,7 @@ public class AddFigureListener extends MouseMotionListener.Stub implements Mouse
     }
 	
     public void mousePressed(MouseEvent e) {
-	event.mousePresseds(e);
+	addFigureVerification.mousePressedCoordinate(e);
     }
 	
     public void mouseDragged(MouseEvent e) {

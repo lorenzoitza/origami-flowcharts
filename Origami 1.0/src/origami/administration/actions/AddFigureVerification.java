@@ -16,15 +16,7 @@ import origami.graphics.figures.WhileFigure;
 import origami.graphics.widgets.TabFolder;
 
 
-/**
- * Esta clase establece la propiedad de Drag & Drop 
- * y administra los espacios disponibles para agregar nuevas 
- * figuras al diagrama.
- * 
- * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez
- */
-public class EventoAgregarFigura{
+public class AddFigureVerification{
     private Point start;
     	
     private boolean flag = false;
@@ -36,38 +28,31 @@ public class EventoAgregarFigura{
     private AdminSelection adminSelection;
 	
     private TabFolder tabFolder;
-    /**
-     * Da la propiedad de Drag & Drop 
-     * a la figura recibida.
-     * @param figure
-     */
-    public EventoAgregarFigura(AdminSelection selecc,TabFolder tabfolder) {
+
+    public AddFigureVerification(AdminSelection selecc,TabFolder tabfolder) {
 	adminSelection = selecc;
 	tabFolder = tabfolder;
     }
-    /**
-     * Obtiene la localizacion en la que la figura fue seleccionada.
-     * @param MouseEvent 
-     */
-    public void mousePresseds(MouseEvent e) {
+
+    public void mousePressedCoordinate(MouseEvent event) {
 	flag = false;
-	start = e.getLocation();
-	FigureStructure fig = ApplicationState.mainFigure;
-	if(fig!=null){
+	start = event.getLocation();
+	FigureStructure figure = ApplicationState.mainFigure;
+	if(figure!=null){
 	    int a;
 	    for(int z=0;z<tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
-		if(verifyAvailableSpace(z,z+1,fig)){
+		if(verifyAvailableSpace(z,z+1,figure)){
 		    break;
 		}
 		if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof DecisionFigure){
-		    a = verificarDerecha(z+1,fig);
-		    z = verificarDerecha(a,fig); 
+		    a = verifyRight(z+1,figure);
+		    z = verifyRight(a,figure); 
 		    if(flag){
 			break;
 		    }
 		}
 		if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof WhileFigure){
-		    a = verificarAbajo(z+1,fig);
+		    a = verifyDown(z+1,figure);
 		    z=a+4;
 		    if(flag){
 			break;
@@ -87,43 +72,42 @@ public class EventoAgregarFigura{
      * de un if del diagrama para identificar si alguna 
      * figura fue añadida al diagrama, si no regresa la pocision
      * del final del lado derecho.
-     * 
-     * @param z
-     * @param fig
+     * @param figureIndex
+     * @param figure
      * @return int
      */
-    public int verificarDerecha(int z,FigureStructure fig){
-	int x = z+1;
-	int a;
-	z = z+2;
-	while(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
-	    if(verifyAvailableSpace(x,z,fig)){
+    public int verifyRight(int figureIndex,FigureStructure figure){
+	int index = figureIndex+1;
+	int cicleIndex;
+	figureIndex = figureIndex + 2;
+	while(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex)!=null){
+	    if(verifyAvailableSpace(index,figureIndex,figure)){
 		break;
 	    }
-	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
-		a = verificarDerecha(z,fig);
-		z = verificarDerecha(a,fig)+1;
+	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof DecisionFigure){
+		cicleIndex = verifyRight(figureIndex,figure);
+		figureIndex = verifyRight(cicleIndex,figure)+1;
 		if(flag){
 		    break;
 		}
 	    }
-	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof EllipseFigure){
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof EllipseFigure){
 		break;
 	    }
-	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
-		a = verificarAbajo(z,fig);
-		z=a+5;
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof WhileFigure){
+		cicleIndex = verifyDown(figureIndex,figure);
+		figureIndex=cicleIndex+5;
 		if(flag){
 		    break;
 		}
 	    }
-	    x=z;
-	    z++;
-	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigureEnd){
+	    index=figureIndex;
+	    figureIndex++;
+	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof DecisionFigureEnd){
 		break;
 	    }
 	}
-	return z;
+	return figureIndex;
     }
     /**
      * Este metodo hace un recorrido por la abajo
@@ -135,17 +119,17 @@ public class EventoAgregarFigura{
      * @param figure
      * @return int
      */
-    public int verificarAbajo(int figureIndex,FigureStructure figure){
-	int index = figureIndex;//for
-	int index2;
-	figureIndex = figureIndex+1;//sig figura
+    public int verifyDown(int figureIndex,FigureStructure figure){
+	int index = figureIndex;
+	int cicleIndex;
+	figureIndex = figureIndex+1;
 	while(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex)!=null){
 	    if(verifyAvailableSpace(index,figureIndex,figure)){
 		break;
 	    }
 	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof DecisionFigure){
-		index2 = verificarDerecha(figureIndex,figure);
-		figureIndex = verificarDerecha(index2,figure)+1;
+		cicleIndex = verifyRight(figureIndex,figure);
+		figureIndex = verifyRight(cicleIndex,figure)+1;
 		if(flag){
 		    break;
 		}
@@ -154,8 +138,8 @@ public class EventoAgregarFigura{
 		break;
 	    }
 	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof WhileFigure){
-		index2 = verificarAbajo(figureIndex,figure);
-		figureIndex=index2+4;
+		cicleIndex = verifyDown(figureIndex,figure);
+		figureIndex=cicleIndex+4;
 		index=figureIndex;
 		figureIndex++;
 		if(flag){

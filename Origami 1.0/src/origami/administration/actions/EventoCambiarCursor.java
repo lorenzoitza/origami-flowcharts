@@ -21,20 +21,16 @@ import origami.graphics.widgets.TabFolder;
 import origami.images.ImageLoader;
 
 
-/**
- * Esta clase establece la propiedad de Drag & Drop 
- * y administra los espacios disponibles para agregar nuevas 
- * figuras al diagrama.
- * 
- * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez
- */
 public class EventoCambiarCursor{
-	private Point start;
-	public boolean bandera=false;
-	private FigureStructure figuraPrincipal;
-	private IFigure cuadro;
-	public final Cursor[] cursor = ApplicationState.cursor;
+    private Point start;
+    
+    public boolean bandera=false;
+    
+    private FigureStructure figuraPrincipal;
+    
+    private IFigure cuadro;
+    
+    public final Cursor[] cursor = ApplicationState.cursor;
 	
 	public TabFolder tab;
 	/**
