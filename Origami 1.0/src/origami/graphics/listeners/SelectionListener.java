@@ -16,7 +16,6 @@ public class SelectionListener extends MouseListener.Stub implements
 
     private AdminSelection seleccion;
     
-
     private TabFolder currentTab;
 
     public SelectionListener(Figura figure, AdminSelection selec,

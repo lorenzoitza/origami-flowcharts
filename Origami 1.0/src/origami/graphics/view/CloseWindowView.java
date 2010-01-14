@@ -5,7 +5,6 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.MessageBox;
 
-import origami.debug.Debugger;
 import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;

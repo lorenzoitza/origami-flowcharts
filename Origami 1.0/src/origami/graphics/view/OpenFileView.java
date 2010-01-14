@@ -5,7 +5,6 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import origami.administration.ApplicationState;
 import origami.administration.funtionality.DiagramFileManager;
-import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 
 public class OpenFileView {
