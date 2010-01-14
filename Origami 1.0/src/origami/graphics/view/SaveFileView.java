@@ -74,7 +74,7 @@ public class SaveFileView {
     private void action(String fileName, String fileAdress) {
 	switch (saveType) {
 	case SAVE:
-	    save(fileName);
+	    save(fileName,fileAdress);
 	    break;
 	case SAVEAS:
 	    saveAs(fileName);
@@ -150,9 +150,10 @@ public class SaveFileView {
 	return false;
     }
 
-    private void save(String fileName) {
+    private void save(String fileName,String fileAdress) {
 	MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(
 		fileName);
+	serializer.setFile(fileAdress);
 	boolean isError =
 		serializer.saveDiagram(MainWindow.getComponents()._diagrams);
 	if (isError) {

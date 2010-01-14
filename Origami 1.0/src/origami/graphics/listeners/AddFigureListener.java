@@ -12,16 +12,12 @@ import origami.graphics.widgets.TabFolder;
 
 
 public class AddFigureListener extends MouseMotionListener.Stub implements MouseListener{
-    private EventoAgregarFigura ev;
+    private EventoAgregarFigura event;
 	
-    /**
-     * Da la propiedad de Drag & Drop a la figura recibida.
-     * @param figure
-     */
     public AddFigureListener(Figure figure, AdminSeleccion selecc, TabFolder tabfolder) {
 	figure.addMouseMotionListener(this);
 	figure.addMouseListener(this);
-	ev = new EventoAgregarFigura(selecc,tabfolder);
+	event = new EventoAgregarFigura(selecc,tabfolder);
     }
 
     public void mouseReleased(MouseEvent e){
@@ -34,7 +30,7 @@ public class AddFigureListener extends MouseMotionListener.Stub implements Mouse
     }
 	
     public void mousePressed(MouseEvent e) {
-	ev.mousePresseds(e);
+	event.mousePresseds(e);
     }
 	
     public void mouseDragged(MouseEvent e) {

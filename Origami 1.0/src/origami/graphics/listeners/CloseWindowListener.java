@@ -10,15 +10,15 @@ import origami.graphics.widgets.TabFolder;
 
 
 public class CloseWindowListener extends ShellAdapter{
-    public TabFolder tab;
-    public Componentes consola;
+    private TabFolder currentTab;
+    private Componentes console;
 
     public CloseWindowListener(TabFolder tabfolder,Componentes consola){
-	tab = tabfolder;
-	this.consola = consola;
+	this.currentTab = tabfolder;
+	this.console = consola;
     }
-    public void shellClosed(ShellEvent e){
-	CloseWindowView ev = new CloseWindowView(tab,consola);
-	ev.shellClosed(e);
+    public void shellClosed(ShellEvent event){
+	CloseWindowView ev = new CloseWindowView(currentTab,console);
+	ev.shellClosed(event);
     }
 }

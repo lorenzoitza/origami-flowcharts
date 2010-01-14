@@ -10,18 +10,14 @@ import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
 import origami.graphics.widgets.CustomMenu;
 
-
-
-
 public class CompileListener implements SelectionListener{
     
     @Override
     public void widgetDefaultSelected(SelectionEvent arg0) {
 	// TODO Auto-generated method stub
-	
     }
     
-    public boolean guardar() {
+    public boolean isSave() {
 	SaveFileView save = new SaveFileView();
 	if(Componentes._diagrams.getTabItem().getSave().getDir() == "null") {
 	    save.setSaveType(SaveType.SAVE);
@@ -34,26 +30,25 @@ public class CompileListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	if (!MainWindow.getComponents()._diagrams.getTabItem().getSave().isSave()) {
-		// llamo abrir la ventana para guardar
-		if (guardar()) {
-			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
+		if (isSave()) {
+			CodeCompiler code = new CodeCompiler(MainWindow.getComponents()._diagrams);
 			if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
 			    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 			}
-			codigo.main(false, true);
-			if (codigo.isError) {
+			code.main(false, true);
+			if (code.isError) {
 				int aux = MainWindow.getComponents().console.getTextField().getText().length();
 				if (aux >= 0) {
 				    MainWindow.getComponents().console.getTextField().setText("");
 				}
-				MainWindow.getComponents().console.getTextField().setText(codigo.errorTipe);
+				MainWindow.getComponents().console.getTextField().setText(code.errorTipe);
 				MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation(
 						"/Ec - Error en la compilacion:");
 				MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation(
-						codigo.errorTipe);
-				codigo.deleteMainFiles();
+						code.errorTipe);
+				code.deleteMainFiles();
 			} else {
-			    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, codigo);
+			    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, code);
 				MainWindow.getComponents()._diagrams
 						.getTabItem()
 						.getInformation()
@@ -66,20 +61,20 @@ public class CompileListener implements SelectionListener{
 			}
 		}
 	} else {
-		CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
+		CodeCompiler code = new CodeCompiler(MainWindow.getComponents()._diagrams);
 		if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
 		    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 		}
-		codigo.main(false, true);
-		if (codigo.isError) {
+		code.main(false, true);
+		if (code.isError) {
 			int aux = MainWindow.getComponents().console.getTextField().getText().length();
 			if (aux >= 0) {
 			    MainWindow.getComponents().console.getTextField().setText("");
 			}
-			MainWindow.getComponents().console.getTextField().setText(codigo.errorTipe);
-			codigo.deleteMainFiles();
+			MainWindow.getComponents().console.getTextField().setText(code.errorTipe);
+			code.deleteMainFiles();
 		} else {
-		    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, codigo);
+		    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, code);
 		}
 		if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 		    CustomMenu.getConsoleMenuItem().setSelection(true);
