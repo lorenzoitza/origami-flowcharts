@@ -7,9 +7,6 @@ import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.view.DiagramCodeView;
 
-
-
-
 public class ViewCodeCppListener implements SelectionListener{
 
     @Override

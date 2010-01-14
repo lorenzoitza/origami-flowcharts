@@ -5,8 +5,6 @@ import org.eclipse.swt.events.SelectionListener;
 
 import origami.administration.actions.NewDiagramLogic;
 
-
-
 public class NewDiagramListener implements SelectionListener{
    
     @Override

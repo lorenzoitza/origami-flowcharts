@@ -7,8 +7,6 @@ import origami.graphics.MainWindow;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
 
-
-
 public class SaveDiagramListener implements SelectionListener{
     
     public SaveDiagramListener() {

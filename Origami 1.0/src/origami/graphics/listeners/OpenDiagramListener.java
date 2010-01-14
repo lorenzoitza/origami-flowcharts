@@ -6,7 +6,6 @@ import org.eclipse.swt.events.SelectionListener;
 import origami.graphics.view.OpenFileView;
 import origami.graphics.view.OpenType;
 
-
 public class OpenDiagramListener implements SelectionListener{
 
     @Override

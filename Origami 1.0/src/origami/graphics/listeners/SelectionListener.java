@@ -9,58 +9,59 @@ import org.eclipse.swt.graphics.Cursor;
 import origami.administration.AdminSeleccion;
 import origami.administration.Figura;
 import origami.graphics.MainWindow;
-import origami.graphics.view.SelectionEvent;
 import origami.graphics.widgets.TabFolder;
 
+public class SelectionListener extends MouseListener.Stub implements
+	MouseMotionListener {
 
+    private AdminSeleccion seleccion;
 
-/**
- * 
- * @author Hudy
- *
- */
-public class SelectionListener extends MouseListener.Stub implements MouseMotionListener{
-	public AdminSeleccion seleccion;
-	public static TabFolder tab;
-	/**
-	 * Da la propiedad de eliminar 
-	 * a la figura recibida.
-	 * @param figure
-	 */
-	public SelectionListener(Figura figure,AdminSeleccion selec,TabFolder tabfolder){
-		figure.setCursor(new Cursor(MainWindow.display,SWT.CURSOR_HAND));
-		figure.addMouseListener(this);
-		figure.addMouseMotionListener(this);
-		seleccion = selec;
-		tab = tabfolder;
+    private TabFolder currentTab;
+
+    public SelectionListener(Figura figure, AdminSeleccion selec,
+	    TabFolder tabfolder) {
+	figure.setCursor(new Cursor(MainWindow.display, SWT.CURSOR_HAND));
+	figure.addMouseListener(this);
+	figure.addMouseMotionListener(this);
+	seleccion = selec;
+	currentTab = tabfolder;
+    }
+
+    public void mousePressed(MouseEvent e) {
+	int leftClick = 1;
+	int rightClick = 3;
+	if (e.button == leftClick || e.button == rightClick) {
+	    Figura figure = ((Figura) e.getSource());
+	    seleccion.setFiguraSeleccionada(getFigureIndex(figure));
+	    if (seleccion.getFiguraSeleccionada() != -1) {
+		currentTab.getTabItem().getLeaf().addFigure();
+	    }
 	}
-	/**
-	 * Elimina la figura recibida y vuelve a dibujar el diagrama.
-	 * @param MouseEvent
-	 */
-	public void mousePressed(MouseEvent e){
-		if(e.button == 1|| e.button == 3){
-			Figura fig = ((Figura) e.getSource());
-			
-			seleccion.setFiguraSeleccionada(SelectionEvent.getFigureIndex(fig,tab));
-			if(seleccion.getFiguraSeleccionada()!=-1){
-				tab.getTabItem().getLeaf().addFigure();
-			}
-		}
+    }
+
+    private int getFigureIndex(Figura fig) {
+	for (int figureIndex = 0; figureIndex < currentTab.getTabItem()
+		.getLeaf().getSizeDiagrama(); figureIndex++) {
+	    if (fig.getBounds() == currentTab.getTabItem().getLeaf()
+		    .getFigureIndexOf(figureIndex).getBounds()) {
+		return figureIndex;
+	    }
 	}
-	
-	public void mouseDragged(MouseEvent arg0) {
-	}
-	
-	public void mouseEntered(MouseEvent arg0) {
-	}
-	
-	public void mouseExited(MouseEvent arg0) {	
-	}
-	
-	public void mouseHover(MouseEvent arg0) {
-	}
-	
-	public void mouseMoved(MouseEvent arg0) {	
-	}
+	return -1;
+    }
+
+    public void mouseDragged(MouseEvent arg0) {
+    }
+
+    public void mouseEntered(MouseEvent arg0) {
+    }
+
+    public void mouseExited(MouseEvent arg0) {
+    }
+
+    public void mouseHover(MouseEvent arg0) {
+    }
+
+    public void mouseMoved(MouseEvent arg0) {
+    }
 }

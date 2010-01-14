@@ -4,13 +4,10 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import origami.administration.funtionality.CodeCompiler;
-import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
-
-
-
 
 public class StepByStepListener implements SelectionListener{
     
@@ -21,7 +18,7 @@ public class StepByStepListener implements SelectionListener{
     public void widgetDefaultSelected(SelectionEvent arg0) {
     }
     
-    public boolean guardar() {
+    private boolean isSave() {
 	SaveFileView save = new SaveFileView();
 	if(WindowWidgets.tabFolder.getTabItem().getSave().getDir() == "null") {
 	    save.setSaveType(SaveType.SAVE);
@@ -33,7 +30,7 @@ public class StepByStepListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	if(!WindowWidgets.tabFolder.getTabItem().getSave().isSave()){
-		if(guardar()){
+		if(isSave()){
 		    CodeCompiler codigo = new CodeCompiler(WindowWidgets.tabFolder);
 			codigo.main(false,false);
 			if(codigo.isError){
@@ -51,7 +48,7 @@ public class StepByStepListener implements SelectionListener{
 				
 			    	MainWindow.getComponents().getByStepComponents().disablePasoAPaso(MainWindow.getComponents(), true);
 			    	MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), false,codigo);
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
+			    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 			}
 		}
 	}
@@ -72,7 +69,7 @@ public class StepByStepListener implements SelectionListener{
 		else{
 		    	MainWindow.getComponents().getByStepComponents().disablePasoAPaso(MainWindow.getComponents(), true);
 		    	MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), false,codigo);
-			WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
+		    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 		}
 	}
 			

@@ -1,22 +1,15 @@
 package origami.graphics.listeners;
 
-import java.io.File;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Cursor;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
 
 import origami.administration.ApplicationState;
 import origami.administration.actions.AddFigureLogic;
 import origami.administration.actions.ContextualMenuActions;
 import origami.administration.funtionality.CodeCompiler;
-import origami.administration.funtionality.DiagramFileManager;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
-import origami.graphics.StepByStepComponents;
 import origami.graphics.Help.AboutWindow;
 import origami.graphics.Help.HelpWindow;
 import origami.graphics.figures.CircleFigure;
@@ -27,9 +20,6 @@ import origami.graphics.view.SaveType;
 import origami.graphics.widgets.CustomMenu;
 import origami.graphics.widgets.TabItem;
 import origami.images.ImageLoader;
-
-
-
 
 public class KeyTypeListener implements KeyListener{
     private int key,key2=0;
@@ -161,7 +151,7 @@ public class KeyTypeListener implements KeyListener{
 			}
 			if(!CustomMenu.getConsoleMenuItem().getSelection()){
 			    CustomMenu.getConsoleMenuItem().setSelection(true);
-				MainWindow.getComponents().maximizeConsole(true);
+				MainWindow.getComponents().restoreConsole(true);
 			}
 		}
 		break;

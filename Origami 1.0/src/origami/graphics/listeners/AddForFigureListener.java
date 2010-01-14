@@ -9,8 +9,6 @@ import origami.administration.ApplicationState;
 import origami.administration.actions.AddFigureLogic;
 import origami.images.ImageLoader;
 
-
-
 public class AddForFigureListener implements SelectionListener{
     
     private Display display;

@@ -7,8 +7,6 @@ import origami.graphics.WindowWidgets;
 import origami.graphics.view.CloseWindowView;
 import origami.graphics.widgets.TabFolder;
 
-
-
 public class CloseWindowListener extends ShellAdapter{
     private TabFolder currentTab;
     private WindowWidgets console;

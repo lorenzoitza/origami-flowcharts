@@ -5,9 +5,6 @@ import org.eclipse.swt.events.SelectionListener;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
 
-
-
-
 public class ExportToCListener implements SelectionListener{
     
     public ExportToCListener() {

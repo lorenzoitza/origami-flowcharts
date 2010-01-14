@@ -6,7 +6,6 @@ import org.eclipse.swt.widgets.MenuItem;
 
 import origami.graphics.MainWindow;
 
-
 public class ViewToolbarListener implements SelectionListener{
     
     @Override

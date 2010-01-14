@@ -5,7 +5,6 @@ import org.eclipse.swt.events.SelectionListener;
 
 import origami.graphics.Help.HelpWindow;
 
-
 public class ViewHelpContentsListener implements SelectionListener{
 
     @Override

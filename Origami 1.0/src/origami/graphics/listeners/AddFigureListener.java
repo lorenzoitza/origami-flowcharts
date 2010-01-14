@@ -9,9 +9,8 @@ import origami.administration.AdminSeleccion;
 import origami.administration.actions.EventoAgregarFigura;
 import origami.graphics.widgets.TabFolder;
 
-
-
 public class AddFigureListener extends MouseMotionListener.Stub implements MouseListener{
+    
     private EventoAgregarFigura event;
 	
     public AddFigureListener(Figure figure, AdminSeleccion selecc, TabFolder tabfolder) {

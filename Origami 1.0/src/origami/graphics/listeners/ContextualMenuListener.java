@@ -17,8 +17,8 @@ public class ContextualMenuListener extends MouseListener.Stub{
 	
     public void mousePressed(MouseEvent event){
 	Figura fig = ((Figura) event.getSource());
-	int rightClickButton = 3;
-	if(event.button == rightClickButton){
+	int rightClick = 3;
+	if(event.button == rightClick){
 	    contextualMenu.createMenu();
 	    contextualMenu.getMenu().setVisible(true);
 	    if(fig instanceof CircleFigure){

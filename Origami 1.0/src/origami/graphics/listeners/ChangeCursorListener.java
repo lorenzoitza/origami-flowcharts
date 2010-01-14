@@ -12,16 +12,14 @@ import origami.graphics.widgets.TabFolder;
 public class ChangeCursorListener extends MouseMotionListener.Stub implements
 	MouseListener {
 
-    public boolean bandera = false;
-
     private EventoCambiarCursor event;
 
-    public TabFolder tab;
+    public TabFolder currentTab;
 
     public ChangeCursorListener(IFigure figure, TabFolder tabfolder) {
 	figure.addMouseMotionListener(this);
 	figure.addMouseListener(this);
-	tab = tabfolder;
+	currentTab = tabfolder;
 	event = new EventoCambiarCursor(figure, tabfolder);
     }
 

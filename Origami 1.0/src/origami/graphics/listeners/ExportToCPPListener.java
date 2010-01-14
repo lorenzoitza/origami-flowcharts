@@ -3,10 +3,8 @@ package origami.graphics.listeners;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import origami.graphics.MainWindow;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
-
 
 public class ExportToCPPListener implements SelectionListener{
     
