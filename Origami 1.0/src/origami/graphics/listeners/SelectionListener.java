@@ -6,7 +6,7 @@ import org.eclipse.draw2d.MouseMotionListener;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.Figura;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;
@@ -14,11 +14,12 @@ import origami.graphics.widgets.TabFolder;
 public class SelectionListener extends MouseListener.Stub implements
 	MouseMotionListener {
 
-    private AdminSeleccion seleccion;
+    private AdminSelection seleccion;
+    
 
     private TabFolder currentTab;
 
-    public SelectionListener(Figura figure, AdminSeleccion selec,
+    public SelectionListener(Figura figure, AdminSelection selec,
 	    TabFolder tabfolder) {
 	figure.setCursor(new Cursor(MainWindow.display, SWT.CURSOR_HAND));
 	figure.addMouseListener(this);

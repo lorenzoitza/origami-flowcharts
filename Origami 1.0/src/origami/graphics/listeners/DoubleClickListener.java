@@ -3,7 +3,7 @@ package origami.graphics.listeners;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.Figura;
 import origami.graphics.MainWindow;
 import origami.graphics.dialogs.DecisionFigureDialog;
@@ -22,7 +22,7 @@ import origami.graphics.widgets.TabFolder;
 
 public class DoubleClickListener extends MouseListener.Stub {
 
-    public DoubleClickListener(Figura figure, AdminSeleccion selectionAdmin,
+    public DoubleClickListener(Figura figure, AdminSelection selectionAdmin,
 	    TabFolder tabFolder) {
 	figure.addMouseListener(this);
     }
@@ -57,3 +57,4 @@ public class DoubleClickListener extends MouseListener.Stub {
 	}
     }
 }
+
