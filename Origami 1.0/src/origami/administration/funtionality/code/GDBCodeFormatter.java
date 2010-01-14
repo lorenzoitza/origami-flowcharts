@@ -18,6 +18,7 @@ public class GDBCodeFormatter extends AbstractInstructionFormatter {
 
     private CharSequence coutTag = "cout";
 
+    
     private void fixStepByStep() {
 	String setencesOfCode[] = this.sourceCode.split("\n");
 
