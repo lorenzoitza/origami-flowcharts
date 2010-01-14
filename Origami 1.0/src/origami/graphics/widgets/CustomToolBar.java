@@ -260,24 +260,24 @@ public class CustomToolBar {
     }
 
     public void disableToolBar() {
-	int startStandardButtons=4;
-	int endStandardButtons=7;
+	int startStandartButtons=4;
+	int endStandartButtons=7;
 	int paste=6;
 	if (ApplicationState._selectionAdministrator.getSelectedFigure() == -1) {
-	    for (int index = startStandardButtons; index <= endStandardButtons; index++) {
+	    for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		toolItems.get(index).setEnabled(false);
 	    }
 	} else {
 	    if (ApplicationState._selectionAdministrator
 		    .getSelectedFigure() != 0) {
-		for (int index = startStandardButtons; index <= endStandardButtons; index++) {
+		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		    toolItems.get(index).setEnabled(true);
 		}
 		if (ApplicationState._diagramAdministrator.diagram.size() == 0) {
 		    toolItems.get(paste).setEnabled(false);
 		}
 	    } else {
-		for (int index = startStandardButtons; index <= endStandardButtons; index++) {
+		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		    toolItems.get(index).setEnabled(false);
 		}
 		if (ApplicationState._diagramAdministrator.diagram.size() != 0) {

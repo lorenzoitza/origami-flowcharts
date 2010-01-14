@@ -2,25 +2,10 @@ package origami.administration.actions;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 
 import origami.administration.funtionality.code.SimpleInstruction;
-import origami.debug.Debugger;
 import origami.graphics.MainWindow;
-import origami.graphics.figures.DecisionFigure;
-import origami.graphics.figures.ForFigure;
-import origami.graphics.figures.InputFigure;
-import origami.graphics.figures.OutputFigure;
-import origami.graphics.figures.SentenceFigure;
-import origami.graphics.figures.WhileFigure;
 
-
-/**
- * 
- * @author Hudy
- *
- */
 public class DialogValidator {
 	
 	public void validate(String instructionCode, Object abstractFigure, String info){
@@ -84,49 +69,4 @@ public class DialogValidator {
 			e.printStackTrace();
 		}
 	}
-    /*
-	    
-    public void validate(InputFigure abstractFigure, String inputCode,String info) {
-		boolean cambio = false;
-		if (!abstractFigure.instruction.simpleInstruction.equals(inputCode)) {
-		    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
-		    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion("/M - Se " +
-		    		"agrego o modifico una instruccion en una" +
-		    		" figura de tipo \""+info+"\"\n");
-		    cambio = true;
-		}
-		
-		abstractFigure.instruction.setInstruccionSimple(inputCode);
-		
-		MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-		MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
-		if (cambio) {
-		    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-			    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
-		 }
-    }
-    
-    
-   
-    
-    public void validate(OutputFigure abstractFigure, String inputCode, String info) {
-	boolean cambio = false;
-	
-	if (!abstractFigure.instruction.simpleInstruction.equals(inputCode)) {
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
-	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setInformacion("/M - Se " +
-	    		"agrego o modifico una instruccion en una" +
-	    		" figura de tipo \""+info+"\"\n");
-	    cambio = true;
-	}
-	
-	abstractFigure.instruction.setInstruccionSimple(inputCode);
-
-	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
-	if (cambio) {
-	    MainWindow.getComponents()._diagrams.getTabItem().getInfo().setDiagrama(
-		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
-	 }
-    }*/
 }

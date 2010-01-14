@@ -7,7 +7,6 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.actions.RecorridoDiagrama;
 import origami.graphics.MainWindow;
-import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.DecisionFigureEnd;
@@ -21,8 +20,6 @@ import origami.graphics.listeners.ContextualMenuListener;
 import origami.graphics.listeners.DoubleClickListener;
 import origami.graphics.listeners.SelectionListener;
 import origami.graphics.widgets.TabFolder;
-
-
 
 /**
  * Esta clase es el area en el que se dibuja el diagrama y 

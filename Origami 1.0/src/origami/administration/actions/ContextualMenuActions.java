@@ -30,9 +30,6 @@ import origami.graphics.figures.SentenceFigure;
 import origami.graphics.figures.WhileFigure;
 import origami.images.ImageLoader;
 
-
-
-
 public class ContextualMenuActions {
     public static boolean isCut = false;
     

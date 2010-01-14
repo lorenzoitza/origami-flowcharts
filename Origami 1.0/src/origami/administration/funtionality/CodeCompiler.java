@@ -106,7 +106,6 @@ public class CodeCompiler {
 	    managerCode.formatCodeGDB();
 	}
 	try {
-
 	    PrintWriter pw = new PrintWriter(source);
 	    pw.write(managerCode.getInstructionsFormat());
 	    pw.close();
@@ -128,11 +127,10 @@ public class CodeCompiler {
 	}
 	try {
 	    source = new File(sourcerFile);
-
 	    while (true) {
 
 		if (source.exists()) {
-
+		    System.out.println("exist code ");
 		    Process process = Runtime.getRuntime().exec(comand);
 
 		    InputStream errorStream = process.getErrorStream();

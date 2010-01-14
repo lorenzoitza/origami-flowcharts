@@ -2,34 +2,18 @@ package origami.administration;
 
 import java.util.Vector;
 
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.FigureCanvas;
-import org.eclipse.draw2d.ScalableLayeredPane;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.MouseWheelListener;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.ScrollBar;
 
 import origami.administration.funtionality.DiagramFileManager;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
-import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.listeners.AddFigureListener;
 import origami.graphics.listeners.ChangeCursorListener;
 import origami.graphics.listeners.ContextualMenuListener;
 import origami.graphics.widgets.TabFolder;
-
-
-
 
 public class CustomLeaf {
     

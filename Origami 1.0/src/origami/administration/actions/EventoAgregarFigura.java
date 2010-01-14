@@ -8,7 +8,6 @@ import org.eclipse.swt.graphics.Cursor;
 import origami.administration.AdminSelection;
 import origami.administration.ApplicationState;
 import origami.administration.Figura;
-import origami.graphics.*;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.DecisionFigureEnd;
 import origami.graphics.figures.EllipseFigure;
