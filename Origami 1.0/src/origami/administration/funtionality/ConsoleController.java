@@ -2,12 +2,8 @@ package origami.administration.funtionality;
 
 import java.io.*;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.MessageBox;
-
 import origami.graphics.Componentes;
 import origami.graphics.MainWindow;
-import origami.graphics.StepByStepComponents;
 import origami.graphics.widgets.TabItem;
 
 /**

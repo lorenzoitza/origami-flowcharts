@@ -11,6 +11,7 @@ import origami.graphics.MainWindow;
 public class ImageLoader {
 
 	public static Image getImage(String imageName){
+	    System.out.println("aaaa");
 		Image image = new Image(MainWindow.display, 
 				ImageLoader.class.getResourceAsStream(imageName));
 		return image;

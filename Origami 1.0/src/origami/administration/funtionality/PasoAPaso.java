@@ -15,7 +15,6 @@ import origami.administration.actions.RecorridoDiagrama;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
-import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.*;
 import origami.graphics.widgets.TabFolder;
 import origami.graphics.widgets.TabItem;

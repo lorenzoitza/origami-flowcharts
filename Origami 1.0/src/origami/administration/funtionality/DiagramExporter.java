@@ -12,7 +12,6 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import origami.administration.*;
-import origami.administration.funtionality.code.Instruction;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
