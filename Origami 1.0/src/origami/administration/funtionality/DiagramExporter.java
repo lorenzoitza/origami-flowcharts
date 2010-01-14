@@ -16,62 +16,62 @@ import origami.administration.funtionality.code.Instruction;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
-import origami.graphics.TabFolder;
 import origami.graphics.figures.*;
+import origami.graphics.widgets.TabFolder;
 
 
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class Exporter {
+public class DiagramExporter {
 	
 	private TabFolder selectedTab;
 	
 	private Shell shell;
 
-	public Exporter(TabFolder tabfolder) {
+	public DiagramExporter(TabFolder tabfolder) {
 		selectedTab = tabfolder;
 	}
 
 	public Vector<Figura> getFiguras(Vector<Figura> diagrama) {
-		Vector<Figura> diag = new Vector<Figura>();
+		Vector<Figura> diagramResult = new Vector<Figura>();
 		for (int x = 0; x < diagrama.size(); x++) {
 			if (diagrama.elementAt(x) instanceof DecisionFigure) {
-				DecisionFigure figuras = (DecisionFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				DecisionFigure decisionFigure = (DecisionFigure) diagrama.elementAt(x);
+				diagramResult.add(decisionFigure);
 			} else if (diagrama.elementAt(x) instanceof ForFigure) {
-				ForFigure figuras = (ForFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				ForFigure forFigure = (ForFigure) diagrama.elementAt(x);
+				diagramResult.add(forFigure);
 			} else if (diagrama.elementAt(x) instanceof WhileFigure) {
-				WhileFigure figuras = (WhileFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				WhileFigure whileFigure = (WhileFigure) diagrama.elementAt(x);
+				diagramResult.add(whileFigure);
 			} else if (diagrama.elementAt(x) instanceof SentenceFigure) {
-				SentenceFigure figuras = (SentenceFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				SentenceFigure sentenceFigure = (SentenceFigure) diagrama.elementAt(x);
+				diagramResult.add(sentenceFigure);
 			} else if (diagrama.elementAt(x) instanceof InputFigure) {
-				InputFigure figuras = (InputFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				InputFigure inputFigure = (InputFigure) diagrama.elementAt(x);
+				diagramResult.add(inputFigure);
 			} else if (diagrama.elementAt(x) instanceof OutputFigure) {
-				OutputFigure figuras = (OutputFigure) diagrama.elementAt(x);
-				diag.add(figuras);
+				OutputFigure outputFigure = (OutputFigure) diagrama.elementAt(x);
+				diagramResult.add(outputFigure);
 			} else if (diagrama.elementAt(x) instanceof CircleFigure) {
-				CircleFigure ellipse = new CircleFigure();
-				ellipse.setBounds(diagrama.elementAt(x).getBounds());
+				CircleFigure circleFigure = new CircleFigure();
+				circleFigure.setBounds(diagrama.elementAt(x).getBounds());
 				CircleFigure figuras = (CircleFigure) diagrama.elementAt(x);
-				ellipse.setMesagge(figuras.getMesagge());
-				diag.add(ellipse);
-			} else if (diagrama.elementAt(x) instanceof Elipse) {
-				Elipse ellipse = new Elipse();
+				circleFigure.setMessage(figuras.getMessage());
+				diagramResult.add(circleFigure);
+			} else if (diagrama.elementAt(x) instanceof EllipseFigure) {
+				EllipseFigure ellipse = new EllipseFigure();
 				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				diag.add(ellipse);
+				diagramResult.add(ellipse);
 			} else if (diagrama.elementAt(x) instanceof DecisionFigureEnd) {
-				DecisionFigureEnd ellipse = new DecisionFigureEnd();
-				ellipse.setBounds(diagrama.elementAt(x).getBounds());
-				diag.add(ellipse);
+				DecisionFigureEnd desicionFigureEnd = new DecisionFigureEnd();
+				desicionFigureEnd.setBounds(diagrama.elementAt(x).getBounds());
+				diagramResult.add(desicionFigureEnd);
 			}
 		}
-		return diag;
+		return diagramResult;
 	}
 
 	public void exportJPGFile(String fileDirectory, Vector<Figura> sourceDiagram,
@@ -241,13 +241,13 @@ public class Exporter {
 	public void infomationExport(String adress) {
 		String content = "";
 		
-		selectedTab.getTabItem().getInfo().addTime();
-		for (int i = 0; i < selectedTab.getTabItem().getInfo().getInfo().size(); i++) {
+		selectedTab.getTabItem().getInformation().addTime();
+		for (int i = 0; i < selectedTab.getTabItem().getInformation().getInfo().size(); i++) {
 			
-			content += selectedTab.getTabItem().getInfo().getInfo().elementAt(i);
+			content += selectedTab.getTabItem().getInformation().getInfo().elementAt(i);
 		}
 		save(adress, content);
-		selectedTab.getTabItem().getInfo().removeTime();
+		selectedTab.getTabItem().getInformation().removeTime();
 	}
 
 	private void save(String adress, String content) {

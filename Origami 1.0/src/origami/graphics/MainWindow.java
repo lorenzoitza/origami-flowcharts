@@ -8,11 +8,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import origami.administration.ApplicationState;
 import origami.administration.OrigamiException;
+import origami.graphics.widgets.CustomMenu;
 import origami.images.ImageLoader;
-import origami.ui.listeners.CloseWindowAction;
-
-
+import origami.ui.listeners.CloseWindowListener;
 
 public class MainWindow {
 
@@ -23,8 +23,6 @@ public class MainWindow {
     private static Componentes components;
     
     private CustomMenu menu;
-
-    public static final Cursor[] cursor = new Cursor[1];
 
     private GridLayout shellLayout;
 
@@ -54,7 +52,7 @@ public class MainWindow {
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new CloseWindowAction(Componentes._diagrams, getComponents()));
+	shell.addShellListener(new CloseWindowListener(Componentes._diagrams, getComponents()));
 	shell.setMenuBar(menu.getMainMenu());
 	shell.setLayout(shellLayout);
 	shell.pack();
@@ -64,7 +62,7 @@ public class MainWindow {
 	shell.addShellListener(new ShellAdapter() {
 	    public void shellDeactivated(ShellEvent e) {
 		Cursor[] cursor = new Cursor[1];
-		Componentes.mainFigure = null;
+		ApplicationState.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
 		Componentes._diagrams.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);

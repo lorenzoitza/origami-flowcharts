@@ -17,6 +17,8 @@ import origami.administration.Conexion;
 import origami.administration.DibujarDiagrama;
 import origami.administration.Figura;
 import origami.graphics.figures.SelectionSquare;
+import origami.graphics.widgets.CustomMenu;
+import origami.graphics.widgets.TabFolder;
 
 
 
@@ -45,8 +47,8 @@ public class PaintDiagram extends Figure {
 	    }
 	    public void mousePressed(MouseEvent arg0) {
 		tab.getTabFolder().forceFocus();
-		if(MainWindow.getComponents().console.hide){
-		    if(MainWindow.getComponents().console.hide){
+		if(MainWindow.getComponents().console.isHide()){
+		    if(MainWindow.getComponents().console.isHide()){
 			if(CustomMenu.getConsoleMenuItem().getSelection()){
 			    MainWindow.getComponents().moverConsola(false);
 			    CustomMenu.getConsoleMenuItem().setSelection(false);
@@ -90,10 +92,10 @@ public class PaintDiagram extends Figure {
 	
 	if(selec.getFiguraSeleccionada()!=-1){
 		agregarSeleccion(diagramaFinalTotal,chart);
-		CustomMenu.get_editMenu().menuDisponibleFigura();
+		CustomMenu.get_editMenu().setMenuAvailable();
 	}
 	if(dispToolItem){
-		MainWindow.getComponents().barraHerramientas.toolBarDisable();
+		MainWindow.getComponents().barraHerramientas.disableToolBar();
 	}
 	dispToolItem = true;
     }
@@ -117,7 +119,7 @@ public class PaintDiagram extends Figure {
 	for(int i=0; i<4; i++){
 		chart.add(seleccion.elementAt(i));
 	}
-	CustomMenu.get_editMenu().menuDisponibleFigura();
+	CustomMenu.get_editMenu().setMenuAvailable();
 	diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
     }
     
@@ -126,10 +128,10 @@ public class PaintDiagram extends Figure {
 	
 	Conexion conexion = new Conexion(tab);
 	conexion.crearConexiones(diagrama);
-	if(MainWindow.getComponents().paso!=null && MainWindow.getComponents().paso.colaConexiones.size()!=0
-		&& MainWindow.getComponents().paso.a.GetId() == tab.getSelectedTabItemId()){
-	    for(int y=0;y<MainWindow.getComponents().paso.colaConexiones.size();y++){
-		conexion.getConexion().elementAt(MainWindow.getComponents().paso.colaConexiones.get(y)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
+	if(MainWindow.getComponents().getByStepComponents().getPaso()!=null && MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size()!=0
+		&& MainWindow.getComponents().getByStepComponents().getPaso().a.GetId() == tab.getSelectedTabItemId()){
+	    for(int y=0;y<MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size();y++){
+		conexion.getConexion().elementAt(MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.get(y)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
 	    }
 	}
 	agregarConexiones(conexion.getConexion(),chart);

@@ -1,121 +1,112 @@
 package origami.administration.funtionality;
 
-import java.io.File;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
-import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
-import origami.graphics.*;
+import origami.graphics.BaseDeDiagrama;
+import origami.graphics.MainWindow;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
+import origami.graphics.widgets.TabFolder;
+import origami.graphics.widgets.TabItem;
 
 
 /**
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class Guardar {
+public class SaveDiagramController {
 
-    public static TabFolder tab;
+    public static TabFolder tabFolder;
 
     private String dir = "null";
 
-    private boolean save = true;
+    private boolean isSaved = true;
 
     public void setTabFolder(TabFolder tabfolder) {
-	tab = tabfolder;
+	tabFolder = tabfolder;
     }
 
     public boolean isDiagrama(int selec) {
-	if (tab.getTabItem().getLeaf().getSizeDiagrama() == 2) {
-	    return false;
-	} else {
-	    return true;
-	}
+	return !(tabFolder.getTabItem().getLeaf().getSizeDiagrama() == 2);
     }
 
-    public void agregarMarca() {
 
-    }
-
-    public void GuardarDiagrama(CTabFolderEvent e) {
-	TabItem a = (TabItem) e.item;
-	int selec = a.GetId() + 1;
+    public void saveDiagramHandler(CTabFolderEvent cTabFolderEvent) {
+	TabItem tabItem = (TabItem) cTabFolderEvent.item;
+	int tabSelectedIndex = tabItem.GetId() + 1;
 	MessageBox messageBox =
 		new MessageBox(MainWindow.shell, SWT.ICON_WARNING | SWT.YES
 			| SWT.NO | SWT.CANCEL);
 	messageBox.setText("Origami");
-	if (a.getText() == "*Diagrama " + selec) {
+	if (tabItem.getText() == "*Diagrama " + tabSelectedIndex) {
 	    messageBox
 		    .setMessage("Deseas guardar los cambios efectuados en el diagrama "
-			    + selec + "?");
+			    + tabSelectedIndex + "?");
 	} else {
 	    messageBox
 		    .setMessage("Deseas guardar los cambios efectuados en el diagrama "
-			    + a.getText().substring(1) + "?");
+			    + tabItem.getText().substring(1) + "?");
 	}
-	selec = messageBox.open();
-	switch (selec) {
+	tabSelectedIndex = messageBox.open();
+	switch (tabSelectedIndex) {
 	case 64: 
 	    SaveFileView save = new SaveFileView();
-	    if (tab.getTabItem().getSave().getDir() == "null") {
+	    if (tabFolder.getTabItem().getSave().getDir() == "null") {
 		save.setSaveType(SaveType.SAVE);
 		boolean success = save.createWindow();
 		if(success){
-		    e.doit = false;
+		    cTabFolderEvent.doit = false;
 		}
 	    } else {
 		save.saveAction();
 	    }
 	    break;
 	case 128:
-	    e.doit = true;
-	    cerrar(a.GetId());
+	    cTabFolderEvent.doit = true;
+	    closeCTabFolder(tabItem.GetId());
 	    break;
 	case 256:
-	    e.doit = false;
+	    cTabFolderEvent.doit = false;
 	    break;
 	}
     }
 
-    public static void cerrar(int i) {
-	if (tab.getItemCount() == 1) {
-	    BaseDeDiagrama.getInstance().getPanel().removeAll();
-	    //tab.getHoja().getPanel().removeAll();
-	    
-	    tab.getTabItem().getLeaf().getDibujarDiagrama().setOpaque(false);
+    public static void closeCTabFolder(int i) {
+	if (tabFolder.getItemCount() == 1) {
+	    BaseDeDiagrama.getInstance().getPanel().removeAll();	    
+	    tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setOpaque(false);
 	    MainWindow.getComponents().diagramaData.exclude = true;
 	    BaseDeDiagrama.getInstance().setBoundsToZero();
-	    //MainWindow.getComponents()._diagrams.getHoja().setBoundsToZero();
-	    tab.getTabItem().getLeaf().getDiagrama().removeAllElements();
+	    tabFolder.getTabItem().getLeaf().getDiagrama().removeAllElements();
 	    MainWindow.getComponents().disableAll(false);
 	}
     }
 
-    public void verificar() {
-	if (save) {
-	    String nombre = tab.getNombre();
+    public void updateUI() {
+	if (isSaved) {
+	    String nombre = tabFolder.getCurrentTabItemName();
 	    if (nombre.startsWith("*")) {
 		nombre = nombre.substring(1);
-		tab.cambiarNombre(nombre);
+		tabFolder.changeName(nombre);
 		MainWindow.getComponents().guardarDisable(false);
 	    } else {
 		MainWindow.getComponents().guardarDisable(false);
 	    }
 	} else {
-	    String nombre = tab.getNombre();
+	    String nombre = tabFolder.getCurrentTabItemName();
 	    if (!nombre.startsWith("*")) {
 		nombre = "*" + nombre;
-		tab.cambiarNombre(nombre);
+		tabFolder.changeName(nombre);
 		MainWindow.getComponents().guardarDisable(true);
 	    }
 	}
     }
 
-    public void verificarCambio() {
-	if (save) {
-	    if (tab.getTabItem().getLeaf().getDiagrama().size() == 2) {
+    public void checkChanges() {
+	if (isSaved) {
+	    if (tabFolder.getTabItem().getLeaf().getDiagrama().size() == 2) {
 		MainWindow.getComponents().guardarDisable(true);
 	    } else {
 		MainWindow.getComponents().guardarDisable(false);
@@ -134,11 +125,11 @@ public class Guardar {
     }
 
     public boolean isSave() {
-	return save;
+	return isSaved;
     }
 
     public void setSave(boolean save) {
-	this.save = save;
-	verificar();
+	this.isSaved = save;
+	updateUI();
     }
 }

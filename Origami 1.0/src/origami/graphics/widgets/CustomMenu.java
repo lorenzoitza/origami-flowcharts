@@ -1,4 +1,4 @@
-package origami.graphics;
+package origami.graphics.widgets;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -8,32 +8,31 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-import origami.ui.listeners.AddDecisionFigureAction;
-import origami.ui.listeners.AddForFigureAction;
-import origami.ui.listeners.AddInputFigureAction;
-import origami.ui.listeners.AddOutputFigureAction;
-import origami.ui.listeners.AddSentenceFigureAction;
-import origami.ui.listeners.AddWhileFigureAction;
-import origami.ui.listeners.CompileAction;
-import origami.ui.listeners.ContextualMenuEvent;
-import origami.ui.listeners.ExportToCAction;
-import origami.ui.listeners.ExportToCPPAction;
-import origami.ui.listeners.ExportToEXEAction;
-import origami.ui.listeners.ExportToImageAction;
-import origami.ui.listeners.NewDiagramAction;
-import origami.ui.listeners.OpenDiagramAction;
-import origami.ui.listeners.ResetDiagramAction;
-import origami.ui.listeners.SaveDiagramAction;
-import origami.ui.listeners.SaveDiagramAsAction;
-import origami.ui.listeners.StepByStepAction;
-import origami.ui.listeners.ViewAboutAction;
-import origami.ui.listeners.ViewCodeCAction;
-import origami.ui.listeners.ViewConsoleAction;
-import origami.ui.listeners.ViewExamplesAction;
-import origami.ui.listeners.ViewFiguresBarAction;
-import origami.ui.listeners.ViewHelpContentsAction;
-import origami.ui.listeners.ViewTabsAction;
-import origami.ui.listeners.ViewToolbarAction;
+import origami.ui.listeners.AddDecisionFigureListener;
+import origami.ui.listeners.AddForFigureListener;
+import origami.ui.listeners.AddInputFigureListener;
+import origami.ui.listeners.AddOutputFigureListener;
+import origami.ui.listeners.AddSentenceFigureListener;
+import origami.ui.listeners.AddWhileFigureListener;
+import origami.ui.listeners.CompileListener;
+import origami.ui.listeners.ExportToCListener;
+import origami.ui.listeners.ExportToCPPListener;
+import origami.ui.listeners.ExportToEXEListener;
+import origami.ui.listeners.ExportToImageListener;
+import origami.ui.listeners.NewDiagramListener;
+import origami.ui.listeners.OpenDiagramListener;
+import origami.ui.listeners.ResetDiagramListener;
+import origami.ui.listeners.SaveDiagramListener;
+import origami.ui.listeners.SaveAsDiagramListener;
+import origami.ui.listeners.StepByStepListener;
+import origami.ui.listeners.ViewAboutListener;
+import origami.ui.listeners.ViewCodeCListener;
+import origami.ui.listeners.ViewConsoleListener;
+import origami.ui.listeners.ViewExamplesListener;
+import origami.ui.listeners.ViewFiguresBarListener;
+import origami.ui.listeners.ViewHelpContentsListener;
+import origami.ui.listeners.ViewTabsListener;
+import origami.ui.listeners.ViewToolbarListener;
 
 
 public class CustomMenu {
@@ -73,7 +72,7 @@ public class CustomMenu {
 
     private static MenuItem consoleMenuItem;
 
-    private static ContextualMenuEvent _editMenu;
+    private static ContextualMenu _editMenu;
 
     public CustomMenu(Shell shell, Display display){
 	this.shell = shell;
@@ -108,19 +107,19 @@ public class CustomMenu {
 	
 	MenuItem openMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	openMenuItem.setText("Abrir...                      Ctrl+A");
-	openMenuItem.addSelectionListener(new OpenDiagramAction());
+	openMenuItem.addSelectionListener(new OpenDiagramListener());
 	
 	saveMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	saveMenuItem.setText("Guardar                     Ctrl+G");
-	saveMenuItem.addSelectionListener(new SaveDiagramAction());
+	saveMenuItem.addSelectionListener(new SaveDiagramListener());
 	
 	saveAsMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	saveAsMenuItem.setText("Guardar como...                 ");
-	saveAsMenuItem.addSelectionListener(new SaveDiagramAsAction());
+	saveAsMenuItem.addSelectionListener(new SaveAsDiagramListener());
 	
 	MenuItem newDiagramMenuItem = new MenuItem(fileMenu, SWT.PUSH);
 	newDiagramMenuItem.setText("Nuevo Diagrama        Ctrl+N");
-	newDiagramMenuItem.addSelectionListener(new NewDiagramAction());
+	newDiagramMenuItem.addSelectionListener(new NewDiagramListener());
 	
 	new MenuItem(fileMenu, SWT.SEPARATOR);
 	
@@ -132,19 +131,19 @@ public class CustomMenu {
 	
 	MenuItem exportToCMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToCMenuItem.setText("Codigo C");
-	exportToCMenuItem.addSelectionListener(new ExportToCAction());
+	exportToCMenuItem.addSelectionListener(new ExportToCListener());
 	
 	MenuItem exportToCPPMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToCPPMenuItem.setText("Codigo C++");
-	exportToCPPMenuItem.addSelectionListener(new ExportToCPPAction());
+	exportToCPPMenuItem.addSelectionListener(new ExportToCPPListener());
 	
 	MenuItem exportToEXEMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToEXEMenuItem.setText("Ejecutable");
-	exportToEXEMenuItem.addSelectionListener(new ExportToEXEAction());
+	exportToEXEMenuItem.addSelectionListener(new ExportToEXEListener());
 	
 	MenuItem exportToImageMenuItem = new MenuItem(exportMenu, SWT.CASCADE);
 	exportToImageMenuItem.setText("Imagen JPG");
-	exportToImageMenuItem.addSelectionListener(new ExportToImageAction());
+	exportToImageMenuItem.addSelectionListener(new ExportToImageListener());
 	
 	new MenuItem(fileMenu, SWT.SEPARATOR);
 	
@@ -160,9 +159,10 @@ public class CustomMenu {
     private void initEditMenu() {
 	MenuItem editMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	editMenuItem.setText("Edicion ");
+	
 	Menu editMenu = new Menu(shell, SWT.DROP_DOWN);
-	_editMenu = new ContextualMenuEvent();
-	_editMenu.menu(editMenu);
+	_editMenu = new ContextualMenu(editMenu);
+	_editMenu.createMenu();
 	editMenuItem.setMenu(editMenu);
     }
 
@@ -175,27 +175,27 @@ public class CustomMenu {
 	
 	inputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	inputMenuItem.setText("Entrada   ");
-	inputMenuItem.addSelectionListener(new AddInputFigureAction(display));
+	inputMenuItem.addSelectionListener(new AddInputFigureListener(display));
 	
 	sentenceMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	sentenceMenuItem.setText("Expresion     ");
-	sentenceMenuItem.addSelectionListener(new AddSentenceFigureAction(display));
+	sentenceMenuItem.addSelectionListener(new AddSentenceFigureListener(display));
 	
 	decisionMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	decisionMenuItem.setText("Decisin   ");
-	decisionMenuItem.addSelectionListener(new AddDecisionFigureAction(display));
+	decisionMenuItem.addSelectionListener(new AddDecisionFigureListener(display));
 	
 	whileMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	whileMenuItem.setText("Ciclo Mientras");
-	whileMenuItem.addSelectionListener(new AddWhileFigureAction(display));
+	whileMenuItem.addSelectionListener(new AddWhileFigureListener(display));
 	
 	forMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	forMenuItem.setText("Ciclo Para  ");
-	forMenuItem.addSelectionListener(new AddForFigureAction(display));
+	forMenuItem.addSelectionListener(new AddForFigureListener(display));
 	
 	outputMenuItem = new MenuItem(figuresMenu, SWT.PUSH);
 	outputMenuItem.setText("Salida   ");
-	outputMenuItem.addSelectionListener(new AddOutputFigureAction(display));
+	outputMenuItem.addSelectionListener(new AddOutputFigureListener(display));
     }
 
     private void initViewMenu() {
@@ -208,21 +208,21 @@ public class CustomMenu {
 	MenuItem toolbarMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	toolbarMenuItem.setText(" Barra De Herramientas   ");
 	toolbarMenuItem.setSelection(true);
-	toolbarMenuItem.addSelectionListener(new ViewToolbarAction());
+	toolbarMenuItem.addSelectionListener(new ViewToolbarListener());
 	
 	MenuItem tabsMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	tabsMenuItem.setText(" Barra De Diagramas       ");
 	tabsMenuItem.setSelection(true);
-	tabsMenuItem.addSelectionListener(new ViewTabsAction());
+	tabsMenuItem.addSelectionListener(new ViewTabsListener());
 	
 	figuresBarMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	figuresBarMenuItem.setText(" Barra De Figuras       ");
 	figuresBarMenuItem.setSelection(true);
-	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarAction());
+	figuresBarMenuItem.addSelectionListener(new ViewFiguresBarListener());
 	
 	consoleMenuItem = new MenuItem(viewMenu, SWT.CHECK);
 	consoleMenuItem.setText(" Consola     ");
-	consoleMenuItem.addSelectionListener(new ViewConsoleAction());
+	consoleMenuItem.addSelectionListener(new ViewConsoleListener());
     }
 
     private void initOptionsMenu() {
@@ -234,19 +234,19 @@ public class CustomMenu {
 	
 	buildCodeMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	buildCodeMenuItem.setText("Codigo Fuente C        F4");
-	buildCodeMenuItem.addSelectionListener(new ViewCodeCAction());
+	buildCodeMenuItem.addSelectionListener(new ViewCodeCListener());
 	
 	compileMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	compileMenuItem.setText("Compilar/Ejecutar      F5");
-	compileMenuItem.addSelectionListener(new CompileAction());
+	compileMenuItem.addSelectionListener(new CompileListener());
 	
 	resetDiagramMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	resetDiagramMenuItem.setText("Restablecer diagrama          F3");
-	resetDiagramMenuItem.addSelectionListener(new ResetDiagramAction());
+	resetDiagramMenuItem.addSelectionListener(new ResetDiagramListener());
 	
 	stepByStepMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
 	stepByStepMenuItem.setText("Paso A Paso");
-	stepByStepMenuItem.addSelectionListener(new StepByStepAction());
+	stepByStepMenuItem.addSelectionListener(new StepByStepListener());
     }
 
     private void initHelpMenu() {
@@ -258,17 +258,17 @@ public class CustomMenu {
 	
 	MenuItem helpContentsMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	helpContentsMenuItem.setText("Contenidos de Ayuda                             F1");
-	helpContentsMenuItem.addSelectionListener(new ViewHelpContentsAction());
+	helpContentsMenuItem.addSelectionListener(new ViewHelpContentsListener());
 	
 	MenuItem examplesMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	examplesMenuItem.setText("Ejemplos");
-	examplesMenuItem.addSelectionListener(new ViewExamplesAction());
+	examplesMenuItem.addSelectionListener(new ViewExamplesListener());
 
 	new MenuItem(helpMenu, SWT.SEPARATOR);	
 	
 	MenuItem aboutMenuItem = new MenuItem(helpMenu, SWT.PUSH);
 	aboutMenuItem.setText("Acerca de Origami...      F2");
-	aboutMenuItem.addSelectionListener(new ViewAboutAction());
+	aboutMenuItem.addSelectionListener(new ViewAboutListener());
     }
     
     public void setEnabledStepByStepMenuItems(boolean isEnabled) {
@@ -311,7 +311,7 @@ public class CustomMenu {
         return consoleMenuItem;
     }
 
-    public static ContextualMenuEvent get_editMenu() {
+    public static ContextualMenu get_editMenu() {
         return _editMenu;
     }
     

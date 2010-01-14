@@ -1,21 +1,17 @@
 package origami.graphics;
 
-import java.io.File;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-
-import origami.administration.AdminDiagrama;
 import origami.administration.AdminSeleccion;
-import origami.administration.Figura;
-import origami.administration.funtionality.CodeCompiler;
-import origami.administration.funtionality.Ejecutar;
-import origami.administration.funtionality.PasoAPaso;
+import origami.administration.ApplicationState;
+import origami.graphics.widgets.CustomConsole;
+import origami.graphics.widgets.CustomFiguresToolBar;
+import origami.graphics.widgets.CustomMenu;
+import origami.graphics.widgets.CustomToolBar;
+import origami.graphics.widgets.TabFolder;
 
 
 
@@ -24,16 +20,11 @@ import origami.administration.funtionality.PasoAPaso;
  * @author Juan Ku, Victor Rodriguez
  */
 public class Componentes {
-    public static AdminDiagrama _diagramAdministrator;
-    public static AdminSeleccion _selectionAdministrator = new AdminSeleccion(); 
-    
-    
-    
     private Display display;
     
-    private CustomMenu menu;
+    CustomMenu menu;
     
-    private CustomFiguresToolBar figuresToolBar;
+    CustomFiguresToolBar figuresToolBar;
     
     private GridData toolBarData = new GridData(SWT.FILL, SWT.FILL, true,
 			false, 2, 1);
@@ -50,8 +41,6 @@ public class Componentes {
     
     private boolean isConsoleMaximized = false;
     
-    
-    
     public static TabFolder _diagrams;
     
     public CustomToolBar barraHerramientas;
@@ -61,38 +50,26 @@ public class Componentes {
     public GridData consolaData = new GridData(SWT.FILL, SWT.FILL, false,
 			false, 2, 1);
 
-    public Ejecutar eje;
-    public PasoAPaso paso;
-    private boolean enEjecucion = false;
-
-    public boolean seleccion;
-    public boolean isPasoAPaso = false;
     public CustomConsole console;
 
-    public static Figura mainFigure = null;
-
-
-    
     public Componentes(Display display, CustomMenu menu) {
 	this.display = display;
 	this.menu = menu;
 	initControllers();
     }
     private void initControllers() {
-	_diagramAdministrator = new AdminDiagrama(_selectionAdministrator);
+	ApplicationState.init();
     }
     public void agregarComponentes(GridLayout layout) {
-		layout.horizontalSpacing = layout.verticalSpacing = 0;
-		layout.marginWidth = layout.marginHeight = 0;
-		layout.numColumns = 2;
-		
-		agregarBarraDeHerramientas();
-		agregarTabFolder(_selectionAdministrator);
-		
-		
-
-		consolaData.exclude = true;
-		console = new CustomConsole(consolaData);
+	layout.horizontalSpacing = layout.verticalSpacing = 0;
+	layout.marginWidth = layout.marginHeight = 0;
+	layout.numColumns = 2;
+	
+	agregarBarraDeHerramientas();
+	agregarTabFolder(ApplicationState._selectionAdministrator);
+	
+	consolaData.exclude = true;
+	console = new CustomConsole(consolaData);
     }
 
     private void agregarBarraDeHerramientas() {
@@ -192,7 +169,7 @@ public class Componentes {
 			consolaData.grabExcessVerticalSpace = false;
 			consolaData.exclude = true;
 			isConsoleMaximized = false;
-			console.cTabFolder.setBounds(0, 0, 0, 0);
+			console.getCtabFolder().setBounds(0, 0, 0, 0);
 		}
 		MainWindow.shell.layout();
 	}
@@ -233,161 +210,22 @@ public class Componentes {
 		barraHerramientas.getToolItems().get(2).setEnabled(disable);
 		menu.getSaveMenuItem().setEnabled(disable);
 	}
-
-	public void ejecucionDisable() {
-		if (enEjecucion) {
-		    console.bot.setEnabled(true);
-			barraHerramientas.getToolItems().get(13).setEnabled(true);
-		} else {
-			console.bot.setEnabled(false);
-			barraHerramientas.getToolItems().get(13).setEnabled(false);
-		}
-	}
-
-	public void setText(String text) {
-		if (seleccion) {
-			eje.inputActionPerformed(text);
-		} else {
-			paso.inputActionPerformed(text);
-		}
-	}
-
-	public void setEnEjecucion(boolean ejecucion) {
-		enEjecucion = ejecucion;
-	}
-
-	// ejecuta el paso a paso cuando bandera es false...
-	public void ejecutar(boolean bandera, CodeCompiler codigo) {
-		enEjecucion = true;
-		ejecucionDisable();
-		if (bandera) {
-			eje = new Ejecutar();
-			eje.ejecutar(this, "main.exe", codigo);
-			seleccion = true;
-		} else {
-			if (_diagrams.getTabItem().getLeaf().getSizeDiagrama() == 2) {
-				MessageBox messageBox = new MessageBox(MainWindow.shell,
-						SWT.ICON_INFORMATION | SWT.YES);
-				messageBox.setText("Origami");
-				messageBox.setMessage("La ejecucin ha terminado.");
-				int selec = messageBox.open();
-				switch (selec) {
-				case 0:
-					break;
-				case 64:
-					break;
-				default:
-					break;
-				}
-				enEjecucion = false;
-				ejecucionDisable();
-				disablePasoAPaso(false);
-			} else {
-				paso = new PasoAPaso(_diagrams,_selectionAdministrator);
-				paso.ejecutar(this, "gdb", codigo);
-				paso.main();
-				seleccion = false;
-				MainWindow.getComponents().barraHerramientas.getToolItems().get(12).setEnabled(true);
-				console.text.setEditable(false);
-				console.text.setBackground(MainWindow.display
-						.getSystemColor(SWT.COLOR_WHITE));
-			}
-		}
-	}
-
-
-	public boolean getEnEjecucion() {
-		return enEjecucion;
-	}
-
-	public void stopEjecucion() {
-	    barraHerramientas.getToolItems().get(12).setEnabled(false);
-		enEjecucion = false;
-		ejecucionDisable();
-		if (seleccion) {
-			eje.stopEjecutar();
-		} else {
-			disablePasoAPaso(false);
-			paso.stopEjecutar();
-			paso.colaConexiones.clear();
-			int diag = _diagrams.selec.getSeleccionDigrama();
-			paso.tab.selec.setSeleccionDiagrama(paso.a.GetId());
-			paso.limpiarPasoAnterior();
-			_diagrams.getTabItem().getLeaf().pasoInicio = false;
-			//_diagrams.getHoja().pasoInicio = false;
-			_diagrams.getTabItem().getLeaf().addFigure();
-			paso.tab.selec.setSeleccionDiagrama(diag);
-			console.text.setEditable(true);
-		}
-		eliminarArchivos();
-	}
-
-	public void eliminarArchivos() {
-		try {
-			File file = new File("main.exe");
-			File file2 = new File("main.cpp");
-			while (file.exists()) {
-				file.delete();
-			}
-			while (file2.exists()) {
-				file2.delete();
-			}
-		} catch (Exception e) {
-		}
-	}
-
-	public void next() {
-		if (enEjecucion) {
-		    barraHerramientas.getToolItems().get(12).setEnabled(false);
-			paso.sendNext();
-		}
-		final Timer timer = new Timer();
-		TimerTask timerTask = new TimerTask() {
-			public void run() {
-				MainWindow.display.syncExec(new Runnable() {
-					public void run() {
-						MainWindow.getComponents().barraHerramientas.getToolItems().get(12)
-								.setEnabled(true);
-					}
-				});
-				timer.cancel();
-			}
-		};
-		timer.schedule(timerTask, 100);
-	}
-
-	public void disablePasoAPaso(boolean disable) {
-		if (disable) {
-			isPasoAPaso = true;
-			_diagrams.selec.setFiguraSeleccionada(-1);
-			_diagrams.getTabItem().getLeaf().addFigure();
-			
-			barraHerramientas.disablePasoAPaso(disable);
-			
-			figuresToolBar.setEnabledAllButtons(!disable);
-			
-			
-			menu.setEnabledStepByStepMenuItems(!disable);
-
-		} else {
-			isPasoAPaso = false;
-			_diagrams.getTabItem().getLeaf().addFigure();
-			
-			barraHerramientas.disablePasoAPaso(disable);
-			
-			figuresToolBar.setEnabledAllButtons(!disable);
-
-			menu.setEnabledStepByStepMenuItems(!disable);
-		}
-	}
-
+	
+	private StepByStepComponents byStepComponents = new StepByStepComponents();
+	
 	public void disableAll(boolean disable) {
-	    barraHerramientas.disablePasoAPaso(disable);
+	    barraHerramientas.disableComponentStepByStep(disable);
 	    
 	    figuresToolBar.setEnabledAllButtons(disable);
 	    
 	    menu.setEnabledAllMenuItems(disable);
 	    
 	    guardarDisable(disable);
+	}
+	public void setByStepComponents(StepByStepComponents byStepComponents) {
+	    this.byStepComponents = byStepComponents;
+	}
+	public StepByStepComponents getByStepComponents() {
+	    return byStepComponents;
 	}
 }

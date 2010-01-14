@@ -15,10 +15,11 @@ import origami.administration.actions.RecorridoDiagrama;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
-import origami.graphics.TabFolder;
-import origami.graphics.TabItem;
+import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.*;
-import origami.ui.listeners.KeyEvent;
+import origami.graphics.widgets.TabFolder;
+import origami.graphics.widgets.TabItem;
+import origami.ui.listeners.KeyTypeListener;
 
 
 
@@ -26,7 +27,7 @@ import origami.ui.listeners.KeyEvent;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class PasoAPaso extends Ejecutar{
+public class PasoAPaso extends ConsoleController{
 	public TabFolder tab;
 	public TabItem a;
 	public int contador = 0;
@@ -58,7 +59,7 @@ public class PasoAPaso extends Ejecutar{
 		inputActionPerformed("break 1");
 		inputActionPerformed("run");
 		recorrido();
-		MainWindow.getComponents().paso = this;
+		MainWindow.getComponents().getByStepComponents().setPaso(this);
 		//tab.getHoja().paso(0);
 		tab.getTabItem().getLeaf().paso(0);
 	}
@@ -105,8 +106,8 @@ public class PasoAPaso extends Ejecutar{
 	    		sendNext();
 			}
 			else{
-				int id=tab.obtenId(a);
-				tab.setSeleccion(id);
+				int id=tab.getIdOfTabItem(a);
+				tab.setSelectionTabItem(id);
 				if(verificarLectura(Integer.parseInt(lineaNumero))){
 					limpiarPasoAnterior();
 					pasoApaso(Integer.parseInt(lineaNumero));
@@ -159,7 +160,7 @@ public class PasoAPaso extends Ejecutar{
 		text.setBounds(10,10,255,110);
 		text.addKeyListener(new org.eclipse.swt.events.KeyAdapter(){ 
 			public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-				KeyEvent key = new KeyEvent();
+				KeyTypeListener key = new KeyTypeListener();
 				key.setKey(e);
 				if(key.PresentEnter()){
 					inputActionPerformed("next");
@@ -411,7 +412,7 @@ public class PasoAPaso extends Ejecutar{
 			BaseDeDiagrama.getInstance().resetScrollBar();
 			//tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
-			MainWindow.getComponents().stopEjecucion();
+			MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 			return true;
 		}
 		return false;
@@ -725,7 +726,7 @@ public class PasoAPaso extends Ejecutar{
 			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof DecisionFigure){
 				tab.getTabItem().getLeaf().getFigureIndexOf(i).setPosicion(cont);
 				cont++;
-				if(tab.getTabItem().getLeaf().getFigureIndexOf(i+1) instanceof Elipse && tab.getTabItem().getLeaf().getFigureIndexOf(i+2) instanceof Elipse){
+				if(tab.getTabItem().getLeaf().getFigureIndexOf(i+1) instanceof EllipseFigure && tab.getTabItem().getLeaf().getFigureIndexOf(i+2) instanceof EllipseFigure){
 					casoA = false;
 				}
 				else{
@@ -735,10 +736,10 @@ public class PasoAPaso extends Ejecutar{
 			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof DecisionFigureEnd){
 				cont++;
 			}
-			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse){
+			else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure){
 				contadorDeLlaves = 1;
 				i++;
-				while(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof Elipse){
+				while(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure){
 					contadorDeLlaves++;
 					i++;
 					if(contadorDeLlaves==6){

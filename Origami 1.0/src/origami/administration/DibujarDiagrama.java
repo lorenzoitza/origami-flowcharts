@@ -7,19 +7,20 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.actions.RecorridoDiagrama;
 import origami.graphics.MainWindow;
-import origami.graphics.TabFolder;
+import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.DecisionFigureEnd;
-import origami.graphics.figures.Elipse;
+import origami.graphics.figures.EllipseFigure;
 import origami.graphics.figures.ForFigure;
 import origami.graphics.figures.InputFigure;
 import origami.graphics.figures.OutputFigure;
 import origami.graphics.figures.SentenceFigure;
 import origami.graphics.figures.WhileFigure;
-import origami.ui.listeners.ContextualMenuEvent;
-import origami.ui.listeners.DoubleClickEvento;
-import origami.ui.listeners.SelectEvent;
+import origami.graphics.widgets.TabFolder;
+import origami.ui.listeners.ContextualMenuListener;
+import origami.ui.listeners.DoubleClickListener;
+import origami.ui.listeners.SelectionListener;
 
 
 
@@ -61,7 +62,7 @@ public class DibujarDiagrama{
 		i= anidarFW(diagrama,i)-1;
 	    }
 	    else{
-		if(diagrama.elementAt(i-1) instanceof Elipse){
+		if(diagrama.elementAt(i-1) instanceof EllipseFigure){
 		    x = diagrama.elementAt(i-1).getBounds().x-40;
 		}
 		else{
@@ -95,7 +96,7 @@ public class DibujarDiagrama{
 		i= anidarFW(diagrama,i)-1;
 	    }
 	    else{
-		if(diagrama.elementAt(i-1) instanceof Elipse){
+		if(diagrama.elementAt(i-1) instanceof EllipseFigure){
 		    x = diagrama.elementAt(i-1).getBounds().x-40;
 		}
 		else{
@@ -126,7 +127,7 @@ public class DibujarDiagrama{
 	public int anidarIf(Vector<Figura> diagrama,int i){
 		int pda,pia,x,der2=0,der3=0,masDerecha,masIzquierda,total;
 		while(true){
-			if(diagrama.elementAt(i-1) instanceof Elipse){
+			if(diagrama.elementAt(i-1) instanceof EllipseFigure){
 				x = diagrama.elementAt(i-1).getBounds().x-40;
 			}
 			else{
@@ -139,7 +140,6 @@ public class DibujarDiagrama{
 				
 				
 				
-				//derecha arriba 
 				punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2);
 				diagrama.elementAt(i+1).setLocation(punto);
 				
@@ -150,8 +150,7 @@ public class DibujarDiagrama{
 					pda = anidarIf(diagrama,pda); 
 				}
 
-				//derecha abajo
-				if(diagrama.elementAt(pda-1) instanceof Elipse){
+				if(diagrama.elementAt(pda-1) instanceof EllipseFigure){
 					punto.setLocation(diagrama.elementAt(i).getBounds().x+120,diagrama.elementAt(pda-1).getBounds().y+diagrama.elementAt(pda-1).getBounds().height+70);
 					diagrama.elementAt(pda).setLocation(punto);
 				}
@@ -173,7 +172,7 @@ public class DibujarDiagrama{
 				}
 				
 				//izquierda abajo
-				if(diagrama.elementAt(pia-1) instanceof Elipse){
+				if(diagrama.elementAt(pia-1) instanceof EllipseFigure){
 					punto.setLocation(diagrama.elementAt(i).getBounds().x-40,diagrama.elementAt(pia-1).getBounds().y+diagrama.elementAt(pia-1).getBounds().height+70);
 					diagrama.elementAt(pia).setLocation(punto);
 					
@@ -264,7 +263,7 @@ public class DibujarDiagrama{
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
 				i = anidarFW(diagrama,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				break;
 			}
 			else{
@@ -290,7 +289,7 @@ public class DibujarDiagrama{
 	public int anidarFW(Vector<Figura> diagrama ,int i){
 	    int x,pda;
 		while(true){
-			if(diagrama.elementAt(i-1) instanceof Elipse){
+			if(diagrama.elementAt(i-1) instanceof EllipseFigure){
 				x = diagrama.elementAt(i-1).getBounds().x-40;
 			}
 			else{
@@ -393,7 +392,7 @@ public class DibujarDiagrama{
 			else if(diagrama.elementAt(i) instanceof DecisionFigure){
 				i = anidarIf(diagrama,i)-1;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				break;
 			}
 			else{
@@ -432,7 +431,7 @@ public class DibujarDiagrama{
 				cont-=1;
 				bandera = false;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(cont>cont2){
 					cont2=cont;  
 				}
@@ -460,7 +459,7 @@ public class DibujarDiagrama{
 				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
 				cont-=35;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(cont>cont2){
 					cont2=cont;  
 				}
@@ -503,7 +502,7 @@ public class DibujarDiagrama{
 				}
 				cont-=1;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				//i = recorridoCiclo2(diagrama,i+1);
 				if(cont>cont2){
 					cont2=cont;  
@@ -535,7 +534,7 @@ public class DibujarDiagrama{
 				}
 				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(cont>cont2){
 					cont2=cont;  
 				}
@@ -671,8 +670,8 @@ public class DibujarDiagrama{
 	public void getFigura(Vector<Figura> diagrama,boolean eventos){
 		Point pt = new Point();
 		if(eventos){
-			if(!MainWindow.getComponents().isPasoAPaso){
-				new SelectEvent(diagrama.elementAt(0),selec,tab);
+			if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+				new SelectionListener(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
 				if(diagrama.elementAt(x) instanceof DecisionFigure){
@@ -685,10 +684,10 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof ForFigure){
@@ -701,10 +700,10 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof WhileFigure){
@@ -717,10 +716,10 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof InputFigure){
@@ -733,10 +732,10 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new origami.ui.listeners.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new origami.ui.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof OutputFigure){
@@ -749,10 +748,10 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new origami.ui.listeners.DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new origami.ui.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 				else if(diagrama.elementAt(x) instanceof SentenceFigure){
@@ -760,15 +759,15 @@ public class DibujarDiagrama{
 					SentenceFigure figuras = (SentenceFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					SentenceFigure figura = new SentenceFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().isPasoAPaso){
-						new DoubleClickEvento(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuEvent(diagrama.elementAt(x));
-						new SelectEvent(diagrama.elementAt(x),selec,tab);
+					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new ContextualMenuListener(diagrama.elementAt(x));
+						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
 			}
@@ -835,7 +834,7 @@ public class DibujarDiagrama{
 					SentenceFigure figuras = (SentenceFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					SentenceFigure figura = new SentenceFigure();
-					figura.instruccion = figuras.instruccion;
+					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
@@ -846,7 +845,7 @@ public class DibujarDiagrama{
 					CircleFigure fig = (CircleFigure)diagrama.elementAt(x);
 					diagrama.removeElementAt(x);
 					CircleFigure ini = new CircleFigure();
-					ini.setMesagge(fig.getMesagge());
+					ini.setMessage(fig.getMessage());
 					ini.setListaPosicion(fig.getPosicion());
 					ini.setLocation(pt);
 					diagrama.insertElementAt(ini,x);

@@ -5,7 +5,7 @@ import java.io.*;
 import origami.administration.funtionality.code.Instruction;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
-import origami.graphics.TabFolder;
+import origami.graphics.widgets.TabFolder;
 
 
 /**

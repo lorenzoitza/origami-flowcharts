@@ -39,7 +39,6 @@ public class Informacion implements Serializable{
 	}
 	public void setInformacion(String informacion) {	
 		info.add(informacion);
-		//System.out.println(informacion);
 	}
 	public void addInformation(String information){
 		info.add(information);
@@ -47,27 +46,21 @@ public class Informacion implements Serializable{
 	public void setFigura(Figura figura){
 		if(figura instanceof DecisionFigure){
 			info.add("La figura agregada de tipo \"si\"");
-			//System.out.println("La figura agregada de tipo \"si\"");
 		}
 		else if(figura instanceof ForFigure){
 			info.add("La figura agregada de tipo \"para\"");
-			//System.out.println("La figura agregada de tipo \"para\"");
 		}
 		else if(figura instanceof WhileFigure){
 			info.add("La figura agregada de tipo \"mientras\"");
-			//System.out.println("La figura agregada de tipo \"mientras\"");
 		}
 		else if(figura instanceof InputFigure){
 			info.add("La figura agregada de tipo \"entrada\"");
-			//System.out.println("La figura agregada de tipo \"entrada\"");
 		}
 		else if(figura instanceof OutputFigure){
 			info.add("La figura agregada de tipo \"salida\"");
-			//System.out.println("La figura agregada de tipo \"salida\"");
 		}
 		else if(figura instanceof SentenceFigure){
 			info.add("La figura agregada de tipo \"proceso\"");
-			//System.out.println("La figura agregada de tipo \"proceso\"");
 		}
 	}
 	public void setDiagrama(Vector<Figura> diagrama) {
@@ -82,8 +75,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"If( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
-				//el del if solo va a trabajar la parte derecha y me regresa el siguiente punto de la izquierda
 				tab=tab+"	";
 				informacion = anidarIf(informacion,tab,diagrama,i+2);
 				//.............................................................
@@ -101,7 +92,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"For( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab +"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -119,7 +109,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"while("+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab +"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -132,7 +121,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.simpleInstruction;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -154,7 +143,7 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
@@ -189,8 +178,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"If( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
-				//el del if solo va a trabajar la parte derecha y me regresa el siguiente punto de la izquierda
 				tab=tab+"	";
 				informacion = anidarIf(informacion,tab,diagrama,i+2);
 				//.............................................................
@@ -208,7 +195,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"For( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab+"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -225,7 +211,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"while("+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab+"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -237,7 +222,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.simpleInstruction;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -259,7 +244,7 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
 					
 					if(tab.startsWith("\t")){
@@ -268,13 +253,11 @@ public class Informacion implements Serializable{
 					informacion = informacion +"\n"+tab+"}";
 					i++;
 					
-					//informacion = informacion+"\n"+tab+"}";
-					//i++;
+					
 				}
 				else{
 					contador++;
 					if(contador==6){
-						//salir del ciclo
 						this.aux=i;
 						i= diagrama.size()+1;
 						break;
@@ -296,8 +279,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(3,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"If( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
-				//el del if solo va a trabajar la parte derecha y me regresa el siguiente punto de la izquierda
 				tab=tab+"	";
 				informacion = anidarIf(informacion,tab,diagrama,i+2);
 				//.............................................................
@@ -315,7 +296,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(4,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"For( "+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab+"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -332,7 +312,6 @@ public class Informacion implements Serializable{
 					instruccion = instruccion.substring(6,instruccion.length()-2);
 				}
 				informacion = informacion+"\n"+tab+"while("+instruccion+" ){";
-				//llamar a otra funcion que coloque lo de en medio con un tab..
 				tab=tab+"	";
 				informacion = anidarCiclos(informacion,tab,diagrama,i+1);
 				i= this.aux;
@@ -344,7 +323,7 @@ public class Informacion implements Serializable{
 			}
 			else if(diagrama.elementAt(i) instanceof SentenceFigure){
 				SentenceFigure aux = (SentenceFigure)diagrama.elementAt(i);
-				instruccion = aux.instruccion.simpleInstruction;
+				instruccion = aux.instruction.simpleInstruction;
 				if(instruccion.compareTo("null")!=0){
 					instruccion = instruccion.substring(0,instruccion.length()-1);
 				}
@@ -366,24 +345,21 @@ public class Informacion implements Serializable{
 				}
 				informacion = informacion+"\n"+tab+"Salida( "+instruccion+" )";
 			}
-			else if(diagrama.elementAt(i) instanceof Elipse){
-				if(diagrama.elementAt(i+1) instanceof Elipse){
-					//informacion = informacion +tab+"\n}";
+			else if(diagrama.elementAt(i) instanceof EllipseFigure){
+				if(diagrama.elementAt(i+1) instanceof EllipseFigure){
 					i++;
 					this.aux=i;
 					i= diagrama.size()+1;
 					break;
 				}
 				else if(diagrama.elementAt(i+1) instanceof DecisionFigureEnd){
-					//informacion = informacion +tab+"\n}";
 					if(tab.startsWith("\t")){
 						tab = tab.substring(tab.indexOf("\t")+1);
 					}
 					informacion = informacion +"\n"+tab+"}";
 					i++;
 					
-					//informacion = informacion+"\n"+tab+"}";
-					//i++;
+					
 				}
 			}
 		}
@@ -396,74 +372,12 @@ public class Informacion implements Serializable{
 		int segundo = date.getSeconds();
 		
 		tiempoF = String.valueOf(hora)+":"+String.valueOf(minuto)+":"+String.valueOf(segundo);
-		/*if(hora>=this.hora){
-			hora = hora-this.hora;
-		}
-		else{
-			hora = 12-this.hora+hora;
-		}
-		if(minuto>=this.minuto){
-			minuto = minuto-this.minuto;
-		}
-		else{
-			minuto = 60-this.minuto+minuto;
-		}
-		if(segundo>=this.segundo){
-			segundo = segundo-this.segundo;
-		}
-		else{
-			segundo = 60-this.segundo+segundo;
-		}
-		if(tiempoAnterior!=null){
-			String aux = tiempoAnterior;
-			aux = aux.substring(aux.indexOf("=")+1);
-			
-			String tiempoH = aux.substring(1,aux.indexOf(":"));
-			aux = aux.substring(aux.indexOf(":")+1);
-			String tiempoM = aux.substring(0,aux.indexOf(":"));
-			aux = aux.substring(aux.indexOf(":")+1);
-			String tiempoS = aux.substring(0,aux.length());
-			int H = Integer.valueOf(tiempoH);
-			int M = Integer.valueOf(tiempoM);
-			int S = Integer.valueOf(tiempoS);
-			hora = hora+H;
-			minuto = minuto+M;
-			segundo = segundo+S;
-			
-			if(segundo>59){
-				int min = segundo/60;
-				segundo = segundo%60;
-				minuto = minuto+min;
-				if(minuto>59){
-					int hor = minuto/60;
-					minuto = minuto%60;
-					hora = hora + hor;
-				}
-			}
-			if(minuto>59){
-				int hor = minuto/60;
-				minuto = minuto%60;
-				hora = hora + hor;
-			}
-		}
-		String time = String.valueOf(hora)+":"+String.valueOf(minuto)+":"+String.valueOf(segundo);
-		time = "Tiempo total = "+time;*/
+
 		String time = "Tiempo total = "+tiempoI+"-"+tiempoF;
 		info.add(time);
-		//System.out.println(time);
 	}
 	public void removeTime(){
 		info.removeElementAt(info.size()-1);
 	}
-	/*
-	 * Claves para contar:
-	 *  /D - Elimino								*
-	 *  /A - Agrego									*
-	 *  /C - compilo								*
-	 *  /M - modifico o agrego una instruccion		
-	 *  /Ec- Error al compilar						*
-	 *  /P - paso a paso							*
-	 *  /Ep- error en el paso a paso				*
-	 *  /O - abrio el archivo 						*
-	 */
+	
 }

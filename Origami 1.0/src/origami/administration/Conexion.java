@@ -6,8 +6,8 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 
-import origami.graphics.TabFolder;
 import origami.graphics.figures.*;
+import origami.graphics.widgets.TabFolder;
 
 /**
  * Esta clase establece las conexiones
@@ -33,7 +33,6 @@ public class Conexion extends Figure{
 	public void crearConexiones(Vector<Figura> diagrama){
 		int pda,pia,j;
 		conexion.removeAllElements();
-		//tab.getHoja().getSizeDiagrama()
 		for(int i=0;i<tab.getTabItem().getLeaf().getSizeDiagrama()-1;i++){	
 			if(diagrama.elementAt(i+1) instanceof CircleFigure){
 				PolylineConnection coneccion = new PolylineConnection();
@@ -68,7 +67,6 @@ public class Conexion extends Figure{
 				coneccion.setTargetAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
 				conexion.addElement(coneccion);
 
-				//derecha de arriba 
 				PolylineConnection coneccion1 = new PolylineConnection();
 				coneccion1.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion1.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
@@ -83,10 +81,8 @@ public class Conexion extends Figure{
 				Label mensaje = new Label("Si");
 				coneccion1.add(mensaje, localizacion);
 				
-				//dereche de abajo 
 				coneccionpunto1.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(pda)));
 
-				//izquierda arriba	
 				PolylineConnection coneccion2 = new PolylineConnection();
 				 coneccion2.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion2.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
@@ -100,7 +96,6 @@ public class Conexion extends Figure{
 				
 				pia = conectarCiclo(diagrama,pda+1); 
 				
-				//izquierda abajo	
 				i=pia;
 				PolygonDecoration decoration2 = new PolygonDecoration();
 				PointList decorationPointList2 = new PointList();
@@ -243,7 +238,6 @@ public class Conexion extends Figure{
 				conector.setTargetAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
 				conexion.addElement(conector);
 
-				//derecha de arriba 
 				PolylineConnection coneccion1 = new PolylineConnection();
 				coneccion1 .setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion1.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
@@ -256,10 +250,8 @@ public class Conexion extends Figure{
 				coneccion1.add(mensaje, localizacion);
 				pda = conectarCiclo(diagrama,i+2); 
 				
-				//dereche de abajo 
 				coneccionpunto1.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(pda)));
 
-				//izquierda arriba	
 				PolylineConnection coneccion2 = new PolylineConnection();
 				coneccion2.setForegroundColor(Display.getCurrent().getSystemColor(color));
 				coneccion2.setSourceAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
@@ -273,7 +265,6 @@ public class Conexion extends Figure{
 				
 				pia = conectarCiclo(diagrama,pda+1); 
    
-				//izquierda abajo	
 				i=pia;
 				PolygonDecoration decoration2 = new PolygonDecoration();
 				PointList decorationPointList2 = new PointList();
@@ -364,7 +355,7 @@ public class Conexion extends Figure{
 				
 				i=j+4;	
 			}
-			else if(diagrama.elementAt(i+1) instanceof Elipse){
+			else if(diagrama.elementAt(i+1) instanceof EllipseFigure){
 				conector.setTargetAnchor(new ChopboxAnchor(diagrama.elementAt(i+1)));
 				conexion.addElement(conector);
 				return i+1;

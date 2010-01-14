@@ -5,15 +5,20 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import origami.administration.CustomFile;
 import origami.graphics.MainWindow;
-import origami.graphics.TabFolder;
+import origami.graphics.widgets.TabFolder;
 
 
 
 public class DiagramFileManager {
 
-    private Serializer serializer = new Serializer();
+    private Serializer serializer;
 
     private String fileName;
+    
+    
+    public DiagramFileManager() {
+	serializer = new Serializer();
+    }
 
 
     public boolean saveDiagram(TabFolder selectedTab) {
@@ -21,11 +26,11 @@ public class DiagramFileManager {
 	try {
 	    CustomFile seriliazableFile =
 		    new CustomFile(selectedTab.getTabItem().getLeaf().getDiagrama());
-	    seriliazableFile.setInfo(selectedTab.getTabItem().getInfo()
+	    seriliazableFile.setInfo(selectedTab.getTabItem().getInformation()
 		    .getInfo());
 	    
 	    serializer.writeFile(seriliazableFile, fileName);
-	    selectedTab.getTabItem().getInfo().removeTime();
+	    selectedTab.getTabItem().getInformation().removeTime();
 	} catch (Exception e) {
 	    errorMessage();
 	    e.printStackTrace();

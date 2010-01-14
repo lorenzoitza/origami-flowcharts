@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.DecisionFigureEnd;
-import origami.graphics.figures.Elipse;
+import origami.graphics.figures.EllipseFigure;
 import origami.graphics.figures.ForFigure;
 import origami.graphics.figures.WhileFigure;
 
@@ -12,7 +12,7 @@ import origami.graphics.figures.WhileFigure;
 /**
  * Esta clase administra las figuras del diagrama.
  * @version Origami 1.0
- * @author Juan Ku, Victor Rodriguez, hudy y rodrigo estuvo aqui
+ * @author Juan Ku, Victor Rodriguez, hudy y rodrigo estuvo aqui chuy
  */
 public class AdminDiagrama {
 	public Vector<Figura> diagrama = new Vector<Figura>();
@@ -28,9 +28,6 @@ public class AdminDiagrama {
 	 * @param figura
 	 */
 	public void ordenar(int i,Figura figura){
-		/*System.out.println("Se agrego...");
-		System.out.println(i+1);
-		System.out.println(figura);*/
 		
 		Vector<Figura> temporal = new Vector<Figura>();
 		int x = 0;
@@ -46,10 +43,10 @@ public class AdminDiagrama {
 		selec.setFiguraSeleccionada(x);
 		x++;
 		if(diagrama.elementAt(x-1) instanceof DecisionFigure){
-			Elipse punto1= new Elipse();
-			Elipse punto2= new Elipse();
-			Elipse punto3= new Elipse();
-			Elipse punto4= new Elipse();
+			EllipseFigure punto1= new EllipseFigure();
+			EllipseFigure punto2= new EllipseFigure();
+			EllipseFigure punto3= new EllipseFigure();
+			EllipseFigure punto4= new EllipseFigure();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);
@@ -65,12 +62,12 @@ public class AdminDiagrama {
 			}
 		}
 		else if(diagrama.elementAt(x-1) instanceof ForFigure){	
-			Elipse punto1= new Elipse();
-			Elipse punto2= new Elipse();
-			Elipse punto3= new Elipse();
-			Elipse punto4= new Elipse();
-			Elipse punto5= new Elipse();
-			Elipse punto6= new Elipse();
+			EllipseFigure punto1= new EllipseFigure();
+			EllipseFigure punto2= new EllipseFigure();
+			EllipseFigure punto3= new EllipseFigure();
+			EllipseFigure punto4= new EllipseFigure();
+			EllipseFigure punto5= new EllipseFigure();
+			EllipseFigure punto6= new EllipseFigure();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);
@@ -88,12 +85,12 @@ public class AdminDiagrama {
 			}
 		}
 		else if(diagrama.elementAt(x-1) instanceof WhileFigure){
-			Elipse punto1= new Elipse();
-			Elipse punto2= new Elipse();
-			Elipse punto3= new Elipse();
-			Elipse punto4= new Elipse();
-			Elipse punto5= new Elipse();
-			Elipse punto6= new Elipse();
+			EllipseFigure punto1= new EllipseFigure();
+			EllipseFigure punto2= new EllipseFigure();
+			EllipseFigure punto3= new EllipseFigure();
+			EllipseFigure punto4= new EllipseFigure();
+			EllipseFigure punto5= new EllipseFigure();
+			EllipseFigure punto6= new EllipseFigure();
 			diagrama.add(x,punto1);
 			x++;
 			diagrama.add(x,punto2);
@@ -115,20 +112,7 @@ public class AdminDiagrama {
 				diagrama.add(u,temporal.elementAt(u-1));
 			}
 		}
-		//******************************************
-		//	Seccion donde se guarda la informacion//
-		//******************************************
-		/*Informacion inf = new Informacion();
 		
-		Instruccion codigo = new Instruccion();
-		codigo.main(diagrama,false);
-		String[] lineas = codigo.codigoTotal.split("\n");
-		inf.setInfo(lineas);
-		Ventana.info.add(inf);
-		System.out.println("Se agrego...");
-		for(int j=0; j<lineas.length; j++)
-		System.out.println(lineas[j]);*/
-		//********************************************
 		
 	}
 }
