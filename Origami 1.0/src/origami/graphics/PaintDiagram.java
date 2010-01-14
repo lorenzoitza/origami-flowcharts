@@ -13,7 +13,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import origami.administration.AdminSelection;
-import origami.administration.Conexion;
+import origami.administration.FigureConnections;
 import origami.administration.DibujarDiagrama;
 import origami.administration.Figura;
 import origami.graphics.figures.SelectionSquare;
@@ -126,8 +126,8 @@ public class PaintDiagram extends Figure {
     public void disableCursor(Vector<Figura> diagrama, Figure chart){
 	agregarFiguras(diagrama,chart);
 	
-	Conexion conexion = new Conexion(tab);
-	conexion.crearConexiones(diagrama);
+	FigureConnections conexion = new FigureConnections(tab);
+	conexion.createConnections(diagrama);
 	if(MainWindow.getComponents().getByStepComponents().getStepByStep()!=null && MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size()!=0
 		&& MainWindow.getComponents().getByStepComponents().getStepByStep().a.GetId() == tab.getSelectedTabItemId()){
 	    for(int y=0;y<MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size();y++){

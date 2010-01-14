@@ -35,7 +35,7 @@ public class CustomLeaf {
     
     private PaintDiagram chart;
     private AdminDiagram diagrama;
-    private Conexion connection;
+    private FigureConnections connection;
     
     
     private AdminSelection seleccion; 
@@ -47,7 +47,7 @@ public class CustomLeaf {
 	tab = tabfolder;
 	chart = new PaintDiagram(seleccion,tab);
 	diagrama = new AdminDiagram(seleccion);
-	connection = new Conexion(tab);
+	connection = new FigureConnections(tab);
     }
 
 	public void disabledCustomLeaf(){
@@ -94,7 +94,7 @@ public class CustomLeaf {
 	public void addFigure(){
 		cambiarInicio();
 		chart.agregarFiguras(diagrama.diagram,chart);
-		connection.crearConexiones(diagrama.diagram);
+		connection.createConnections(diagrama.diagram);
 		chart.agregarConexiones(connection.getConexion(),chart);
 		if(MainWindow.getComponents().getByStepComponents().getStepByStep()!=null && MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size()!=0
 				&& MainWindow.getComponents().getByStepComponents().getStepByStep().a.GetId() == tab.getSelectedTabItemId()){
@@ -113,7 +113,7 @@ public class CustomLeaf {
 		new AddFigureListener(chart,seleccion,tab);
 		new ChangeCursorListener(chart,tab);
 	}
-	public Conexion getConexion(){
+	public FigureConnections getConexion(){
 		return connection;
 	}
 	public int getSizeDiagrama(){
@@ -151,7 +151,7 @@ public class CustomLeaf {
         	BaseDeDiagrama.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
         	chart.agregarFiguras(diagrama.diagram,chart);
-        	connection.crearConexiones(diagrama.diagram);
+        	connection.createConnections(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
 	}
 	//este metodo es usado cuando no hay tabs y por lo tanto se llamaba a addDiagram el cual
@@ -174,7 +174,7 @@ public class CustomLeaf {
         	BaseDeDiagrama.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
         	chart.agregarFiguras(diagrama.diagram,chart);
-        	connection.crearConexiones(diagrama.diagram);
+        	connection.createConnections(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
 	}
 	public Vector<Figura> getDiagrama(){

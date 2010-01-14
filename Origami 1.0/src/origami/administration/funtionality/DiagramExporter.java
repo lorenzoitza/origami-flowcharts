@@ -74,7 +74,7 @@ public class DiagramExporter {
 	}
 
 	public void exportJPGFile(String fileDirectory, Vector<Figura> sourceDiagram,
-			Conexion connection) {
+			FigureConnections connection) {
 		
 		Vector<Figura> exportedDiagram = getFiguras(sourceDiagram);
 		
@@ -93,7 +93,7 @@ public class DiagramExporter {
 		}
 	}
 
-	private PaintDiagram getSize(Vector<Figura> sourceDiagram, Conexion connection) {
+	private PaintDiagram getSize(Vector<Figura> sourceDiagram, FigureConnections connection) {
 		
 		int x1Coord = sourceDiagram.elementAt(0).getBounds().x;
 		
@@ -123,8 +123,8 @@ public class DiagramExporter {
 			width = (int) (width / 1.5);
 		}
 		panel.agregarFigurasExportar(sourceDiagram, panel, width, 50);
-		Conexion conex = new Conexion(selectedTab);
-		conex.crearConexiones(sourceDiagram);
+		FigureConnections conex = new FigureConnections(selectedTab);
+		conex.createConnections(sourceDiagram);
 		panel.agregarConexiones(conex.getConexion(), panel);
 		
 		return panel;
@@ -148,7 +148,7 @@ public class DiagramExporter {
 		return contents;
 	}
 
-	private byte[] createImage(Vector<Figura> diagrama, Conexion conexion,
+	private byte[] createImage(Vector<Figura> diagrama, FigureConnections conexion,
 			int format) {
 		
 		Figure figure = getSize(diagrama, conexion);
