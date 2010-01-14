@@ -1,16 +1,13 @@
 package origami.graphics.dialogs;
 
-import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
 import origami.administration.actions.DialogValidator;
-import origami.debug.Debugger;
 import origami.graphics.figures.OutputFigure;
-
-
 
 /**
  * Crea la ventana para introducir los datos de una figura de salida.

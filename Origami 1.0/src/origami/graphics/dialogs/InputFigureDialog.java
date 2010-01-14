@@ -1,14 +1,13 @@
 package origami.graphics.dialogs;
 
-import java.util.ArrayList;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 
-import origami.administration.actions.DialogValidator;
-import origami.debug.Debugger;
 import origami.graphics.figures.InputFigure;
 import origami.images.ImageLoader;
 

@@ -6,7 +6,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import origami.administration.actions.DialogValidator;
-import origami.debug.Debugger;
 import origami.graphics.figures.DecisionFigure;
 
 
