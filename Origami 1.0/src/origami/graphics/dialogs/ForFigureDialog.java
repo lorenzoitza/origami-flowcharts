@@ -24,9 +24,9 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 
     private Text counterExpressionTextField;
 
-    public ForFigureDialog(Shell shell, ForFigure figura) {
+    public ForFigureDialog(Shell shell, ForFigure forFigure) {
 
-	super(shell, figura);
+	super(shell, forFigure);
     }
     
     @Override

@@ -45,7 +45,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	
 		this.abstractFigure = figura;
 	
-		this.key = new KeyTypeListener();
+		this.keyTypeListener = new KeyTypeListener();
 	
 		this.scrolledComposite =
 			new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL

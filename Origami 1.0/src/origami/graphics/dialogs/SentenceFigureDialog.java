@@ -26,8 +26,7 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
     public void validate(boolean band) {
 	if (band) {
 
-	    if (variableTextField.getText() != ""
-		    && dataTextField.getText() != "") {
+	    if (!variableTextField.getText().isEmpty() && !dataTextField.getText().isEmpty()) {
 
 		String code =
 			variableTextField.getText() + " = "

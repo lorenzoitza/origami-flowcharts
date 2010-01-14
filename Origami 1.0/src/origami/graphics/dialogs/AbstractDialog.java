@@ -15,7 +15,7 @@ public abstract class AbstractDialog<Figure> {
     
     protected Label exampleLabel;
 
-    protected KeyTypeListener key;
+    protected KeyTypeListener keyTypeListener;
 
     protected Display display;
 
@@ -35,7 +35,7 @@ public abstract class AbstractDialog<Figure> {
 	
 		this.abstractFigure = figura;
 	
-		this.key = new KeyTypeListener();
+		this.keyTypeListener = new KeyTypeListener();
 	
 		this.create();
 		this.initComponents();
@@ -92,8 +92,8 @@ public abstract class AbstractDialog<Figure> {
     private KeyAdapter getKeyListener() {
 		return new org.eclipse.swt.events.KeyAdapter() {
 		    public void keyPressed(org.eclipse.swt.events.KeyEvent e) {
-			key.setKey(e);
-			if (key.PresentEnter()) {
+			keyTypeListener.setKey(e);
+			if (keyTypeListener.PresentEnter()) {
 			    validate(true);
 			    dialog.close();
 			}
