@@ -57,10 +57,8 @@ public class CloseWindowView {
 
 	    switch (optionSelected) {
 	    case 0:
-		Debugger.debug(this.getClass(), "presione 0");
 		break;
 	    case 64:
-		Debugger.debug(this.getClass(), "presione 64");
 		shellEvent.doit = false;
 		break;
 	    case 128:
