@@ -570,7 +570,7 @@ public class ContextualMenuActions {
     				}
     			}
     			MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
-    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagrama(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagram(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
     			ApplicationState._selectionAdministrator.setSelectedFigure(-1);
     			Repintar();
     			break;

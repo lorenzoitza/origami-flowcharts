@@ -9,7 +9,7 @@ import origami.administration.AdminDiagram;
 import origami.administration.AdminSelection;
 import origami.administration.CustomLeaf;
 import origami.administration.Figura;
-import origami.administration.Informacion;
+import origami.administration.Information;
 import origami.administration.funtionality.SaveDiagramController;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;
@@ -36,7 +36,7 @@ public class TabItem extends CTabItem {
 
     private TabFolder tab;
 
-    private Informacion information = new Informacion();
+    private Information information = new Information();
 
     private AdminSelection adminSelection;
 
@@ -158,8 +158,8 @@ public class TabItem extends CTabItem {
     }
 
     public void addInformation() {
-	information.setInformacion("Inicio un nuevo diagrama");
-	information.setDiagrama(tab.getTabItem().getLeaf().getDiagrama());
+	information.addInformation("Inicio un nuevo diagrama");
+	information.setDiagram(tab.getTabItem().getLeaf().getDiagrama());
     }
 
     public SaveDiagramController getSave() {
@@ -170,11 +170,11 @@ public class TabItem extends CTabItem {
 	this.save = save;
     }
 
-    public Informacion getInformation() {
+    public Information getInformation() {
 	return information;
     }
 
-    public void setInformation(Informacion info) {
+    public void setInformation(Information info) {
 	this.information = info;
     }
 }

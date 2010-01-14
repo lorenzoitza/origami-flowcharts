@@ -53,7 +53,7 @@ public class DialogValidator {
 				
 				MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
 				
-				MainWindow.getComponents().tabFolder.getTabItem().getInformation().setInformacion(
+				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation(
 							"/M - Se agrego"
 							+ " o modifico una "
 							+ "instruccion en una figura de tipo \""+info+"\"\n");
@@ -68,7 +68,7 @@ public class DialogValidator {
 			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 			
 			if (isChanged) {
-			    MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagrama(
+			    MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagram(
 				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 			}
 			

@@ -27,7 +27,7 @@ public class DiagramFileManager {
 	    CustomFile seriliazableFile =
 		    new CustomFile(selectedTab.getTabItem().getLeaf().getDiagrama());
 	    seriliazableFile.setInfo(selectedTab.getTabItem().getInformation()
-		    .getInfo());
+		    .getInformation());
 	    
 	    serializer.writeFile(seriliazableFile, fileName);
 	    selectedTab.getTabItem().getInformation().removeTime();

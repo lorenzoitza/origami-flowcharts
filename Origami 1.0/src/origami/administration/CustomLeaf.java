@@ -146,7 +146,7 @@ public class CustomLeaf {
         	chart.removeAll();
         	CustomFile aux = ser.recoverDiagram(archivo);
         	diagrama.diagram = aux.getDiagrama();
-        	tab.getTabItem().getInformation().setInfo(aux.getInfo());
+        	tab.getTabItem().getInformation().setInformation(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
         	BaseDeDiagrama.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
@@ -169,7 +169,7 @@ public class CustomLeaf {
         	chart.removeAll();
         	CustomFile aux = ser.recoverDiagram(archivo);
         	diagrama.diagram = aux.getDiagrama();
-        	tab.getTabItem().getInformation().setInfo(aux.getInfo());
+        	tab.getTabItem().getInformation().setInformation(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
         	BaseDeDiagrama.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);

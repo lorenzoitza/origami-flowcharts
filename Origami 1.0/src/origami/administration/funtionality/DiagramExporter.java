@@ -241,9 +241,9 @@ public class DiagramExporter {
 		String content = "";
 		
 		selectedTab.getTabItem().getInformation().addTime();
-		for (int i = 0; i < selectedTab.getTabItem().getInformation().getInfo().size(); i++) {
+		for (int i = 0; i < selectedTab.getTabItem().getInformation().getInformation().size(); i++) {
 			
-			content += selectedTab.getTabItem().getInformation().getInfo().elementAt(i);
+			content += selectedTab.getTabItem().getInformation().getInformation().elementAt(i);
 		}
 		save(adress, content);
 		selectedTab.getTabItem().getInformation().removeTime();
