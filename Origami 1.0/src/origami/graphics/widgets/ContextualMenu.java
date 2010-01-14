@@ -40,7 +40,7 @@ public class ContextualMenu{
 	cutMenuItem.setText("Cortar                  Ctrl+X");
 	cutMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+		new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -48,7 +48,7 @@ public class ContextualMenu{
 	copyMenuItem.setText("Copiar                  Ctrl+C");
 	copyMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+		new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -56,7 +56,7 @@ public class ContextualMenu{
 	pasteMenuItem.setText("Pegar                   Ctrl+V");
 	pasteMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+		new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -64,7 +64,7 @@ public class ContextualMenu{
 	deleteMenuItem.setText("Eliminar                 Supr");
 	deleteMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+		new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -74,7 +74,7 @@ public class ContextualMenu{
 	addMenuItem.setText("Agregar Codigo");
 	addMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().agregar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+		new ContextualMenuActions().agregar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -150,8 +150,8 @@ public class ContextualMenu{
     }
     
     public void setMenuAvailable(){
-	if(ApplicationState._selectionAdministrator.getFiguraSeleccionada() != -1){
-	    if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+	if(ApplicationState._selectionAdministrator.getSelectedFigure() != -1){
+	    if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure){
 		setEnabledEditMenuItems(false);
 	    }
 	    else{

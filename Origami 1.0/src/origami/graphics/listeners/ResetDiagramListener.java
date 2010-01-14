@@ -19,7 +19,7 @@ public class ResetDiagramListener implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
+	ApplicationState._selectionAdministrator.setSelectedFigure(0);
 	for(int index=MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;index>0;index--){
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(index);
 	}

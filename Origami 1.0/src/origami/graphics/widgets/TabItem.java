@@ -137,7 +137,7 @@ public class TabItem extends CTabItem {
 			.elementAt(index));
 	    }
 	}
-	seleccion[posicionRetroceso] = selec.getFiguraSeleccionada();
+	seleccion[posicionRetroceso] = selec.getSelectedFigure();
     }
 
     public void resetUndo() {

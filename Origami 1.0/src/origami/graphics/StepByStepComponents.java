@@ -76,12 +76,12 @@ public class StepByStepComponents {
     	    componentes.getByStepComponents().disableStepByStep(componentes, false);
     	    getStepByStep().stopExecution();
     	    getStepByStep().colaConexiones.clear();
-    	    int diag = WindowWidgets.tabFolder.getAdminSelection().getSeleccionDigrama();
-    	    getStepByStep().tab.getAdminSelection().setSeleccionDiagrama(getStepByStep().a.GetId());
+    	    int diag = WindowWidgets.tabFolder.getAdminSelection().getDiagramSelection();
+    	    getStepByStep().tab.getAdminSelection().setDiagramSelection(getStepByStep().a.GetId());
     	    getStepByStep().limpiarPasoAnterior();
     	    WindowWidgets.tabFolder.getTabItem().getLeaf().pasoInicio = false;
     	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
-    	    getStepByStep().tab.getAdminSelection().setSeleccionDiagrama(diag);
+    	    getStepByStep().tab.getAdminSelection().setDiagramSelection(diag);
     	    componentes.customConsole.getTextField().setEditable(true);
     	}
     	componentes.getByStepComponents().deleteFiles();
@@ -162,7 +162,7 @@ public class StepByStepComponents {
     public void disableStepByStep(WindowWidgets windowWidgets, boolean isEnable) {
     	if (isEnable) {
     	    setIsStepByStep(true);
-    	    WindowWidgets.tabFolder.getAdminSelection().setFiguraSeleccionada(-1);
+    	    WindowWidgets.tabFolder.getAdminSelection().setSelectedFigure(-1);
     	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
     	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);

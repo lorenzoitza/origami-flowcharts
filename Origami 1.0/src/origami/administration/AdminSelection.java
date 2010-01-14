@@ -4,25 +4,25 @@ package origami.administration;
  * @author Juan Ku, Victor Rodriguez
  */
 public class AdminSelection {
-    public int  [] figuraSeleccionada = new int [100];
+    public int  [] selectedFigure = new int [100];
     
-    public int seleccionDiagrama=0;
+    public int diagramSelection=0;
 	
     public AdminSelection(){
 	for(int i=0; i<100; i++){
-	    figuraSeleccionada [i]=-1;
+	    selectedFigure [i]=-1;
 	}
     }
-    public int getFiguraSeleccionada(){
-	return figuraSeleccionada[seleccionDiagrama];
+    public int getSelectedFigure(){
+	return selectedFigure[diagramSelection];
     }
-    public void setFiguraSeleccionada(int figuraSelec){
-	figuraSeleccionada[seleccionDiagrama] = figuraSelec;
+    public void setSelectedFigure(int figuraSelec){
+	selectedFigure[diagramSelection] = figuraSelec;
     }
-    public void setSeleccionDiagrama(int selec){
-	seleccionDiagrama = selec;
+    public void setDiagramSelection(int selec){
+	diagramSelection = selec;
     }
-    public int getSeleccionDigrama(){
-	return seleccionDiagrama;
+    public int getDiagramSelection(){
+	return diagramSelection;
     }
 }

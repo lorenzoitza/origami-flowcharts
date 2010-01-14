@@ -89,7 +89,7 @@ public class AdminDiagram {
 	    currentPosition++;
 	}
 	diagram.add(currentPosition, figure);
-	selec.setFiguraSeleccionada(currentPosition);
+	selec.setSelectedFigure(currentPosition);
 	currentPosition++;
 	if (diagram.elementAt(currentPosition - 1) instanceof DecisionFigure) {
 	    addDecisionFigure(currentPosition, temporalDiagram);

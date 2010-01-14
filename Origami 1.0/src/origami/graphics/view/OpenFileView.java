@@ -61,7 +61,7 @@ public class OpenFileView {
     public void openDiagram(String nomArchivo, String address) {
 	switch (openType) {
 	case OPEN:
-	    ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
+	    ApplicationState._selectionAdministrator.setSelectedFigure(0);
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .openFile(address, _serializer);
 	    MainWindow.getComponents().tabFolder.getTabItem().getSave().setDir(
@@ -78,7 +78,7 @@ public class OpenFileView {
 		    MainWindow.getComponents().tabFolder.getAdminSelection());
 	    break;
 	case OPENEXAMPLE:
-	    ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
+	    ApplicationState._selectionAdministrator.setSelectedFigure(0);
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .openFile(address, _serializer);
 	    // MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);

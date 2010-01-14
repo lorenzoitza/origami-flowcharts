@@ -94,7 +94,7 @@ public class CustomToolBar {
 				.getLeaf()
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
-						.getFiguraSeleccionada());
+						.getSelectedFigure());
 		new ContextualMenuActions().Cortar(fig);
 		disableToolBar();
 	    }
@@ -114,7 +114,7 @@ public class CustomToolBar {
 				.getLeaf()
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
-						.getFiguraSeleccionada());
+						.getSelectedFigure());
 		new ContextualMenuActions().Copiar(figure);
 		disableToolBar();
 	    }
@@ -134,7 +134,7 @@ public class CustomToolBar {
 				.getLeaf()
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
-						.getFiguraSeleccionada());
+						.getSelectedFigure());
 		new ContextualMenuActions().Pegar(fig);
 		disableToolBar();
 	    }
@@ -154,7 +154,7 @@ public class CustomToolBar {
 				.getLeaf()
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
-						.getFiguraSeleccionada());
+						.getSelectedFigure());
 		new ContextualMenuActions().Eliminar(fig);
 	    }
 	});
@@ -263,13 +263,13 @@ public class CustomToolBar {
 	int startStandartButtons=4;
 	int endStandartButtons=7;
 	int paste=6;
-	if (ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1) {
+	if (ApplicationState._selectionAdministrator.getSelectedFigure() == -1) {
 	    for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		toolItems.get(index).setEnabled(false);
 	    }
 	} else {
 	    if (ApplicationState._selectionAdministrator
-		    .getFiguraSeleccionada() != 0) {
+		    .getSelectedFigure() != 0) {
 		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		    toolItems.get(index).setEnabled(true);
 		}

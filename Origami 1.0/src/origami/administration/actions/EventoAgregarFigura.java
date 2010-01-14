@@ -72,7 +72,7 @@ public class EventoAgregarFigura{
 			}
 		}
 		else{
-			selec.setFiguraSeleccionada(-1);
+			selec.setSelectedFigure(-1);
 			if(tab.getItemCount()!=0){
 				tab.getTabItem().getLeaf().addFigure();
 			}

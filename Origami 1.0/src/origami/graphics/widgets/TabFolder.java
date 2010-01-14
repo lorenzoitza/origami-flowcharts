@@ -86,7 +86,7 @@ public class TabFolder {
 	    getTabItem().getLeaf().getDiagrama().add(
 		    diagrama.elementAt(pos).diagram.elementAt(index));
 	}
-	getAdminSelection().setFiguraSeleccionada(seleccion);
+	getAdminSelection().setSelectedFigure(seleccion);
 	getTabItem().getLeaf().addFigure();
     }
 
@@ -97,7 +97,7 @@ public class TabFolder {
 	    tab = (TabItem) tabFolder.getItem(index);
 	    if (tab.GetId() == a.GetId()) {
 		id = index;
-		getAdminSelection().setSeleccionDiagrama(tab.GetId());
+		getAdminSelection().setDiagramSelection(tab.GetId());
 		getTabItem().getLeaf().enabledCustomLeaf();
 		return id;
 	    }
@@ -112,7 +112,7 @@ public class TabFolder {
 	item.setTabFolder(this);
 	item.setText("Diagrama " + aux);
 	item.SetId(counter);
-	getAdminSelection().setSeleccionDiagrama(counter);
+	getAdminSelection().setDiagramSelection(counter);
 	item.initLeaf();
 	selectionTabItem();
 	item.enabledLeaf();
@@ -171,7 +171,7 @@ public class TabFolder {
 		TabItem a =
 			(TabItem) tabFolder.getItem(tabFolder
 				.getSelectionIndex());
-		getAdminSelection().setSeleccionDiagrama(a.GetId());
+		getAdminSelection().setDiagramSelection(a.GetId());
 		a.getLeaf().enabledCustomLeaf();
 		BaseDeDiagrama.getInstance().resetScrollBar();
 		a.getSave().checkChanges();
@@ -190,8 +190,8 @@ public class TabFolder {
 	    item.setTabFolder(this);
 	    item.SetId(counter);
 	    item.setText(name);
-	    getAdminSelection().setSeleccionDiagrama(counter);
-	    getAdminSelection().setFiguraSeleccionada(0);
+	    getAdminSelection().setDiagramSelection(counter);
+	    getAdminSelection().setSelectedFigure(0);
 	    selectionTabItem();
 	}
     }
@@ -219,7 +219,7 @@ public class TabFolder {
     public void openDiagram(String archivo, DiagramFileManager ser) {
 	getTabItem().getLeaf().openNewFile(archivo, ser);
 	setSelectionTabItem(0);
-	getAdminSelection().setFiguraSeleccionada(-1);
+	getAdminSelection().setSelectedFigure(-1);
     }
 
     public int getSelectedTabItemId() {

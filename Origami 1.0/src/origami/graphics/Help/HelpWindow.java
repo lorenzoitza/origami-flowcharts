@@ -30,6 +30,7 @@ public class HelpWindow{
     private final int MAX_TREE_ITEMS = 19;
 	
     public HelpWindow(){
+	System.out.println("AYUDA");
 	createWindow();
 	initComponents();
     }

@@ -90,7 +90,7 @@ public class PaintDiagram extends Figure {
 	}
 	
 	
-	if(selec.getFiguraSeleccionada()!=-1){
+	if(selec.getSelectedFigure()!=-1){
 		agregarSeleccion(diagramaFinalTotal,chart);
 		CustomMenu.get_editMenu().setMenuAvailable();
 	}
@@ -102,10 +102,10 @@ public class PaintDiagram extends Figure {
     
     private void agregarSeleccion(Vector<Figura> diagrama,Figure chart){
 	int x,y,width,height;
-	x = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().x;
-	y = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().y;
-	height = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().height;
-	width = diagrama.elementAt(selec.getFiguraSeleccionada()).getBounds().width;
+	x = diagrama.elementAt(selec.getSelectedFigure()).getBounds().x;
+	y = diagrama.elementAt(selec.getSelectedFigure()).getBounds().y;
+	height = diagrama.elementAt(selec.getSelectedFigure()).getBounds().height;
+	width = diagrama.elementAt(selec.getSelectedFigure()).getBounds().width;
 	
 	for(int i=0; i<4; i++){
 		SelectionSquare uno = new SelectionSquare(false,SWT.COLOR_DARK_GRAY);
@@ -120,7 +120,7 @@ public class PaintDiagram extends Figure {
 		chart.add(seleccion.elementAt(i));
 	}
 	CustomMenu.get_editMenu().setMenuAvailable();
-	diagrama.elementAt(selec.getFiguraSeleccionada()).setSeleccion(true);
+	diagrama.elementAt(selec.getSelectedFigure()).setSeleccion(true);
     }
     
     public void disableCursor(Vector<Figura> diagrama, Figure chart){

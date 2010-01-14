@@ -39,7 +39,7 @@ public class ContextualMenuActions {
     public void Cortar(Figura fig){
     	int index = 0;
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
-    		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
+    		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagram.removeAllElements();
     			if(fig instanceof DecisionFigure){
@@ -78,7 +78,7 @@ public class ContextualMenuActions {
     				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     			}
     			isCut = true;
-    			ApplicationState._selectionAdministrator.setFiguraSeleccionada(-1);
+    			ApplicationState._selectionAdministrator.setSelectedFigure(-1);
     			Repintar();	
     			break;
     		}
@@ -91,7 +91,7 @@ public class ContextualMenuActions {
     	}
     	int index = 0;
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
-    		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
+    		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagram.removeAllElements();
     			if(fig instanceof DecisionFigure){
@@ -295,8 +295,8 @@ public class ContextualMenuActions {
     	}
     	Vector<Figura> temporal = new Vector<Figura>();
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
-    		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
-    			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof DecisionFigure){
+    		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
+    			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof DecisionFigure){
     				shell.setBounds(315, 260, 300, 140);
     				Button izquierda = new Button(shell,SWT.PUSH);
     				izquierda.setBounds(5, 75, 75, 25);
@@ -330,8 +330,8 @@ public class ContextualMenuActions {
     							temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
     						}
     						//*******************************************
-    						int posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width;
-    						posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-posicion;
+    						int posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().x+MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().width;
+    						posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()+1).getBounds().x-posicion;
     						//*******************************************
     						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureAllElements();
     						for(int i =0; i<=x; i++){
@@ -342,8 +342,8 @@ public class ContextualMenuActions {
     						int distancia =  temporal.elementAt(y-1).getBounds().x + temporal.elementAt(y-1).getBounds().height;
     						distancia =  temporal.elementAt(y).getBounds().x - distancia;
     						int cont=0, punto=0;
-    						for(int i =ApplicationState._selectionAdministrator.getFiguraSeleccionada(); cont<2; i++){
-    								if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x - temporal.elementAt(i).getBounds().x == posicion){
+    						for(int i =ApplicationState._selectionAdministrator.getSelectedFigure(); cont<2; i++){
+    								if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().x - temporal.elementAt(i).getBounds().x == posicion){
     									cont++;
     								}
     								punto = i;
@@ -354,7 +354,7 @@ public class ContextualMenuActions {
     						}
     						int j =0;
     						//este es el que se debe de seleccionar punto
-    						ApplicationState._selectionAdministrator.setFiguraSeleccionada(punto);
+    						ApplicationState._selectionAdministrator.setSelectedFigure(punto);
     						for(int i =punto; j<ApplicationState._diagramAdministrator.diagram.size(); i++){
     							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().insertFigureIndexOf(ApplicationState._diagramAdministrator.diagram.elementAt(j), i);
     							j++;
@@ -395,7 +395,7 @@ public class ContextualMenuActions {
     						lim =temporal.size()-x-1;
     						w=x+1;
     						//este es el que se debe de seleccionar w
-    						ApplicationState._selectionAdministrator.setFiguraSeleccionada(w+1);
+    						ApplicationState._selectionAdministrator.setSelectedFigure(w+1);
     						for(int i =w; i<x+1+ApplicationState._diagramAdministrator.diagram.size(); i++){
     							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i+1,ApplicationState._diagramAdministrator.diagram.elementAt(y));
     							y++;
@@ -436,7 +436,7 @@ public class ContextualMenuActions {
     				lim =temporal.size()-x-1;
     				w=x+1;
     				//esta es la que se debe de seleccionar w
-    				ApplicationState._selectionAdministrator.setFiguraSeleccionada(w);
+    				ApplicationState._selectionAdministrator.setSelectedFigure(w);
     				for(int i =w; i<x+1+ApplicationState._diagramAdministrator.diagram.size(); i++){
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,ApplicationState._diagramAdministrator.diagram.elementAt(y));
     					y++;
@@ -459,7 +459,7 @@ public class ContextualMenuActions {
     	}
     }
     public void insertarFigura(final Figura inser){
-    	final int i = ApplicationState._selectionAdministrator.getFiguraSeleccionada();
+    	final int i = ApplicationState._selectionAdministrator.getSelectedFigure();
     	if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().diagram.elementAt(i) instanceof DecisionFigure){
     		final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
     		shell.setBounds(315, 260, 400, 140);
@@ -487,12 +487,12 @@ public class ContextualMenuActions {
     		shell.open();
     		izquierda.addSelectionListener(new SelectionAdapter() {
     			public void widgetSelected(SelectionEvent event) {
-    				int distan = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+
-    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width);
-    				for(int j=ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1; j<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); j++){
-    					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x-MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(j).getBounds().x == distan){
+    				int distan = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()+1).getBounds().x-(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().x+
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().width);
+    				for(int j=ApplicationState._selectionAdministrator.getSelectedFigure()+1; j<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); j++){
+    					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()).getBounds().x-MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(j).getBounds().x == distan){
     						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(j, inser);
-    						ApplicationState._selectionAdministrator.setFiguraSeleccionada(j+1);
+    						ApplicationState._selectionAdministrator.setSelectedFigure(j+1);
     						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
     						break;
     					}
@@ -505,7 +505,7 @@ public class ContextualMenuActions {
     		derecha.addSelectionListener(new SelectionAdapter() {
     			public void widgetSelected(SelectionEvent event) {
     				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i+1, inser);
-    				ApplicationState._selectionAdministrator.setFiguraSeleccionada(i+2);
+    				ApplicationState._selectionAdministrator.setSelectedFigure(i+2);
     				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
     				shell.close();
     				Repintar();
@@ -527,7 +527,7 @@ public class ContextualMenuActions {
     public void Eliminar(Figura fig){
     	String tipo ="";
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
-    		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
+    		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
     			int y=0,x2=0,cont=0;
     			if(fig instanceof DecisionFigure){
     				tipo="si";
@@ -571,7 +571,7 @@ public class ContextualMenuActions {
     			}
     			MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
     			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagrama(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
-    			ApplicationState._selectionAdministrator.setFiguraSeleccionada(-1);
+    			ApplicationState._selectionAdministrator.setSelectedFigure(-1);
     			Repintar();
     			break;
     		}

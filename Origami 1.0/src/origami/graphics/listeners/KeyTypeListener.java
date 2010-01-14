@@ -88,11 +88,11 @@ public class KeyTypeListener implements KeyListener{
 		}
        break;
 	case 127:
-		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+		if(ApplicationState._selectionAdministrator.getSelectedFigure()!=-1){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure){
 			}
 			else{
-			    new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 			}
 		}
 		break;
@@ -112,7 +112,7 @@ public class KeyTypeListener implements KeyListener{
 				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(y);
 			}
 			CircleFigure fin = new CircleFigure();
-			ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
+			ApplicationState._selectionAdministrator.setSelectedFigure(0);
 			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().add(fin);
 			fin.setMessage("  Fin");
 			BaseDeDiagrama.getInstance().resetScrollBar();
@@ -180,29 +180,29 @@ public class KeyTypeListener implements KeyListener{
 	    }
 	}
 	else if(key+key2 == 262264){
-		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
+		if(ApplicationState._selectionAdministrator.getSelectedFigure()!=-1){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getSelectedFigure() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));	
+			    new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()));	
 				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
 	}
 	else if(key+key2 == 262243){
-		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
+		if(ApplicationState._selectionAdministrator.getSelectedFigure()!=-1){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getSelectedFigure() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()));
 				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
 	}
 	else if(key+key2 == 262262){
-		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
+		if(ApplicationState._selectionAdministrator.getSelectedFigure()!=-1){
 			if(ApplicationState._diagramAdministrator.diagram.size()>0){
-			    new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()));
 				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
