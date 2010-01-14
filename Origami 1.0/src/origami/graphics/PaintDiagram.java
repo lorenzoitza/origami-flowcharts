@@ -128,10 +128,10 @@ public class PaintDiagram extends Figure {
 	
 	Conexion conexion = new Conexion(tab);
 	conexion.crearConexiones(diagrama);
-	if(MainWindow.getComponents().getByStepComponents().getPaso()!=null && MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size()!=0
-		&& MainWindow.getComponents().getByStepComponents().getPaso().a.GetId() == tab.getSelectedTabItemId()){
-	    for(int y=0;y<MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size();y++){
-		conexion.getConexion().elementAt(MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.get(y)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
+	if(MainWindow.getComponents().getByStepComponents().getStepByStep()!=null && MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size()!=0
+		&& MainWindow.getComponents().getByStepComponents().getStepByStep().a.GetId() == tab.getSelectedTabItemId()){
+	    for(int y=0;y<MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size();y++){
+		conexion.getConexion().elementAt(MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.get(y)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
 	    }
 	}
 	agregarConexiones(conexion.getConexion(),chart);

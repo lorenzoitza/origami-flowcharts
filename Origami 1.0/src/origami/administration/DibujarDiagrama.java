@@ -670,7 +670,7 @@ public class DibujarDiagrama{
 	public void getFigura(Vector<Figura> diagrama,boolean eventos){
 		Point pt = new Point();
 		if(eventos){
-			if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+			if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 				new SelectionListener(diagrama.elementAt(0),selec,tab);
 			}
 			for(int x =1;x<diagrama.size()-1;x++ ){
@@ -684,7 +684,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
@@ -700,7 +700,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
@@ -716,7 +716,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
@@ -732,7 +732,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
@@ -748,7 +748,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
@@ -764,7 +764,7 @@ public class DibujarDiagrama{
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
-					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);

@@ -159,13 +159,13 @@ public class CustomConsole {
 
 	    public void widgetSelected(SelectionEvent event) {
 		if (MainWindow.getComponents().getByStepComponents()
-			.isPasoAPaso()) {
+			.isStepByStep()) {
 		    MainWindow
 			    .getComponents()
 			    .getByStepComponents()
-			    .disablePasoAPaso(MainWindow.getComponents(), false);
+			    .disableStepByStep(MainWindow.getComponents(), false);
 		}
-		MainWindow.getComponents().getByStepComponents().stopEjecucion(
+		MainWindow.getComponents().getByStepComponents().stopExecution(
 			MainWindow.getComponents());
 	    }
 	};

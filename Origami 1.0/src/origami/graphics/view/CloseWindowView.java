@@ -67,12 +67,12 @@ public class CloseWindowView {
 		if (MainWindow.getComponents().getByStepComponents()
 			.getEnEjecucion(MainWindow.getComponents())) {
 		    MainWindow.getComponents().getByStepComponents()
-			    .stopEjecucion(MainWindow.getComponents());
+			    .stopExecution(MainWindow.getComponents());
 		}
 		if (MainWindow.getComponents().getByStepComponents()
 			.getEnEjecucion(MainWindow.getComponents())) {
 		    MainWindow.getComponents().getByStepComponents()
-			    .stopEjecucion(MainWindow.getComponents());
+			    .stopExecution(MainWindow.getComponents());
 		}
 	    }
 	}

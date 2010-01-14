@@ -16,204 +16,211 @@ import origami.graphics.widgets.CustomMenu;
 
 
 public class StepByStepComponents {
-
-    private ConsoleController eje;
-    private PasoAPaso paso;
-    private boolean isPasoAPaso = false;
-    private boolean enEjecucion = false;
-    private boolean seleccion;
-
-    private CustomMenu menu;
+    private ConsoleController consoleController;
     
-    private CustomFiguresToolBar figuresToolBar;
+    private PasoAPaso stepByStep;
+    
+    private boolean isStepByStep;
+    
+    private boolean isExecution;
+    
+    private boolean isSelected;
+
+    private CustomMenu customMenu;
+    
+    private CustomFiguresToolBar customFiguresToolBar;
     
     public StepByStepComponents(CustomMenu menu, CustomFiguresToolBar figuresToolBar){
-	this.menu = menu;
-	this.figuresToolBar = figuresToolBar;
+	this.customMenu = menu;
+	
+	this.customFiguresToolBar = figuresToolBar;
+	
+	isStepByStep = false;
+	    
+	isExecution = false;
     }
     
-    public void ejecucionDisable(WindowWidgets componentes) {
-    	if (isEnEjecucion()) {
-    	    componentes.customConsole.getStopExecutionButton().setEnabled(true);
-    		componentes.customToolBar.getToolItems().get(13).setEnabled(true);
+    public void disableExecution(WindowWidgets windowWidgets) {
+    	if(isExecuted()) {
+    	    windowWidgets.customConsole.getStopExecutionButton().setEnabled(true);
+    	    windowWidgets.customToolBar.getToolItems().get(13).setEnabled(true);
     	} else {
-    		componentes.customConsole.getStopExecutionButton().setEnabled(false);
-    		componentes.customToolBar.getToolItems().get(13).setEnabled(false);
+    	    windowWidgets.customConsole.getStopExecutionButton().setEnabled(false);
+    	    windowWidgets.customToolBar.getToolItems().get(13).setEnabled(false);
     	}
     }
 
-    public void setText(WindowWidgets componentes, String text) {
-    	if (isSeleccion()) {
-    		getEje().inputActionPerformed(text);
+    public void setText(WindowWidgets windowComponents, String consoleText) {
+    	if (isSelected()) {
+    	    getExecution().inputActionPerformed(consoleText);
     	} else {
-    		getPaso().inputActionPerformed(text);
+    	    getStepByStep().inputActionPerformed(consoleText);
     	}
     }
 
-    public void setEnEjecucion(WindowWidgets componentes, boolean ejecucion) {
-    	this.enEjecucion = ejecucion;
+    public void setExecution(WindowWidgets componentes, boolean isExecuted) {
+    	this.isExecution = isExecuted;
     }
 
     public boolean getEnEjecucion(WindowWidgets componentes) {
-    	return isEnEjecucion();
+    	return isExecuted();
     }
 
-    public void stopEjecucion(WindowWidgets componentes) {
+    public void stopExecution(WindowWidgets componentes) {
         componentes.customToolBar.getToolItems().get(12).setEnabled(false);
-    	setEnEjecucion(false);
-    	ejecucionDisable(componentes);
-    	if (isSeleccion()) {
-    		getEje().stopExecution();
+    	setIsExecuted(false);
+    	disableExecution(componentes);
+    	if (isSelected()) {
+    	    getExecution().stopExecution();
     	} else {
-    		componentes.getByStepComponents().disablePasoAPaso(componentes, false);
-    		getPaso().stopExecution();
-    		getPaso().colaConexiones.clear();
-    		int diag = WindowWidgets.tabFolder.getAdminSelection().getSeleccionDigrama();
-    		getPaso().tab.getAdminSelection().setSeleccionDiagrama(getPaso().a.GetId());
-    		getPaso().limpiarPasoAnterior();
-    		WindowWidgets.tabFolder.getTabItem().getLeaf().pasoInicio = false;
-    		WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
-    		getPaso().tab.getAdminSelection().setSeleccionDiagrama(diag);
-    		componentes.customConsole.getTextField().setEditable(true);
+    	    componentes.getByStepComponents().disableStepByStep(componentes, false);
+    	    getStepByStep().stopExecution();
+    	    getStepByStep().colaConexiones.clear();
+    	    int diag = WindowWidgets.tabFolder.getAdminSelection().getSeleccionDigrama();
+    	    getStepByStep().tab.getAdminSelection().setSeleccionDiagrama(getStepByStep().a.GetId());
+    	    getStepByStep().limpiarPasoAnterior();
+    	    WindowWidgets.tabFolder.getTabItem().getLeaf().pasoInicio = false;
+    	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
+    	    getStepByStep().tab.getAdminSelection().setSeleccionDiagrama(diag);
+    	    componentes.customConsole.getTextField().setEditable(true);
     	}
-    	componentes.getByStepComponents().eliminarArchivos();
+    	componentes.getByStepComponents().deleteFiles();
     }
 
-    public void eliminarArchivos() {
+    public void deleteFiles() {
     	try {
-    		File file = new File("main.exe");
-    		File file2 = new File("main.cpp");
-    		while (file.exists()) {
-    			file.delete();
-    		}
-    		while (file2.exists()) {
-    			file2.delete();
-    		}
+    	    File exeFile = new File("main.exe");
+    	    File cppFile = new File("main.cpp");
+    	    while (exeFile.exists()) {
+    		exeFile.delete();
+    	    }
+    	    while (cppFile.exists()) {
+    		cppFile.delete();
+    	    }
     	} catch (Exception e) {
     	}
     }
 
-    public void next(WindowWidgets componentes) {
-    	if (isEnEjecucion()) {
-    	    componentes.customToolBar.getToolItems().get(12).setEnabled(false);
-    		getPaso().sendNext();
+    public void next(WindowWidgets windowWidgets) {
+    	if (isExecuted()) {
+    	    windowWidgets.customToolBar.getToolItems().get(12).setEnabled(false);
+    	    getStepByStep().sendNext();
     	}
     	final Timer timer = new Timer();
     	TimerTask timerTask = new TimerTask() {
-    		public void run() {
-    			MainWindow.display.syncExec(new Runnable() {
-    				public void run() {
-    					MainWindow.getComponents().customToolBar.getToolItems().get(12)
-    							.setEnabled(true);
-    				}
-    			});
-    			timer.cancel();
-    		}
+    	    public void run() {
+    		MainWindow.display.syncExec(new Runnable() {
+    		    public void run() {
+    			MainWindow.getComponents().customToolBar.getToolItems().get(12)
+    			.setEnabled(true);
+    		    }
+    		});
+    		timer.cancel();
+    	    }
     	};
     	timer.schedule(timerTask, 100);
     }
 
-    public void ejecutar(WindowWidgets componentes, boolean bandera, CodeCompiler codigo) {
-    	setEnEjecucion(true);
-    	ejecucionDisable(componentes);
-    	if (bandera) {
-    		setEje(new ConsoleController());
-    		getEje().execute(componentes, "main.exe", codigo);
-    		setSeleccion(true);
+    public void execute(WindowWidgets windowWidgets, boolean isSaved, CodeCompiler codeCompiler) {
+    	setIsExecuted(true);
+    	disableExecution(windowWidgets);
+    	if (isSaved) {
+    	    setConsoleController(new ConsoleController());
+    	    getExecution().execute(windowWidgets, "main.exe", codeCompiler);
+    	    setSeleccion(true);
     	} else {
-    		if (WindowWidgets.tabFolder.getTabItem().getLeaf().getSizeDiagrama() == 2) {
-    			MessageBox messageBox = new MessageBox(MainWindow.shell,
-    					SWT.ICON_INFORMATION | SWT.YES);
-    			messageBox.setText("Origami");
-    			messageBox.setMessage("La ejecucin ha terminado.");
-    			int selec = messageBox.open();
-    			switch (selec) {
-    			case 0:
-    				break;
-    			case 64:
-    				break;
-    			default:
-    				break;
-    			}
-    			setEnEjecucion(false);
-    			ejecucionDisable(componentes);
-    			componentes.getByStepComponents().disablePasoAPaso(componentes, false);
-    		} else {
-    			setPaso(new PasoAPaso(WindowWidgets.tabFolder,ApplicationState._selectionAdministrator));
-    			getPaso().execute(componentes, "gdb", codigo);
-    			getPaso().main();
-    			setSeleccion(false);
-    			MainWindow.getComponents().customToolBar.getToolItems().get(12).setEnabled(true);
-    			componentes.customConsole.getTextField().setEditable(false);
-    			componentes.customConsole.getTextField().setBackground(MainWindow.display
-    					.getSystemColor(SWT.COLOR_WHITE));
+    	    if (WindowWidgets.tabFolder.getTabItem().getLeaf().getSizeDiagrama() == 2) {
+    		MessageBox messageBox = new MessageBox(MainWindow.shell,
+    			SWT.ICON_INFORMATION | SWT.YES);
+    		messageBox.setText("Origami");
+    		messageBox.setMessage("La ejecucion ha terminado.");
+    		int selection = messageBox.open();
+    		switch (selection) {
+    		case 0:
+    		    break;
+    		case 64:
+    		    break;
+    		default:
+    		    break;
     		}
+    		setIsExecuted(false);
+    		disableExecution(windowWidgets);
+    		windowWidgets.getByStepComponents().disableStepByStep(windowWidgets, false);
+    	    } else {
+    		setStepByStep(new PasoAPaso(WindowWidgets.tabFolder,ApplicationState._selectionAdministrator));
+    		getStepByStep().execute(windowWidgets, "gdb", codeCompiler);
+    		getStepByStep().main();
+    		setSeleccion(false);
+    		MainWindow.getComponents().customToolBar.getToolItems().get(12).setEnabled(true);
+    		windowWidgets.customConsole.getTextField().setEditable(false);
+    		windowWidgets.customConsole.getTextField().setBackground(MainWindow.display
+    			.getSystemColor(SWT.COLOR_WHITE));
+    	    }
     	}
     }
 
-    public void disablePasoAPaso(WindowWidgets componentes, boolean disable) {
-    	if (disable) {
-    		setPasoAPaso(true);
-    		WindowWidgets.tabFolder.getAdminSelection().setFiguraSeleccionada(-1);
-    		WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
+    public void disableStepByStep(WindowWidgets windowWidgets, boolean isEnable) {
+    	if (isEnable) {
+    	    setIsStepByStep(true);
+    	    WindowWidgets.tabFolder.getAdminSelection().setFiguraSeleccionada(-1);
+    	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    		componentes.customToolBar.disableComponentStepByStep(disable);
+    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
     		
-    		figuresToolBar.setEnabledAllButtons(!disable);
-    		
-    		
-    		menu.setEnabledStepByStepMenuItems(!disable);
+    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
+    	    
+    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
     
     	} else {
-    		setPasoAPaso(false);
-    		WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
+    	    setIsStepByStep(false);
+    	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    		componentes.customToolBar.disableComponentStepByStep(disable);
+    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
     		
-    		figuresToolBar.setEnabledAllButtons(!disable);
+    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
     
-    		menu.setEnabledStepByStepMenuItems(!disable);
+    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
     	}
     }
 
-    public void setEje(ConsoleController eje) {
-	this.eje = eje;
+    public void setConsoleController(ConsoleController consoleController) {
+	this.consoleController = consoleController;
     }
 
-    public ConsoleController getEje() {
-	return eje;
+    public ConsoleController getExecution() {
+	return consoleController;
     }
 
-    public void setPaso(PasoAPaso paso) {
-	this.paso = paso;
+    public void setStepByStep(PasoAPaso stepByStep) {
+	this.stepByStep = stepByStep;
     }
 
-    public PasoAPaso getPaso() {
-	return paso;
+    public PasoAPaso getStepByStep() {
+	return stepByStep;
     }
 
-    public void setPasoAPaso(boolean isPasoAPaso) {
-	this.isPasoAPaso = isPasoAPaso;
+    public void setIsStepByStep(boolean isStepByStep) {
+	this.isStepByStep = isStepByStep;
     }
 
-    public boolean isPasoAPaso() {
-	return isPasoAPaso;
+    public boolean isStepByStep() {
+	return isStepByStep;
     }
 
-    public void setEnEjecucion(boolean enEjecucion) {
-	this.enEjecucion = enEjecucion;
+    public void setIsExecuted(boolean isExecuted) {
+	this.isExecution = isExecuted;
     }
 
-    public boolean isEnEjecucion() {
-	return enEjecucion;
+    public boolean isExecuted() {
+	return isExecution;
     }
 
     public void setSeleccion(boolean seleccion) {
-	this.seleccion = seleccion;
+	this.isSelected = seleccion;
     }
 
-    public boolean isSeleccion() {
-	return seleccion;
+    public boolean isSelected() {
+	return isSelected;
     }
 
 }

@@ -46,8 +46,8 @@ public class StepByStepListener implements SelectionListener{
 			}
 			else{
 				
-			    	MainWindow.getComponents().getByStepComponents().disablePasoAPaso(MainWindow.getComponents(), true);
-			    	MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), false,codigo);
+			    	MainWindow.getComponents().getByStepComponents().disableStepByStep(MainWindow.getComponents(), true);
+			    	MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), false,codigo);
 			    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 			}
 		}
@@ -67,8 +67,8 @@ public class StepByStepListener implements SelectionListener{
 			codigo.deleteMainFiles();
 		}
 		else{
-		    	MainWindow.getComponents().getByStepComponents().disablePasoAPaso(MainWindow.getComponents(), true);
-		    	MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), false,codigo);
+		    	MainWindow.getComponents().getByStepComponents().disableStepByStep(MainWindow.getComponents(), true);
+		    	MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), false,codigo);
 		    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 		}
 	}

@@ -58,7 +58,7 @@ public class PasoAPaso extends ConsoleController{
 		inputActionPerformed("break 1");
 		inputActionPerformed("run");
 		recorrido();
-		MainWindow.getComponents().getByStepComponents().setPaso(this);
+		MainWindow.getComponents().getByStepComponents().setStepByStep(this);
 		//tab.getHoja().paso(0);
 		tab.getTabItem().getLeaf().paso(0);
 	}
@@ -411,7 +411,7 @@ public class PasoAPaso extends ConsoleController{
 			BaseDeDiagrama.getInstance().resetScrollBar();
 			//tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
-			MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+			MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 			return true;
 		}
 		return false;

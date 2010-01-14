@@ -33,7 +33,7 @@ public class CompileListener implements SelectionListener{
 		if (isSave()) {
 			CodeCompiler code = new CodeCompiler(MainWindow.getComponents().tabFolder);
 			if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
-			    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+			    MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 			}
 			code.main(false, true);
 			if (code.isError) {
@@ -48,7 +48,7 @@ public class CompileListener implements SelectionListener{
 						code.errorTipe);
 				code.deleteMainFiles();
 			} else {
-			    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, code);
+			    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
 				MainWindow.getComponents().tabFolder
 						.getTabItem()
 						.getInformation()
@@ -63,7 +63,7 @@ public class CompileListener implements SelectionListener{
 	} else {
 		CodeCompiler code = new CodeCompiler(MainWindow.getComponents().tabFolder);
 		if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
-		    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+		    MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 		}
 		code.main(false, true);
 		if (code.isError) {
@@ -74,7 +74,7 @@ public class CompileListener implements SelectionListener{
 			MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
 			code.deleteMainFiles();
 		} else {
-		    MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true, code);
+		    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
 		}
 		if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 		    CustomMenu.getConsoleMenuItem().setSelection(true);

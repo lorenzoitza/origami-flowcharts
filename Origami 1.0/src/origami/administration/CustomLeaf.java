@@ -96,10 +96,10 @@ public class CustomLeaf {
 		chart.agregarFiguras(diagrama.diagram,chart);
 		connection.crearConexiones(diagrama.diagram);
 		chart.agregarConexiones(connection.getConexion(),chart);
-		if(MainWindow.getComponents().getByStepComponents().getPaso()!=null && MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size()!=0
-				&& MainWindow.getComponents().getByStepComponents().getPaso().a.GetId() == tab.getSelectedTabItemId()){
-			for(int x=0;x<MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size();x++){
-				connection.getConexion().elementAt(MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.get(x)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
+		if(MainWindow.getComponents().getByStepComponents().getStepByStep()!=null && MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size()!=0
+				&& MainWindow.getComponents().getByStepComponents().getStepByStep().a.GetId() == tab.getSelectedTabItemId()){
+			for(int x=0;x<MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.size();x++){
+				connection.getConexion().elementAt(MainWindow.getComponents().getByStepComponents().getStepByStep().colaConexiones.get(x)).setForegroundColor(MainWindow.display.getSystemColor(SWT.COLOR_RED));
 			}
 		}
 	}

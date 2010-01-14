@@ -31,49 +31,49 @@ public class KeyTypeListener implements KeyListener{
 	public void Accion(){
 	switch(key){
 	case 49:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorEntrada.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addInput();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 50:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addSentence();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 51:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorIf.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addDecision();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 52:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorWhile.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addWhile();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 53:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addFor();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 54:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 		    ApplicationState.cursor[0] = new Cursor(MainWindow.display, ImageLoader.getImage("cursorSalida.png").getImageData(), 0, 0);
 		    new AddFigureLogic().addOutput();
 		    new AddFigureLogic().disableCursor();
 		}
 		break;
 	case 27:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 			 Cursor[] cursor = new Cursor[1];
 			   origami.administration.ApplicationState.mainFigure = null;
 			   Cursor oldCursor = cursor[0];
@@ -107,7 +107,7 @@ public class KeyTypeListener implements KeyListener{
 		acercade.showWindow();
 		break;
 	case 16777228:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 			for(int y=MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
 				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(y);
 			}
@@ -129,10 +129,10 @@ public class KeyTypeListener implements KeyListener{
 //		codigo7.createWindow(MainWindow.display);
 		break;
 	case 16777230:
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents().tabFolder);
 			if(MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())){
-				MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+				MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 			}
 			codigo.main(false,true);
 			if(codigo.isError){
@@ -146,7 +146,7 @@ public class KeyTypeListener implements KeyListener{
 				codigo.deleteMainFiles();
 			}
 			else{
-				MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true,codigo);
+				MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true,codigo);
 				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
 			if(!CustomMenu.getConsoleMenuItem().getSelection()){
@@ -157,13 +157,13 @@ public class KeyTypeListener implements KeyListener{
 		break;
 	}
 	if(key+key2 == 262241){
-	    if(MainWindow.getComponents().getByStepComponents().getEje() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
-		&& MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getEje().tabItemSelected.GetId()){
-		MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+	    if(MainWindow.getComponents().getByStepComponents().getExecution() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
+		&& MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getExecution().tabItemSelected.GetId()){
+		MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 	    }
-	    else if(MainWindow.getComponents().getByStepComponents().getPaso() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
-		    && MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getPaso().a.GetId()){
-			MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
+	    else if(MainWindow.getComponents().getByStepComponents().getStepByStep() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
+		    && MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getStepByStep().a.GetId()){
+			MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 	    }
 	    OpenFileView open = new OpenFileView();
 	    open.setOpenType(OpenType.OPEN);
@@ -213,7 +213,7 @@ public class KeyTypeListener implements KeyListener{
 		MainWindow.getComponents().disableAll(true);
 	}
 	else if(key+key2 == 262266){
-		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
+		if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 			TabItem item = (TabItem)MainWindow.getComponents().tabFolder.getSeleccion();
 			item.undo();
 			MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);

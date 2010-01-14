@@ -15,8 +15,8 @@ public class ConsoleExitProcess implements Runnable{
     }
     
     public void run () {
-	console.getByStepComponents().setEnEjecucion(console, false);
-	console.getByStepComponents().ejecucionDisable(console);
+	console.getByStepComponents().setExecution(console, false);
+	console.getByStepComponents().disableExecution(console);
 	MessageBox messageBox = new MessageBox(MainWindow.shell, SWT.ICON_INFORMATION | SWT.YES );
 	messageBox.setText("Origami");
 	messageBox.setMessage("La ejecuci�n ha terminado.");

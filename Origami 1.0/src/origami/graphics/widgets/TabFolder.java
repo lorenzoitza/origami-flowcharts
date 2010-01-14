@@ -134,25 +134,25 @@ public class TabFolder {
 
 	    public void close(CTabFolderEvent event) {
 		TabItem a = (TabItem) event.item;
-		if (MainWindow.getComponents().getByStepComponents().getEje() != null
+		if (MainWindow.getComponents().getByStepComponents().getExecution() != null
 			&& MainWindow.getComponents().getByStepComponents()
 				.getEnEjecucion(MainWindow.getComponents())
 			&& a.GetId() == MainWindow.getComponents()
-				.getByStepComponents().getEje().tabItemSelected.GetId()) {
+				.getByStepComponents().getExecution().tabItemSelected.GetId()) {
 		    MainWindow.getComponents().getByStepComponents()
-			    .stopEjecucion(MainWindow.getComponents());
+			    .stopExecution(MainWindow.getComponents());
 		} else if (MainWindow.getComponents().getByStepComponents()
-			.getPaso() != null
+			.getStepByStep() != null
 			&& MainWindow.getComponents().getByStepComponents()
 				.getEnEjecucion(MainWindow.getComponents())
 			&& a.GetId() == MainWindow.getComponents()
-				.getByStepComponents().getPaso().a.GetId()) {
+				.getByStepComponents().getStepByStep().a.GetId()) {
 		    MainWindow.getComponents().getByStepComponents()
-			    .stopEjecucion(MainWindow.getComponents());
+			    .stopExecution(MainWindow.getComponents());
 		    MainWindow
 			    .getComponents()
 			    .getByStepComponents()
-			    .disablePasoAPaso(MainWindow.getComponents(), false);
+			    .disableStepByStep(MainWindow.getComponents(), false);
 		}
 		if (!a.getSave().isSave()) {
 		    a.getSave().saveDiagramHandler(event);

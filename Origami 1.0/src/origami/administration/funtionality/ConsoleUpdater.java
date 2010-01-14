@@ -15,8 +15,8 @@ public class ConsoleUpdater implements Runnable{
     }
     
     public void run () {
-	if(!MainWindow.getComponents().getByStepComponents().isSeleccion()){
-		String linea = MainWindow.getComponents().getByStepComponents().getPaso().texto(commandLine);					
+	if(!MainWindow.getComponents().getByStepComponents().isSelected()){
+		String linea = MainWindow.getComponents().getByStepComponents().getStepByStep().texto(commandLine);					
 		if(linea.compareTo("") != 0){
 			linea = linea +"\n";
 			consoleComponent.customConsole.getTextField().append(linea);
