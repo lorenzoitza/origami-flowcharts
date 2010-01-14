@@ -6,13 +6,13 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.*;
-import origami.administration.funtionality.code.InstructionComposed;
-import origami.administration.funtionality.code.InstructionSimple;
+import origami.administration.funtionality.code.ComposedSourceCode;
+import origami.administration.funtionality.code.SimpleSourceCode;
 
 
 public class DecisionFigure extends Figura {
 
-    public InstructionComposed instructionComposed = new InstructionComposed();
+    public ComposedSourceCode instructionComposed = new ComposedSourceCode();
 
     public DecisionFigure() {
 	int x=100;
@@ -122,7 +122,7 @@ public class DecisionFigure extends Figura {
 		return getInstructionCode().equals(instructionCode);
 	}
 	
-	public void addInstructionSimple(InstructionSimple instructionSimple){
+	public void addInstructionSimple(SimpleSourceCode instructionSimple){
 		instructionComposed.simpleInstructionList.add(0, instructionSimple);
 	}
 	
