@@ -1,7 +1,7 @@
 package origami.administration.actions;
 
 import origami.administration.ApplicationState;
-import origami.administration.funtionality.code.InstructionSimple;
+import origami.administration.funtionality.code.SimpleSourceCode;
 import origami.graphics.WindowWidgets;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;
@@ -27,7 +27,7 @@ public class AddFigureLogic {
     }
     public void addDecision() {
 	DecisionFigure decisionFigure = new DecisionFigure();
-	InstructionSimple codigo = new InstructionSimple();
+	SimpleSourceCode codigo = new SimpleSourceCode();
 	codigo.setInstruccionSimple("null");
 	decisionFigure.instructionComposed.simpleInstructionList.add(0,codigo);
 	ApplicationState.mainFigure = null;
@@ -35,7 +35,7 @@ public class AddFigureLogic {
     }
     public void addFor() {
 	ForFigure forFigure = new ForFigure();
-	InstructionSimple codigo = new InstructionSimple();
+	SimpleSourceCode codigo = new SimpleSourceCode();
 	codigo.setInstruccionSimple("null");
 	forFigure.instructionComposed.simpleInstructionList.add(0,codigo);
 	ApplicationState.mainFigure = null;
@@ -55,7 +55,7 @@ public class AddFigureLogic {
     }
     public void addWhile() {
 	WhileFigure whileFigure = new WhileFigure();
-	InstructionSimple instructionCode = new InstructionSimple();
+	SimpleSourceCode instructionCode = new SimpleSourceCode();
 	instructionCode.setInstruccionSimple("null");
 	whileFigure.instructionComposed.simpleInstructionList.add(0,instructionCode);
 	ApplicationState.mainFigure = null;

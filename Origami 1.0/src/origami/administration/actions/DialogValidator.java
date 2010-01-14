@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 
-import origami.administration.funtionality.code.InstructionSimple;
+import origami.administration.funtionality.code.SimpleSourceCode;
 import origami.debug.Debugger;
 import origami.graphics.MainWindow;
 import origami.graphics.figures.DecisionFigure;
@@ -24,7 +24,7 @@ import origami.graphics.figures.WhileFigure;
 public class DialogValidator {
 	
 	public void validate(String instructionCode, Object abstractFigure, String info){
-		InstructionSimple code = new InstructionSimple();
+		SimpleSourceCode code = new SimpleSourceCode();
 		
 		code.setInstruccionSimple(instructionCode);
 		
@@ -40,7 +40,7 @@ public class DialogValidator {
 			Method equalInstructionsMethod = figureClass.getMethod("equalInstructions",String.class);
 			
 			
-			Method addInstructionSimpleMethod = figureClass.getMethod("addInstructionSimple",InstructionSimple.class);
+			Method addInstructionSimpleMethod = figureClass.getMethod("addInstructionSimple",SimpleSourceCode.class);
 			
 			
 			boolean isEmpyInstructionList = (Boolean)isEmpyInstructionListMethod.invoke(abstractFigure);
