@@ -33,25 +33,30 @@ public class CodeCompiler {
 
     public void deleteMainFiles() {
 	try {
-
 	    new File("main.exe").delete();
 	} catch (Exception e) {
-
+	    e.printStackTrace();
 	} finally {
 	    source.delete();
 	}
     }
 
-    public boolean createExecuteFile(String fileName) {
+    public boolean canCreateExecuteFile(String fileName) {
+	CommandFile commandFile = new CommandFile();
+	
+	commandFile.setComand("cmd /c gcc -g -o " + fileName + " " + fileName + ".c");
+	
+	commandFile.setSourcerFile(fileName+ ".c");
+	
 	Instruction code = new Instruction();
 
-	String comand = "cmd /c gcc -g -o " + fileName + " " + fileName + ".c";
-
 	code.getInstructionOfDiagram(selectedTab.getTabItem().getLeaf().getDiagrama());
+	
 	boolean error = false;
 
 	try {
-	    source = new File(fileName + ".c");
+	    
+	    source = new File(commandFile.getSourcerFile() );
 
 	    PrintWriter writer = new PrintWriter(source);
 	    writer.write(code.totalCode);
@@ -61,7 +66,7 @@ public class CodeCompiler {
 
 		if (source.exists()) {
 
-		    Process process = Runtime.getRuntime().exec(comand);
+		    Process process = Runtime.getRuntime().exec(commandFile.getComand());
 
 		    InputStream errorStream = process.getErrorStream();
 
@@ -113,25 +118,30 @@ public class CodeCompiler {
 	    e.printStackTrace();
 	}
     }
-
-    public void compileCode(boolean cCode) {
-	String sourcerFile;
-	String comand;
-	if (cCode) {
-
-	    sourcerFile = "main.c";
-	    comand = "cmd /c gcc -g -o main main.c";
+    private CommandFile initMainTypeCommandFile(boolean isCCode){
+	CommandFile commandFile = new CommandFile();
+	if (isCCode) {
+	    commandFile.setSourcerFile("main.c");
+	    commandFile.setComand(CommandFile.COMMAND_MAIN_C);
 	} else {
-	    sourcerFile = "main.cpp";
-	    comand = "cmd /c g++ -g -o main main.cpp";
+	    commandFile.setSourcerFile("main.cpp");
+	    commandFile.setComand(CommandFile.COMMAND_MAIN_CPP);
 	}
+	
+	return commandFile;
+    }
+
+    public void compileCode(boolean isCCode) {
+	
+	CommandFile commandFile = initMainTypeCommandFile(isCCode);
+	
 	try {
-	    source = new File(sourcerFile);
+	    source = new File(commandFile.getSourcerFile());
 	    while (true) {
 
 		if (source.exists()) {
 		    System.out.println("exist code ");
-		    Process process = Runtime.getRuntime().exec(comand);
+		    Process process = Runtime.getRuntime().exec(commandFile.getComand());
 
 		    InputStream errorStream = process.getErrorStream();
 

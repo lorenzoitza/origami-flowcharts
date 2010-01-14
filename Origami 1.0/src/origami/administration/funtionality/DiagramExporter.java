@@ -227,7 +227,7 @@ public class DiagramExporter {
 		
 		CodeCompiler executeFile = new CodeCompiler(selectedTab);
 		
-		boolean crear = executeFile.createExecuteFile(name);
+		boolean crear = executeFile.canCreateExecuteFile(name);
 		
 		if (!crear) {
 			

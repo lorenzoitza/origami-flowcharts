@@ -26,13 +26,21 @@ public class AdminDiagram {
 
     private void addDecisionFigure(int currentPosition, Vector<Figura> figures) {
 	EllipseFigure coord1 = new EllipseFigure();
+	
 	EllipseFigure coord2 = new EllipseFigure();
+	
 	EllipseFigure coord3 = new EllipseFigure();
+	
 	EllipseFigure coord4 = new EllipseFigure();
+	
 	diagram.add(currentPosition, coord1);
+	
 	currentPosition++;
+	
 	diagram.add(currentPosition, coord2);
+	
 	currentPosition++;
+	
 	diagram.add(currentPosition, coord3);
 	currentPosition++;
 	diagram.add(currentPosition, coord4);
