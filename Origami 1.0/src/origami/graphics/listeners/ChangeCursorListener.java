@@ -5,14 +5,14 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 
-import origami.administration.actions.EventoCambiarCursor;
+import origami.administration.actions.ChangeCursorVerification;
 import origami.graphics.widgets.CustomMenu;
 import origami.graphics.widgets.TabFolder;
 
 public class ChangeCursorListener extends MouseMotionListener.Stub implements
 	MouseListener {
 
-    private EventoCambiarCursor event;
+    private ChangeCursorVerification event;
 
     public TabFolder currentTab;
 
@@ -20,7 +20,7 @@ public class ChangeCursorListener extends MouseMotionListener.Stub implements
 	figure.addMouseMotionListener(this);
 	figure.addMouseListener(this);
 	currentTab = tabfolder;
-	event = new EventoCambiarCursor(figure, tabfolder);
+	event = new ChangeCursorVerification(figure, tabfolder);
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -34,7 +34,7 @@ public class ChangeCursorListener extends MouseMotionListener.Stub implements
     }
 
     public void mouseMoved(MouseEvent me) {
-	event.mouseMoveds(me);
+	event.mouseMovedCoordinate(me);
     }
 
     public void mousePressed(MouseEvent e) {
