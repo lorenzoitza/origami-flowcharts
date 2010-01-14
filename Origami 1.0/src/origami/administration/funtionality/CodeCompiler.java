@@ -2,7 +2,7 @@ package origami.administration.funtionality;
 
 import java.io.*;
 
-import origami.administration.funtionality.code.AbstractSourceCode;
+import origami.administration.funtionality.code.Instruction;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;
@@ -43,7 +43,7 @@ public class CodeCompiler {
     }
 
     public boolean createExecuteFile(String fileName) {
-	AbstractSourceCode code = new AbstractSourceCode();
+	Instruction code = new Instruction();
 
 	String comand = "cmd /c gcc -g -o " + fileName + " " + fileName + ".c";
 
