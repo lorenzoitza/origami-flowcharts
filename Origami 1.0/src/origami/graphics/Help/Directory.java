@@ -15,7 +15,7 @@ public class Directory{
     public Directory(HelpContents helpContent){
 	this.helpContent = helpContent;
     }
-	
+    
     public void crearContenido(final Tree tree){
 	TreeItem treeItem = new TreeItem(tree, SWT.NULL);	
 	treeItem.setText("ORIGAMI");

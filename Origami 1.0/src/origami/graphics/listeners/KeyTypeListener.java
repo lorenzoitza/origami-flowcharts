@@ -93,8 +93,7 @@ public class KeyTypeListener implements KeyListener {
 	    applyUndo();
 	}
     }
-	
-
+    
     private void cleanDiagram() {
 	if (!MainWindow.getComponents().getByStepComponents().isStepByStep()) {
 	    for (int y =
@@ -114,8 +113,8 @@ public class KeyTypeListener implements KeyListener {
 		    .guardarRetroceso();
 	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
 		    .setSave(false);
+	    }
 	}
-    }
     }
 
     private void applyUndo() {

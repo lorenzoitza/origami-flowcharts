@@ -30,7 +30,6 @@ public class HelpWindow{
     private final int MAX_TREE_ITEMS = 19;
 	
     public HelpWindow(){
-	System.out.println("AYUDA");
 	createWindow();
 	initComponents();
     }
@@ -193,6 +192,7 @@ public class HelpWindow{
     private void initComponents(){
 	ScrolledComposite scrolledComposite = new ScrolledComposite(helpShell, 
 		SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+	
 	Composite topComposite = new Composite(scrolledComposite,SWT.NONE);
 	int topCompositeXCoord = 0;
 	int topCompositeYCoord = 0;
@@ -229,4 +229,5 @@ public class HelpWindow{
 	this.helpShell.setMaximized(true);
 	this.helpShell.open();
     }
+    
 }

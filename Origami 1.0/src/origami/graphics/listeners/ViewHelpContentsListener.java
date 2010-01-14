@@ -14,7 +14,6 @@ public class ViewHelpContentsListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	HelpWindow helpWindow = new HelpWindow();
-	helpWindow.createWindow();
 	helpWindow.showWindow();		
     }
 
