@@ -24,7 +24,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     public InputFigureDialog(Shell shell, InputFigure figura) {
 	super(shell, figura);
 
-	numHorizComponents = 3;
+	setNumHorizComponents(3);
     }
     @Override
     protected void create() {
@@ -62,6 +62,8 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 	if (isInstruction()) {
 
 	    textBoxContent = abstractFigure.instruction.getInstruccionSimple().split(";");
+	    
+	    int numHorizComponents = 3;
 
 	    for (int contentBoxElement = 0; contentBoxElement < textBoxContent.length; contentBoxElement++) {
 
@@ -86,14 +88,18 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 		scrolledCompositeContent = composite.getChildren();
 
 		Text text =
-			(Text) scrolledCompositeContent[textBoxContent.length * 3];
+			(Text) scrolledCompositeContent[textBoxContent.length * numHorizComponents];
 		text.forceFocus();
 	    } else {
-		addTextComponent(composite.getChildren().length / 3);
+		addTextComponent(composite.getChildren().length / numHorizComponents);
 		scrolledCompositeContent = composite.getChildren();
 
-		Text text = (Text) scrolledCompositeContent[scrolledCompositeContent.length - 3];
+		Text text = (Text) scrolledCompositeContent[scrolledCompositeContent.length - numHorizComponents];
 		text.forceFocus();
+		
+		scrolledCompositeContent = composite.getChildren();
+		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
+			SWT.DEFAULT, false));
 	    }
 	} else {
 	    for (int component = 0; component <= 3; component++) {
@@ -114,11 +120,11 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 	    public void widgetSelected(SelectionEvent event) {
 		for (int x = 0; x < scrolledCompositeContent.length; x += 3) {
 		    if (scrolledCompositeContent[x].getBounds().y == readButton.getBounds().y) {
-			Text text = (Text) scrolledCompositeContent[x];
-			String texto = addReadString(text.getText());
-			text.setText(texto);
-			text.setSelection(texto.length());
-			text.setFocus();
+			Text inputText = (Text) scrolledCompositeContent[x];
+			String inputCode = addReadString(inputText.getText().trim());
+			inputText.setText(inputCode);
+			inputText.setSelection(inputCode.length());
+			inputText.setFocus();
 		    }
 		}
 	    }
@@ -126,10 +132,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
     }
 
     private String addReadString(String textString) {
-	while (textString.startsWith(" ")) {
-	    textString = textString.replaceFirst(" ", "");
-	}
-	if (!textString.startsWith("Leer:") || (textString.compareTo("") == 0)) {
+	if (!textString.startsWith("Leer:") || (textString.isEmpty())) {
 	    if (textString.startsWith("Escribe")) {
 		textString = "Leer: ";
 	    } else {
@@ -158,18 +161,14 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 	    for (int contentIndex = 0; contentIndex < scrolledCompositeContent.length; contentIndex += 3) {
 		
 		String inputText = ((Text) scrolledCompositeContent[contentIndex]).getText().trim();
-		Debugger.debug(this.getClass(),"inputTex"+inputText);
 		
 		if(!inputText.isEmpty() && !inputText.startsWith("Escribe") && inputText.compareToIgnoreCase("null") != 0){
 		    
 		    inputCode += concatenatCode(inputText);
-		    Debugger.debug(this.getClass(),"cconcate"+inputCode);
 		}
 	    }
 	    
-	    //new DialogValidator().validate(abstractFigure, inputCode,"entrada");
-	    
-	    new DialogValidator().validate(inputCode, abstractFigure, "entrada");
+	    getDialogValidator().validate(inputCode, abstractFigure, "entrada");
 	}
     }
     

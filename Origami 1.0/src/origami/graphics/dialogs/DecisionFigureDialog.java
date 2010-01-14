@@ -68,7 +68,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 			.getInstruccionSimple();
 
 	if ((conditionIfFigure.compareTo("null") != 0)
-		&& (conditionIfFigure.compareTo("") != 0)) {
+		&& (!conditionIfFigure.isEmpty())) {
 
 	    String condition = "";
 

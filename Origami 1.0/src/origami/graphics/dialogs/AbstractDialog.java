@@ -6,6 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
+import origami.administration.actions.DialogValidator;
 import origami.graphics.listeners.KeyTypeListener;
 
 
@@ -24,6 +25,8 @@ public abstract class AbstractDialog<Figure> {
     protected Button acceptButton;
 
     protected Button cancelButton;
+    
+    private DialogValidator dialogValidator = new DialogValidator();
     
     public AbstractDialog() {
     }
@@ -112,5 +115,15 @@ public abstract class AbstractDialog<Figure> {
 		dialog.close();
 	    }
 	};
+    }
+
+    
+    public DialogValidator getDialogValidator() {
+        return dialogValidator;
+    }
+
+    
+    public void setDialogValidator(DialogValidator dialogValidator) {
+        this.dialogValidator = dialogValidator;
     }
 }

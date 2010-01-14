@@ -54,16 +54,16 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	String instructionCode = "";
 
 	if (band) {
-	    if ((indexExpressionTextField.getText() != "")
-		    && (conditionExpressionTextField.getText() != "")
-		    && (counterExpressionTextField.getText() != "")) {
+	    if ((!indexExpressionTextField.getText().isEmpty())
+		    && (!conditionExpressionTextField.getText().isEmpty())
+		    && (!counterExpressionTextField.getText().isEmpty())) {
 
 		instructionCode += "for(" + indexExpressionTextField.getText();
 		instructionCode += ";" + conditionExpressionTextField.getText();
 		instructionCode += ";" + counterExpressionTextField.getText();
 		instructionCode += "){";
 		
-		new DialogValidator().validate(instructionCode, abstractFigure,"para");
+		getDialogValidator().validate(instructionCode, abstractFigure,"para");
 	    }
 	}
     }
@@ -107,8 +107,7 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 	instructionCode = instructionCode.replace(")", "");
 	instructionCode = instructionCode.replace("{", "");
 
-	if ((instructionCode.compareTo("null") != 0)
-		&& (instructionCode.compareTo("") != 0)) {
+	if ((instructionCode.compareTo("null") != 0) && (!instructionCode.isEmpty())) {
 	    String[] forExpressions =
 		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			    .getInstruccionSimple().split(";");
@@ -122,7 +121,9 @@ public class ForFigureDialog extends AbstractDialog<ForFigure> {
 		    			charAt(charIndex);
 		}
 	    }
+	    
 	    int couterExpressionLength = forExpressions[2].length();
+	    
 	    for (int charPositionOfCounterExpression = 0; 
 	    	charPositionOfCounterExpression < forExpressions[2].length(); 
 	    	charPositionOfCounterExpression++) {

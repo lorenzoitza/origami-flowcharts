@@ -6,6 +6,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.*;
 import origami.administration.funtionality.code.SimpleInstruction;
+import origami.debug.Debugger;
 
 
 /**
@@ -80,36 +81,37 @@ public class OutputFigure extends Figura {
     }
 
     private String[] unformatOutputVariables() {
-	String[] _variables = new String[50];
+	String[] variables = new String[50];
 
-	_variables = instruction.getInstruccionSimple().split(";");
+	variables = instruction.getInstruccionSimple().split(";");
 
-	String[] _finalVariables = new String[50];
+	String[] finalVariables = new String[50];
 
 	int cont = 0;
-
-	for (int _variableIndex = 0; _variableIndex < _variables.length;
-		_variableIndex++) {
-
-	    _variables[_variableIndex] = _variables[_variableIndex].replace("\\", "");
-
-	    _variables[_variableIndex] = _variables[_variableIndex].replaceFirst("p", "");
-
-	    if (_variables[_variableIndex].compareTo("") != 0) {
-
-		_finalVariables[cont] = _variables[_variableIndex];
+	for (int variableIndex = 0; variableIndex < variables.length;
+		variableIndex++) {
+	    variables[variableIndex] = variables[variableIndex].replace("\\", "");
+	    
+	    variables[variableIndex] = variables[variableIndex].replaceFirst("p", "");
+	    
+	    
+	    if (!variables[variableIndex].isEmpty()) {
+		
+		finalVariables[cont] = variables[variableIndex];
 		
 		cont++;
 	    }
 	}
-	for (int _variableIndex = 0; _variableIndex < cont; _variableIndex++) {
+	Debugger.debug(this.getClass(), "contador: "+ cont);
+	for (int variableIndex = 0; variableIndex < cont; variableIndex++) {
 
-	    if (_finalVariables[_variableIndex].compareTo("") != 0) {
+	    if (!finalVariables[variableIndex].isEmpty()) {
 
-		_variables[_variableIndex] = _finalVariables[_variableIndex];
+		variables[variableIndex] = finalVariables[variableIndex];
+		
 	    }
 	}
-	return _variables;
+	return variables;
     }
 
     private void drawInstruction(Graphics graphics) {
@@ -133,12 +135,12 @@ public class OutputFigure extends Figura {
 	String instructionText;
 
 	int instructionLenght = unformatInstructions[0].length();
-
+	
 	int maxLenght = 6;
 
 	int minNumberOfVariable = 1;
 
-	if (instructionLenght > maxLenght || unformatInstructions.length > minNumberOfVariable) {
+	if (instructionLenght > maxLenght && unformatInstructions.length > minNumberOfVariable) {
 
 	    instructionText = unformatInstructions[0].substring(0, maxLenght)
 			    + "...";

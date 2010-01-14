@@ -20,12 +20,12 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
     @Override
     public void validate(boolean band) {
 	if (band) {
-	    if (conditionTextField.getText() != "") {
+	    if (!conditionTextField.getText().isEmpty()) {
 		
 		String instructionCode =
 			"while(" + conditionTextField.getText() + "){";
 
-		new DialogValidator().validate(instructionCode, abstractFigure,"mientras");
+		getDialogValidator().validate(instructionCode, abstractFigure,"mientras");
 	    }
 	}
     }
@@ -52,8 +52,8 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 
     @Override
     public void initTextFields() {
-	if (abstractFigure.instructionComposed.simpleInstructionList.firstElement()
-		.getInstruccionSimple().compareTo("") != 0
+	if (!abstractFigure.instructionComposed.simpleInstructionList.firstElement()
+		.getInstruccionSimple().isEmpty()
 		&& abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			.getInstruccionSimple().compareTo("null") != 0) {
 	    String conditionOfWhile = "";
@@ -62,8 +62,7 @@ public class WhileFigureDialog extends AbstractDialog<WhileFigure> {
 		    abstractFigure.instructionComposed.simpleInstructionList.firstElement()
 			    .getInstruccionSimple();
 
-	    for (int charIndex = 0; charIndex < instructionCode.length();
-	    	charIndex++) {
+	    for (int charIndex = 0; charIndex < instructionCode.length(); charIndex++) {
 
 		if ((charIndex > 5)
 			&& (charIndex < instructionCode.length() - 2)) {

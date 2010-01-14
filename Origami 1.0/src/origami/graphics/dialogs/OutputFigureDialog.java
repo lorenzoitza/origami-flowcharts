@@ -23,7 +23,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
     public OutputFigureDialog(Shell shell, OutputFigure figura) {
 	super(shell, figura);
 
-	numHorizComponents = 2;
+	setNumHorizComponents(2);
     }
 
     @Override
@@ -53,8 +53,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 
     private boolean isInstruction() {
 	return (abstractFigure.instruction.getInstruccionSimple().compareTo(
-		"null") != 0 && abstractFigure.instruction
-		.getInstruccionSimple().compareTo("") != 0);
+		"null") != 0 && !abstractFigure.instruction.getInstruccionSimple().isEmpty());
     }
 
     @Override
@@ -64,42 +63,51 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 	    textBoxContent = abstractFigure.instruction.getInstruccionSimple().split(";");
 
 	    cleanTextField();
-	    int cont = 0;
+	    int inputTextCounter = 0;
+	    
+	    int maxInputText = 4;
+	    
+	    int numHorizComponents = 2;
 
-	    for (int i = 0; i < textBoxContent.length
-		    && textBoxContent[i].compareTo("") != 0; i++) {
+	    for (int inputTextElement = 0; inputTextElement < textBoxContent.length
+		    && !textBoxContent[inputTextElement].isEmpty(); inputTextElement++) {
 
 		scrolledCompositeContent = composite.getChildren();
 
-		Text text = new Text(composite, SWT.FLAT | SWT.BORDER);
-		text.setBounds(0, 0 + i * 25, 250, 20);
-		text.setText(textBoxContent[i]);
+		Text tempInputText = new Text(composite, SWT.FLAT | SWT.BORDER);
+		tempInputText.setBounds(0, 0 + inputTextElement * 25, 250, 20);
+		tempInputText.setText(textBoxContent[inputTextElement]);
 
-		addDeleteButton(i);
-		addKeyListener(text);
-		cont++;
+		addDeleteButton(inputTextElement);
+		addKeyListener(tempInputText);
+		inputTextCounter++;
 	    }
-	    if (cont < 4) {
+	    
+	    if (inputTextCounter < maxInputText) {
 
-		for (int i = cont; i < 4; i++) {
+		for (int indexPosition = inputTextCounter; indexPosition < maxInputText; indexPosition++) {
 		    
-		    addTextComponent(i);
+		    addTextComponent(indexPosition);
 		}
 		scrolledCompositeContent = composite.getChildren();
 
-		Text text = (Text) scrolledCompositeContent[cont * 2];
-		text.forceFocus();
+		Text newInputText = (Text) scrolledCompositeContent[inputTextCounter * numHorizComponents];
+		newInputText.forceFocus();
 	    } else {
 		addTextComponent(composite.getChildren().length / numHorizComponents);
 		scrolledCompositeContent = composite.getChildren();
 
 		Text text = (Text) scrolledCompositeContent[scrolledCompositeContent.length - numHorizComponents];
 		text.forceFocus();
+		
+		scrolledCompositeContent = composite.getChildren();
+		scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
+			SWT.DEFAULT, false));
 	    }
 	} else {
-	    for (int i = 0; i <= 3; i++) {
+	    for (int indexPosition = 0; indexPosition <= 3; indexPosition++) {
 
-		addTextComponent(i);
+		addTextComponent(indexPosition);
 		scrolledCompositeContent = composite.getChildren();
 	    }
 	}
@@ -123,26 +131,27 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
     }
 
     private void cleanTextField() {
-	String[] variables2 = new String[50];
+	String[] inputVariables = new String[50];
 	
-	int cont = 0;
+	int inputTextCounter = 0;
 	
-	for (int x = 0; x < textBoxContent.length; x++) {
+	for (int contentIndex = 0; contentIndex < textBoxContent.length; contentIndex++) {
 	    
-	    textBoxContent[x] = textBoxContent[x].replace("\\", "");
-	    textBoxContent[x] = textBoxContent[x].replaceFirst("p", "");
+	    textBoxContent[contentIndex] = textBoxContent[contentIndex].replace("\\", "");
+	    textBoxContent[contentIndex] = textBoxContent[contentIndex].replaceFirst("p", "");
 	    
-	    if (textBoxContent[x].compareTo("") != 0) {
+	    if (!textBoxContent[contentIndex].isEmpty()) {
 		
-		variables2[cont] = textBoxContent[x];
-		cont++;
+		inputVariables[inputTextCounter] = textBoxContent[contentIndex];
+		inputTextCounter++;
 	    }
 	}
-	for (int x = 0; x < cont; x++) {
+	
+	for (int contentIndex = 0; contentIndex < inputTextCounter; contentIndex++) {
 	    
-	    if (variables2[x].compareTo("") != 0) {
+	    if (!inputVariables[contentIndex].isEmpty()) {
 		
-		textBoxContent[x] = variables2[x];
+		textBoxContent[contentIndex] = inputVariables[contentIndex];
 	    }
 	}
     }
@@ -163,12 +172,10 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 	    for (int contentIndex = 0; contentIndex < scrolledCompositeContent.length; contentIndex += 2) {
 		
 		String inputText = ((Text) scrolledCompositeContent[contentIndex]).getText().trim();
-		Debugger.debug(this.getClass(),"inputTex"+inputText);
 		
 		if(!inputText.isEmpty() && !inputText.startsWith("Escribe") && inputText.compareToIgnoreCase("null") != 0){
 		    
 		    inputCode += concatenatCode(inputText);
-		    Debugger.debug(this.getClass(),"cconcate"+inputCode);
 		}
 	    }
 	    

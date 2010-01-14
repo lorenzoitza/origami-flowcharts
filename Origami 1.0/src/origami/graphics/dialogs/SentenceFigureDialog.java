@@ -28,14 +28,16 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
 
 	    if (!variableTextField.getText().isEmpty() && !dataTextField.getText().isEmpty()) {
 
-		String code =
-			variableTextField.getText() + " = "
-				+ dataTextField.getText() + ";";
+		String sentenceCode = constructSentenceCode();
 		
-		new DialogValidator().validate(code, abstractFigure,"sentencia");
+		getDialogValidator().validate(sentenceCode, abstractFigure,"sentencia");
 		
 	    }
 	}
+    }
+    
+    private String constructSentenceCode(){
+	return variableTextField.getText() + " = " + dataTextField.getText() + ";";
     }
 
     @Override
@@ -64,8 +66,7 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
     @Override
     public void initTextFields() {
 	if (abstractFigure.instruction.getInstruccionSimple().compareTo("null") != 0
-		&& abstractFigure.instruction.getInstruccionSimple().compareTo(
-			"") != 0) {
+		&& !abstractFigure.instruction.getInstruccionSimple().isEmpty()) {
 
 	    String[] instructionCode =
 		    abstractFigure.instruction.getInstruccionSimple()

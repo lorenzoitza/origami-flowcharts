@@ -14,6 +14,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import origami.debug.Debugger;
 import origami.graphics.listeners.KeyTypeListener;
 import origami.images.ImageLoader;
 
@@ -31,7 +32,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 
     protected Button addTextFieldButton;
 
-    protected int numHorizComponents;
+    private int numHorizComponents;
 
     protected Label addVariableLabel;
 
@@ -45,7 +46,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 	
 		this.abstractFigure = figura;
 	
-		this.keyTypeListener = new KeyTypeListener();
+		keyTypeListener = new KeyTypeListener();
 	
 		this.scrolledComposite =
 			new ScrolledComposite(dialog, SWT.BORDER | SWT.H_SCROLL
@@ -167,12 +168,21 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 		return new SelectionAdapter() {
 	
 		    public void widgetSelected(SelectionEvent e) {
+			Debugger.debug(this.getClass(), "widget selectd "+composite.getChildren().length+"  "+numHorizComponents);
 			addTextComponent(composite.getChildren().length
-				/ 2);
+				/ numHorizComponents);
 			scrolledCompositeContent = composite.getChildren();
 			scrolledComposite.setMinSize(composite.computeSize(SWT.DEFAULT,
 				SWT.DEFAULT, false));
 		    }
 		};
+    }
+
+    public void setNumHorizComponents(int numHorizComponents) {
+	this.numHorizComponents = numHorizComponents;
+    }
+
+    public int getNumHorizComponents() {
+	return numHorizComponents;
     }
 }
