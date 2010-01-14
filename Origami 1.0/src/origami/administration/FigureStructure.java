@@ -23,7 +23,7 @@ import origami.graphics.WindowWidgets;
  * @author Juan Ku, Victor Rodriguez
  */
 @SuppressWarnings("serial")
-public class Figura extends Figure implements Serializable {
+public class FigureStructure extends Figure implements Serializable {
 
     private Vector<Integer> posicion = new Vector<Integer>();
 
@@ -49,7 +49,7 @@ public class Figura extends Figure implements Serializable {
     protected static final Color DARKBLUE =
 	    MainWindow.display.getSystemColor(SWT.COLOR_DARK_BLUE);
 
-    public Figura() {
+    public FigureStructure() {
 	addMouseListener(new MouseListener() {
 
 	    public void mouseDoubleClicked(MouseEvent arg0) {

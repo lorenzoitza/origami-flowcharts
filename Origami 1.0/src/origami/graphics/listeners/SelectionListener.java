@@ -7,7 +7,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Cursor;
 
 import origami.administration.AdminSelection;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;
 
@@ -18,7 +18,7 @@ public class SelectionListener extends MouseListener.Stub implements
     
     private TabFolder currentTab;
 
-    public SelectionListener(Figura figure, AdminSelection selec,
+    public SelectionListener(FigureStructure figure, AdminSelection selec,
 	    TabFolder tabfolder) {
 	figure.setCursor(new Cursor(MainWindow.display, SWT.CURSOR_HAND));
 	figure.addMouseListener(this);
@@ -31,7 +31,7 @@ public class SelectionListener extends MouseListener.Stub implements
 	int leftClick = 1;
 	int rightClick = 3;
 	if (e.button == leftClick || e.button == rightClick) {
-	    Figura figure = ((Figura) e.getSource());
+	    FigureStructure figure = ((FigureStructure) e.getSource());
 	    seleccion.setSelectedFigure(getFigureIndex(figure));
 	    if (seleccion.getSelectedFigure()!= -1) {
 		currentTab.getTabItem().getLeaf().addFigure();
@@ -39,7 +39,7 @@ public class SelectionListener extends MouseListener.Stub implements
 	}
     }
 
-    private int getFigureIndex(Figura fig) {
+    private int getFigureIndex(FigureStructure fig) {
 	for (int figureIndex = 0; figureIndex < currentTab.getTabItem()
 		.getLeaf().getSizeDiagrama(); figureIndex++) {
 	    if (fig.getBounds() == currentTab.getTabItem().getLeaf()

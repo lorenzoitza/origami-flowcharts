@@ -14,7 +14,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
  * @author Juan Ku, Victor Rodriguez
  */
 @SuppressWarnings("serial")
-public class InputFigure extends Figura {
+public class InputFigure extends FigureStructure {
 
     public SimpleInstruction instruction = new SimpleInstruction();
 

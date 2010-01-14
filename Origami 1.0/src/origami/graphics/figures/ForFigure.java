@@ -4,7 +4,7 @@ import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.administration.funtionality.code.ComposedInstruction;
 import origami.administration.funtionality.code.SimpleInstruction;
 
@@ -15,7 +15,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
  * @author Juan Ku, Victor Rodriguez
  */
 @SuppressWarnings("serial")
-public class ForFigure extends Figura {
+public class ForFigure extends FigureStructure {
 
     public ComposedInstruction instructionComposed = new ComposedInstruction();
 

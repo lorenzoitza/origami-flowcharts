@@ -65,7 +65,7 @@ public class Information implements Serializable {
 	this.information.add(information);
     }
 
-    public void setFigure(Figura figure) {
+    public void setFigure(FigureStructure figure) {
 	if (figure instanceof DecisionFigure) {
 	    information.add("La figura agregada de tipo \"si\"");
 	} else if (figure instanceof ForFigure) {
@@ -81,7 +81,7 @@ public class Information implements Serializable {
 	}
     }
 
-    public void setDiagram(Vector<Figura> diagram) {
+    public void setDiagram(Vector<FigureStructure> diagram) {
 	String information = "";
 	String instruction;
 	String tab = "";
@@ -207,7 +207,7 @@ public class Information implements Serializable {
     }
 
     private String nestedCicles(String information, String tabulation,
-	    Vector<Figura> diagram, int position) {
+	    Vector<FigureStructure> diagram, int position) {
 	int count = 0;
 	String tab = tabulation;
 	String instruction;
@@ -338,7 +338,7 @@ public class Information implements Serializable {
     }
 
     private String nestedDesition(String information, String tabulation,
-	    Vector<Figura> diagram, int position) {
+	    Vector<FigureStructure> diagram, int position) {
 
 	String tab = tabulation;
 	String instruccion;

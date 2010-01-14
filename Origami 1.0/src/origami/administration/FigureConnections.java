@@ -25,7 +25,7 @@ public class FigureConnections extends Figure{
 	tabFolder = tabfolder;
     }
 
-    public void createConnections(Vector<Figura> diagram){
+    public void createConnections(Vector<FigureStructure> diagram){
 	int bottomRightPoint, upLeftPoint, index, cicleIndex;
 	connections.removeAllElements();
 	for(index=0;index<tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;index++){	
@@ -203,7 +203,7 @@ public class FigureConnections extends Figure{
      * @param index
      * @return int
      */
-    public int connectCicle(Vector<Figura> diagram,int cicleIndex){
+    public int connectCicle(Vector<FigureStructure> diagram,int cicleIndex){
 	int index = cicleIndex;
 	int upRightPoint, upLeftPoint, recursiveIndex;
 	while(true){

@@ -3,7 +3,7 @@ package origami.administration.funtionality.code;
 import java.io.Serializable;
 import java.util.Vector;
 
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;
 import origami.graphics.figures.InputFigure;
@@ -27,7 +27,7 @@ public class Instruction implements Serializable {
 	return variablesTable;
     }
 
-    public Vector<String> getInstructionOfDiagram(Vector<Figura> diagrama) {
+    public Vector<String> getInstructionOfDiagram(Vector<FigureStructure> diagrama) {
 	getCodeFromFigures(diagrama, 1);
 	return code;
     }
@@ -41,7 +41,7 @@ public class Instruction implements Serializable {
 
 
      
-    private int getCodeFromFigures(Vector<Figura> figures,
+    private int getCodeFromFigures(Vector<FigureStructure> figures,
 	    int startIndex) {
 
 	int index;
@@ -73,7 +73,7 @@ public class Instruction implements Serializable {
 	return index;
     }
     
-    private int getCodeFromDecisionFigure(Vector<Figura> figures,
+    private int getCodeFromDecisionFigure(Vector<FigureStructure> figures,
 	    int index) {
 
 	DecisionFigure figure = (DecisionFigure) figures.elementAt(index);
@@ -116,7 +116,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int getCodeFromForFigure(Vector<Figura> figures,
+    private int getCodeFromForFigure(Vector<FigureStructure> figures,
 	    int index) {
 
 	ForFigure figure = (ForFigure) figures.elementAt(index);
@@ -143,7 +143,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int getCodeFromWhileFigure(Vector<Figura> figures,
+    private int getCodeFromWhileFigure(Vector<FigureStructure> figures,
 	    int index) {
 
 	WhileFigure figure = (WhileFigure) figures.elementAt(index);
@@ -171,7 +171,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int getCodeFromOutputFigure(Vector<Figura> figures,
+    private int getCodeFromOutputFigure(Vector<FigureStructure> figures,
 	    int index) {
 
 	OutputFigure figure = ((OutputFigure) figures.elementAt(index));
@@ -197,7 +197,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int getCodeFromInputFigure(Vector<Figura> figures,
+    private int getCodeFromInputFigure(Vector<FigureStructure> figures,
 	    int index) {
 
 	InputFigure figure = ((InputFigure) figures.elementAt(index));
@@ -268,7 +268,7 @@ public class Instruction implements Serializable {
 	return outputIndex;
     }
 
-    private int addSentenceFigureInstructionToString(Vector<Figura> figures,
+    private int addSentenceFigureInstructionToString(Vector<FigureStructure> figures,
 	    int index) {
 
 	SentenceFigure figure = (SentenceFigure) figures.elementAt(index);

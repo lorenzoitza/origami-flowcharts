@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.RGB;
 
 import origami.administration.AdminDiagram;
 import origami.administration.ApplicationState;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.*;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.EllipseFigure;
@@ -32,7 +32,7 @@ import origami.images.ImageLoader;
 public class EventoCambiarCursor{
 	private Point start;
 	public boolean bandera=false;
-	private Figura figuraPrincipal;
+	private FigureStructure figuraPrincipal;
 	private IFigure cuadro;
 	public final Cursor[] cursor = ApplicationState.cursor;
 	

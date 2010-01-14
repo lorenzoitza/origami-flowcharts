@@ -2,22 +2,22 @@ package origami.administration.funtionality.code;
 
 import java.util.Vector;
 
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 
 
 
 public class ManagerCodeFormat {
-    private Vector<Figura> figures;
+    private Vector<FigureStructure> figures;
 	
 	private AbstractInstructionFormatter format;
 	
 	private String instructionsFormat;
 	
-	public ManagerCodeFormat(Vector<Figura> figures){
+	public ManagerCodeFormat(Vector<FigureStructure> figures){
 		this.figures = figures;
 	}
 	
-	public void setFigures(Vector<Figura> figures){
+	public void setFigures(Vector<FigureStructure> figures){
 		this.figures = figures;
 	}
 	

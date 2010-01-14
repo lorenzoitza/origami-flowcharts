@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Cursor;
 
 import origami.administration.AdminSelection;
 import origami.administration.ApplicationState;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.DecisionFigureEnd;
 import origami.graphics.figures.EllipseFigure;
@@ -47,7 +47,7 @@ public class EventoAgregarFigura{
 	public void mousePresseds(MouseEvent e) {
 		bandera = false;
 		start = e.getLocation();
-		Figura fig = ApplicationState.mainFigure;
+		FigureStructure fig = ApplicationState.mainFigure;
 		if(fig!=null){
 			int a;
 			for(int z=0;z<tab.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
@@ -87,7 +87,7 @@ public class EventoAgregarFigura{
 	 * @param fig
 	 * @return int
 	 */
-	public int verificarDerecha(int z,Figura fig){
+	public int verificarDerecha(int z,FigureStructure fig){
 		int x = z+1;
 		int a;
 		z = z+2;
@@ -130,7 +130,7 @@ public class EventoAgregarFigura{
 	 * @param fig
 	 * @return int
 	 */
-	public int verificarAbajo(int z,Figura fig){
+	public int verificarAbajo(int z,FigureStructure fig){
 		int x = z;//for
 		int a;
 		z = z+1;//sig figura
@@ -173,7 +173,7 @@ public class EventoAgregarFigura{
 	 * @param fig
 	 * @return boolean
 	 */
-	public boolean Verificar(int i,int j,Figura fig){
+	public boolean Verificar(int i,int j,FigureStructure fig){
 		if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure && tab.getTabItem().getLeaf().getFigureIndexOf(j) instanceof EllipseFigure){
 			if(start.x >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+15 && 
 					start.y >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y <= tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){

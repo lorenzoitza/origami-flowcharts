@@ -4,7 +4,7 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 
 import origami.administration.AdminSelection;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.dialogs.DecisionFigureDialog;
 import origami.graphics.dialogs.ForFigureDialog;
@@ -22,13 +22,13 @@ import origami.graphics.widgets.TabFolder;
 
 public class DoubleClickListener extends MouseListener.Stub {
 
-    public DoubleClickListener(Figura figure, AdminSelection selectionAdmin,
+    public DoubleClickListener(FigureStructure figure, AdminSelection selectionAdmin,
 	    TabFolder tabFolder) {
 	figure.addMouseListener(this);
     }
 
     public void mouseDoubleClicked(MouseEvent event) {
-	Figura figure = ((Figura) event.getSource());
+	FigureStructure figure = ((FigureStructure) event.getSource());
 
 	if (figure instanceof SentenceFigure) {
 	    SentenceFigure setenceFigure = (SentenceFigure) figure;

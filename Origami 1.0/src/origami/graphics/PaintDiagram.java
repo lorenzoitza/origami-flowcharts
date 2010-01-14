@@ -15,7 +15,7 @@ import org.eclipse.swt.SWT;
 import origami.administration.AdminSelection;
 import origami.administration.FigureConnections;
 import origami.administration.DibujarDiagrama;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.figures.SelectionSquare;
 import origami.graphics.widgets.CustomMenu;
 import origami.graphics.widgets.TabFolder;
@@ -73,15 +73,15 @@ public class PaintDiagram extends Figure {
 	setBounds(new Rectangle(0,0,weight,height+200));
     }
     
-    public void agregarFiguras(Vector<Figura> diagrama,Figure chart){
+    public void agregarFiguras(Vector<FigureStructure> diagrama,Figure chart){
 	dibujarDiagrama = new DibujarDiagrama(selec, tab);
 	pintar(dibujarDiagrama.agregarFiguras(diagrama),chart);
     }
-    public void agregarFigurasExportar(Vector<Figura> diagrama,Figure chart,int lugar,int alt){
+    public void agregarFigurasExportar(Vector<FigureStructure> diagrama,Figure chart,int lugar,int alt){
 	dibujarDiagrama = new DibujarDiagrama(selec, tab);
 	pintar(dibujarDiagrama.agregarFigurasExportar(diagrama,lugar,alt),chart);
     }
-    public void pintar(Vector<Figura> diagramaFinalTotal, Figure chart){
+    public void pintar(Vector<FigureStructure> diagramaFinalTotal, Figure chart){
 	chart.removeAll();
 
 	
@@ -100,7 +100,7 @@ public class PaintDiagram extends Figure {
 	dispToolItem = true;
     }
     
-    private void agregarSeleccion(Vector<Figura> diagrama,Figure chart){
+    private void agregarSeleccion(Vector<FigureStructure> diagrama,Figure chart){
 	int x,y,width,height;
 	x = diagrama.elementAt(selec.getSelectedFigure()).getBounds().x;
 	y = diagrama.elementAt(selec.getSelectedFigure()).getBounds().y;
@@ -123,7 +123,7 @@ public class PaintDiagram extends Figure {
 	diagrama.elementAt(selec.getSelectedFigure()).setSeleccion(true);
     }
     
-    public void disableCursor(Vector<Figura> diagrama, Figure chart){
+    public void disableCursor(Vector<FigureStructure> diagrama, Figure chart){
 	agregarFiguras(diagrama,chart);
 	
 	FigureConnections conexion = new FigureConnections(tab);

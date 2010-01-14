@@ -3,7 +3,7 @@ package origami.graphics.figures;
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 
 
 
@@ -15,7 +15,7 @@ import origami.administration.Figura;
  * @author Juan Ku, Victor Rodriguez
  */
 @SuppressWarnings("serial")
-public class CircleFigure extends Figura {
+public class CircleFigure extends FigureStructure {
 
     private String message;
 

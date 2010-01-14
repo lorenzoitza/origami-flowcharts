@@ -9,7 +9,7 @@ import origami.administration.*;
 
 
 @SuppressWarnings("serial")
-public class DecisionFigureEnd extends Figura {
+public class DecisionFigureEnd extends FigureStructure {
 
     private Rectangle rectangle;
 

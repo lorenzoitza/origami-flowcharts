@@ -46,7 +46,7 @@ public class DibujarDiagrama{
      * @param diagrama
      * @param chart
      */
-    public Vector<Figura> agregarFiguras(Vector<Figura> diagrama){
+    public Vector<FigureStructure> agregarFiguras(Vector<FigureStructure> diagrama){
 	int x;
 	getFigura(diagrama,true);
 	diagrama.firstElement().setSeleccion(false);
@@ -77,7 +77,7 @@ public class DibujarDiagrama{
 	}
 	return diagrama;
     }
-    public Vector<Figura> agregarFigurasExportar(Vector<Figura> diagrama,int lugar,int alt){   
+    public Vector<FigureStructure> agregarFigurasExportar(Vector<FigureStructure> diagrama,int lugar,int alt){   
 	int x;
 	diagrama.firstElement().getBounds().x = lugar;
 	diagrama.firstElement().getBounds().y = alt;
@@ -121,7 +121,7 @@ public class DibujarDiagrama{
 	 * @param i
 	 * @return int 
 	 */
-	public int anidarIf(Vector<Figura> diagrama,int i){
+	public int anidarIf(Vector<FigureStructure> diagrama,int i){
 		int pda,pia,x,der2=0,der3=0,masDerecha,masIzquierda,total;
 		while(true){
 			if(diagrama.elementAt(i-1) instanceof EllipseFigure){
@@ -283,7 +283,7 @@ public class DibujarDiagrama{
 	 * @param i
 	 * @return int
 	 */
-	public int anidarFW(Vector<Figura> diagrama ,int i){
+	public int anidarFW(Vector<FigureStructure> diagrama ,int i){
 	    int x,pda;
 		while(true){
 			if(diagrama.elementAt(i-1) instanceof EllipseFigure){
@@ -411,7 +411,7 @@ public class DibujarDiagrama{
 	 * @param fin
 	 * @return
 	 */
-	public int ifIzquierda(Vector<Figura> diagrama,int i,int fin){
+	public int ifIzquierda(Vector<FigureStructure> diagrama,int i,int fin){
 		int cont=0,cont2=0;
 		boolean bandera = true;
 		while(true){	
@@ -443,7 +443,7 @@ public class DibujarDiagrama{
 		}
 		return cont2;
 	}
-	public int ifIzquierda2(Vector<Figura> diagrama,int i,int fin){
+	public int ifIzquierda2(Vector<FigureStructure> diagrama,int i,int fin){
 		int cont=0,cont2=0;
 		while(true){
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
@@ -479,7 +479,7 @@ public class DibujarDiagrama{
 	 * @param fin
 	 * @return int
 	 */
-	public int ifDerecha(Vector<Figura> diagrama,int i,int fin){
+	public int ifDerecha(Vector<FigureStructure> diagrama,int i,int fin){
 		int cont=0,cont2=0;
 		boolean bandera= true;
 		while(true){	
@@ -512,7 +512,7 @@ public class DibujarDiagrama{
 		}
 		return cont2;
 	}
-	public int ifDerecha2(Vector<Figura> diagrama,int i,int fin){
+	public int ifDerecha2(Vector<FigureStructure> diagrama,int i,int fin){
 		int cont=0,cont2=0;
 		while(true){	
 			if(i==fin){
@@ -554,7 +554,7 @@ public class DibujarDiagrama{
 	 * @param i
 	 * @return doble
 	 */
-	public double recorridoFW(Vector<Figura> diagrama,int i){
+	public double recorridoFW(Vector<FigureStructure> diagrama,int i){
 		double x=0.0,x2=0.0,xDer=0.0,xIzq=0.0;
 		boolean bandera=false,bandera2=false;
 		int fin = RecorridoDiagrama.recorridoCiclo3(diagrama,i-1);
@@ -664,7 +664,7 @@ public class DibujarDiagrama{
 	 * 
 	 * @param diagrama
 	 */
-	public void getFigura(Vector<Figura> diagrama,boolean eventos){
+	public void getFigura(Vector<FigureStructure> diagrama,boolean eventos){
 		Point pt = new Point();
 		if(eventos){
 			if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){

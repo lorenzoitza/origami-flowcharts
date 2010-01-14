@@ -12,7 +12,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 import origami.administration.ApplicationState;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.dialogs.DecisionFigureDialog;
 import origami.graphics.dialogs.ForFigureDialog;
@@ -33,7 +33,7 @@ import origami.images.ImageLoader;
 public class ContextualMenuActions {
     public static boolean isCut = false;
     
-    public void Cortar(Figura fig){
+    public void Cortar(FigureStructure fig){
     	int index = 0;
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
@@ -81,7 +81,7 @@ public class ContextualMenuActions {
     		}
     	}
     }
-    public void Copiar(Figura fig){
+    public void Copiar(FigureStructure fig){
     	if(isCut){
     	ApplicationState._diagramAdministrator.diagram.removeAllElements();
     		isCut = false;
@@ -225,7 +225,7 @@ public class ContextualMenuActions {
     		}
     	}
     }
-    public void Pegar(Figura fig){
+    public void Pegar(FigureStructure fig){
     	int w = 0, y=0 ,lim=0;
     	final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
     	if(!isCut){
@@ -290,7 +290,7 @@ public class ContextualMenuActions {
     			}
     		}
     	}
-    	Vector<Figura> temporal = new Vector<Figura>();
+    	Vector<FigureStructure> temporal = new Vector<FigureStructure>();
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
     			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof DecisionFigure){
@@ -321,7 +321,7 @@ public class ContextualMenuActions {
     				final int copiax=x;
     				izquierda.addSelectionListener(new SelectionAdapter() {
     					public void widgetSelected(SelectionEvent event) {
-    						Vector<Figura> temporal = new Vector<Figura>();
+    						Vector<FigureStructure> temporal = new Vector<FigureStructure>();
     						int x = copiax,y =0,lim=0;
     						for(int u =0; u<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); u++){
     							temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
@@ -376,7 +376,7 @@ public class ContextualMenuActions {
     				});
     				derecha.addSelectionListener(new SelectionAdapter() {
     					public void widgetSelected(SelectionEvent event) {
-    						Vector<Figura> temporal = new Vector<Figura>();
+    						Vector<FigureStructure> temporal = new Vector<FigureStructure>();
     						int x = copiax,y =0,lim=0,w=0;
     						for(int u =0; u<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); u++){
     							temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
@@ -455,7 +455,7 @@ public class ContextualMenuActions {
     		}
     	}
     }
-    public void insertarFigura(final Figura inser){
+    public void insertarFigura(final FigureStructure inser){
     	final int i = ApplicationState._selectionAdministrator.getSelectedFigure();
     	if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().diagram.elementAt(i) instanceof DecisionFigure){
     		final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
@@ -521,7 +521,7 @@ public class ContextualMenuActions {
     		MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
     	}
     }
-    public void Eliminar(Figura fig){
+    public void Eliminar(FigureStructure fig){
     	String tipo ="";
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
@@ -574,7 +574,7 @@ public class ContextualMenuActions {
     		}
     	}
     }
-    public void agregar(Figura fig){
+    public void agregar(FigureStructure fig){
     	if(fig instanceof SentenceFigure){
     		SentenceFigure f = (SentenceFigure)fig;
     		new SentenceFigureDialog(MainWindow.shell,f).open();

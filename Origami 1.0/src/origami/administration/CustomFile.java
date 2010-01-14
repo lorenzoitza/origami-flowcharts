@@ -8,18 +8,18 @@ import java.util.Vector;
  */
 @SuppressWarnings("serial")
 public class CustomFile implements Serializable{
-	private Vector<Figura> diagrama;
+	private Vector<FigureStructure> diagrama;
 	private Vector<String> info;
 	
-	public CustomFile(Vector<Figura> diagrama){
+	public CustomFile(Vector<FigureStructure> diagrama){
 		this.diagrama = diagrama;
 	}
 
-	public Vector<Figura> getDiagrama() {
+	public Vector<FigureStructure> getDiagrama() {
 		return diagrama;
 	}
 
-	public void setDiagrama(Vector<Figura> diagrama) {
+	public void setDiagrama(Vector<FigureStructure> diagrama) {
 		this.diagrama = diagrama;
 	}
 

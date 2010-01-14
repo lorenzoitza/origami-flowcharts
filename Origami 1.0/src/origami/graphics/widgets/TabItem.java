@@ -8,7 +8,7 @@ import org.eclipse.swt.custom.CTabItem;
 import origami.administration.AdminDiagram;
 import origami.administration.AdminSelection;
 import origami.administration.CustomLeaf;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.administration.Information;
 import origami.administration.funtionality.SaveDiagramController;
 import origami.graphics.figures.DecisionFigure;
@@ -72,7 +72,7 @@ public class TabItem extends CTabItem {
 	return this.Id;
     }
 
-    public void addUndo(Vector<Figura> diagrama, AdminSelection selec) {
+    public void addUndo(Vector<FigureStructure> diagrama, AdminSelection selec) {
 	if (posicionRetroceso == 4) {
 	    retroseso.remove(0);
 	    posicionRetroceso--;

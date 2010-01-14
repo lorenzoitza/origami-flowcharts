@@ -11,7 +11,7 @@ import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
 
 import origami.administration.ApplicationState;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.administration.actions.ContextualMenuActions;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
@@ -89,7 +89,7 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		Figura fig =
+		FigureStructure fig =
 			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
@@ -109,7 +109,7 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		Figura figure =
+		FigureStructure figure =
 			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
@@ -129,7 +129,7 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		Figura fig =
+		FigureStructure fig =
 			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
@@ -149,7 +149,7 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new SelectionAdapter() {
 
 	    public void widgetSelected(SelectionEvent event) {
-		Figura fig =
+		FigureStructure fig =
 			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()

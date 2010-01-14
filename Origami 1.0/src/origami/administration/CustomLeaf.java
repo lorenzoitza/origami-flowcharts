@@ -103,7 +103,7 @@ public class CustomLeaf {
 	public int getSizeDiagrama(){
 		return diagrama.diagram.size();
 	}
-	public Figura getFigureIndexOf(int i){
+	public FigureStructure getFigureIndexOf(int i){
 		return diagrama.diagram.elementAt(i);
 	}
 	public void removeFigureIndexOf(int i){
@@ -112,10 +112,10 @@ public class CustomLeaf {
 	public void removeFigureAllElements(){
 		diagrama.diagram.removeAllElements();
 	}
-	public void addFigureIndexOf(int i,Figura figura){
+	public void addFigureIndexOf(int i,FigureStructure figura){
 		diagrama.diagram.add(i, figura);
 	}
-	public void insertFigureIndexOf(Figura figura,int i){
+	public void insertFigureIndexOf(FigureStructure figura,int i){
 		diagrama.diagram.insertElementAt(figura, i);
 	}
 	public PaintDiagram getDibujarDiagrama(){
@@ -161,7 +161,7 @@ public class CustomLeaf {
         	connection.createConnections(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
 	}
-	public Vector<Figura> getDiagrama(){
+	public Vector<FigureStructure> getDiagrama(){
 		return diagrama.diagram;
 	}
 	public AdminDiagram getAdminDiagrama(){

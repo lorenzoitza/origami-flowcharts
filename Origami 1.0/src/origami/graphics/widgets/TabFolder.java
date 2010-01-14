@@ -18,7 +18,7 @@ import org.eclipse.swt.widgets.Display;
 
 import origami.administration.AdminDiagram;
 import origami.administration.AdminSelection;
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.administration.funtionality.DiagramFileManager;
 import origami.administration.funtionality.SaveDiagramController;
 import origami.graphics.BaseDeDiagrama;
@@ -71,7 +71,7 @@ public class TabFolder {
 	this.tabFolder.addCTabFolder2Listener(getCTabFolderListener());
     }
 
-    public void addUndo(Vector<Figura> diagrama) {
+    public void addUndo(Vector<FigureStructure> diagrama) {
 	TabItem panel = (TabItem) getSeleccion();
 	panel.addUndo(diagrama, getAdminSelection());
     }

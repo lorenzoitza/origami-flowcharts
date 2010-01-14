@@ -34,8 +34,8 @@ public class DiagramExporter {
 		selectedTab = tabfolder;
 	}
 
-	public Vector<Figura> getFiguras(Vector<Figura> diagrama) {
-		Vector<Figura> diagramResult = new Vector<Figura>();
+	public Vector<FigureStructure> getFiguras(Vector<FigureStructure> diagrama) {
+		Vector<FigureStructure> diagramResult = new Vector<FigureStructure>();
 		for (int x = 0; x < diagrama.size(); x++) {
 			if (diagrama.elementAt(x) instanceof DecisionFigure) {
 				DecisionFigure decisionFigure = (DecisionFigure) diagrama.elementAt(x);
@@ -74,10 +74,10 @@ public class DiagramExporter {
 		return diagramResult;
 	}
 
-	public void exportJPGFile(String fileDirectory, Vector<Figura> sourceDiagram,
+	public void exportJPGFile(String fileDirectory, Vector<FigureStructure> sourceDiagram,
 			FigureConnections connection) {
 		
-		Vector<Figura> exportedDiagram = getFiguras(sourceDiagram);
+		Vector<FigureStructure> exportedDiagram = getFiguras(sourceDiagram);
 		
 		byte[] data = createImage(exportedDiagram, connection, SWT.IMAGE_BMP);
 		
@@ -94,7 +94,7 @@ public class DiagramExporter {
 		}
 	}
 
-	private PaintDiagram getSize(Vector<Figura> sourceDiagram, FigureConnections connection) {
+	private PaintDiagram getSize(Vector<FigureStructure> sourceDiagram, FigureConnections connection) {
 		
 		int x1Coord = sourceDiagram.elementAt(0).getBounds().x;
 		
@@ -149,7 +149,7 @@ public class DiagramExporter {
 		return contents;
 	}
 
-	private byte[] createImage(Vector<Figura> diagrama, FigureConnections conexion,
+	private byte[] createImage(Vector<FigureStructure> diagrama, FigureConnections conexion,
 			int format) {
 		
 		Figure figure = getSize(diagrama, conexion);

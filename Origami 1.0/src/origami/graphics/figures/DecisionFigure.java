@@ -11,7 +11,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
 
 
 @SuppressWarnings("serial")
-public class DecisionFigure extends Figura {
+public class DecisionFigure extends FigureStructure {
 
     public ComposedInstruction instructionComposed = new ComposedInstruction();
 

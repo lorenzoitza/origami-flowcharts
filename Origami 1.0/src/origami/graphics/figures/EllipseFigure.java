@@ -7,7 +7,7 @@ import origami.administration.*;
 
 
 @SuppressWarnings("serial")
-public class EllipseFigure extends Figura {
+public class EllipseFigure extends FigureStructure {
     
     private Rectangle rectangle = bounds;
 

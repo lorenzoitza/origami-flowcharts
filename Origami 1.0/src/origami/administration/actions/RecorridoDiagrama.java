@@ -2,7 +2,7 @@ package origami.administration.actions;
 
 import java.util.Vector;
 
-import origami.administration.Figura;
+import origami.administration.FigureStructure;
 import origami.graphics.figures.EllipseFigure;
 
 
@@ -17,7 +17,7 @@ public class RecorridoDiagrama {
      * @param i
      * @return int
      */
-    public static int recorridoCiclo(Vector<Figura> diagrama,int i){
+    public static int recorridoCiclo(Vector<FigureStructure> diagrama,int i){
     	int x=diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
     	x=diagrama.elementAt(i).getBounds().x-x;
     	int y=diagrama.elementAt(i).getBounds().y+diagrama.elementAt(i).getBounds().height/2;
@@ -37,7 +37,7 @@ public class RecorridoDiagrama {
      * @param i
      * @return int
      */
-    public static int recorridoCiclo2(Vector<Figura> diagrama,int i){
+    public static int recorridoCiclo2(Vector<FigureStructure> diagrama,int i){
     	int x=diagrama.elementAt(i).getBounds().x;
     	int y=diagrama.elementAt(i-1).getBounds().y;
     	i++;
@@ -56,7 +56,7 @@ public class RecorridoDiagrama {
      * @param i
      * @return int
      */
-    public static int recorridoCiclo3(Vector<Figura> diagrama,int i){
+    public static int recorridoCiclo3(Vector<FigureStructure> diagrama,int i){
     	int x=diagrama.elementAt(i).getBounds().x + diagrama.elementAt(i).getBounds().width/2;
     	int y=diagrama.elementAt(i).getBounds().y + diagrama.elementAt(i).getBounds().height/2;;
     	i++;

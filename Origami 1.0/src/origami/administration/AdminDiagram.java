@@ -16,7 +16,7 @@ import origami.graphics.figures.WhileFigure;
  */
 public class AdminDiagram {
 
-    public Vector<Figura> diagram = new Vector<Figura>();
+    public Vector<FigureStructure> diagram = new Vector<FigureStructure>();
 
     public AdminSelection adminSelection;
 
@@ -24,7 +24,7 @@ public class AdminDiagram {
 	adminSelection = seleccion;
     }
 
-    private void addDecisionFigure(int currentPosition, Vector<Figura> figures) {
+    private void addDecisionFigure(int currentPosition, Vector<FigureStructure> figures) {
 	EllipseFigure coord1 = new EllipseFigure();
 	
 	EllipseFigure coord2 = new EllipseFigure();
@@ -52,7 +52,7 @@ public class AdminDiagram {
 	}
     }
 
-    private void addForAndWhileFigure(int currentPosition, Vector<Figura> figures) {
+    private void addForAndWhileFigure(int currentPosition, Vector<FigureStructure> figures) {
 	EllipseFigure coord1 = new EllipseFigure();
 	EllipseFigure coord2 = new EllipseFigure();
 	EllipseFigure coord3 = new EllipseFigure();
@@ -83,9 +83,9 @@ public class AdminDiagram {
      * @param position
      * @param figure
      */
-    public void orderDiagram(int position, Figura figure) {
+    public void orderDiagram(int position, FigureStructure figure) {
 
-	Vector<Figura> temporalDiagram = new Vector<Figura>();
+	Vector<FigureStructure> temporalDiagram = new Vector<FigureStructure>();
 	int currentPosition = 0;
 	for (int index = 0; index < diagram.size(); index++) {
 	    temporalDiagram.add(index, diagram.elementAt(index));

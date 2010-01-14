@@ -13,7 +13,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
  * @author Juan Ku, Victor Rodriguez
  */
 @SuppressWarnings("serial")
-public class SentenceFigure extends Figura {
+public class SentenceFigure extends FigureStructure {
 
     public SimpleInstruction instruction = new SimpleInstruction();
 
