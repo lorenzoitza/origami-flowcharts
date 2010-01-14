@@ -15,7 +15,7 @@ import origami.administration.funtionality.code.*;
  */
 public class WhileFigure extends Figura {
 
-    public ComposedSourceCode instructionComposed = new ComposedSourceCode();
+    public ComposedInstruction instructionComposed = new ComposedInstruction();
 
     public WhileFigure() {
 	int x = 100;
@@ -130,7 +130,7 @@ public class WhileFigure extends Figura {
 	return getInstructionCode().equals(instructionCode);
     }
 
-    public void addInstructionSimple(SimpleSourceCode instructionSimple) {
+    public void addInstructionSimple(SimpleInstruction instructionSimple) {
 	instructionComposed.simpleInstructionList.add(0, instructionSimple);
     }
 

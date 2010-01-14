@@ -5,7 +5,7 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.*;
-import origami.administration.funtionality.code.SimpleSourceCode;
+import origami.administration.funtionality.code.SimpleInstruction;
 
 
 /**
@@ -16,7 +16,7 @@ import origami.administration.funtionality.code.SimpleSourceCode;
  */
 public class OutputFigure extends Figura {
 
-    public SimpleSourceCode instruction = new SimpleSourceCode();
+    public SimpleInstruction instruction = new SimpleInstruction();
 
     public OutputFigure() {
 	int x = 100;
@@ -158,7 +158,7 @@ public class OutputFigure extends Figura {
 	return getInstructionCode().equals(instructionCode);
     }
 
-    public void addInstructionSimple(SimpleSourceCode instructionSimple) {
+    public void addInstructionSimple(SimpleInstruction instructionSimple) {
 	instruction.setInstruccionSimple(instructionSimple
 		.getInstruccionSimple());
     }

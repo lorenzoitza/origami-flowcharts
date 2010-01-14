@@ -7,8 +7,8 @@ import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
 
 import origami.administration.Figura;
-import origami.administration.funtionality.code.ComposedSourceCode;
-import origami.administration.funtionality.code.SimpleSourceCode;
+import origami.administration.funtionality.code.ComposedInstruction;
+import origami.administration.funtionality.code.SimpleInstruction;
 
 /**
  * Esta clase es la que crea y dibujar la figura del For.
@@ -18,7 +18,7 @@ import origami.administration.funtionality.code.SimpleSourceCode;
  */
 public class ForFigure extends Figura {
 
-    public ComposedSourceCode instructionComposed = new ComposedSourceCode();
+    public ComposedInstruction instructionComposed = new ComposedInstruction();
 
     public ForFigure() {
 	int x = 100;
@@ -154,7 +154,7 @@ public class ForFigure extends Figura {
 	return getInstructionCode().equals(instructionCode);
     }
 
-    public void addInstructionSimple(SimpleSourceCode instructionSimple) {
+    public void addInstructionSimple(SimpleInstruction instructionSimple) {
 	instructionComposed.simpleInstructionList.add(0, instructionSimple);
     }
 
