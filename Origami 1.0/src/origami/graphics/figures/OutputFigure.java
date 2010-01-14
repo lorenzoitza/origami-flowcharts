@@ -14,6 +14,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class OutputFigure extends Figura {
 
     public SimpleInstruction instruction = new SimpleInstruction();

@@ -8,6 +8,7 @@ import org.eclipse.swt.SWT;
 import origami.administration.*;
 
 
+@SuppressWarnings("serial")
 public class DecisionFigureEnd extends Figura {
 
     private Rectangle rectangle;

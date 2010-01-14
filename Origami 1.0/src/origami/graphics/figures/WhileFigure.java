@@ -13,6 +13,7 @@ import origami.administration.funtionality.code.*;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class WhileFigure extends Figura {
 
     public ComposedInstruction instructionComposed = new ComposedInstruction();

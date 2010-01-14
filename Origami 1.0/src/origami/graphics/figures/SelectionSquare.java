@@ -12,6 +12,7 @@ import origami.administration.*;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class SelectionSquare extends Figura {
 
     private boolean isRemarked;

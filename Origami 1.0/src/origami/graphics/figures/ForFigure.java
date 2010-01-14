@@ -1,7 +1,5 @@
 package origami.graphics.figures;
 
-import java.awt.Point;
-
 import org.eclipse.draw2d.Graphics;
 import org.eclipse.draw2d.geometry.PointList;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -16,6 +14,7 @@ import origami.administration.funtionality.code.SimpleInstruction;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class ForFigure extends Figura {
 
     public ComposedInstruction instructionComposed = new ComposedInstruction();

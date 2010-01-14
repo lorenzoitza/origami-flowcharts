@@ -10,6 +10,7 @@ import origami.administration.funtionality.code.ComposedInstruction;
 import origami.administration.funtionality.code.SimpleInstruction;
 
 
+@SuppressWarnings("serial")
 public class DecisionFigure extends Figura {
 
     public ComposedInstruction instructionComposed = new ComposedInstruction();

@@ -6,7 +6,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import origami.administration.*;
 
 
-
+@SuppressWarnings("serial")
 public class EllipseFigure extends Figura {
     
     private Rectangle rectangle = bounds;
