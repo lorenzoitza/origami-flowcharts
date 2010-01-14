@@ -3,14 +3,14 @@ package origami.administration.funtionality;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.MessageBox;
 
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 
 
 public class ConsoleExitProcess implements Runnable{
     
-    private Componentes console;
-    public ConsoleExitProcess(Componentes console){
+    private WindowWidgets console;
+    public ConsoleExitProcess(WindowWidgets console){
 	this.console = console;
     }
     

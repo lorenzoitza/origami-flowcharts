@@ -16,7 +16,7 @@ public class ViewFiguresBarListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent e) {
 	MenuItem widget = (MenuItem)e.widget;
-	MainWindow.getComponents().addBarraFiguras(widget.getSelection());
+	MainWindow.getComponents().setFiguresToolBar(widget.getSelection());
     }
 
 }

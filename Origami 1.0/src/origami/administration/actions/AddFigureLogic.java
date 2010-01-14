@@ -2,7 +2,7 @@ package origami.administration.actions;
 
 import origami.administration.ApplicationState;
 import origami.administration.funtionality.code.InstructionSimple;
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.figures.DecisionFigure;
 import origami.graphics.figures.ForFigure;
 import origami.graphics.figures.InputFigure;
@@ -14,9 +14,9 @@ import origami.graphics.figures.WhileFigure;
 public class AddFigureLogic {
     
     public void disableCursor() {
-	Componentes._diagrams.getTabItem().getLeaf().getChart().disableCursor(
-	Componentes._diagrams.getTabItem().getLeaf().getDiagrama(),
-	Componentes._diagrams.getTabItem().getLeaf().getChart());
+	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart().disableCursor(
+	WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama(),
+	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart());
     }
     
     public void addInput() {

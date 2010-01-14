@@ -20,7 +20,7 @@ public class MainWindow {
 
     public static Shell shell;
 
-    private static Componentes components;
+    private static WindowWidgets components;
     
     private CustomMenu menu;
 
@@ -33,7 +33,7 @@ public class MainWindow {
 	
 	menu = new CustomMenu(shell, display);
 	
-	components = new Componentes(display, menu);
+	components = new WindowWidgets(display, menu);
 	
 	shellLayout = new GridLayout(2, false);
 	
@@ -45,14 +45,14 @@ public class MainWindow {
     }
 
     private void addWindowComponents(){
-	components.agregarComponentes(shellLayout);
+	components.createWidgets(shellLayout);
     }
     
     private void addShellProperties() {
 	shell.setText("Origami");
 	shell.setMaximized(true);
 	shell.setImage(ImageLoader.getImage("icono.GIF"));
-	shell.addShellListener(new CloseWindowListener(Componentes._diagrams, getComponents()));
+	shell.addShellListener(new CloseWindowListener(WindowWidgets.tabFolder, getComponents()));
 	shell.setMenuBar(menu.getMainMenu());
 	shell.setLayout(shellLayout);
 	shell.pack();
@@ -65,12 +65,12 @@ public class MainWindow {
 		ApplicationState.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		Componentes._diagrams.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
+		WindowWidgets.tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
 		if (oldCursor != null) {
 		    oldCursor.dispose();
 		}
-		if (Componentes._diagrams.getItemCount() != 0) {
-		    Componentes._diagrams.getTabItem().getLeaf().addFigure();
+		if (WindowWidgets.tabFolder.getItemCount() != 0) {
+		    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
 		}
 	    }
 	});
@@ -80,7 +80,7 @@ public class MainWindow {
 	shell.open();
     }
 
-    public static Componentes getComponents() {
+    public static WindowWidgets getComponents() {
 	return components;
     }
 

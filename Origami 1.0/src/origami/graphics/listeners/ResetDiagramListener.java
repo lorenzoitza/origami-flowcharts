@@ -21,18 +21,18 @@ public class ResetDiagramListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
-	for(int y=MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
-	    MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(y);
+	for(int y=MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
+	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(y);
 	}
 	CircleFigure fin = new CircleFigure();
-	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().add(fin);
+	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().add(fin);
 	fin.setMessage("  Fin");
 	BaseDeDiagrama.getInstance().resetScrollBar();
 	//MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
-	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
+	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
+	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 	//MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
-	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);		
+	MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);		
     }
 
 }

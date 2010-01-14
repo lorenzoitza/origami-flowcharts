@@ -63,10 +63,10 @@ public class SaveFileView {
     }
 
     public boolean saveAction() {
-	serializer.setFile(MainWindow.getComponents()._diagrams.getTabItem()
+	serializer.setFile(MainWindow.getComponents().tabFolder.getTabItem()
 		.getSave().getDir());
-	serializer.saveDiagram(MainWindow.getComponents()._diagrams);
-	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(
+	serializer.saveDiagram(MainWindow.getComponents().tabFolder);
+	MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(
 		true);
 	return true;
     }
@@ -151,17 +151,17 @@ public class SaveFileView {
     }
 
     private void save(String fileName,String fileAdress) {
-	MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(
+	MainWindow.getComponents().tabFolder.getTabItem().getSave().setDir(
 		fileName);
 	serializer.setFile(fileAdress);
 	boolean isError =
-		serializer.saveDiagram(MainWindow.getComponents()._diagrams);
+		serializer.saveDiagram(MainWindow.getComponents().tabFolder);
 	if (isError) {
 	    int pos = fileName.indexOf('.');
 	    String name = fileName.substring(0, pos);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave()
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents()._diagrams.changeName(name);
+	    MainWindow.getComponents().tabFolder.changeName(name);
 	}
     }
 
@@ -169,38 +169,38 @@ public class SaveFileView {
 	serializer.setFile(fileName);
 	serializer.setFile(fileAdress);
 	boolean isError =
-		serializer.saveDiagram(MainWindow.getComponents()._diagrams);
+		serializer.saveDiagram(MainWindow.getComponents().tabFolder);
 	if (isError) {
 	    int pos = fileName.indexOf('.');
 	    String name = fileName.substring(0, pos);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave()
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents()._diagrams.changeName(name);
+	    MainWindow.getComponents().tabFolder.changeName(name);
 	}
     }
 
     public void exportC(String fileName) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents()._diagrams);
+	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
 	exporter.codeCExport(fileName);
     }
 
     public void exportCpp(String fileName) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents()._diagrams);
+	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
 	exporter.codeCppExport(fileName);
     }
 
     public void exportExe(String fileName, String fileAdress) {
 	fileName = fileName.substring(0, fileName.indexOf("."));
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents()._diagrams);
+	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
 	exporter.executeFileExport(fileAdress, fileName);
     }
 
     public void exportImage(String fileAdress) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents()._diagrams);
+	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
 	exporter
-		.exportJPGFile(fileAdress, MainWindow.getComponents()._diagrams
+		.exportJPGFile(fileAdress, MainWindow.getComponents().tabFolder
 			.getTabItem().getLeaf().getDiagrama(), MainWindow
-			.getComponents()._diagrams.getTabItem().getLeaf()
+			.getComponents().tabFolder.getTabItem().getLeaf()
 			.getConexion());
     }
 }

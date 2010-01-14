@@ -51,9 +51,9 @@ public class DialogValidator {
 			if(!isEmpyInstructionList && !equalInstructions){
 				
 				
-				MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+				MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
 				
-				MainWindow.getComponents()._diagrams.getTabItem().getInformation().setInformacion(
+				MainWindow.getComponents().tabFolder.getTabItem().getInformation().setInformacion(
 							"/M - Se agrego"
 							+ " o modifico una "
 							+ "instruccion en una figura de tipo \""+info+"\"\n");
@@ -63,13 +63,13 @@ public class DialogValidator {
 			
 			addInstructionSimpleMethod.invoke(abstractFigure, code);
 			
-			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
 			
-			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
+			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 			
 			if (isChanged) {
-			    MainWindow.getComponents()._diagrams.getTabItem().getInformation().setDiagrama(
-				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+			    MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagrama(
+				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 			}
 			
 		} catch (SecurityException e) {

@@ -199,7 +199,7 @@ public class PasoAPaso extends ConsoleController{
 		capturar.open();
 	}
 	public boolean verificarLectura(int linea){
-	    	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+	    	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 	    	managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getHoja().getDiagrama());
@@ -418,7 +418,7 @@ public class PasoAPaso extends ConsoleController{
 	}
 	private void setScroll(int fig){
 		int vertical=580;
-		if(!MainWindow.getComponents().consolaData.exclude){
+		if(!MainWindow.getComponents().consoleData.exclude){
 			vertical=400;
 		}
 		int x=0,y=0;
@@ -815,7 +815,7 @@ public class PasoAPaso extends ConsoleController{
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).getPosicion().removeAllElements();
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).setPosicion(4);
 
-		ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 		managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getTabItem().getLeaf().getDiagrama());

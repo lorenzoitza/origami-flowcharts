@@ -77,19 +77,19 @@ public class CustomConsole {
 
 	    public void minimize(CTabFolderEvent event) {
 		CustomMenu.getConsoleMenuItem().setSelection(false);
-		MainWindow.getComponents().moverConsola(false);
+		MainWindow.getComponents().restoreConsole(false);
 		getCtabFolder().setMaximized(false);
 	    }
 
 	    public void maximize(CTabFolderEvent event) {
-		MainWindow.getComponents().maxConsola(true);
+		MainWindow.getComponents().maximizeConsole(true);
 		getCtabFolder().forceFocus();
 		getTextField().forceFocus();
 		getCtabFolder().setMaximized(true);
 	    }
 
 	    public void restore(CTabFolderEvent event) {
-		MainWindow.getComponents().moverConsola(true);
+		MainWindow.getComponents().restoreConsole(true);
 		getCtabFolder().forceFocus();
 		getTextField().forceFocus();
 		getCtabFolder().setMinimized(false);

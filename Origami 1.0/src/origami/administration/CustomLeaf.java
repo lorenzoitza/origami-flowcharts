@@ -70,7 +70,7 @@ public class CustomLeaf {
 	 addFigure();
 	 guardarRetroceso();
 	 if(tab.getItemCount()==1){
-		MainWindow.getComponents().diagramaData.exclude=false;
+		MainWindow.getComponents().diagramData.exclude=false;
 		MainWindow.shell.layout();
 		BaseDeDiagrama.getInstance().resetScrollBar();
 	 }
@@ -160,7 +160,7 @@ public class CustomLeaf {
 		BaseDeDiagrama.getInstance().addPaintDiagram(chart);
 		addPropiedades();
 		if(tab.getItemCount()==1){
-			MainWindow.getComponents().diagramaData.exclude=false;
+			MainWindow.getComponents().diagramData.exclude=false;
 			MainWindow.shell.layout();
 		}
 		chart.setOpaque(true);

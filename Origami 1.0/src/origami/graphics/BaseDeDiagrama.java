@@ -31,7 +31,7 @@ public class BaseDeDiagrama {
 
     private BaseDeDiagrama(){
 	
-	MainWindow.getComponents().agregarBarraFiguras();
+	MainWindow.getComponents().addFiguresToolBar();
 	
 	initPanels();
 	
@@ -48,7 +48,7 @@ public class BaseDeDiagrama {
     
     private void initPanels(){
 	diagramaArea = new Composite(MainWindow.shell,SWT.NONE);
-	diagramaArea.setLayoutData(MainWindow.getComponents().diagramaData);
+	diagramaArea.setLayoutData(MainWindow.getComponents().diagramData);
 	diagramaArea.setLayout(getLayoutComposite());
 	
 	lws = new FigureCanvas(diagramaArea);

@@ -21,7 +21,7 @@ public class SaveDiagramListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent arg0) {
 	SaveFileView save = new SaveFileView();
-	if(MainWindow.getComponents()._diagrams.getTabItem().getSave().getDir()=="null"){
+	if(MainWindow.getComponents().tabFolder.getTabItem().getSave().getDir()=="null"){
 	    save.setSaveType(SaveType.SAVE);
 	    save.createWindow();
 	}

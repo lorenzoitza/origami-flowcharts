@@ -16,7 +16,7 @@ public class ViewTabsListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent e) {
 	MenuItem widget = (MenuItem)e.widget;
-	MainWindow.getComponents().addTabFolder(widget.getSelection());
+	MainWindow.getComponents().setEnableTabFolder(widget.getSelection());
     }
 
 }

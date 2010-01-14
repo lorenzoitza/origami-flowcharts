@@ -26,10 +26,10 @@ public class SaveAsDiagramListener implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if(MainWindow.getComponents().getByStepComponents().getEje() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents()) && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getEje().tabItemSelected.GetId()){
+	if(MainWindow.getComponents().getByStepComponents().getEje() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents()) && MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getEje().tabItemSelected.GetId()){
 	    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 	}
-	else if(MainWindow.getComponents().getByStepComponents().getPaso() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents()) && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getPaso().a.GetId()){
+	else if(MainWindow.getComponents().getByStepComponents().getPaso() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents()) && MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getPaso().a.GetId()){
 	    MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 	}
 	MainWindow.getComponents().getByStepComponents().disablePasoAPaso(MainWindow.getComponents(), false);

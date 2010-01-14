@@ -38,44 +38,44 @@ public class ContextualMenuActions {
     
     public void Cortar(Figura fig){
     	int index = 0;
-    	for(int x=0;x<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama();x++){
+    	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagrama.removeAllElements();
     			if(fig instanceof DecisionFigure){
-    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),y);
+    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
-    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     					index++;
     				}
     			} 
     			else if(fig instanceof ForFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
-    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     					index++;
     				}
     			}
     			else if(fig instanceof WhileFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
-    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    				ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     					index++;
     				}
     			}
     			else{
-    			ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    			ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     			}
     			isCut = true;
     			ApplicationState._selectionAdministrator.setFiguraSeleccionada(-1);
@@ -90,59 +90,59 @@ public class ContextualMenuActions {
     		isCut = false;
     	}
     	int index = 0;
-    	for(int x=0;x<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama();x++){
+    	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagrama.removeAllElements();
     			if(fig instanceof DecisionFigure){
-				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),y);
+				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
-    					if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
+    					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
     						DecisionFigure copia = new DecisionFigure();
-    						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
     						ForFigure copia = new ForFigure();
-    						ForFigure actual = (ForFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						ForFigure actual = (ForFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
     						WhileFigure copia = new WhileFigure();
-    						WhileFigure actual = (WhileFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						WhileFigure actual = (WhileFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
     						SentenceFigure copia = new SentenceFigure();
-    						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     						InputFigure copia = new InputFigure();
-    						InputFigure actual = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						InputFigure actual = (InputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     						OutputFigure copia = new OutputFigure();
-    						OutputFigure actual = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						OutputFigure actual = (OutputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else{
-    					ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
+    					ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
     					}
     					cont++;
     					index++;
@@ -150,53 +150,53 @@ public class ContextualMenuActions {
     				}
     			} 
     			else if(fig instanceof ForFigure || fig instanceof WhileFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
-    					if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
+    					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
     						DecisionFigure copia = new DecisionFigure();
-    						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						DecisionFigure actual = (DecisionFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof ForFigure){
     						ForFigure copia = new ForFigure();
-    						ForFigure actual = (ForFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						ForFigure actual = (ForFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof WhileFigure){
     						WhileFigure copia = new WhileFigure();
-    						WhileFigure actual = (WhileFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						WhileFigure actual = (WhileFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						for(int j=0; j<actual.instructionComposed.simpleInstructionList.size(); j++){
     							copia.instructionComposed.simpleInstructionList.add(actual.instructionComposed.simpleInstructionList.elementAt(j));	
     						}
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof SentenceFigure){
     						SentenceFigure copia = new SentenceFigure();
-    						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						SentenceFigure actual = (SentenceFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     						InputFigure copia = new InputFigure();
-    						InputFigure actual = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						InputFigure actual = (InputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
-    					else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
+    					else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     						OutputFigure copia = new OutputFigure();
-    						OutputFigure actual = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x);
+    						OutputFigure actual = (OutputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x);
     						copia.instruction.simpleInstruction = actual.instruction.simpleInstruction;
     						ApplicationState._diagramAdministrator.diagrama.add(index,copia);
     					}
     					else{
-    					ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x));
+    					ApplicationState._diagramAdministrator.diagrama.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
     					}
     					cont++;
     					index++;
@@ -204,22 +204,22 @@ public class ContextualMenuActions {
     				}
     			}
     			else{
-    				if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
+    				if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof InputFigure){
     					InputFigure figura = new InputFigure();
-    					InputFigure figura2 = (InputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf( x );
+    					InputFigure figura2 = (InputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf( x );
     					figura.instruction.simpleInstruction = figura2.instruction.simpleInstruction;
     					ApplicationState._diagramAdministrator.diagrama.add(index,figura);
     				}
-    				else if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
+    				else if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof OutputFigure){
     					OutputFigure figura = new OutputFigure();
-    					OutputFigure figura2 = (OutputFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(x );
+    					OutputFigure figura2 = (OutputFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x );
     					figura.instruction.simpleInstruction = figura2.instruction.simpleInstruction;
     					ApplicationState._diagramAdministrator.diagrama.add(index,figura);
     
     				}
     				else{
     					SentenceFigure figura = new SentenceFigure();
-    					SentenceFigure figura2 = (SentenceFigure)MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf( x);
+    					SentenceFigure figura2 = (SentenceFigure)MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf( x);
     					figura.instruction.simpleInstruction = figura2.instruction.simpleInstruction;
     					ApplicationState._diagramAdministrator.diagrama.add(index,figura);
     				}
@@ -294,9 +294,9 @@ public class ContextualMenuActions {
     		}
     	}
     	Vector<Figura> temporal = new Vector<Figura>();
-    	for(int x=0;x<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama();x++){
+    	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
-    			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof DecisionFigure){
+    			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof DecisionFigure){
     				shell.setBounds(315, 260, 300, 140);
     				Button izquierda = new Button(shell,SWT.PUSH);
     				izquierda.setBounds(5, 75, 75, 25);
@@ -326,16 +326,16 @@ public class ContextualMenuActions {
     					public void widgetSelected(SelectionEvent event) {
     						Vector<Figura> temporal = new Vector<Figura>();
     						int x = copiax,y =0,lim=0;
-    						for(int u =0; u<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama(); u++){
-    							temporal.add(u,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(u));
+    						for(int u =0; u<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); u++){
+    							temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
     						}
     						//*******************************************
-    						int posicion = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width;
-    						posicion = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-posicion;
+    						int posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width;
+    						posicion = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-posicion;
     						//*******************************************
-    						MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureAllElements();
+    						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureAllElements();
     						for(int i =0; i<=x; i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
     							y = i;
     						 }
     						y++;
@@ -343,20 +343,20 @@ public class ContextualMenuActions {
     						distancia =  temporal.elementAt(y).getBounds().x - distancia;
     						int cont=0, punto=0;
     						for(int i =ApplicationState._selectionAdministrator.getFiguraSeleccionada(); cont<2; i++){
-    								if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x - temporal.elementAt(i).getBounds().x == posicion){
+    								if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x - temporal.elementAt(i).getBounds().x == posicion){
     									cont++;
     								}
     								punto = i;
     						}
     						for(int i =y; i<punto; i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(i), i);
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(i), i);
     							y = i;
     						}
     						int j =0;
     						//este es el que se debe de seleccionar punto
     						ApplicationState._selectionAdministrator.setFiguraSeleccionada(punto);
     						for(int i =punto; j<ApplicationState._diagramAdministrator.diagrama.size(); i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().insertFigureIndexOf(ApplicationState._diagramAdministrator.diagrama.elementAt(j), i);
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().insertFigureIndexOf(ApplicationState._diagramAdministrator.diagrama.elementAt(j), i);
     							j++;
     							y = i;
     						}
@@ -364,7 +364,7 @@ public class ContextualMenuActions {
     						lim =temporal.size()-punto;
     						j=0;
     						for(int i =y; j<lim; i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(punto), i);
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(punto), i);
     							j++;
     							punto++;
     						}
@@ -381,30 +381,30 @@ public class ContextualMenuActions {
     					public void widgetSelected(SelectionEvent event) {
     						Vector<Figura> temporal = new Vector<Figura>();
     						int x = copiax,y =0,lim=0,w=0;
-    						for(int u =0; u<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama(); u++){
-    							temporal.add(u,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(u));
+    						for(int u =0; u<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); u++){
+    							temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
     						}
-    						MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureAllElements();
+    						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureAllElements();
     						for(int i =0; i<=x; i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
     							y = i;
     						 }
     							y++;
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(y), y);
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().insertFigureIndexOf(temporal.elementAt(y), y);
     						y=0;
     						lim =temporal.size()-x-1;
     						w=x+1;
     						//este es el que se debe de seleccionar w
     						ApplicationState._selectionAdministrator.setFiguraSeleccionada(w+1);
     						for(int i =w; i<x+1+ApplicationState._diagramAdministrator.diagrama.size(); i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i+1,ApplicationState._diagramAdministrator.diagrama.elementAt(y));
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i+1,ApplicationState._diagramAdministrator.diagrama.elementAt(y));
     							y++;
     							w++;
     						}
     						y = 0;
     						x++;
     						for(int i =w; y<lim-1; i++){
-    							MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i+1,temporal.elementAt(x+1));
+    							MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i+1,temporal.elementAt(x+1));
     							y++;
     							x++;
     						}
@@ -423,12 +423,12 @@ public class ContextualMenuActions {
     				});
     			}
     			else{
-    				for(int u =0; u<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama(); u++){
-    					temporal.add(u,MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(u));
+    				for(int u =0; u<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); u++){
+    					temporal.add(u,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(u));
     				}
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureAllElements();
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureAllElements();
     				for(int i =0; i<=x; i++){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(i));
     					y = i;
     				}
     				y++;
@@ -438,14 +438,14 @@ public class ContextualMenuActions {
     				//esta es la que se debe de seleccionar w
     				ApplicationState._selectionAdministrator.setFiguraSeleccionada(w);
     				for(int i =w; i<x+1+ApplicationState._diagramAdministrator.diagrama.size(); i++){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i,ApplicationState._diagramAdministrator.diagrama.elementAt(y));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,ApplicationState._diagramAdministrator.diagrama.elementAt(y));
     					y++;
     					w++;
     				}
     				y = 0;
     				x++;
     				for(int i =w; y<lim; i++){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(x));
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigureIndexOf(i,temporal.elementAt(x));
     					y++;
     					x++;
     				}
@@ -460,7 +460,7 @@ public class ContextualMenuActions {
     }
     public void insertarFigura(final Figura inser){
     	final int i = ApplicationState._selectionAdministrator.getFiguraSeleccionada();
-    	if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getAdminDiagrama().diagrama.elementAt(i) instanceof DecisionFigure){
+    	if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().diagrama.elementAt(i) instanceof DecisionFigure){
     		final Shell shell = new Shell(MainWindow.shell,SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL); 
     		shell.setBounds(315, 260, 400, 140);
     		Button izquierda = new Button(shell,SWT.PUSH);
@@ -487,13 +487,13 @@ public class ContextualMenuActions {
     		shell.open();
     		izquierda.addSelectionListener(new SelectionAdapter() {
     			public void widgetSelected(SelectionEvent event) {
-    				int distan = MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width);
-    				for(int j=ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1; j<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama(); j++){
-    					if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x-MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(j).getBounds().x == distan){
-    						MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getAdminDiagrama().ordenar(j, inser);
+    				int distan = MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1).getBounds().x-(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x+
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().width);
+    				for(int j=ApplicationState._selectionAdministrator.getFiguraSeleccionada()+1; j<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama(); j++){
+    					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()).getBounds().x-MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(j).getBounds().x == distan){
+    						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().ordenar(j, inser);
     						ApplicationState._selectionAdministrator.setFiguraSeleccionada(j+1);
-    						MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+    						MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
     						break;
     					}
     				}
@@ -504,9 +504,9 @@ public class ContextualMenuActions {
     		});
     		derecha.addSelectionListener(new SelectionAdapter() {
     			public void widgetSelected(SelectionEvent event) {
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getAdminDiagrama().ordenar(i+1, inser);
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().ordenar(i+1, inser);
     				ApplicationState._selectionAdministrator.setFiguraSeleccionada(i+2);
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
     				shell.close();
     				Repintar();
     			}
@@ -518,47 +518,47 @@ public class ContextualMenuActions {
     		});
     	}
     	else{
-    		MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, inser);
-    		MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-    		MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
-    		MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+    		MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, inser);
+    		MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
+    		MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
+    		MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
     	}
     }
     public void Eliminar(Figura fig){
     	String tipo ="";
-    	for(int x=0;x<MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama();x++){
+    	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getFiguraSeleccionada()){
     			int y=0,x2=0,cont=0;
     			if(fig instanceof DecisionFigure){
     				tipo="si";
-    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),y);
+    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			} 
     			else if(fig instanceof ForFigure){
     				tipo="para";
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			}
     			else if(fig instanceof WhileFigure){
     				tipo="mientras";
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama(),x);
+    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
-    					MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			}
     			else{
-    				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(x);
+    				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     				if(fig instanceof OutputFigure){
     					tipo="Salida";
     				}
@@ -569,8 +569,8 @@ public class ContextualMenuActions {
     					tipo="Proceso";
     				}
     			}
-    			MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
-    			MainWindow.getComponents()._diagrams.getTabItem().getInformation().setDiagrama(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
+    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagrama(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
     			ApplicationState._selectionAdministrator.setFiguraSeleccionada(-1);
     			Repintar();
     			break;
@@ -605,8 +605,8 @@ public class ContextualMenuActions {
     }
     public void Repintar(){
     	//selec.setFiguraSeleccionada(-1);
-    	MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
-    	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-    	MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
+    	MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
+    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
+    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
     }
 }

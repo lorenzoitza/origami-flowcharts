@@ -2,7 +2,7 @@ package origami.administration.funtionality;
 
 import java.io.*;
 
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabItem;
 
@@ -14,7 +14,7 @@ public class ConsoleController implements ExecProcessor {
 	
     protected ExecHelper execHelper;
 	
-    public Componentes console;
+    public WindowWidgets console;
 	
     private CodeCompiler compiler;
 	
@@ -56,16 +56,16 @@ public class ConsoleController implements ExecProcessor {
 	}
     }
 
-    public void execute(Componentes console,String command, CodeCompiler codeCompiler) {
-	this.tabItemSelected = (TabItem)MainWindow.getComponents()._diagrams.getSeleccion();
+    public void execute(WindowWidgets console,String command, CodeCompiler codeCompiler) {
+	this.tabItemSelected = (TabItem)MainWindow.getComponents().tabFolder.getSeleccion();
 	this.compiler = codeCompiler;
 	this.console = console;
-	this.console.console.getTextField().setText("");
+	this.console.customConsole.getTextField().setText("");
 	runCommandActionPerformed(command);
     }
 
     public void stopExecution(){
-	MainWindow.getComponents().barraHerramientas.getToolItems().get(12).setEnabled(false);
+	MainWindow.getComponents().customToolBar.getToolItems().get(12).setEnabled(false);
 	if(execHelper != null){
 	    execHelper.stopEjecucion();	
 	}

@@ -191,7 +191,7 @@ public class DiagramExporter {
 	    
 		String content = "";
 		
-		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeC();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");
@@ -209,7 +209,7 @@ public class DiagramExporter {
 		
 		String content = "";
 		
-		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeCpp();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");

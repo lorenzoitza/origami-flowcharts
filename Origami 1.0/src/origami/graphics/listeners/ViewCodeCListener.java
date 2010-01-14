@@ -20,7 +20,7 @@ public class ViewCodeCListener implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+	ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 	manager.formatCodeC();
 	DiagramCodeView view = new DiagramCodeView(manager.getInstructionsFormat());
 	view.createWindow();

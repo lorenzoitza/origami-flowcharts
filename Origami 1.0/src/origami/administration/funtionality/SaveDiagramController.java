@@ -77,7 +77,7 @@ public class SaveDiagramController {
 	if (tabFolder.getItemCount() == 1) {
 	    BaseDeDiagrama.getInstance().getPanel().removeAll();	    
 	    tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setOpaque(false);
-	    MainWindow.getComponents().diagramaData.exclude = true;
+	    MainWindow.getComponents().diagramData.exclude = true;
 	    BaseDeDiagrama.getInstance().setBoundsToZero();
 	    tabFolder.getTabItem().getLeaf().getDiagrama().removeAllElements();
 	    MainWindow.getComponents().disableAll(false);
@@ -90,16 +90,16 @@ public class SaveDiagramController {
 	    if (nombre.startsWith("*")) {
 		nombre = nombre.substring(1);
 		tabFolder.changeName(nombre);
-		MainWindow.getComponents().guardarDisable(false);
+		MainWindow.getComponents().setEnabledSaveItems(false);
 	    } else {
-		MainWindow.getComponents().guardarDisable(false);
+		MainWindow.getComponents().setEnabledSaveItems(false);
 	    }
 	} else {
 	    String nombre = tabFolder.getCurrentTabItemName();
 	    if (!nombre.startsWith("*")) {
 		nombre = "*" + nombre;
 		tabFolder.changeName(nombre);
-		MainWindow.getComponents().guardarDisable(true);
+		MainWindow.getComponents().setEnabledSaveItems(true);
 	    }
 	}
     }
@@ -107,12 +107,12 @@ public class SaveDiagramController {
     public void checkChanges() {
 	if (isSaved) {
 	    if (tabFolder.getTabItem().getLeaf().getDiagrama().size() == 2) {
-		MainWindow.getComponents().guardarDisable(true);
+		MainWindow.getComponents().setEnabledSaveItems(true);
 	    } else {
-		MainWindow.getComponents().guardarDisable(false);
+		MainWindow.getComponents().setEnabledSaveItems(false);
 	    }
 	} else {
-	    MainWindow.getComponents().guardarDisable(true);
+	    MainWindow.getComponents().setEnabledSaveItems(true);
 	}
     }
 

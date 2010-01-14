@@ -195,7 +195,7 @@ public class GDBCodeFormatter extends AbstractInstructionFormatter {
     @Override
     public void applyFormat() {
 	ManagerCodeFormat manager =
-		new ManagerCodeFormat(MainWindow.getComponents()._diagrams
+		new ManagerCodeFormat(MainWindow.getComponents().tabFolder
 			.getTabItem().getLeaf().getDiagrama());
 	manager.formatCodeCpp();
 	this.sourceCode = initFormattedCode(manager.getInstructionsFormat());

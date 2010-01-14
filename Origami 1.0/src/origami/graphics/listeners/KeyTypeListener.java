@@ -88,21 +88,21 @@ public class KeyTypeListener implements KeyListener{
 			   origami.administration.ApplicationState.mainFigure = null;
 			   Cursor oldCursor = cursor[0];
 		       cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
+		       MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
 		       if(oldCursor != null){
 		    	   oldCursor.dispose();
 		       }
-		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
-		       MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
+		       MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
+		       MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 		       //MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
 		}
        break;
 	case 127:
 		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure){
 			}
 			else{
-			    new ContextualMenuActions().Eliminar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+			    new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
 			}
 		}
 		break;
@@ -118,19 +118,19 @@ public class KeyTypeListener implements KeyListener{
 		break;
 	case 16777228:
 		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
-			for(int y=MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
-				MainWindow.getComponents()._diagrams.getTabItem().getLeaf().removeFigureIndexOf(y);
+			for(int y=MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;y>0;y--){
+				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(y);
 			}
 			CircleFigure fin = new CircleFigure();
 			ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
-			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama().add(fin);
+			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().add(fin);
 			fin.setMessage("  Fin");
 			BaseDeDiagrama.getInstance().resetScrollBar();
 			//MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
-			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().addFigure();
+			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
 			//MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
-			MainWindow.getComponents()._diagrams.getTabItem().getLeaf().guardarRetroceso();
-			MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
+			MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
 		}
 		break;
 	case 16777229:
@@ -140,39 +140,39 @@ public class KeyTypeListener implements KeyListener{
 		break;
 	case 16777230:
 		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
-			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents()._diagrams);
+			CodeCompiler codigo = new CodeCompiler(MainWindow.getComponents().tabFolder);
 			if(MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())){
 				MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 			}
 			codigo.main(false,true);
 			if(codigo.isError){
-				int aux = MainWindow.getComponents().console.getTextField().getText().length();
+				int aux = MainWindow.getComponents().customConsole.getTextField().getText().length();
 				if(aux>=0){
-					MainWindow.getComponents().console.getTextField().setText("");
+					MainWindow.getComponents().customConsole.getTextField().setText("");
 				}
-				MainWindow.getComponents().console.getTextField().setText(codigo.errorTipe);
-				MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation("/Ec - Error en la compilacion:");
-				MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation(codigo.errorTipe);
+				MainWindow.getComponents().customConsole.getTextField().setText(codigo.errorTipe);
+				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/Ec - Error en la compilacion:");
+				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
 			}
 			else{
 				MainWindow.getComponents().getByStepComponents().ejecutar(MainWindow.getComponents(), true,codigo);
-				MainWindow.getComponents()._diagrams.getTabItem().getInformation().addInformation("/C - Se Compilo el diagrama de manera correcta");
+				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/C - Se Compilo el diagrama de manera correcta");
 			}
 			if(!CustomMenu.getConsoleMenuItem().getSelection()){
 			    CustomMenu.getConsoleMenuItem().setSelection(true);
-				MainWindow.getComponents().moverConsola(true);
+				MainWindow.getComponents().restoreConsole(true);
 			}
 		}
 		break;
 	}
 	if(key+key2 == 262241){
 	    if(MainWindow.getComponents().getByStepComponents().getEje() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
-		&& MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getEje().tabItemSelected.GetId()){
+		&& MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getEje().tabItemSelected.GetId()){
 		MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 	    }
 	    else if(MainWindow.getComponents().getByStepComponents().getPaso() != null && MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())
-		    && MainWindow.getComponents()._diagrams.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getPaso().a.GetId()){
+		    && MainWindow.getComponents().tabFolder.getSelectedTabItemId() == MainWindow.getComponents().getByStepComponents().getPaso().a.GetId()){
 			MainWindow.getComponents().getByStepComponents().stopEjecucion(MainWindow.getComponents());
 	    }
 	    OpenFileView open = new OpenFileView();
@@ -181,7 +181,7 @@ public class KeyTypeListener implements KeyListener{
 	}
 	else if(key+key2 == 262247){
 	    SaveFileView save = new SaveFileView();
-	    if(MainWindow.getComponents()._diagrams.getTabItem().getSave().getDir()=="null"){
+	    if(MainWindow.getComponents().tabFolder.getTabItem().getSave().getDir()=="null"){
 		save.setSaveType(SaveType.SAVE);
 		save.createWindow();
 	    }
@@ -191,42 +191,42 @@ public class KeyTypeListener implements KeyListener{
 	}
 	else if(key+key2 == 262264){
 		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Cortar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));	
-				MainWindow.getComponents().barraHerramientas.disableToolBar();
+			    new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));	
+				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
 	}
 	else if(key+key2 == 262243){
 		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
+			if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()) instanceof CircleFigure || ApplicationState._selectionAdministrator.getFiguraSeleccionada() == -1){
 			}
 			else{
-			    new ContextualMenuActions().Copiar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponents().barraHerramientas.disableToolBar();
+			    new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
 	}
 	else if(key+key2 == 262262){
 		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
 			if(ApplicationState._diagramAdministrator.diagrama.size()>0){
-			    new ContextualMenuActions().Pegar(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
-				MainWindow.getComponents().barraHerramientas.disableToolBar();
+			    new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
+				MainWindow.getComponents().customToolBar.disableToolBar();
 			}
 		}
 	}
 	else if(key+key2 == 262254){
-		MainWindow.getComponents()._diagrams.addTabItem();
-		MainWindow.getComponents().guardarDisable(true);
+		MainWindow.getComponents().tabFolder.addTabItem();
+		MainWindow.getComponents().setEnabledSaveItems(true);
 		MainWindow.getComponents().disableAll(true);
 	}
 	else if(key+key2 == 262266){
 		if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
-			TabItem item = (TabItem)MainWindow.getComponents()._diagrams.getSeleccion();
+			TabItem item = (TabItem)MainWindow.getComponents().tabFolder.getSeleccion();
 			item.undo();
-			MainWindow.getComponents()._diagrams.getTabItem().getSave().setSave(false);
+			MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
 		}
 	}
 	else if(key+key2 == 262245){

@@ -19,7 +19,7 @@ public class ViewConsoleListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent e) {
 	MenuItem widget = (MenuItem)e.widget;
-	MainWindow.getComponents().moverConsola(widget.getSelection());
+	MainWindow.getComponents().restoreConsole(widget.getSelection());
     }
 
 }

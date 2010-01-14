@@ -72,10 +72,10 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		TabItem item =
-			(TabItem) MainWindow.getComponents()._diagrams
+			(TabItem) MainWindow.getComponents().tabFolder
 				.getSeleccion();
 		item.undo();
-		MainWindow.getComponents()._diagrams.getTabItem().getSave()
+		MainWindow.getComponents().tabFolder.getTabItem().getSave()
 			.setSave(false);
 	    }
 	});
@@ -89,7 +89,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents()._diagrams
+			MainWindow.getComponents().tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -109,7 +109,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura figure =
-			MainWindow.getComponents()._diagrams
+			MainWindow.getComponents().tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -129,7 +129,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents()._diagrams
+			MainWindow.getComponents().tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -149,7 +149,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents()._diagrams
+			MainWindow.getComponents().tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -287,7 +287,7 @@ public class CustomToolBar {
 	}
     }
 
-    public void disableComponentStepByStep(boolean disable) {
+    public void setEnabledStepByStepToolItems(boolean disable) {
 	int back=3;
 	int cut=4;
 	int copy=5;
@@ -315,14 +315,14 @@ public class CustomToolBar {
 	    toolItems.get(back).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(stopExecute).setEnabled(false);
+	    toolItems.get(stopExecute).setEnabled(true);
 	    toolItems.get(exportCodeC).setEnabled(true);
 	    toolItems.get(exportCodeCpp).setEnabled(true);
 	    toolItems.get(exportExe).setEnabled(true);
 	}
     }
 
-    public void disableAll(boolean disable) {
+    public void setEnableCompiledToolItems(boolean isEnabled) {
 	int back=3;
 	int generateCCode=8;
 	int generateCppCode=9;
@@ -332,16 +332,21 @@ public class CustomToolBar {
 	int exportCodeCpp=15;
 	int exportExe=16;
 	
-	toolItems.get(back).setEnabled(disable);
-	toolItems.get(generateCCode).setEnabled(disable);
-	toolItems.get(generateCppCode).setEnabled(disable);
-	toolItems.get(execute).setEnabled(disable);
-	toolItems.get(executeStepByStep).setEnabled(disable);
-	toolItems.get(exportCodeC).setEnabled(disable);
-	toolItems.get(exportCodeCpp).setEnabled(disable);
-	toolItems.get(exportExe).setEnabled(disable);
+	toolItems.get(back).setEnabled(isEnabled);
+	toolItems.get(generateCCode).setEnabled(isEnabled);
+	toolItems.get(generateCppCode).setEnabled(isEnabled);
+	toolItems.get(execute).setEnabled(isEnabled);
+	toolItems.get(executeStepByStep).setEnabled(isEnabled);
+	toolItems.get(exportCodeC).setEnabled(isEnabled);
+	toolItems.get(exportCodeCpp).setEnabled(isEnabled);
+	toolItems.get(exportExe).setEnabled(isEnabled);
     }
 
+    public void setEnableSaveToolItem(boolean isEnable){
+	int saveItem = 2;
+	toolItems.get(saveItem).setEnabled(isEnable);
+    }
+    
     public ArrayList<ToolItem> getToolItems() {
 	return toolItems;
     }

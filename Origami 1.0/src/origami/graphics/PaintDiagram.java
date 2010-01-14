@@ -47,10 +47,10 @@ public class PaintDiagram extends Figure {
 	    }
 	    public void mousePressed(MouseEvent arg0) {
 		tab.getTabFolder().forceFocus();
-		if(MainWindow.getComponents().console.isHide()){
-		    if(MainWindow.getComponents().console.isHide()){
+		if(MainWindow.getComponents().customConsole.isHide()){
+		    if(MainWindow.getComponents().customConsole.isHide()){
 			if(CustomMenu.getConsoleMenuItem().getSelection()){
-			    MainWindow.getComponents().moverConsola(false);
+			    MainWindow.getComponents().restoreConsole(false);
 			    CustomMenu.getConsoleMenuItem().setSelection(false);
 			}
 		    }
@@ -95,7 +95,7 @@ public class PaintDiagram extends Figure {
 		CustomMenu.get_editMenu().setMenuAvailable();
 	}
 	if(dispToolItem){
-		MainWindow.getComponents().barraHerramientas.disableToolBar();
+		MainWindow.getComponents().customToolBar.disableToolBar();
 	}
 	dispToolItem = true;
     }

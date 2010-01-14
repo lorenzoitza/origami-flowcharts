@@ -86,7 +86,7 @@ public class CodeCompiler {
     }
 
     public void saveCode(boolean isCCode, boolean inExecution) {
-	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents()._diagrams.getTabItem().getLeaf().getDiagrama());
+	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
 	//Instruction codigo = new Instruction();
 
 	if (isCCode) {

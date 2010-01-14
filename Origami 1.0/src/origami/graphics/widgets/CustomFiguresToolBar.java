@@ -140,9 +140,9 @@ public class CustomFiguresToolBar {
 	    public void widgetSelected(SelectionEvent event) {
 		if (CustomMenu.getConsoleMenuItem().getSelection()) {
 		    CustomMenu.getConsoleMenuItem().setSelection(false);
-		    MainWindow.getComponents().moverConsola(false);
+		    MainWindow.getComponents().restoreConsole(false);
 		} else {
-		    MainWindow.getComponents().moverConsola(true);
+		    MainWindow.getComponents().restoreConsole(true);
 		    CustomMenu.getConsoleMenuItem().setSelection(true);
 		}
 	    }

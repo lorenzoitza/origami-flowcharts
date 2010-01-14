@@ -95,7 +95,7 @@ public class DiagramCodeView {
 		String archivo = dialog.open();
 		if (archivo != null) {
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents()._diagrams);
+			    new DiagramExporter(MainWindow.getComponents().tabFolder);
 		    expor.codeCExport(archivo);
 		}
 	    }
@@ -111,7 +111,7 @@ public class DiagramCodeView {
 		String archivo = dialog.open();
 		if (archivo != null) {
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents()._diagrams);
+			    new DiagramExporter(MainWindow.getComponents().tabFolder);
 		    expor.codeCppExport(archivo);
 		}
 	    }
@@ -130,7 +130,7 @@ public class DiagramCodeView {
 		    nombre = nombre.substring(0, nombre.indexOf("."));
 
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents()._diagrams);
+			    new DiagramExporter(MainWindow.getComponents().tabFolder);
 
 		    expor.executeFileExport(archivo, nombre);
 		}

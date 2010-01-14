@@ -5,7 +5,7 @@ import org.eclipse.swt.widgets.FileDialog;
 
 import origami.administration.ApplicationState;
 import origami.administration.funtionality.DiagramFileManager;
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 
 public class OpenFileView {
@@ -26,7 +26,7 @@ public class OpenFileView {
 	}
 	String fileURL = dialog.open();
 	if (fileURL != null) {
-	    if (MainWindow.getComponents()._diagrams.getTabItem().getLeaf()
+	    if (MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .getSizeDiagrama() == 0) {
 		openNewDiagram(dialog.getFileName(), fileURL);
 	    } else {
@@ -40,18 +40,18 @@ public class OpenFileView {
 	case OPEN:
 	    int position = fileName.indexOf('.');
 	    String name = fileName.substring(0, position);
-	    MainWindow.getComponents()._diagrams.changeName(name);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave()
+	    MainWindow.getComponents().tabFolder.changeName(name);
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents()._diagrams.openDiagram(address, _serializer);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(
+	    MainWindow.getComponents().tabFolder.openDiagram(address, _serializer);
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave().setDir(
 		    address);
 	    break;
 	case OPENEXAMPLE:
 	    position = fileName.indexOf('.');
 	    String name2 = fileName.substring(0, position);
-	    MainWindow.getComponents()._diagrams.changeName(name2);
-	    MainWindow.getComponents()._diagrams.openDiagram(address, _serializer);
+	    MainWindow.getComponents().tabFolder.changeName(name2);
+	    MainWindow.getComponents().tabFolder.openDiagram(address, _serializer);
 	    break;
 	default:
 	    break;
@@ -62,29 +62,29 @@ public class OpenFileView {
 	switch (openType) {
 	case OPEN:
 	    ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponents()._diagrams.getTabItem().getLeaf()
+	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .openFile(address, _serializer);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave().setDir(
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave().setDir(
 		    address);
 	    int pos = nomArchivo.indexOf('.');
 	    String name = nomArchivo.substring(0, pos);
-	    MainWindow.getComponents()._diagrams.changeName(name);
-	    MainWindow.getComponents()._diagrams.getTabItem().getSave()
+	    MainWindow.getComponents().tabFolder.changeName(name);
+	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents()._diagrams.getTabItem().resetUndo();
-	    MainWindow.getComponents()._diagrams.getTabItem().addUndo(
-		    MainWindow.getComponents()._diagrams.getTabItem().getLeaf()
+	    MainWindow.getComponents().tabFolder.getTabItem().resetUndo();
+	    MainWindow.getComponents().tabFolder.getTabItem().addUndo(
+		    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 			    .getDiagrama(),
-		    MainWindow.getComponents()._diagrams.getAdminSelection());
+		    MainWindow.getComponents().tabFolder.getAdminSelection());
 	    break;
 	case OPENEXAMPLE:
 	    ApplicationState._selectionAdministrator.setFiguraSeleccionada(0);
-	    MainWindow.getComponents()._diagrams.getTabItem().getLeaf()
+	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .openFile(address, _serializer);
 	    // MainWindow.getComponents()._diagrams.getHoja().openFile(address,_serializer);
 	    int pos2 = nomArchivo.indexOf('.');
 	    String name2 = nomArchivo.substring(0, pos2);
-	    MainWindow.getComponents()._diagrams.changeName(name2);
+	    MainWindow.getComponents().tabFolder.changeName(name2);
 	    break;
 	default:
 	    break;

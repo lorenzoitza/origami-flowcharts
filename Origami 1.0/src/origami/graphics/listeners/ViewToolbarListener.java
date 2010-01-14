@@ -16,7 +16,7 @@ public class ViewToolbarListener implements SelectionListener{
     @Override
     public void widgetSelected(SelectionEvent e) {
 	MenuItem widget = (MenuItem)e.widget;
-	MainWindow.getComponents().addBarraDeHerramientas(widget.getSelection());
+	MainWindow.getComponents().setEnableToolBar(widget.getSelection());
     }
 
 }

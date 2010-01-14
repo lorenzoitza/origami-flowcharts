@@ -299,6 +299,10 @@ public class CustomMenu {
 	buildCodeMenuItem.setEnabled(isEnabled);
     }
     
+    public void setEnabledSaveMenuItem(boolean isEnabled){
+	saveMenuItem.setEnabled(isEnabled);
+    }
+    
     public Menu getMainMenu() {
         return mainMenu;
     }

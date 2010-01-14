@@ -3,7 +3,7 @@ package origami.graphics.listeners;
 import org.eclipse.swt.events.ShellAdapter;
 import org.eclipse.swt.events.ShellEvent;
 
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.view.CloseWindowView;
 import origami.graphics.widgets.TabFolder;
 
@@ -11,9 +11,9 @@ import origami.graphics.widgets.TabFolder;
 
 public class CloseWindowListener extends ShellAdapter{
     private TabFolder currentTab;
-    private Componentes console;
+    private WindowWidgets console;
 
-    public CloseWindowListener(TabFolder tabfolder,Componentes consola){
+    public CloseWindowListener(TabFolder tabfolder,WindowWidgets consola){
 	this.currentTab = tabfolder;
 	this.console = consola;
     }

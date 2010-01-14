@@ -6,7 +6,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.widgets.MessageBox;
 
 import origami.debug.Debugger;
-import origami.graphics.Componentes;
+import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;
 import origami.graphics.widgets.TabItem;
@@ -19,9 +19,9 @@ public class CloseWindowView {
 
     public TabFolder tab;
 
-    public Componentes console;
+    public WindowWidgets console;
 
-    public CloseWindowView(TabFolder tabfolder, Componentes console) {
+    public CloseWindowView(TabFolder tabfolder, WindowWidgets console) {
 	tab = tabfolder;
 	this.console = console;
     }
