@@ -5,8 +5,8 @@ import java.util.Vector;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
 
-import origami.administration.AdminDiagrama;
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminDiagram;
+import origami.administration.AdminSelection;
 import origami.administration.CustomLeaf;
 import origami.administration.Figura;
 import origami.administration.Informacion;
@@ -26,7 +26,7 @@ public class TabItem extends CTabItem {
 
     private int Id;
 
-    private Vector<AdminDiagrama> retroseso = new Vector<AdminDiagrama>();
+    private Vector<AdminDiagram> retroseso = new Vector<AdminDiagram>();
 
     private int[] seleccion = new int[5];
 
@@ -38,11 +38,11 @@ public class TabItem extends CTabItem {
 
     private Informacion information = new Informacion();
 
-    private AdminSeleccion adminSelection;
+    private AdminSelection adminSelection;
 
     private CustomLeaf leaf;
 
-    public TabItem(CTabFolder arg0, int arg1, AdminSeleccion selec) {
+    public TabItem(CTabFolder arg0, int arg1, AdminSelection selec) {
 	super(arg0, arg1);
 	this.adminSelection = selec;
     }
@@ -72,7 +72,7 @@ public class TabItem extends CTabItem {
 	return this.Id;
     }
 
-    public void addUndo(Vector<Figura> diagrama, AdminSeleccion selec) {
+    public void addUndo(Vector<Figura> diagrama, AdminSelection selec) {
 	if (posicionRetroceso == 4) {
 	    retroseso.remove(0);
 	    posicionRetroceso--;
@@ -81,7 +81,7 @@ public class TabItem extends CTabItem {
 	    }
 	}
 	posicionRetroceso++;
-	retroseso.add(new AdminDiagrama(selec));
+	retroseso.add(new AdminDiagram(selec));
 	retroseso.elementAt(posicionRetroceso).diagram.removeAllElements();
 	for (int index = 0; index < diagrama.size(); index++) {
 	    if (diagrama.elementAt(index) instanceof DecisionFigure) {

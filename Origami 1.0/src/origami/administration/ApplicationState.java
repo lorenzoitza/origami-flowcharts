@@ -7,10 +7,10 @@ public class ApplicationState {
 
     public static final Cursor[] cursor = new Cursor[1];
     public static Figura mainFigure = null;
-    public static AdminSeleccion _selectionAdministrator = new AdminSeleccion();
-    public static AdminDiagrama _diagramAdministrator;
+    public static AdminSelection _selectionAdministrator = new AdminSelection();
+    public static AdminDiagram _diagramAdministrator;
 
     public static void init(){
-	_diagramAdministrator = new AdminDiagrama(_selectionAdministrator);
+	_diagramAdministrator = new AdminDiagram(_selectionAdministrator);
     }
 }

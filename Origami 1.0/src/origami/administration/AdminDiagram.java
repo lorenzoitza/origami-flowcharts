@@ -14,13 +14,13 @@ import origami.graphics.figures.WhileFigure;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez, hudy y rodrigo estuvo aqui chuy
  */
-public class AdminDiagrama {
+public class AdminDiagram {
 
     public Vector<Figura> diagram = new Vector<Figura>();
 
-    public AdminSeleccion selec;
+    public AdminSelection selec;
 
-    public AdminDiagrama(AdminSeleccion seleccion) {
+    public AdminDiagram(AdminSelection seleccion) {
 	selec = seleccion;
     }
 

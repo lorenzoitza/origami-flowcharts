@@ -5,7 +5,7 @@ import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.draw2d.MouseListener;
 import org.eclipse.draw2d.MouseMotionListener;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.actions.EventoAgregarFigura;
 import origami.graphics.widgets.TabFolder;
 
@@ -13,7 +13,7 @@ public class AddFigureListener extends MouseMotionListener.Stub implements Mouse
     
     private EventoAgregarFigura event;
 	
-    public AddFigureListener(Figure figure, AdminSeleccion selecc, TabFolder tabfolder) {
+    public AddFigureListener(Figure figure, AdminSelection selecc, TabFolder tabfolder) {
 	figure.addMouseMotionListener(this);
 	figure.addMouseListener(this);
 	event = new EventoAgregarFigura(selecc,tabfolder);

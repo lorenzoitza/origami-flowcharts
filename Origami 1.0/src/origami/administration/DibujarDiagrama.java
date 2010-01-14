@@ -34,11 +34,11 @@ import origami.graphics.widgets.TabFolder;
 public class DibujarDiagrama{
     private Point punto = new Point();
     private int derecha, izquierda;
-    public static AdminSeleccion selec;
+    public static AdminSelection selec;
     public TabFolder tab;
    	
 	
-    public DibujarDiagrama(AdminSeleccion selecc,TabFolder tabfolder){
+    public DibujarDiagrama(AdminSelection selecc,TabFolder tabfolder){
 	selec = selecc;
 	tab = tabfolder;
     }

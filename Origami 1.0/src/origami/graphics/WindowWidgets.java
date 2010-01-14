@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.ApplicationState;
 import origami.graphics.widgets.CustomConsole;
 import origami.graphics.widgets.CustomFiguresToolBar;
@@ -83,7 +83,7 @@ public class WindowWidgets {
 	customToolBar= new CustomToolBar(toolBarData);
     }
 
-    private void addTabFolder(AdminSeleccion selec) {
+    private void addTabFolder(AdminSelection selec) {
 	tabFolder = new TabFolder(MainWindow.display, selec);
 	tabFolder.addTabItem();
 	

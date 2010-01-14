@@ -10,7 +10,7 @@ import org.eclipse.swt.events.ShellEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.*;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.actions.RecorridoDiagrama;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.BaseDeDiagrama;
@@ -42,7 +42,7 @@ public class PasoAPaso extends ConsoleController{
 	private Vector<String> variablesEntrada = new Vector<String>();
 	public boolean ventanaLeer;
 	
-	public PasoAPaso(TabFolder tabfolder, AdminSeleccion seleccion){
+	public PasoAPaso(TabFolder tabfolder, AdminSelection seleccion){
 		tab = tabfolder;
 		a = (TabItem)tab.getSeleccion();
 	}

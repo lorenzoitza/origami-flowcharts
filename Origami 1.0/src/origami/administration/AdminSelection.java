@@ -3,12 +3,12 @@ package origami.administration;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class AdminSeleccion {
+public class AdminSelection {
     public int  [] figuraSeleccionada = new int [100];
     
     public int seleccionDiagrama=0;
 	
-    public AdminSeleccion(){
+    public AdminSelection(){
 	for(int i=0; i<100; i++){
 	    figuraSeleccionada [i]=-1;
 	}

@@ -16,8 +16,8 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
 
-import origami.administration.AdminDiagrama;
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminDiagram;
+import origami.administration.AdminSelection;
 import origami.administration.Figura;
 import origami.administration.funtionality.DiagramFileManager;
 import origami.administration.funtionality.SaveDiagramController;
@@ -37,9 +37,9 @@ public class TabFolder {
 
     private KeyTypeListener key;
 
-    private AdminSeleccion adminSelection;
+    private AdminSelection adminSelection;
 
-    public TabFolder(Display display, AdminSeleccion seleccion) {
+    public TabFolder(Display display, AdminSelection seleccion) {
 	this.setAdminSelection(seleccion);
 	this.key = new KeyTypeListener();
 	this.tabFolder =
@@ -76,7 +76,7 @@ public class TabFolder {
 	panel.addUndo(diagrama, getAdminSelection());
     }
 
-    public void applyUndo(Vector<AdminDiagrama> diagrama, int pos,
+    public void applyUndo(Vector<AdminDiagram> diagrama, int pos,
 	    int seleccion) {
 	BaseDeDiagrama.getInstance().resetScrollBar();
 	for (int index = getTabItem().getLeaf().getDiagrama().size() - 1; index > 0; index--) {
@@ -243,11 +243,11 @@ public class TabFolder {
 	return tabFolder;
     }
 
-    public void setAdminSelection(AdminSeleccion adminSelection) {
+    public void setAdminSelection(AdminSelection adminSelection) {
 	this.adminSelection = adminSelection;
     }
 
-    public AdminSeleccion getAdminSelection() {
+    public AdminSelection getAdminSelection() {
 	return adminSelection;
     }
 }

@@ -5,7 +5,7 @@ import org.eclipse.draw2d.geometry.*;
 import org.eclipse.swt.*;
 import org.eclipse.swt.graphics.Cursor;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.ApplicationState;
 import origami.administration.Figura;
 import origami.graphics.*;
@@ -30,14 +30,14 @@ public class EventoAgregarFigura{
 	public boolean bandera=false;
 	public final Cursor[] cursor = new Cursor[1];
 	public int cursorPrincipal = SWT.CURSOR_ARROW;
-	public AdminSeleccion selec;
+	public AdminSelection selec;
 	public TabFolder tab;
 	/**
 	 * Da la propiedad de Drag & Drop 
 	 * a la figura recibida.
 	 * @param figure
 	 */
-	public EventoAgregarFigura(AdminSeleccion selecc,TabFolder tabfolder) {
+	public EventoAgregarFigura(AdminSelection selecc,TabFolder tabfolder) {
 		selec = selecc;
 		tab = tabfolder;
 	}

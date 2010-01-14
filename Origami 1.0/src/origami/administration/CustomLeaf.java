@@ -34,19 +34,19 @@ import origami.graphics.widgets.TabFolder;
 public class CustomLeaf {
     
     private PaintDiagram chart;
-    private AdminDiagrama diagrama;
+    private AdminDiagram diagrama;
     private Conexion connection;
     
     
-    private AdminSeleccion seleccion; 
+    private AdminSelection seleccion; 
     private TabFolder tab;
     public boolean pasoInicio=false;
 	
-    public CustomLeaf(TabFolder tabfolder,AdminSeleccion seleccion){
+    public CustomLeaf(TabFolder tabfolder,AdminSelection seleccion){
 	this.seleccion = seleccion;
 	tab = tabfolder;
 	chart = new PaintDiagram(seleccion,tab);
-	diagrama = new AdminDiagrama(seleccion);
+	diagrama = new AdminDiagram(seleccion);
 	connection = new Conexion(tab);
     }
 
@@ -180,7 +180,7 @@ public class CustomLeaf {
 	public Vector<Figura> getDiagrama(){
 		return diagrama.diagram;
 	}
-	public AdminDiagrama getAdminDiagrama(){
+	public AdminDiagram getAdminDiagrama(){
 		return diagrama;
 	}
 	public PaintDiagram getChart(){

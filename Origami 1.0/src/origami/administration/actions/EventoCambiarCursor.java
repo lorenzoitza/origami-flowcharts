@@ -6,7 +6,7 @@ import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.RGB;
 
-import origami.administration.AdminDiagrama;
+import origami.administration.AdminDiagram;
 import origami.administration.ApplicationState;
 import origami.administration.Figura;
 import origami.graphics.*;
@@ -248,7 +248,7 @@ public class EventoCambiarCursor{
 			}
 		}
 	}
-	public void tooltip(AdminDiagrama diagrama){
+	public void tooltip(AdminDiagram diagrama){
 		String dato = "null", defaul= "Doble Clic Para Agregar Instrucciones";
 		String subStr;
 		int i;		

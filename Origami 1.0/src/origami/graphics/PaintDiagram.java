@@ -12,7 +12,7 @@ import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
-import origami.administration.AdminSeleccion;
+import origami.administration.AdminSelection;
 import origami.administration.Conexion;
 import origami.administration.DibujarDiagrama;
 import origami.administration.Figura;
@@ -24,7 +24,7 @@ import origami.graphics.widgets.TabFolder;
 
 public class PaintDiagram extends Figure {
     
-    private AdminSeleccion selec;
+    private AdminSelection selec;
     
     private TabFolder tab;
     
@@ -34,7 +34,7 @@ public class PaintDiagram extends Figure {
     
     private DibujarDiagrama dibujarDiagrama;
     
-    public PaintDiagram(AdminSeleccion selecc,TabFolder tabfolder){
+    public PaintDiagram(AdminSelection selecc,TabFolder tabfolder){
 	setBorder(new MarginBorder(5));
 	setBackgroundColor(ColorConstants.white);
 	setOpaque(true);
