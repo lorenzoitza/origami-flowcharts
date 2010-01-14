@@ -16,9 +16,9 @@ import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
 import origami.graphics.figures.*;
+import origami.graphics.listeners.KeyTypeListener;
 import origami.graphics.widgets.TabFolder;
 import origami.graphics.widgets.TabItem;
-import origami.ui.listeners.KeyTypeListener;
 
 
 

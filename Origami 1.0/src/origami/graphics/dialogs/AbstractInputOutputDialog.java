@@ -14,8 +14,8 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import origami.graphics.listeners.KeyTypeListener;
 import origami.images.ImageLoader;
-import origami.ui.listeners.KeyTypeListener;
 
 
 public abstract class AbstractInputOutputDialog<Figure> extends

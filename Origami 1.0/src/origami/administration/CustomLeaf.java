@@ -23,10 +23,10 @@ import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
 import origami.graphics.StepByStepComponents;
 import origami.graphics.figures.CircleFigure;
+import origami.graphics.listeners.AddFigureListener;
+import origami.graphics.listeners.ChangeCursorListener;
+import origami.graphics.listeners.ContextualMenuListener;
 import origami.graphics.widgets.TabFolder;
-import origami.ui.listeners.AddFigureListener;
-import origami.ui.listeners.ChangeCursorListener;
-import origami.ui.listeners.ContextualMenuListener;
 
 
 

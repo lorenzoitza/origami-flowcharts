@@ -14,17 +14,17 @@ import origami.administration.ApplicationState;
 import origami.administration.Figura;
 import origami.administration.actions.ContextualMenuActions;
 import origami.graphics.MainWindow;
+import origami.graphics.listeners.CompileListener;
+import origami.graphics.listeners.ExportToCListener;
+import origami.graphics.listeners.ExportToCPPListener;
+import origami.graphics.listeners.ExportToEXEListener;
+import origami.graphics.listeners.NewDiagramListener;
+import origami.graphics.listeners.OpenDiagramListener;
+import origami.graphics.listeners.SaveDiagramListener;
+import origami.graphics.listeners.StepByStepListener;
+import origami.graphics.listeners.ViewCodeCListener;
+import origami.graphics.listeners.ViewCodeCppListener;
 import origami.images.ImageLoader;
-import origami.ui.listeners.CompileListener;
-import origami.ui.listeners.ExportToCListener;
-import origami.ui.listeners.ExportToCPPListener;
-import origami.ui.listeners.ExportToEXEListener;
-import origami.ui.listeners.NewDiagramListener;
-import origami.ui.listeners.OpenDiagramListener;
-import origami.ui.listeners.SaveDiagramListener;
-import origami.ui.listeners.StepByStepListener;
-import origami.ui.listeners.ViewCodeCListener;
-import origami.ui.listeners.ViewCodeCppListener;
 
 public class CustomToolBar {
 

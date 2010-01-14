@@ -23,7 +23,7 @@ import origami.administration.funtionality.DiagramFileManager;
 import origami.administration.funtionality.SaveDiagramController;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
-import origami.ui.listeners.KeyTypeListener;
+import origami.graphics.listeners.KeyTypeListener;
 
 /**
  * @version Origami 1.0

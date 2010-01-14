@@ -15,14 +15,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.ToolBar;
 
 import origami.graphics.MainWindow;
+import origami.graphics.listeners.AddDecisionFigureListener;
+import origami.graphics.listeners.AddForFigureListener;
+import origami.graphics.listeners.AddInputFigureListener;
+import origami.graphics.listeners.AddOutputFigureListener;
+import origami.graphics.listeners.AddSentenceFigureListener;
+import origami.graphics.listeners.AddWhileFigureListener;
+import origami.graphics.listeners.KeyTypeListener;
 import origami.images.ImageLoader;
-import origami.ui.listeners.AddDecisionFigureListener;
-import origami.ui.listeners.AddForFigureListener;
-import origami.ui.listeners.AddInputFigureListener;
-import origami.ui.listeners.AddOutputFigureListener;
-import origami.ui.listeners.AddSentenceFigureListener;
-import origami.ui.listeners.AddWhileFigureListener;
-import origami.ui.listeners.KeyTypeListener;
 
 public class CustomFiguresToolBar {
 

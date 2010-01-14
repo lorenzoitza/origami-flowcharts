@@ -17,10 +17,10 @@ import origami.graphics.figures.InputFigure;
 import origami.graphics.figures.OutputFigure;
 import origami.graphics.figures.SentenceFigure;
 import origami.graphics.figures.WhileFigure;
+import origami.graphics.listeners.ContextualMenuListener;
+import origami.graphics.listeners.DoubleClickListener;
+import origami.graphics.listeners.SelectionListener;
 import origami.graphics.widgets.TabFolder;
-import origami.ui.listeners.ContextualMenuListener;
-import origami.ui.listeners.DoubleClickListener;
-import origami.ui.listeners.SelectionListener;
 
 
 
@@ -733,7 +733,7 @@ public class DibujarDiagrama{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
-						new origami.ui.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
@@ -749,7 +749,7 @@ public class DibujarDiagrama{
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isPasoAPaso()){
-						new origami.ui.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
+						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
 						new ContextualMenuListener(diagrama.elementAt(x));
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}

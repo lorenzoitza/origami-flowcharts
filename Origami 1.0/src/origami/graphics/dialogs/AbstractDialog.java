@@ -6,7 +6,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.*;
 
-import origami.ui.listeners.KeyTypeListener;
+import origami.graphics.listeners.KeyTypeListener;
 
 
 public abstract class AbstractDialog<Figure> {

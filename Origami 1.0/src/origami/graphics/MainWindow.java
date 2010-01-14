@@ -10,9 +10,9 @@ import org.eclipse.swt.widgets.Shell;
 
 import origami.administration.ApplicationState;
 import origami.administration.OrigamiException;
+import origami.graphics.listeners.CloseWindowListener;
 import origami.graphics.widgets.CustomMenu;
 import origami.images.ImageLoader;
-import origami.ui.listeners.CloseWindowListener;
 
 public class MainWindow {
 
