@@ -288,6 +288,7 @@ public class CustomToolBar {
     }
 
     public void setEnabledStepByStepToolItems(boolean isEnable) {
+	System.out.println("aqui");
 	int back=3;
 	int cut=4;
 	int copy=5;
@@ -300,22 +301,22 @@ public class CustomToolBar {
 	int exportCodeCpp=15;
 	int exportExe=16;
 	if (isEnable) {
-	    toolItems.get(back).setEnabled(false);
+	    toolItems.get(back).setEnabled(true);
 	    toolItems.get(cut).setEnabled(false);
 	    toolItems.get(copy).setEnabled(false);
 	    toolItems.get(paste).setEnabled(false);
 	    toolItems.get(delete).setEnabled(false);
-	    toolItems.get(execute).setEnabled(false);
-	    toolItems.get(executeStepByStep).setEnabled(false);
-	    toolItems.get(stopExecute).setEnabled(true);
-	    toolItems.get(exportCodeC).setEnabled(false);
-	    toolItems.get(exportCodeCpp).setEnabled(false);
-	    toolItems.get(exportExe).setEnabled(false);
+	    toolItems.get(execute).setEnabled(true);
+	    toolItems.get(executeStepByStep).setEnabled(true);
+	    toolItems.get(stopExecute).setEnabled(false);
+	    toolItems.get(exportCodeC).setEnabled(true);
+	    toolItems.get(exportCodeCpp).setEnabled(true);
+	    toolItems.get(exportExe).setEnabled(true);
 	} else {
 	    toolItems.get(back).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
 	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(stopExecute).setEnabled(true);
+	    toolItems.get(stopExecute).setEnabled(false);
 	    toolItems.get(exportCodeC).setEnabled(true);
 	    toolItems.get(exportCodeCpp).setEnabled(true);
 	    toolItems.get(exportExe).setEnabled(true);
@@ -323,6 +324,7 @@ public class CustomToolBar {
     }
 
     public void setEnableCompileToolItems(boolean isEnabled) {
+	System.out.println("aqui22");
 	int back=3;
 	int generateCCode=8;
 	int generateCppCode=9;
