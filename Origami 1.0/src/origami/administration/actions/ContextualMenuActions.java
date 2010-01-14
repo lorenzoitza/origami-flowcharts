@@ -40,8 +40,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagram.removeAllElements();
     			if(fig instanceof DecisionFigure){
-    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
+    				y = DiagramCiclePath.getDecisionEndPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getFirstForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     				ApplicationState._diagramAdministrator.diagram.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
@@ -51,7 +51,7 @@ public class ContextualMenuActions {
     				}
     			} 
     			else if(fig instanceof ForFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     				ApplicationState._diagramAdministrator.diagram.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
@@ -61,7 +61,7 @@ public class ContextualMenuActions {
     				}
     			}
     			else if(fig instanceof WhileFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     				ApplicationState._diagramAdministrator.diagram.add(index,MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x));
@@ -92,8 +92,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			ApplicationState._diagramAdministrator.diagram.removeAllElements();
     			if(fig instanceof DecisionFigure){
-				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
+				y = DiagramCiclePath.getDecisionEndPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getFirstForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
@@ -147,7 +147,7 @@ public class ContextualMenuActions {
     				}
     			} 
     			else if(fig instanceof ForFigure || fig instanceof WhileFigure){
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x) instanceof DecisionFigure){
@@ -528,8 +528,8 @@ public class ContextualMenuActions {
     			int y=0,x2=0,cont=0;
     			if(fig instanceof DecisionFigure){
     				tipo="si";
-    				y = RecorridoDiagrama.recorridoCiclo(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
-    				y = RecorridoDiagrama.recorridoCiclo2(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
+    				y = DiagramCiclePath.getDecisionEndPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getFirstForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
@@ -538,7 +538,7 @@ public class ContextualMenuActions {
     			} 
     			else if(fig instanceof ForFigure){
     				tipo="para";
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
@@ -547,7 +547,7 @@ public class ContextualMenuActions {
     			}
     			else if(fig instanceof WhileFigure){
     				tipo="mientras";
-    				y = RecorridoDiagrama.recorridoCiclo3(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
+    				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);

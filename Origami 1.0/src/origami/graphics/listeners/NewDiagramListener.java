@@ -13,7 +13,7 @@ public class NewDiagramListener implements SelectionListener{
 
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	new NewDiagramLogic().action();
+	new NewDiagramLogic().addTab();
     }
 
 }

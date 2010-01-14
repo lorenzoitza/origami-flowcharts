@@ -5,7 +5,7 @@ import java.util.Vector;
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 
-import origami.administration.actions.RecorridoDiagrama;
+import origami.administration.actions.DiagramCiclePath;
 import origami.graphics.MainWindow;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.figures.DecisionFigure;
@@ -417,11 +417,11 @@ public class DibujarDiagrama{
 		while(true){	
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont++;
-				i=RecorridoDiagrama.recorridoCiclo(diagrama,i);
+				i=DiagramCiclePath.getDecisionEndPointIndex(diagrama,i);
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
-				i=RecorridoDiagrama.recorridoCiclo3(diagrama,i)+4;
+				i=DiagramCiclePath.getLastForPointIndex(diagrama,i)+4;
 				if(cont>cont2){
 					cont2=cont;  
 				}
@@ -449,11 +449,11 @@ public class DibujarDiagrama{
 			if(diagrama.elementAt(i) instanceof DecisionFigure){
 				cont =cont + diagrama.elementAt(i+1).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
-				i=RecorridoDiagrama.recorridoCiclo(diagrama,i);
+				i=DiagramCiclePath.getDecisionEndPointIndex(diagrama,i);
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-				cont =cont + diagrama.elementAt(RecorridoDiagrama.recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
-				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
+				cont =cont + diagrama.elementAt(DiagramCiclePath.getLastForPointIndex(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
+				i = DiagramCiclePath.getLastForPointIndex(diagrama,i)+5;
 				cont-=35;
 			}
 			else if(diagrama.elementAt(i) instanceof EllipseFigure){
@@ -492,7 +492,7 @@ public class DibujarDiagrama{
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure && bandera){
 				if(bandera){cont++;}
-				i=RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
+				i=DiagramCiclePath.getLastForPointIndex(diagrama,i)+5;
 				bandera = false;
 				if(cont>cont2){
 					cont2=cont;  
@@ -524,12 +524,12 @@ public class DibujarDiagrama{
 				i++;
 			}
 			else if(diagrama.elementAt(i) instanceof ForFigure || diagrama.elementAt(i) instanceof WhileFigure){
-				cont =cont + diagrama.elementAt(RecorridoDiagrama.recorridoCiclo3(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
+				cont =cont + diagrama.elementAt(DiagramCiclePath.getLastForPointIndex(diagrama,i)+3).getBounds().x-(diagrama.elementAt(i).getBounds().x+diagrama.elementAt(i).getBounds().width);
 				cont-=35;
 				if(cont>cont2){
 					cont2=cont;  
 				}
-				i = RecorridoDiagrama.recorridoCiclo3(diagrama,i)+5;
+				i = DiagramCiclePath.getLastForPointIndex(diagrama,i)+5;
 			}
 			else if(diagrama.elementAt(i) instanceof EllipseFigure){
 				if(cont>cont2){
@@ -557,7 +557,7 @@ public class DibujarDiagrama{
 	public double recorridoFW(Vector<FigureStructure> diagrama,int i){
 		double x=0.0,x2=0.0,xDer=0.0,xIzq=0.0;
 		boolean bandera=false,bandera2=false;
-		int fin = RecorridoDiagrama.recorridoCiclo3(diagrama,i-1);
+		int fin = DiagramCiclePath.getLastForPointIndex(diagrama,i-1);
 		double lugar = (double)diagrama.elementAt(i-1).getBounds().x + diagrama.elementAt(i-1).getBounds().width/2.0;
 		double X = (double)(diagrama.elementAt(i-1).getBounds().x + diagrama.elementAt(i-1).getBounds().width/2.0)/lugar;
 		if(lugar>0.0){
