@@ -14,6 +14,7 @@ import origami.administration.ApplicationState;
 import origami.administration.Figura;
 import origami.administration.actions.ContextualMenuActions;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.listeners.CompileListener;
 import origami.graphics.listeners.ExportToCListener;
 import origami.graphics.listeners.ExportToCPPListener;
@@ -72,10 +73,10 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		TabItem item =
-			(TabItem) MainWindow.getComponents().tabFolder
+			(TabItem) WindowWidgets.tabFolder
 				.getSeleccion();
 		item.undo();
-		MainWindow.getComponents().tabFolder.getTabItem().getSave()
+		WindowWidgets.tabFolder.getTabItem().getSave()
 			.setSave(false);
 	    }
 	});
@@ -89,7 +90,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents().tabFolder
+			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -109,7 +110,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura figure =
-			MainWindow.getComponents().tabFolder
+			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -129,7 +130,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents().tabFolder
+			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(
@@ -149,7 +150,7 @@ public class CustomToolBar {
 
 	    public void widgetSelected(SelectionEvent event) {
 		Figura fig =
-			MainWindow.getComponents().tabFolder
+			WindowWidgets.tabFolder
 				.getTabItem()
 				.getLeaf()
 				.getFigureIndexOf(

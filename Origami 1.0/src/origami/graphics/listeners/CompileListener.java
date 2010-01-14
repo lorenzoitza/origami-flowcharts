@@ -29,9 +29,9 @@ public class CompileListener implements SelectionListener{
     
     @Override
     public void widgetSelected(SelectionEvent arg0) {
-	if (!MainWindow.getComponents().tabFolder.getTabItem().getSave().isSave()) {
+	if (!WindowWidgets.tabFolder.getTabItem().getSave().isSave()) {
 		if (isSave()) {
-			CodeCompiler code = new CodeCompiler(MainWindow.getComponents().tabFolder);
+			CodeCompiler code = new CodeCompiler(WindowWidgets.tabFolder);
 			if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
 			    MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 			}
@@ -42,14 +42,14 @@ public class CompileListener implements SelectionListener{
 				    MainWindow.getComponents().customConsole.getTextField().setText("");
 				}
 				MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
-				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation(
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
 						"/Ec - Error en la compilacion:");
-				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation(
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
 						code.errorTipe);
 				code.deleteMainFiles();
 			} else {
 			    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
-				MainWindow.getComponents().tabFolder
+				WindowWidgets.tabFolder
 						.getTabItem()
 						.getInformation()
 						.addInformation(
@@ -61,7 +61,7 @@ public class CompileListener implements SelectionListener{
 			}
 		}
 	} else {
-		CodeCompiler code = new CodeCompiler(MainWindow.getComponents().tabFolder);
+		CodeCompiler code = new CodeCompiler(WindowWidgets.tabFolder);
 		if (MainWindow.getComponents().getByStepComponents().getEnEjecucion(MainWindow.getComponents())) {
 		    MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
 		}

@@ -15,6 +15,7 @@ import origami.administration.*;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
+import origami.graphics.WindowWidgets;
 import origami.graphics.figures.*;
 import origami.graphics.widgets.TabFolder;
 
@@ -191,7 +192,7 @@ public class DiagramExporter {
 	    
 		String content = "";
 		
-		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeC();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");
@@ -209,7 +210,7 @@ public class DiagramExporter {
 		
 		String content = "";
 		
-		ManagerCodeFormat manager = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat manager = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 		manager.formatCodeCpp();
 		
 		String[] source = manager.getInstructionsFormat().split("\n");

@@ -1,6 +1,6 @@
 package origami.administration.funtionality.code;
 
-import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 
 public class GDBCodeFormatter extends AbstractInstructionFormatter {
 
@@ -196,7 +196,7 @@ public class GDBCodeFormatter extends AbstractInstructionFormatter {
     @Override
     public void applyFormat() {
 	ManagerCodeFormat manager =
-		new ManagerCodeFormat(MainWindow.getComponents().tabFolder
+		new ManagerCodeFormat(WindowWidgets.tabFolder
 			.getTabItem().getLeaf().getDiagrama());
 	manager.formatCodeCpp();
 	this.sourceCode = initFormattedCode(manager.getInstructionsFormat());

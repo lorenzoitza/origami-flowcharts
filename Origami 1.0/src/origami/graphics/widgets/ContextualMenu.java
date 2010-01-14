@@ -10,6 +10,7 @@ import origami.administration.ApplicationState;
 import origami.administration.actions.AddFigureLogic;
 import origami.administration.actions.ContextualMenuActions;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.figures.CircleFigure;
 
 public class ContextualMenu{
@@ -40,7 +41,7 @@ public class ContextualMenu{
 	cutMenuItem.setText("Cortar                  Ctrl+X");
 	cutMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Cortar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
+		new ContextualMenuActions().Cortar(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -48,7 +49,7 @@ public class ContextualMenu{
 	copyMenuItem.setText("Copiar                  Ctrl+C");
 	copyMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Copiar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
+		new ContextualMenuActions().Copiar(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -56,7 +57,7 @@ public class ContextualMenu{
 	pasteMenuItem.setText("Pegar                   Ctrl+V");
 	pasteMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
+		new ContextualMenuActions().Pegar(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -64,7 +65,7 @@ public class ContextualMenu{
 	deleteMenuItem.setText("Eliminar                 Supr");
 	deleteMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().Eliminar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
+		new ContextualMenuActions().Eliminar(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -74,7 +75,7 @@ public class ContextualMenu{
 	addMenuItem.setText("Agregar Codigo");
 	addMenuItem.addSelectionListener(new SelectionAdapter() {
 	    public void widgetSelected(SelectionEvent e) {
-		new ContextualMenuActions().agregar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
+		new ContextualMenuActions().agregar(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()));
 	    }
 	});
 	
@@ -151,7 +152,7 @@ public class ContextualMenu{
     
     public void setMenuAvailable(){
 	if(ApplicationState._selectionAdministrator.getSelectedFigure() != -1){
-	    if(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure){
+	    if(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama().elementAt(ApplicationState._selectionAdministrator.getSelectedFigure()) instanceof CircleFigure){
 		setEnabledEditMenuItems(false);
 	    }
 	    else{

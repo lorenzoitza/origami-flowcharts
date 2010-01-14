@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import origami.administration.funtionality.code.SimpleInstruction;
-import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 
 public class DialogValidator {
 	
@@ -36,9 +36,9 @@ public class DialogValidator {
 			if(!isEmpyInstructionList && !equalInstructions){
 				
 				
-				MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
+				WindowWidgets.tabFolder.getTabItem().getSave().setSave(false);
 				
-				MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation(
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
 							"/M - Se agrego"
 							+ " o modifico una "
 							+ "instruccion en una figura de tipo \""+info+"\"\n");
@@ -48,13 +48,13 @@ public class DialogValidator {
 			
 			addInstructionSimpleMethod.invoke(abstractFigure, code);
 			
-			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
+			WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
 			
-			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
+			WindowWidgets.tabFolder.getTabItem().getLeaf().guardarRetroceso();
 			
 			if (isChanged) {
-			    MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagram(
-				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+			    WindowWidgets.tabFolder.getTabItem().getInformation().setDiagram(
+				WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 			}
 			
 		} catch (SecurityException e) {

@@ -12,6 +12,7 @@ import origami.graphics.figures.SentenceFigure;
 import origami.graphics.figures.WhileFigure;
 
 
+@SuppressWarnings("serial")
 public class Instruction implements Serializable {
 
     private Vector<String> code = new Vector<String>();

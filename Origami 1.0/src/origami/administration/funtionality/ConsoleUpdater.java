@@ -5,8 +5,8 @@ import origami.graphics.MainWindow;
 
 
 public class ConsoleUpdater implements Runnable{
-    
     private WindowWidgets consoleComponent;
+    
     private String commandLine;
     
     public ConsoleUpdater(WindowWidgets consoleComponent,String commandLine){
@@ -28,6 +28,5 @@ public class ConsoleUpdater implements Runnable{
 	consoleComponent.customConsole.getTextField().setDragDetect(true);
 	consoleComponent.customConsole.setMaxCaretPosition(consoleComponent.customConsole.getTextField().getText().length());
     }
-
 
 }

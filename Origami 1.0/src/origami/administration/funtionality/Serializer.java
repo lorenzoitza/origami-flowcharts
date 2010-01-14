@@ -9,7 +9,6 @@ import java.io.ObjectOutputStream;
 import origami.administration.CustomFile;
 
 
-
 public class Serializer {
 
     public void writeFile(CustomFile seriliazableFile, String fileName)

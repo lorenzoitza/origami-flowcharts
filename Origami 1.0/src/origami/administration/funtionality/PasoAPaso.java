@@ -15,11 +15,11 @@ import origami.administration.actions.RecorridoDiagrama;
 import origami.administration.funtionality.code.ManagerCodeFormat;
 import origami.graphics.BaseDeDiagrama;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.figures.*;
 import origami.graphics.listeners.KeyTypeListener;
 import origami.graphics.widgets.TabFolder;
 import origami.graphics.widgets.TabItem;
-
 
 
 /**
@@ -199,7 +199,7 @@ public class PasoAPaso extends ConsoleController{
 		capturar.open();
 	}
 	public boolean verificarLectura(int linea){
-	    	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+	    	ManagerCodeFormat managerCode = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 	    	managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getHoja().getDiagrama());
@@ -815,7 +815,7 @@ public class PasoAPaso extends ConsoleController{
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).getPosicion().removeAllElements();
 		tab.getTabItem().getLeaf().getFigureIndexOf(0).setPosicion(4);
 
-		ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+		ManagerCodeFormat managerCode = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 		//Instruction codigo = new Instruction();
 		managerCode.formatCodeGDB();
 		//codigo.generateGDB(tab.getTabItem().getLeaf().getDiagrama());

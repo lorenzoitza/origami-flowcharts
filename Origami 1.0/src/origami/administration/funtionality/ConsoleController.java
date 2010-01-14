@@ -57,7 +57,7 @@ public class ConsoleController implements ExecProcessor {
     }
 
     public void execute(WindowWidgets console,String command, CodeCompiler codeCompiler) {
-	this.tabItemSelected = (TabItem)MainWindow.getComponents().tabFolder.getSeleccion();
+	this.tabItemSelected = (TabItem)WindowWidgets.tabFolder.getSeleccion();
 	this.compiler = codeCompiler;
 	this.console = console;
 	this.console.customConsole.getTextField().setText("");

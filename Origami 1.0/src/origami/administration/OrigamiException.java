@@ -10,6 +10,7 @@ import java.io.PrintWriter;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class OrigamiException extends Exception {
 
     private String message = "";

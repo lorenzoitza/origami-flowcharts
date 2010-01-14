@@ -8,21 +8,17 @@ import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabFolder;
 
 
-
 public class DiagramFileManager {
 
     private Serializer serializer;
 
     private String fileName;
     
-    
     public DiagramFileManager() {
 	serializer = new Serializer();
     }
 
-
     public boolean saveDiagram(TabFolder selectedTab) {
-
 	try {
 	    CustomFile seriliazableFile =
 		    new CustomFile(selectedTab.getTabItem().getLeaf().getDiagrama());
@@ -40,7 +36,6 @@ public class DiagramFileManager {
     }
 
     private void errorMessage() {
-
 	MessageBox messageBox =
 		new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 	messageBox.setText("Origami");
@@ -48,7 +43,6 @@ public class DiagramFileManager {
 		+ " volum�n no es v�lido");
 
     }
-
 
     public CustomFile recoverDiagram(String diagramPath) {
 

@@ -8,8 +8,8 @@ import origami.graphics.MainWindow;
 
 
 public class ConsoleExitProcess implements Runnable{
-    
     private WindowWidgets console;
+    
     public ConsoleExitProcess(WindowWidgets console){
 	this.console = console;
     }

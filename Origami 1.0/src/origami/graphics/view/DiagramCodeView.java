@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.ToolBar;
 
 import origami.administration.funtionality.DiagramExporter;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.images.ImageLoader;
 
 public class DiagramCodeView {
@@ -95,7 +96,7 @@ public class DiagramCodeView {
 		String archivo = dialog.open();
 		if (archivo != null) {
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents().tabFolder);
+			    new DiagramExporter(WindowWidgets.tabFolder);
 		    expor.codeCExport(archivo);
 		}
 	    }
@@ -111,7 +112,7 @@ public class DiagramCodeView {
 		String archivo = dialog.open();
 		if (archivo != null) {
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents().tabFolder);
+			    new DiagramExporter(WindowWidgets.tabFolder);
 		    expor.codeCppExport(archivo);
 		}
 	    }
@@ -130,7 +131,7 @@ public class DiagramCodeView {
 		    nombre = nombre.substring(0, nombre.indexOf("."));
 
 		    DiagramExporter expor =
-			    new DiagramExporter(MainWindow.getComponents().tabFolder);
+			    new DiagramExporter(WindowWidgets.tabFolder);
 
 		    expor.executeFileExport(archivo, nombre);
 		}

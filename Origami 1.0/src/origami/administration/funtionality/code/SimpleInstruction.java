@@ -1,13 +1,14 @@
 package origami.administration.funtionality.code;
 
+@SuppressWarnings("serial")
 public class SimpleInstruction extends Instruction{
-	public String simpleInstruction;
+    public String simpleInstruction;
 
-	public void setInstruccionSimple(String instruccion){
-		this.simpleInstruction = instruccion;
-	}
+    public void setInstruccionSimple(String instruccion){
+	this.simpleInstruction = instruccion;
+    }
 
-	public String getInstruccionSimple(){		
-		return this.simpleInstruction;
-	}
+    public String getInstruccionSimple(){		
+	return this.simpleInstruction;
+    }
 }

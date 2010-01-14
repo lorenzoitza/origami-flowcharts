@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.MessageBox;
 import origami.administration.funtionality.DiagramExporter;
 import origami.administration.funtionality.DiagramFileManager;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 
 public class SaveFileView {
 
@@ -63,10 +64,10 @@ public class SaveFileView {
     }
 
     public boolean saveAction() {
-	serializer.setFile(MainWindow.getComponents().tabFolder.getTabItem()
+	serializer.setFile(WindowWidgets.tabFolder.getTabItem()
 		.getSave().getDir());
-	serializer.saveDiagram(MainWindow.getComponents().tabFolder);
-	MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(
+	serializer.saveDiagram(WindowWidgets.tabFolder);
+	WindowWidgets.tabFolder.getTabItem().getSave().setSave(
 		true);
 	return true;
     }
@@ -151,17 +152,17 @@ public class SaveFileView {
     }
 
     private void save(String fileName,String fileAdress) {
-	MainWindow.getComponents().tabFolder.getTabItem().getSave().setDir(
+	WindowWidgets.tabFolder.getTabItem().getSave().setDir(
 		fileName);
 	serializer.setFile(fileAdress);
 	boolean isError =
-		serializer.saveDiagram(MainWindow.getComponents().tabFolder);
+		serializer.saveDiagram(WindowWidgets.tabFolder);
 	if (isError) {
 	    int pos = fileName.indexOf('.');
 	    String name = fileName.substring(0, pos);
-	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
+	    WindowWidgets.tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents().tabFolder.changeName(name);
+	    WindowWidgets.tabFolder.changeName(name);
 	}
     }
 
@@ -169,38 +170,37 @@ public class SaveFileView {
 	serializer.setFile(fileName);
 	serializer.setFile(fileAdress);
 	boolean isError =
-		serializer.saveDiagram(MainWindow.getComponents().tabFolder);
+		serializer.saveDiagram(WindowWidgets.tabFolder);
 	if (isError) {
 	    int pos = fileName.indexOf('.');
 	    String name = fileName.substring(0, pos);
-	    MainWindow.getComponents().tabFolder.getTabItem().getSave()
+	    WindowWidgets.tabFolder.getTabItem().getSave()
 		    .setSave(true);
-	    MainWindow.getComponents().tabFolder.changeName(name);
+	    WindowWidgets.tabFolder.changeName(name);
 	}
     }
 
     public void exportC(String fileName) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
+	DiagramExporter exporter = new DiagramExporter(WindowWidgets.tabFolder);
 	exporter.codeCExport(fileName);
     }
 
     public void exportCpp(String fileName) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
+	DiagramExporter exporter = new DiagramExporter(WindowWidgets.tabFolder);
 	exporter.codeCppExport(fileName);
     }
 
     public void exportExe(String fileName, String fileAdress) {
 	fileName = fileName.substring(0, fileName.indexOf("."));
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
+	DiagramExporter exporter = new DiagramExporter(WindowWidgets.tabFolder);
 	exporter.executeFileExport(fileAdress, fileName);
     }
 
     public void exportImage(String fileAdress) {
-	DiagramExporter exporter = new DiagramExporter(MainWindow.getComponents().tabFolder);
+	DiagramExporter exporter = new DiagramExporter(WindowWidgets.tabFolder);
 	exporter
-		.exportJPGFile(fileAdress, MainWindow.getComponents().tabFolder
-			.getTabItem().getLeaf().getDiagrama(), MainWindow
-			.getComponents().tabFolder.getTabItem().getLeaf()
+		.exportJPGFile(fileAdress, WindowWidgets.tabFolder
+			.getTabItem().getLeaf().getDiagrama(), WindowWidgets.tabFolder.getTabItem().getLeaf()
 			.getConexion());
     }
 }

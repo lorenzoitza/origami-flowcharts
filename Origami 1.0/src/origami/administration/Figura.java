@@ -13,6 +13,7 @@ import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 
 
 /**
@@ -21,6 +22,7 @@ import origami.graphics.MainWindow;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
+@SuppressWarnings("serial")
 public class Figura extends Figure implements Serializable {
 
     private Vector<Integer> posicion = new Vector<Integer>();
@@ -51,15 +53,15 @@ public class Figura extends Figure implements Serializable {
 	addMouseListener(new MouseListener() {
 
 	    public void mouseDoubleClicked(MouseEvent arg0) {
-		MainWindow.getComponents().tabFolder.getTabFolder().forceFocus();
+		WindowWidgets.tabFolder.getTabFolder().forceFocus();
 	    }
 
 	    public void mousePressed(MouseEvent arg0) {
-		MainWindow.getComponents().tabFolder.getTabFolder().forceFocus();
+		WindowWidgets.tabFolder.getTabFolder().forceFocus();
 	    }
 
 	    public void mouseReleased(MouseEvent arg0) {
-		MainWindow.getComponents().tabFolder.getTabFolder().forceFocus();
+		WindowWidgets.tabFolder.getTabFolder().forceFocus();
 	    }
 	});
     }

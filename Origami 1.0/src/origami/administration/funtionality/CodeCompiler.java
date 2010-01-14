@@ -4,7 +4,7 @@ import java.io.*;
 
 import origami.administration.funtionality.code.Instruction;
 import origami.administration.funtionality.code.ManagerCodeFormat;
-import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.widgets.TabFolder;
 
 
@@ -91,23 +91,19 @@ public class CodeCompiler {
     }
 
     public void saveCode(boolean isCCode, boolean inExecution) {
-	ManagerCodeFormat managerCode = new ManagerCodeFormat(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
-	//Instruction codigo = new Instruction();
-
+	ManagerCodeFormat managerCode = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
+	
 	if (isCCode) {
 
 	    source = new File("main.c");
-	    //codigo.main(selectedTab.getHoja().getDiagrama());
 	    managerCode.formatCodeC();
 	} else if (!isCCode && inExecution) {
 
 	    source = new File("main.cpp");
-	    //codigo.main(selectedTab.getHoja().getDiagrama());
 	    managerCode.formatCodeCpp();
 	} else if (!isCCode && !inExecution) {
 
 	    source = new File("main.cpp");
-	    //codigo.generateGDB(selectedTab.getHoja().getDiagrama());
 	    managerCode.formatCodeGDB();
 	}
 	try {

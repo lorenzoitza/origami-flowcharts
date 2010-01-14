@@ -1,12 +1,6 @@
-/**
- * 
- */
 package origami.debug;
 
 import java.util.Calendar;
-
-import origami.graphics.view.OpenType;
-
 
 /**
  * Clase que ayuda a debugear en Origami.
