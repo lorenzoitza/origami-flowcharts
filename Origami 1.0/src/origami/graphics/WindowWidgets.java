@@ -181,8 +181,8 @@ public class WindowWidgets {
 	MainWindow.shell.layout();
     }
 
-    public void maximizeConsole(boolean seleccionado) {
-	if (seleccionado) {
+    public void maximizeConsole(boolean isEnabled) {
+	if (isEnabled) {
 	    if (toolBarData.exclude) {
 		isToolBarAvailable = false;
 	    }
