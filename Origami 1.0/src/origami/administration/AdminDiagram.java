@@ -18,10 +18,10 @@ public class AdminDiagram {
 
     public Vector<Figura> diagram = new Vector<Figura>();
 
-    public AdminSelection selec;
+    public AdminSelection adminSelection;
 
     public AdminDiagram(AdminSelection seleccion) {
-	selec = seleccion;
+	adminSelection = seleccion;
     }
 
     private void addDecisionFigure(int currentPosition, Vector<Figura> figures) {
@@ -89,7 +89,7 @@ public class AdminDiagram {
 	    currentPosition++;
 	}
 	diagram.add(currentPosition, figure);
-	selec.setSelectedFigure(currentPosition);
+	adminSelection.setSelectedFigure(currentPosition);
 	currentPosition++;
 	if (diagram.elementAt(currentPosition - 1) instanceof DecisionFigure) {
 	    addDecisionFigure(currentPosition, temporalDiagram);

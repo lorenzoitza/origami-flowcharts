@@ -260,24 +260,24 @@ public class CustomToolBar {
     }
 
     public void disableToolBar() {
-	int startStandartButtons=4;
-	int endStandartButtons=7;
+	int startStandardButtons=4;
+	int endStandardButtons=7;
 	int paste=6;
 	if (ApplicationState._selectionAdministrator.getSelectedFigure() == -1) {
-	    for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+	    for (int index = startStandardButtons; index <= endStandardButtons; index++) {
 		toolItems.get(index).setEnabled(false);
 	    }
 	} else {
 	    if (ApplicationState._selectionAdministrator
 		    .getSelectedFigure() != 0) {
-		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+		for (int index = startStandardButtons; index <= endStandardButtons; index++) {
 		    toolItems.get(index).setEnabled(true);
 		}
 		if (ApplicationState._diagramAdministrator.diagram.size() == 0) {
 		    toolItems.get(paste).setEnabled(false);
 		}
 	    } else {
-		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+		for (int index = startStandardButtons; index <= endStandardButtons; index++) {
 		    toolItems.get(index).setEnabled(false);
 		}
 		if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
@@ -288,7 +288,6 @@ public class CustomToolBar {
     }
 
     public void setEnabledStepByStepToolItems(boolean isEnable) {
-	System.out.println("aqui");
 	int back=3;
 	int cut=4;
 	int copy=5;
@@ -324,7 +323,6 @@ public class CustomToolBar {
     }
 
     public void setEnableCompileToolItems(boolean isEnabled) {
-	System.out.println("aqui22");
 	int back=3;
 	int generateCCode=8;
 	int generateCppCode=9;

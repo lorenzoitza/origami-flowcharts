@@ -57,8 +57,6 @@ public class WindowWidgets {
 	this.customMenu = menu;
 	
 	initControllers();
-	
-	stepByStepComponents = new StepByStepComponents(menu, figuresToolBar);
     }
     
     private void initControllers() {
@@ -94,6 +92,8 @@ public class WindowWidgets {
     public void addFiguresToolBar() {
 	figuresToolBarData.widthHint = 62;
 	figuresToolBar= new CustomFiguresToolBar(figuresToolBarData, display);
+
+	stepByStepComponents = new StepByStepComponents(customMenu, figuresToolBar);
     }
     
     public void setEnableToolBar(boolean isEnable) {
