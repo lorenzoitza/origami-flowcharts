@@ -311,7 +311,6 @@ public class KeyTypeListener implements KeyListener {
 
     private void openWindowHelp() {
 	HelpWindow help = new HelpWindow();
-	help.createWindow();
 	help.showWindow();
     }
 
