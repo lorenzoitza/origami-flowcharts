@@ -30,9 +30,7 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
     @Override
     protected void validate(boolean band) {
 	if (band) {
-		Debugger.debug(this.getClass(), " entro a metodo validate"+band);
 	    if ( !conditionTextField.getText().isEmpty() ) {
-	    	Debugger.debug(this.getClass(), "cadena de condicion no vacia");
 		String instructionCode =
 			"if(" + conditionTextField.getText() + "){";
 
