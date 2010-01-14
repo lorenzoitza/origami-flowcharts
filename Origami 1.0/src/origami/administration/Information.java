@@ -90,8 +90,7 @@ public class Information implements Serializable {
 		DecisionFigure temporalFigure =
 			(DecisionFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(3, instruction.length() - 2);
@@ -111,8 +110,7 @@ public class Information implements Serializable {
 	    } else if (diagram.elementAt(index) instanceof ForFigure) {
 		ForFigure temporalFigure = (ForFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(4, instruction.length() - 2);
@@ -134,8 +132,7 @@ public class Information implements Serializable {
 		WhileFigure temporalFigure =
 			(WhileFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(6, instruction.length() - 2);
@@ -220,8 +217,7 @@ public class Information implements Serializable {
 		DecisionFigure temporalFigureaux =
 			(DecisionFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigureaux.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigureaux.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(3, instruction.length() - 2);
@@ -242,8 +238,7 @@ public class Information implements Serializable {
 
 		ForFigure temporalFigure = (ForFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(4, instruction.length() - 2);
@@ -265,8 +260,7 @@ public class Information implements Serializable {
 		WhileFigure temporalFigure =
 			(WhileFigure) diagram.elementAt(index);
 		instruction =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruction.compareTo("null") != 0) {
 		    instruction =
 			    instruction.substring(6, instruction.length() - 2);
@@ -354,8 +348,7 @@ public class Information implements Serializable {
 		DecisionFigure temporalFigure =
 			(DecisionFigure) diagram.elementAt(index);
 		instruccion =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruccion.compareTo("null") != 0) {
 		    instruccion =
 			    instruccion.substring(3, instruccion.length() - 2);
@@ -376,8 +369,7 @@ public class Information implements Serializable {
 
 		ForFigure temporalFigure = (ForFigure) diagram.elementAt(index);
 		instruccion =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruccion.compareTo("null") != 0) {
 		    instruccion =
 			    instruccion.substring(4, instruccion.length() - 2);
@@ -399,8 +391,7 @@ public class Information implements Serializable {
 		WhileFigure temporalFigure =
 			(WhileFigure) diagram.elementAt(index);
 		instruccion =
-			temporalFigure.instructionComposed.simpleInstructionList
-				.elementAt(0).simpleInstruction;
+			temporalFigure.instructionComposed.getFirstInstructionSimple();
 		if (instruccion.compareTo("null") != 0) {
 		    instruccion =
 			    instruccion.substring(6, instruccion.length() - 2);
