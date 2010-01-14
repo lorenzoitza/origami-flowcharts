@@ -6,7 +6,7 @@ import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.swt.SWT;
 
 import origami.administration.funtionality.DiagramFileManager;
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.PaintDiagram;
 import origami.graphics.figures.CircleFigure;
@@ -47,16 +47,16 @@ public class CustomLeaf {
 		diagrama.diagram.add(inicio);
 		diagrama.diagram.add(fin);
 		new ContextualMenuListener(diagrama.diagram.elementAt(0));
-		BaseDeDiagrama.getInstance().resetScrollBar();
+		DiagramStructure.getInstance().resetScrollBar();
 		addPropiedades();
 	 }
-	 BaseDeDiagrama.getInstance().addPaintDiagram(chart);
+	 DiagramStructure.getInstance().addPaintDiagram(chart);
 	 addFigure();
 	 guardarRetroceso();
 	 if(tab.getItemCount()==1){
 		MainWindow.getComponents().diagramData.exclude=false;
 		MainWindow.shell.layout();
-		BaseDeDiagrama.getInstance().resetScrollBar();
+		DiagramStructure.getInstance().resetScrollBar();
 	 }
 	}
 	
@@ -132,7 +132,7 @@ public class CustomLeaf {
         	diagrama.diagram = aux.getDiagrama();
         	tab.getTabItem().getInformation().setInformation(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
-        	BaseDeDiagrama.getInstance().resetScrollBar();
+        	DiagramStructure.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
         	chart.agregarFiguras(diagrama.diagram,chart);
         	connection.createConnections(diagrama.diagram);
@@ -141,7 +141,7 @@ public class CustomLeaf {
 	//este metodo es usado cuando no hay tabs y por lo tanto se llamaba a addDiagram el cual
 	//agregaba todo de nuevo a los vectores para que no ocurriese ningun error.
 	public void openNewFile(String archivo,DiagramFileManager ser ){
-		BaseDeDiagrama.getInstance().addPaintDiagram(chart);
+		DiagramStructure.getInstance().addPaintDiagram(chart);
 		addPropiedades();
 		if(tab.getItemCount()==1){
 			MainWindow.getComponents().diagramData.exclude=false;
@@ -155,7 +155,7 @@ public class CustomLeaf {
         	diagrama.diagram = aux.getDiagrama();
         	tab.getTabItem().getInformation().setInformation(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
-        	BaseDeDiagrama.getInstance().resetScrollBar();
+        	DiagramStructure.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
         	chart.agregarFiguras(diagrama.diagram,chart);
         	connection.createConnections(diagrama.diagram);

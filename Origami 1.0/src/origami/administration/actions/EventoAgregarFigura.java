@@ -25,208 +25,212 @@ import origami.graphics.widgets.TabFolder;
  * @author Juan Ku, Victor Rodriguez
  */
 public class EventoAgregarFigura{
-    	private Point start;
-	public boolean bandera=false;
-	public final Cursor[] cursor = new Cursor[1];
-	public int cursorPrincipal = SWT.CURSOR_ARROW;
-	public AdminSelection selec;
-	public TabFolder tab;
-	/**
-	 * Da la propiedad de Drag & Drop 
-	 * a la figura recibida.
-	 * @param figure
-	 */
-	public EventoAgregarFigura(AdminSelection selecc,TabFolder tabfolder) {
-		selec = selecc;
-		tab = tabfolder;
+    private Point start;
+    	
+    private boolean flag = false;
+	
+    private final Cursor[] cursor = new Cursor[1];
+	
+    private int mainCursor = SWT.CURSOR_ARROW;
+	
+    private AdminSelection adminSelection;
+	
+    private TabFolder tabFolder;
+    /**
+     * Da la propiedad de Drag & Drop 
+     * a la figura recibida.
+     * @param figure
+     */
+    public EventoAgregarFigura(AdminSelection selecc,TabFolder tabfolder) {
+	adminSelection = selecc;
+	tabFolder = tabfolder;
+    }
+    /**
+     * Obtiene la localizacion en la que la figura fue seleccionada.
+     * @param MouseEvent 
+     */
+    public void mousePresseds(MouseEvent e) {
+	flag = false;
+	start = e.getLocation();
+	FigureStructure fig = ApplicationState.mainFigure;
+	if(fig!=null){
+	    int a;
+	    for(int z=0;z<tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
+		if(verifyAvailableSpace(z,z+1,fig)){
+		    break;
+		}
+		if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof DecisionFigure){
+		    a = verificarDerecha(z+1,fig);
+		    z = verificarDerecha(a,fig); 
+		    if(flag){
+			break;
+		    }
+		}
+		if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof WhileFigure){
+		    a = verificarAbajo(z+1,fig);
+		    z=a+4;
+		    if(flag){
+			break;
+		    }
+		}
+	    }
 	}
-	/**
-	 * Obtiene la localizacion en la que la figura fue seleccionada.
-	 * @param MouseEvent 
-	 */
-	public void mousePresseds(MouseEvent e) {
-		bandera = false;
-		start = e.getLocation();
-		FigureStructure fig = ApplicationState.mainFigure;
-		if(fig!=null){
-			int a;
-			for(int z=0;z<tab.getTabItem().getLeaf().getSizeDiagrama()-1;z++){
-				if(Verificar(z,z+1,fig)){
-					break;
-				}
-				if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof DecisionFigure){
-					a = verificarDerecha(z+1,fig);
-					z = verificarDerecha(a,fig); 
-					if(bandera){
-						break;
-					}
-			 	 }
-				if(tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z+1) instanceof WhileFigure){
-					a = verificarAbajo(z+1,fig);
-					z=a+4;
-					if(bandera){
-						break;
-					}
-				}
-			}
-		}
-		else{
-			selec.setSelectedFigure(-1);
-			if(tab.getItemCount()!=0){
-				tab.getTabItem().getLeaf().addFigure();
-			}
-		}
+	else{
+	    adminSelection.setSelectedFigure(-1);
+	    if(tabFolder.getItemCount()!=0){
+		tabFolder.getTabItem().getLeaf().addFigure();
+	    }
 	}
-	/**
-	 * Este metodo hace un recorrido por la derecha
-	 * de un if del diagrama para identificar si alguna 
-	 * figura fue añadida al diagrama, si no regresa la pocision
-	 * del final del lado derecho.
-	 * 
-	 * @param z
-	 * @param fig
-	 * @return int
-	 */
-	public int verificarDerecha(int z,FigureStructure fig){
-		int x = z+1;
-		int a;
-		z = z+2;
-		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
-			if(Verificar(x,z,fig)){
-				break;
-			}
-			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
-				a = verificarDerecha(z,fig);
-				z = verificarDerecha(a,fig)+1;
-				if(bandera){
-					break;
-				}
-			}
-			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof EllipseFigure){
-				break;
-			}
-			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
-				a = verificarAbajo(z,fig);
-				z=a+5;
-				if(bandera){
-					break;
-				}
-			}
-			x=z;
-			z++;
-			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigureEnd){
-				break;
-			}
+    }
+    /**
+     * Este metodo hace un recorrido por la derecha
+     * de un if del diagrama para identificar si alguna 
+     * figura fue añadida al diagrama, si no regresa la pocision
+     * del final del lado derecho.
+     * 
+     * @param z
+     * @param fig
+     * @return int
+     */
+    public int verificarDerecha(int z,FigureStructure fig){
+	int x = z+1;
+	int a;
+	z = z+2;
+	while(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
+	    if(verifyAvailableSpace(x,z,fig)){
+		break;
+	    }
+	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
+		a = verificarDerecha(z,fig);
+		z = verificarDerecha(a,fig)+1;
+		if(flag){
+		    break;
 		}
-		return z;
+	    }
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof EllipseFigure){
+		break;
+	    }
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
+		a = verificarAbajo(z,fig);
+		z=a+5;
+		if(flag){
+		    break;
+		}
+	    }
+	    x=z;
+	    z++;
+	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigureEnd){
+		break;
+	    }
 	}
-	/**
-	 * Este metodo hace un recorrido por la abajo
-	 * de un For o While del diagrama para identificar si alguna 
-	 * figura fue añadida al diagrama, si no regresa la pocision
-	 * del final de dicha figura.
-	 * 
-	 * @param z
-	 * @param fig
-	 * @return int
-	 */
-	public int verificarAbajo(int z,FigureStructure fig){
-		int x = z;//for
-		int a;
-		z = z+1;//sig figura
-		while(tab.getTabItem().getLeaf().getFigureIndexOf(z)!=null){
-			if(Verificar(x,z,fig)){
-				break;
-			}
-			if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof DecisionFigure){
-				a = verificarDerecha(z,fig);
-				z = verificarDerecha(a,fig)+1;
-				if(bandera){
-					break;
-				}
-			}
-			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof EllipseFigure){
-				break;
-			}
-			else if(tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof ForFigure || tab.getTabItem().getLeaf().getFigureIndexOf(z) instanceof WhileFigure){
-				a = verificarAbajo(z,fig);
-				z=a+4;
-				x=z;
-				z++;
-				if(bandera){
-					break;
-				}
-			}
-			x=z;
-			z++;
+	return z;
+    }
+    /**
+     * Este metodo hace un recorrido por la abajo
+     * de un For o While del diagrama para identificar si alguna 
+     * figura fue añadida al diagrama, si no regresa la pocision
+     * del final de dicha figura.
+     * 
+     * @param figureIndex
+     * @param figure
+     * @return int
+     */
+    public int verificarAbajo(int figureIndex,FigureStructure figure){
+	int index = figureIndex;//for
+	int index2;
+	figureIndex = figureIndex+1;//sig figura
+	while(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex)!=null){
+	    if(verifyAvailableSpace(index,figureIndex,figure)){
+		break;
+	    }
+	    if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof DecisionFigure){
+		index2 = verificarDerecha(figureIndex,figure);
+		figureIndex = verificarDerecha(index2,figure)+1;
+		if(flag){
+		    break;
 		}
-		return z;
+	    }
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof EllipseFigure){
+		break;
+	    }
+	    else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof ForFigure || tabFolder.getTabItem().getLeaf().getFigureIndexOf(figureIndex) instanceof WhileFigure){
+		index2 = verificarAbajo(figureIndex,figure);
+		figureIndex=index2+4;
+		index=figureIndex;
+		figureIndex++;
+		if(flag){
+		    break;
+		}
+	    }
+	    index=figureIndex;
+	    figureIndex++;
 	}
-	/**
-	 * 
-	 * Este metodo revisa si en los espacios 
-	 * disponibles en el diagrama fue agregado 
-	 * una nueva figura, si no devuelve falso.
-	 * 
-	 * @param i
-	 * @param j
-	 * @param fig
-	 * @return boolean
-	 */
-	public boolean Verificar(int i,int j,FigureStructure fig){
-		if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure && tab.getTabItem().getLeaf().getFigureIndexOf(j) instanceof EllipseFigure){
-			if(start.x >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+15 && 
-					start.y >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y <= tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
-				tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
-				tab.getTabItem().getSave().setSave(false);
-				tab.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
-				tab.getTabItem().getInformation().setFigure(fig);
-				tab.getTabItem().getInformation().setDiagram(tab.getTabItem().getLeaf().getDiagrama());
-				tab.getTabItem().getLeaf().addFigure();
-				tab.getTabItem().getLeaf().guardarRetroceso();
-				cambiarCursor();
-				bandera = true;
-				return true;
-			}
-		}
-		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x + tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+1 && 
-				tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y+tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().height+1){
-			tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
-			tab.getTabItem().getSave().setSave(false);
-			tab.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
-			tab.getTabItem().getInformation().setFigure(fig);
-			tab.getTabItem().getInformation().setDiagram(tab.getTabItem().getLeaf().getDiagrama());
-			tab.getTabItem().getLeaf().addFigure();
-			tab.getTabItem().getLeaf().guardarRetroceso();
-			cambiarCursor();
-			bandera = true;
-			return true;
-		}
-		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure ){ 
-			if(start.x>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+75 
-					&& start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y<=tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
-				tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
-				tab.getTabItem().getSave().setSave(false);
-				tab.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
-				tab.getTabItem().getInformation().setFigure(fig);
-				tab.getTabItem().getInformation().setDiagram(tab.getTabItem().getLeaf().getDiagrama());
-				tab.getTabItem().getLeaf().addFigure();
-				tab.getTabItem().getLeaf().guardarRetroceso();
-				cambiarCursor();
-				bandera = true;
-				return true;
-			}
-		}
-		bandera=false;
-		return false;
+	return figureIndex;
+    }
+    /**
+     * Este metodo revisa si en los espacios 
+     * disponibles en el diagrama fue agregado 
+     * una nueva figura, si no devuelve falso.
+     * @param firstFigureIndex
+     * @param secondFigureIndex
+     * @param figure
+     * @return boolean
+     */
+    public boolean verifyAvailableSpace(int firstFigureIndex, int secondFigureIndex, FigureStructure figure){
+	if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex) instanceof EllipseFigure && tabFolder.getTabItem().getLeaf().getFigureIndexOf(secondFigureIndex) instanceof EllipseFigure){
+	    if(start.x >= tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x-15 && start.x <= tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x+15 && 
+		    start.y >= tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().y && start.y <= tabFolder.getTabItem().getLeaf().getFigureIndexOf(secondFigureIndex).getBounds().y){
+		tabFolder.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(firstFigureIndex, figure);
+		tabFolder.getTabItem().getSave().setSave(false);
+		tabFolder.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
+		tabFolder.getTabItem().getInformation().setFigure(figure);
+		tabFolder.getTabItem().getInformation().setDiagram(tabFolder.getTabItem().getLeaf().getDiagrama());
+		tabFolder.getTabItem().getLeaf().addFigure();
+		tabFolder.getTabItem().getLeaf().guardarRetroceso();
+		changeCursor();
+		flag = true;
+		return true;
+	    }
 	}
-	public void cambiarCursor(){
-		ApplicationState.mainFigure = null;
-		Cursor oldCursor = cursor[0];
-		cursor[0] = new Cursor(null, cursorPrincipal);
-		tab.getTabItem().getLeaf().getChart().setCursor(cursor[0]);
-		if (oldCursor != null){
-			oldCursor.dispose();
-		}
+	else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x + tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().width-1>= start.x && start.x>= tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x+1 && 
+		tabFolder.getTabItem().getLeaf().getFigureIndexOf(secondFigureIndex).getBounds().y-1 >=start.y &&start.y>=tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().y+tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().height+1){
+	    tabFolder.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(firstFigureIndex, figure);
+	    tabFolder.getTabItem().getSave().setSave(false);
+	    tabFolder.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
+	    tabFolder.getTabItem().getInformation().setFigure(figure);
+	    tabFolder.getTabItem().getInformation().setDiagram(tabFolder.getTabItem().getLeaf().getDiagrama());
+	    tabFolder.getTabItem().getLeaf().addFigure();
+	    tabFolder.getTabItem().getLeaf().guardarRetroceso();
+	    changeCursor();
+	    flag = true;
+	    return true;
 	}
+	else if(tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex) instanceof EllipseFigure ){ 
+	    if(start.x>=tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x-75 && start.x<=tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().x+75 
+		    && start.y>=tabFolder.getTabItem().getLeaf().getFigureIndexOf(firstFigureIndex).getBounds().y && start.y<=tabFolder.getTabItem().getLeaf().getFigureIndexOf(secondFigureIndex).getBounds().y){
+		tabFolder.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(firstFigureIndex, figure);
+		tabFolder.getTabItem().getSave().setSave(false);
+		tabFolder.getTabItem().getInformation().addInformation("/A - Se agrego una nueva figura al diagrama\n");
+		tabFolder.getTabItem().getInformation().setFigure(figure);
+		tabFolder.getTabItem().getInformation().setDiagram(tabFolder.getTabItem().getLeaf().getDiagrama());
+		tabFolder.getTabItem().getLeaf().addFigure();
+		tabFolder.getTabItem().getLeaf().guardarRetroceso();
+		changeCursor();
+		flag = true;
+		return true;
+	    }
+	}
+	flag=false;
+	return false;
+    }
+    
+    private void changeCursor(){
+	ApplicationState.mainFigure = null;
+	Cursor oldCursor = cursor[0];
+	cursor[0] = new Cursor(null, mainCursor);
+	tabFolder.getTabItem().getLeaf().getChart().setCursor(cursor[0]);
+	if (oldCursor != null){
+	    oldCursor.dispose();
+	}
+    }
 }

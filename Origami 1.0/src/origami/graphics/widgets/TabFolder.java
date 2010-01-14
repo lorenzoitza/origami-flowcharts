@@ -21,7 +21,7 @@ import origami.administration.AdminSelection;
 import origami.administration.FigureStructure;
 import origami.administration.funtionality.DiagramFileManager;
 import origami.administration.funtionality.SaveDiagramController;
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.listeners.KeyTypeListener;
 
@@ -78,7 +78,7 @@ public class TabFolder {
 
     public void applyUndo(Vector<AdminDiagram> diagrama, int pos,
 	    int seleccion) {
-	BaseDeDiagrama.getInstance().resetScrollBar();
+	DiagramStructure.getInstance().resetScrollBar();
 	for (int index = getTabItem().getLeaf().getDiagrama().size() - 1; index > 0; index--) {
 	    getTabItem().getLeaf().getDiagrama().removeElementAt(index);
 	}
@@ -173,7 +173,7 @@ public class TabFolder {
 				.getSelectionIndex());
 		getAdminSelection().setDiagramSelection(a.GetId());
 		a.getLeaf().enabledCustomLeaf();
-		BaseDeDiagrama.getInstance().resetScrollBar();
+		DiagramStructure.getInstance().resetScrollBar();
 		a.getSave().checkChanges();
 	    }
 	};

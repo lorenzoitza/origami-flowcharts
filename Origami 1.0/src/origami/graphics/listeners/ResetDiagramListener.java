@@ -4,7 +4,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
 import origami.administration.ApplicationState;
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.figures.CircleFigure;
 
@@ -26,7 +26,7 @@ public class ResetDiagramListener implements SelectionListener{
 	CircleFigure fin = new CircleFigure();
 	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().add(fin);
 	fin.setMessage("  Fin");
-	BaseDeDiagrama.getInstance().resetScrollBar();
+	DiagramStructure.getInstance().resetScrollBar();
 	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
 	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 	MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);		

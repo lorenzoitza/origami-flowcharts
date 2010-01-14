@@ -15,44 +15,40 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ScrollBar;
 
 
-/**
- * Realizar un singleton a esta clase para que de esta manera se asegure que solo
- * existe una base de los diagramas.
- * @author Administrador
- *
- */
-public class BaseDeDiagrama {
+public class DiagramStructure {
     
-    private Composite diagramaArea;
-    private FigureCanvas lws;
+    private Composite diagramArea;
+    
+    private FigureCanvas lightweightSystem;
+    
     private Figure panel;
+    
     private ScalableLayeredPane scaledPane;
-    private static BaseDeDiagrama instance;
+    
+    private static DiagramStructure instance;
 
-    private BaseDeDiagrama(){
-	
+    private DiagramStructure(){
 	MainWindow.getComponents().addFiguresToolBar();
 	
 	initPanels();
 	
 	initScroll();
-	
     }
     
-    public static BaseDeDiagrama getInstance(){
+    public static DiagramStructure getInstance(){
 	if(instance==null){
-	    instance = new BaseDeDiagrama();
+	    instance = new DiagramStructure();
 	}
 	return instance;
     }
     
     private void initPanels(){
-	diagramaArea = new Composite(MainWindow.shell,SWT.NONE);
-	diagramaArea.setLayoutData(MainWindow.getComponents().diagramData);
-	diagramaArea.setLayout(getLayoutComposite());
+	diagramArea = new Composite(MainWindow.shell,SWT.NONE);
+	diagramArea.setLayoutData(MainWindow.getComponents().diagramData);
+	diagramArea.setLayout(getLayoutComposite());
 	
-	lws = new FigureCanvas(diagramaArea);
-	lws.setLayoutData(getLayoutFigureCanvas());
+	lightweightSystem = new FigureCanvas(diagramArea);
+	lightweightSystem.setLayoutData(getLayoutFigureCanvas());
 	
 	panel = new Figure();
 	panel.setLayoutManager(getLayoutFigure());
@@ -91,22 +87,22 @@ public class BaseDeDiagrama {
 			if(arg0.count>0){
 				direction=-1;
 			}
-			lws.scrollToY(lws.getVerticalBar().getSelection()+direction*30);
+			lightweightSystem.scrollToY(lightweightSystem.getVerticalBar().getSelection()+direction*30);
 		}});
-	lws.getVerticalBar().addSelectionListener(new SelectionListener(){
+	lightweightSystem.getVerticalBar().addSelectionListener(new SelectionListener(){
 		public void widgetSelected(SelectionEvent arg0) {
 			int direction=1;
 			if(arg0.detail==16777217){
 				direction=-1;
 			}
-			lws.getVerticalBar().setSelection(lws.getVerticalBar().getSelection()+direction*30);
+			lightweightSystem.getVerticalBar().setSelection(lightweightSystem.getVerticalBar().getSelection()+direction*30);
 		}
 		public void widgetDefaultSelected(SelectionEvent arg0) {
 		}});
     }
     
     public void addPaintDiagram(PaintDiagram chart){
-	lws.setContents(panel);
+	lightweightSystem.setContents(panel);
 	panel.add(scaledPane);
 	scaledPane.removeAll();
 	scaledPane.add(chart);
@@ -116,25 +112,25 @@ public class BaseDeDiagrama {
 	return panel;
     }
     public ScrollBar getHScrollBar(){
-    	return lws.getHorizontalBar();
+    	return lightweightSystem.getHorizontalBar();
     }
     public ScrollBar getVScrollBar(){
-    	return lws.getVerticalBar();
+    	return lightweightSystem.getVerticalBar();
     }
     public ScalableLayeredPane getScaledPane() {
 	return scaledPane;
     }
     public void resetScrollBar(){
-    	lws.scrollToX((int)((lws.getHorizontalBar().getMaximum()-lws.getHorizontalBar().getSize().x)*50/100));
-    	lws.scrollToY(0);
+    	lightweightSystem.scrollToX((int)((lightweightSystem.getHorizontalBar().getMaximum()-lightweightSystem.getHorizontalBar().getSize().x)*50/100));
+    	lightweightSystem.scrollToY(0);
     }
     public void setScrollBar(int x, int y){
-    	lws.scrollToX(x);
-    	lws.scrollToY(y);
+    	lightweightSystem.scrollToX(x);
+    	lightweightSystem.scrollToY(y);
     }
     public void setBoundsToZero(){
-    	diagramaArea.setBounds(0,0,0,0);
-    	lws.setBounds(0,0,0,0);
+    	diagramArea.setBounds(0,0,0,0);
+    	lightweightSystem.setBounds(0,0,0,0);
     	panel.setBounds(new Rectangle(0,0,0,0));
     	scaledPane.setBounds(new Rectangle(0,0,0,0));
     }

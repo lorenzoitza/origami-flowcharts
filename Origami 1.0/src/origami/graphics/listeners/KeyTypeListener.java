@@ -9,7 +9,7 @@ import origami.administration.actions.AddFigureLogic;
 import origami.administration.actions.ContextualMenuActions;
 import origami.administration.funtionality.CodeCompiler;
 import origami.administration.funtionality.code.ManagerCodeFormat;
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.help.AboutWindow;
@@ -106,7 +106,7 @@ public class KeyTypeListener implements KeyListener {
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .getDiagrama().add(fin);
 	    fin.setMessage("  Fin");
-	    BaseDeDiagrama.getInstance().resetScrollBar();
+	    DiagramStructure.getInstance().resetScrollBar();
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()
 		    .addFigure();
 	    MainWindow.getComponents().tabFolder.getTabItem().getLeaf()

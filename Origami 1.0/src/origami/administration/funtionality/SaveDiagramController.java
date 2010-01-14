@@ -4,7 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.widgets.MessageBox;
 
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
@@ -75,10 +75,10 @@ public class SaveDiagramController {
 
     public static void closeCTabFolder(int i) {
 	if (tabFolder.getItemCount() == 1) {
-	    BaseDeDiagrama.getInstance().getPanel().removeAll();	    
+	    DiagramStructure.getInstance().getPanel().removeAll();	    
 	    tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setOpaque(false);
 	    MainWindow.getComponents().diagramData.exclude = true;
-	    BaseDeDiagrama.getInstance().setBoundsToZero();
+	    DiagramStructure.getInstance().setBoundsToZero();
 	    tabFolder.getTabItem().getLeaf().getDiagrama().removeAllElements();
 	    MainWindow.getComponents().disableAll(false);
 	}

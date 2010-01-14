@@ -205,7 +205,7 @@ public class WindowWidgets {
 	    figuresToolBar.getBarraFiguras().setBounds(xCoord, yCoord, width, height);
 	    diagramData.exclude = true;
 	    
-	    BaseDeDiagrama.getInstance().setBoundsToZero();
+	    DiagramStructure.getInstance().setBoundsToZero();
 	    
 	    consoleData.exclude = false;
 	    consoleData.grabExcessHorizontalSpace = true;

@@ -13,7 +13,7 @@ import org.eclipse.swt.widgets.*;
 import origami.administration.AdminSelection;
 import origami.administration.actions.DiagramCiclePath;
 import origami.administration.funtionality.code.ManagerCodeFormat;
-import origami.graphics.BaseDeDiagrama;
+import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
 import origami.graphics.figures.*;
@@ -408,7 +408,7 @@ public class PasoAPaso extends ConsoleController{
 				default:
 					break;
 			}
-			BaseDeDiagrama.getInstance().resetScrollBar();
+			DiagramStructure.getInstance().resetScrollBar();
 			//tab.getHoja().resetScrollBar();
 			colaConexiones.clear();
 			MainWindow.getComponents().getByStepComponents().stopExecution(MainWindow.getComponents());
@@ -422,25 +422,25 @@ public class PasoAPaso extends ConsoleController{
 			vertical=400;
 		}
 		int x=0,y=0;
-		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x < BaseDeDiagrama.getInstance().getHScrollBar().getSelection()){
+		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x < DiagramStructure.getInstance().getHScrollBar().getSelection()){
 			x=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x-400;
 		}
-		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x - BaseDeDiagrama.getInstance().getHScrollBar().getSelection() >= 830){ 
-			x=BaseDeDiagrama.getInstance().getHScrollBar().getSelection()+tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x-400;
+		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x - DiagramStructure.getInstance().getHScrollBar().getSelection() >= 830){ 
+			x=DiagramStructure.getInstance().getHScrollBar().getSelection()+tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().x-400;
 		}
 		else{
-			x = BaseDeDiagrama.getInstance().getHScrollBar().getSelection();
+			x = DiagramStructure.getInstance().getHScrollBar().getSelection();
 		}
-		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y < BaseDeDiagrama.getInstance().getVScrollBar().getSelection()){
+		if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y < DiagramStructure.getInstance().getVScrollBar().getSelection()){
 			y=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y-100;
 		}
-		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y - BaseDeDiagrama.getInstance().getVScrollBar().getSelection() >= vertical){ 
+		else if(tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y - DiagramStructure.getInstance().getVScrollBar().getSelection() >= vertical){ 
 			y=tab.getTabItem().getLeaf().getDiagrama().elementAt(fig).getBounds().y-150;
 		}
 		else{
-			y=BaseDeDiagrama.getInstance().getVScrollBar().getSelection();
+			y=DiagramStructure.getInstance().getVScrollBar().getSelection();
 		}
-		BaseDeDiagrama.getInstance().setScrollBar(x, y);
+		DiagramStructure.getInstance().setScrollBar(x, y);
 	}
 	/**
 	 * Dibuja los finales de ifs aunque esten anidados.

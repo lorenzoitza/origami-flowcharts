@@ -89,7 +89,7 @@ public class MainWindow {
 	    MainWindow mainWindow = new MainWindow();
 	    mainWindow.show();
 	    
-	    BaseDeDiagrama.getInstance().resetScrollBar();
+	    DiagramStructure.getInstance().resetScrollBar();
 	    
 	    while (!shell.isDisposed()) {
 		while (!display.readAndDispatch()) {
