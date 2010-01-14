@@ -2,7 +2,7 @@ package origami.administration.funtionality.code;
 
 import java.util.Vector;
 
-public class CppCodeFormatter extends FormatInstructions {
+public class CppCodeFormatter extends AbstractInstructionFormatter {
 
     public CppCodeFormatter(Vector<String> codeOfFigure,
 	    Vector<String> TableOfVariable) {
@@ -58,7 +58,7 @@ public class CppCodeFormatter extends FormatInstructions {
 
 	cppCodeOfFigure = cppCodeOfFigure.substring(0, codeLengthOfFigure);
 
-	removeLinesRepeated(formattedLines);
+	removeRepeatedLines(formattedLines);
 
 	codeOfFigure.removeElementAt(indexCodeFigure);
 
@@ -130,7 +130,7 @@ public class CppCodeFormatter extends FormatInstructions {
 			    .lastIndexOf(";"));
 	
 	}
-	 if (!isDeclarada(formattedLines)) {
+	 if (!isDeclared(formattedLines)) {
 	this.TableOfVariable.add(formattedLines);
 	formattedInstructionCode.add(formattedLines);
        }

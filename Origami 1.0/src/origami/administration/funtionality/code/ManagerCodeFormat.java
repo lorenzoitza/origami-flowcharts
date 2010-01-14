@@ -9,7 +9,7 @@ import origami.administration.Figura;
 public class ManagerCodeFormat {
     private Vector<Figura> figures;
 	
-	private FormatInstructions format;
+	private AbstractInstructionFormatter format;
 	
 	private String instructionsFormat;
 	

@@ -40,9 +40,9 @@ public class Instruction implements Serializable {
 
 
     private boolean isValidInstruction(String decision) {
-	boolean notIsNull = decision.compareTo("null") != 0;
-	boolean notIsEmpty = decision.compareTo("") != 0;
-	return notIsNull && notIsEmpty;
+	boolean isNotNull = decision.compareTo("null") != 0;
+	boolean isNotEmpty = decision.compareTo("") != 0;
+	return isNotNull && isNotEmpty;
     }
 
     /**

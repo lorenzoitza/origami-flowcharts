@@ -2,7 +2,7 @@ package origami.administration.funtionality.code;
 
 import origami.graphics.MainWindow;
 
-public class GDBCodeFormatter extends FormatInstructions {
+public class GDBCodeFormatter extends AbstractInstructionFormatter {
 
     private final String IF_IDENTIFIER = "A5i9I";
 

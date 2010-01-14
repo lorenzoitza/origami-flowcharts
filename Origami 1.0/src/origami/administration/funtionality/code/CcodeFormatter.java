@@ -2,7 +2,7 @@ package origami.administration.funtionality.code;
 
 import java.util.Vector;
 
-public class CcodeFormatter extends FormatInstructions {
+public class CcodeFormatter extends AbstractInstructionFormatter {
 
     public CcodeFormatter(Vector<String> codeOfFigure,
 	    Vector<String> TableOfVariable) {
@@ -62,7 +62,7 @@ public class CcodeFormatter extends FormatInstructions {
 		codeOfFigure.elementAt(indexCodeOfFigure).substring(0,
 			indexCharacterL);
 
-	removeLinesRepeated(dataSeparate);
+	removeRepeatedLines(dataSeparate);
 
 	codeOfFigure.removeElementAt(indexCodeOfFigure);
 
@@ -166,7 +166,7 @@ public class CcodeFormatter extends FormatInstructions {
 
 	String formattedLine = scanDefault + dataToEmbed + ")";
 
-	if (!isDeclarada(currentFormattedData)) {
+	if (!isDeclared(currentFormattedData)) {
 	    this.TableOfVariable.add(currentFormattedData);
 	    currentInstructionFormat.add(currentFormattedData);
 	}
@@ -183,7 +183,7 @@ public class CcodeFormatter extends FormatInstructions {
 
 	String formattedLine = scanFormat + dataToEmbed + ");";
 
-	if (!isDeclarada(currentDataInput)) {
+	if (!isDeclared(currentDataInput)) {
 	    this.TableOfVariable.add(currentDataInput);
 	    currentInstructionFormat.add(currentDataInput);
 	}
@@ -199,7 +199,7 @@ public class CcodeFormatter extends FormatInstructions {
 
 	String fromattedLine = scanFormat + dataToEmbed + ");";
 
-	if (!isDeclarada(currentDataInput)) {
+	if (!isDeclared(currentDataInput)) {
 	    this.TableOfVariable.add(currentDataInput);
 	    currentInstructionFormat.add(currentDataInput);
 	}
@@ -217,7 +217,7 @@ public class CcodeFormatter extends FormatInstructions {
 
 	String fromattedLine = scanFormat + dataToEmbed + ");";
 
-	if (!isDeclarada(currentDataInput)) {
+	if (!isDeclared(currentDataInput)) {
 	    this.TableOfVariable.add(currentDataInput);
 	    currentInstructionFormat.add(currentDataInput);
 	}
@@ -235,27 +235,27 @@ public class CcodeFormatter extends FormatInstructions {
 	    data = data.substring(1);
 	}
 
-	toPrint.add(addPrinstSentence(data));
+	toPrint.add(addPrintSentence(data));
 
 	return toPrint;
     }
 
-    private String addPrinstSentence(String data) {
-	String print = "printf(" + "\" ";
+    private String addPrintSentence(String data) {
+	String printTag = "printf(" + "\" ";
 	
-	String integer = "%d ";
+	String integerTag = "%d ";
 	
-	String character = "%c ";
+	String characterTag = "%c ";
 	
-	String flout = "%f ";
+	String floatTag = "%f ";
 	
-	String separator = ",";
+	String separatorTag = ",";
 	
 	String close = ");";
 	
 	String datos[] = data.split(",");
 	
-	String instruction = print;
+	String instruction = printTag;
 
 	String endOfInstruction = "";
 
@@ -263,14 +263,14 @@ public class CcodeFormatter extends FormatInstructions {
 	    String tipo = this.getTypeOfData(datos[i]);
 	    if (tipo != null) {
 		if (tipo == "int") {
-		    instruction = instruction + integer;
+		    instruction = instruction + integerTag;
 		} else if (tipo == "float") {
-		    instruction = instruction + flout;
+		    instruction = instruction + floatTag;
 		} else {
-		    instruction = instruction + character;
+		    instruction = instruction + characterTag;
 		}
 		endOfInstruction =
-			endOfInstruction + separator + datos[i];
+			endOfInstruction + separatorTag + datos[i];
 	    } else {
 		if (datos[i].contains("\"")) {
 		    instruction =
@@ -279,7 +279,7 @@ public class CcodeFormatter extends FormatInstructions {
 					    datos[i].length() - 1);
 		} else {
 		    endOfInstruction =
-			    endOfInstruction + separator + datos[i];
+			    endOfInstruction + separatorTag + datos[i];
 		}
 	    }
 	}

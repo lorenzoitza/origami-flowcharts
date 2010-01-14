@@ -3,7 +3,7 @@ package origami.administration.funtionality.code;
 import java.util.Vector;
 
 
-public abstract class FormatInstructions {
+public abstract class AbstractInstructionFormatter {
 
     protected Vector<String> codeOfFigure;
 
@@ -15,7 +15,7 @@ public abstract class FormatInstructions {
     
     protected String dataOutput = "\\p";
     
-    public FormatInstructions(){
+    public AbstractInstructionFormatter(){
 		this.codeOfFigure = new Vector<String>();
 		this.TableOfVariable = new Vector<String>();
 		this.sourceCode = new String();
@@ -35,45 +35,45 @@ public abstract class FormatInstructions {
     	this.codeOfFigure = codeOfFigure;
     }
     
-    protected boolean isDeclarada(String data) {
+    protected boolean isDeclared(String dataToBeChecked) {
 	for (int index = 0; index < this.TableOfVariable.size(); index++) {
-	    if (this.TableOfVariable.elementAt(index).contains(data)) {
+	    if (this.TableOfVariable.elementAt(index).contains(dataToBeChecked)) {
 		return true;
 	    }
 	}
 	return false;
     }
     
-    protected void removeLinesRepeated(Vector<String> lineas) {
-	String aux, aux2, aux3;
-	int pos;
-	for (int i = 0; i < lineas.size(); i++) {
-	    aux = lineas.elementAt(i);
-	    while (aux.startsWith(" ")) {
-		aux = aux.substring(1);
+    protected void removeRepeatedLines(Vector<String> lineas) {
+	String temporalLine, temporalLine_, _temporalLine;
+	int position;
+	for (int indexElement = 0; indexElement < lineas.size(); indexElement++) {
+	    temporalLine = lineas.elementAt(indexElement);
+	    while (temporalLine.startsWith(" ")) {
+		temporalLine = temporalLine.substring(1);
 	    }
-	    pos = aux.indexOf(" ");
-	    while (pos != -1) {
-		aux3 = aux.substring(pos + 1);
-		aux = aux.substring(0, pos) + aux3;
-		pos = aux.indexOf(" ");
+	    position = temporalLine.indexOf(" ");
+	    while (position != -1) {
+		_temporalLine = temporalLine.substring(position + 1);
+		temporalLine = temporalLine.substring(0, position) + _temporalLine;
+		position = temporalLine.indexOf(" ");
 	    }
 	    for (int j = 0; j < codeOfFigure.size(); j++) {
-		aux2 = codeOfFigure.elementAt(j);
-		while (aux2.startsWith(" ")) {
-		    aux2 = aux2.substring(1);
+		temporalLine_ = codeOfFigure.elementAt(j);
+		while (temporalLine_.startsWith(" ")) {
+		    temporalLine_ = temporalLine_.substring(1);
 		}
-		pos = aux2.indexOf(" ");
-		while (pos != -1) {
-		    aux3 = aux2.substring(pos + 1);
-		    aux2 = aux2.substring(0, pos) + aux3;
-		    pos = aux2.indexOf(" ");
+		position = temporalLine_.indexOf(" ");
+		while (position != -1) {
+		    _temporalLine = temporalLine_.substring(position + 1);
+		    temporalLine_ = temporalLine_.substring(0, position) + _temporalLine;
+		    position = temporalLine_.indexOf(" ");
 		}
-		if (aux.compareTo(aux2) == 0) {
-		    if (aux.indexOf("cin>>") == -1
-			    && aux.indexOf("scanf(") == -1) {
-			lineas.remove(i);
-			i--;
+		if (temporalLine.compareTo(temporalLine_) == 0) {
+		    if (temporalLine.indexOf("cin>>") == -1
+			    && temporalLine.indexOf("scanf(") == -1) {
+			lineas.remove(indexElement);
+			indexElement--;
 			break;
 		    }
 		}
