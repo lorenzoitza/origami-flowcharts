@@ -3,7 +3,7 @@ package origami.graphics.listeners;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
-import origami.graphics.Help42.HelpWindow;
+import origami.graphics.help.HelpWindow;
 
 public class ViewHelpContentsListener implements SelectionListener{
 

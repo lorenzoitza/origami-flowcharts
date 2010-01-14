@@ -1,4 +1,4 @@
-package origami.graphics.Help42;
+package origami.graphics.help;
 
 import org.eclipse.swt.widgets.*;
 import org.eclipse.swt.SWT;
