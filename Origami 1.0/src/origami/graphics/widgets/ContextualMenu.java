@@ -173,7 +173,7 @@ public class ContextualMenu{
     }
     
     public void setEnabledEditMenuItems(boolean isEnabled){
-	if(ApplicationState._diagramAdministrator.diagrama.size()==0){
+	if(ApplicationState._diagramAdministrator.diagram.size()==0){
 	    pasteMenuItem.setEnabled(false);
 	}
 	else{

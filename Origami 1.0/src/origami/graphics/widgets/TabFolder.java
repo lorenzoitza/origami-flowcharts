@@ -82,9 +82,9 @@ public class TabFolder {
 	for (int index = getTabItem().getLeaf().getDiagrama().size() - 1; index > 0; index--) {
 	    getTabItem().getLeaf().getDiagrama().removeElementAt(index);
 	}
-	for (int index = 1; index < diagrama.elementAt(pos).diagrama.size(); index++) {
+	for (int index = 1; index < diagrama.elementAt(pos).diagram.size(); index++) {
 	    getTabItem().getLeaf().getDiagrama().add(
-		    diagrama.elementAt(pos).diagrama.elementAt(index));
+		    diagrama.elementAt(pos).diagram.elementAt(index));
 	}
 	getAdminSelection().setFiguraSeleccionada(seleccion);
 	getTabItem().getLeaf().addFigure();

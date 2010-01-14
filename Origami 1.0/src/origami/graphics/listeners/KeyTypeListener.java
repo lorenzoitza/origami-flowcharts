@@ -94,7 +94,7 @@ public class KeyTypeListener implements KeyListener{
 		       }
 		       MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
 		       MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
-		       //MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+		       //MainWindow.getComponents().tabFolder.getHoja().guardarRetroceso();
 		}
        break;
 	case 127:
@@ -126,16 +126,16 @@ public class KeyTypeListener implements KeyListener{
 			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama().add(fin);
 			fin.setMessage("  Fin");
 			BaseDeDiagrama.getInstance().resetScrollBar();
-			//MainWindow.getComponents()._diagrams.getHoja().resetScrollBar();
+			//MainWindow.getComponents().tabFolder.getHoja().resetScrollBar();
 			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().addFigure();
-			//MainWindow.getComponents()._diagrams.getHoja().guardarRetroceso();
+			//MainWindow.getComponents().tabFolder.getHoja().guardarRetroceso();
 			MainWindow.getComponents().tabFolder.getTabItem().getLeaf().guardarRetroceso();
 			MainWindow.getComponents().tabFolder.getTabItem().getSave().setSave(false);
 		}
 		break;
 	case 16777229:
 //		Instruccion codigo7 = new Instruccion();
-//		codigo7.main(MainWindow.getComponents()._diagrams.getHoja().getDiagrama());
+//		codigo7.main(MainWindow.getComponents().tabFolder.getHoja().getDiagrama());
 //		codigo7.createWindow(MainWindow.display);
 		break;
 	case 16777230:
@@ -161,7 +161,7 @@ public class KeyTypeListener implements KeyListener{
 			}
 			if(!CustomMenu.getConsoleMenuItem().getSelection()){
 			    CustomMenu.getConsoleMenuItem().setSelection(true);
-				MainWindow.getComponents().restoreConsole(true);
+				MainWindow.getComponents().maximizeConsole(true);
 			}
 		}
 		break;
@@ -211,7 +211,7 @@ public class KeyTypeListener implements KeyListener{
 	}
 	else if(key+key2 == 262262){
 		if(ApplicationState._selectionAdministrator.getFiguraSeleccionada()!=-1){
-			if(ApplicationState._diagramAdministrator.diagrama.size()>0){
+			if(ApplicationState._diagramAdministrator.diagram.size()>0){
 			    new ContextualMenuActions().Pegar(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(ApplicationState._selectionAdministrator.getFiguraSeleccionada()));
 				MainWindow.getComponents().customToolBar.disableToolBar();
 			}

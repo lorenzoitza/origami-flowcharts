@@ -273,21 +273,21 @@ public class CustomToolBar {
 		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		    toolItems.get(index).setEnabled(true);
 		}
-		if (ApplicationState._diagramAdministrator.diagrama.size() == 0) {
+		if (ApplicationState._diagramAdministrator.diagram.size() == 0) {
 		    toolItems.get(paste).setEnabled(false);
 		}
 	    } else {
 		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
 		    toolItems.get(index).setEnabled(false);
 		}
-		if (ApplicationState._diagramAdministrator.diagrama.size() != 0) {
+		if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
 		    toolItems.get(paste).setEnabled(true);
 		}
 	    }
 	}
     }
 
-    public void setEnabledStepByStepToolItems(boolean disable) {
+    public void disableComponentStepByStep(boolean disable) {
 	int back=3;
 	int cut=4;
 	int copy=5;
@@ -322,7 +322,7 @@ public class CustomToolBar {
 	}
     }
 
-    public void setEnableCompiledToolItems(boolean isEnabled) {
+    public void disableAll(boolean disable) {
 	int back=3;
 	int generateCCode=8;
 	int generateCppCode=9;
@@ -332,21 +332,16 @@ public class CustomToolBar {
 	int exportCodeCpp=15;
 	int exportExe=16;
 	
-	toolItems.get(back).setEnabled(isEnabled);
-	toolItems.get(generateCCode).setEnabled(isEnabled);
-	toolItems.get(generateCppCode).setEnabled(isEnabled);
-	toolItems.get(execute).setEnabled(isEnabled);
-	toolItems.get(executeStepByStep).setEnabled(isEnabled);
-	toolItems.get(exportCodeC).setEnabled(isEnabled);
-	toolItems.get(exportCodeCpp).setEnabled(isEnabled);
-	toolItems.get(exportExe).setEnabled(isEnabled);
+	toolItems.get(back).setEnabled(disable);
+	toolItems.get(generateCCode).setEnabled(disable);
+	toolItems.get(generateCppCode).setEnabled(disable);
+	toolItems.get(execute).setEnabled(disable);
+	toolItems.get(executeStepByStep).setEnabled(disable);
+	toolItems.get(exportCodeC).setEnabled(disable);
+	toolItems.get(exportCodeCpp).setEnabled(disable);
+	toolItems.get(exportExe).setEnabled(disable);
     }
 
-    public void setEnableSaveToolItem(boolean isEnable){
-	int saveItem = 2;
-	toolItems.get(saveItem).setEnabled(isEnable);
-    }
-    
     public ArrayList<ToolItem> getToolItems() {
 	return toolItems;
     }

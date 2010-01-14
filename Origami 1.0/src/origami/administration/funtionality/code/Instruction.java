@@ -40,16 +40,16 @@ public class Instruction implements Serializable {
 
 
     private boolean isValidInstruction(String decision) {
-	boolean isNotNull = decision.compareTo("null") != 0;
-	boolean isNotEmpty = decision.compareTo("") != 0;
-	return isNotNull && isNotEmpty;
+	boolean notIsNull = decision.compareTo("null") != 0;
+	boolean notIsEmpty = decision.compareTo("") != 0;
+	return notIsNull && notIsEmpty;
     }
 
     /**
      * Este metodo recorre el vector de figuras y agrega cada instruccion de
      * cada figura a un vector de string.
      * 
-     * @param diagrama
+     * @param diagram
      * @param x
      * @return int
      */

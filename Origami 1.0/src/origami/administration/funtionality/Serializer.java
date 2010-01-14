@@ -14,8 +14,9 @@ public class Serializer {
 
     public void writeFile(CustomFile seriliazableFile, String fileName)
 	    throws IOException {
-	
+
 	FileOutputStream fileStream = new FileOutputStream(fileName);
+	System.out.println(fileName);
 
 	ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
 

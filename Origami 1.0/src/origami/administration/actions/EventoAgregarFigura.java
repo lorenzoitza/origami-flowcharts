@@ -178,7 +178,7 @@ public class EventoAgregarFigura{
 		if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure && tab.getTabItem().getLeaf().getFigureIndexOf(j) instanceof EllipseFigure){
 			if(start.x >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-15 && start.x <= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+15 && 
 					start.y >= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y <= tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
-				tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
+				tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
 				tab.getTabItem().getSave().setSave(false);
 				tab.getTabItem().getInformation().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 				tab.getTabItem().getInformation().setFigura(fig);
@@ -192,7 +192,7 @@ public class EventoAgregarFigura{
 		}
 		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x + tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().width-1>= start.x && start.x>= tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+1 && 
 				tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y-1 >=start.y &&start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y+tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().height+1){
-			tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
+			tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
 			tab.getTabItem().getSave().setSave(false);
 			tab.getTabItem().getInformation().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 			tab.getTabItem().getInformation().setFigura(fig);
@@ -206,7 +206,7 @@ public class EventoAgregarFigura{
 		else if(tab.getTabItem().getLeaf().getFigureIndexOf(i) instanceof EllipseFigure ){ 
 			if(start.x>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x-75 && start.x<=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().x+75 
 					&& start.y>=tab.getTabItem().getLeaf().getFigureIndexOf(i).getBounds().y && start.y<=tab.getTabItem().getLeaf().getFigureIndexOf(j).getBounds().y){
-				tab.getTabItem().getLeaf().getAdminDiagrama().ordenar(i, fig);
+				tab.getTabItem().getLeaf().getAdminDiagrama().orderDiagram(i, fig);
 				tab.getTabItem().getSave().setSave(false);
 				tab.getTabItem().getInformation().setInformacion("/A - Se agrego una nueva figura al diagrama\n");
 				tab.getTabItem().getInformation().setFigura(fig);

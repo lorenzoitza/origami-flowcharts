@@ -157,7 +157,7 @@ public class StepByStepComponents {
     		WindowWidgets.tabFolder.getAdminSelection().setFiguraSeleccionada(-1);
     		WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    		componentes.customToolBar.setEnabledStepByStepToolItems(disable);
+    		componentes.customToolBar.disableComponentStepByStep(disable);
     		
     		figuresToolBar.setEnabledAllButtons(!disable);
     		
@@ -168,7 +168,7 @@ public class StepByStepComponents {
     		setPasoAPaso(false);
     		WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    		componentes.customToolBar.setEnabledStepByStepToolItems(disable);
+    		componentes.customToolBar.disableComponentStepByStep(disable);
     		
     		figuresToolBar.setEnabledAllButtons(!disable);
     

@@ -252,63 +252,63 @@ public class EventoCambiarCursor{
 		String dato = "null", defaul= "Doble Clic Para Agregar Instrucciones";
 		String subStr;
 		int i;		
-		for(int k=0; k<diagrama.diagrama.size(); k++){
-			if(diagrama.diagrama.elementAt(k) instanceof DecisionFigure){
-				DecisionFigure a = (DecisionFigure)diagrama.diagrama.elementAt(k);
+		for(int k=0; k<diagrama.diagram.size(); k++){
+			if(diagrama.diagram.elementAt(k) instanceof DecisionFigure){
+				DecisionFigure a = (DecisionFigure)diagrama.diagram.elementAt(k);
 				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
 				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(2,subStr.length());
 					subStr="Si"+subStr;
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof ForFigure){
-				ForFigure a = (ForFigure)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagram.elementAt(k) instanceof ForFigure){
+				ForFigure a = (ForFigure)diagrama.diagram.elementAt(k);
 				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
 				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(3,subStr.length());
 					subStr="Para"+subStr;
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof WhileFigure){
-				WhileFigure a = (WhileFigure)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagram.elementAt(k) instanceof WhileFigure){
+				WhileFigure a = (WhileFigure)diagrama.diagram.elementAt(k);
 				dato = a.instructionComposed.simpleInstructionList.elementAt(0).simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
 				if(dato.compareToIgnoreCase("null")!=0 && a.instructionComposed.simpleInstructionList.size() > 1){
 					subStr=subStr.substring(5,subStr.length());
 					subStr="Mientras"+subStr;
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof SentenceFigure){
-				SentenceFigure a = (SentenceFigure)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagram.elementAt(k) instanceof SentenceFigure){
+				SentenceFigure a = (SentenceFigure)diagrama.diagram.elementAt(k);
 				dato = a.instruction.simpleInstruction;
 				i = dato.length();
 				subStr = dato.substring(0, i-1);
 				if(dato != "null" && dato.compareTo("null")!=0){
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(subStr));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(subStr));
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof OutputFigure){
-				OutputFigure a = (OutputFigure)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagram.elementAt(k) instanceof OutputFigure){
+				OutputFigure a = (OutputFigure)diagrama.diagram.elementAt(k);
 				dato = "";
 				String[] variables2 = new String[50];
 				String[] variables = new String[50];
@@ -335,24 +335,24 @@ public class EventoCambiarCursor{
 					}
 				}
 				if(dato.length()>0 && !(dato.startsWith("null")) && dato.compareTo("null")!=0){
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(dato));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(dato));
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
-			else if(diagrama.diagrama.elementAt(k) instanceof InputFigure){
-				InputFigure a = (InputFigure)diagrama.diagrama.elementAt(k);
+			else if(diagrama.diagram.elementAt(k) instanceof InputFigure){
+				InputFigure a = (InputFigure)diagrama.diagram.elementAt(k);
 				dato = a.instruction.simpleInstruction;
 				dato = dato.replaceAll(";", ",");
 				if(dato.length()>0){
 					dato = dato.substring(0, dato.length()-1);
 				}
 				if(!(dato.startsWith("nul")) && dato.compareTo("")!=0){
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(dato));	
+					diagrama.diagram.elementAt(k).setToolTip(new Label(dato));	
 				}
 				else{
-					diagrama.diagrama.elementAt(k).setToolTip(new Label(defaul));
+					diagrama.diagram.elementAt(k).setToolTip(new Label(defaul));
 				}
 			}
 		}

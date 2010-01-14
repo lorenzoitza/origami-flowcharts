@@ -55,14 +55,14 @@ public class CustomLeaf {
 	}
 	public void enabledCustomLeaf(){
 	    this.chart.setOpaque(true);
-	    if(diagrama.diagrama.size()==0){
+	    if(diagrama.diagram.size()==0){
 		CircleFigure inicio = new CircleFigure();
 		inicio.setMessage(" Inicio");
 		CircleFigure fin = new CircleFigure();
 		fin.setMessage("  Fin");
-		diagrama.diagrama.add(inicio);
-		diagrama.diagrama.add(fin);
-		new ContextualMenuListener(diagrama.diagrama.elementAt(0));
+		diagrama.diagram.add(inicio);
+		diagrama.diagram.add(fin);
+		new ContextualMenuListener(diagrama.diagram.elementAt(0));
 		BaseDeDiagrama.getInstance().resetScrollBar();
 		addPropiedades();
 	 }
@@ -87,14 +87,14 @@ public class CustomLeaf {
 		else{
 			this.pasoInicio =false;
 		}
-		diagrama.diagrama.elementAt(paso).setPasoAPaso(true);
+		diagrama.diagram.elementAt(paso).setPasoAPaso(true);
 		addFigure();
 	}
 	
 	public void addFigure(){
 		cambiarInicio();
-		chart.agregarFiguras(diagrama.diagrama,chart);
-		connection.crearConexiones(diagrama.diagrama);
+		chart.agregarFiguras(diagrama.diagram,chart);
+		connection.crearConexiones(diagrama.diagram);
 		chart.agregarConexiones(connection.getConexion(),chart);
 		if(MainWindow.getComponents().getByStepComponents().getPaso()!=null && MainWindow.getComponents().getByStepComponents().getPaso().colaConexiones.size()!=0
 				&& MainWindow.getComponents().getByStepComponents().getPaso().a.GetId() == tab.getSelectedTabItemId()){
@@ -107,7 +107,7 @@ public class CustomLeaf {
 	 * Mover metodo
 	 */
 	public void guardarRetroceso(){
-		tab.addUndo(diagrama.diagrama);
+		tab.addUndo(diagrama.diagram);
 	}
 	public void addPropiedades(){
 		new AddFigureListener(chart,seleccion,tab);
@@ -117,22 +117,22 @@ public class CustomLeaf {
 		return connection;
 	}
 	public int getSizeDiagrama(){
-		return diagrama.diagrama.size();
+		return diagrama.diagram.size();
 	}
 	public Figura getFigureIndexOf(int i){
-		return diagrama.diagrama.elementAt(i);
+		return diagrama.diagram.elementAt(i);
 	}
 	public void removeFigureIndexOf(int i){
-		 diagrama.diagrama.removeElementAt(i);
+		 diagrama.diagram.removeElementAt(i);
 	}
 	public void removeFigureAllElements(){
-		diagrama.diagrama.removeAllElements();
+		diagrama.diagram.removeAllElements();
 	}
 	public void addFigureIndexOf(int i,Figura figura){
-		diagrama.diagrama.add(i, figura);
+		diagrama.diagram.add(i, figura);
 	}
 	public void insertFigureIndexOf(Figura figura,int i){
-		diagrama.diagrama.insertElementAt(figura, i);
+		diagrama.diagram.insertElementAt(figura, i);
 	}
 	public PaintDiagram getDibujarDiagrama(){
 		return chart;
@@ -141,17 +141,17 @@ public class CustomLeaf {
 	 * Mover metodo
 	 */
 	public void openFile(String archivo,DiagramFileManager ser){
-		Rectangle r = diagrama.diagrama.firstElement().getBounds();
-        	diagrama.diagrama.removeAllElements();
+		Rectangle r = diagrama.diagram.firstElement().getBounds();
+        	diagrama.diagram.removeAllElements();
         	chart.removeAll();
         	CustomFile aux = ser.recoverDiagram(archivo);
-        	diagrama.diagrama = aux.getDiagrama();
+        	diagrama.diagram = aux.getDiagrama();
         	tab.getTabItem().getInformation().setInfo(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
         	BaseDeDiagrama.getInstance().resetScrollBar();
-        	diagrama.diagrama.firstElement().setBounds(r);
-        	chart.agregarFiguras(diagrama.diagrama,chart);
-        	connection.crearConexiones(diagrama.diagrama);
+        	diagrama.diagram.firstElement().setBounds(r);
+        	chart.agregarFiguras(diagrama.diagram,chart);
+        	connection.crearConexiones(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
 	}
 	//este metodo es usado cuando no hay tabs y por lo tanto se llamaba a addDiagram el cual
@@ -165,20 +165,20 @@ public class CustomLeaf {
 		}
 		chart.setOpaque(true);
         	Rectangle r = new Rectangle(1090,100,80,50);
-        	diagrama.diagrama.removeAllElements();
+        	diagrama.diagram.removeAllElements();
         	chart.removeAll();
         	CustomFile aux = ser.recoverDiagram(archivo);
-        	diagrama.diagrama = aux.getDiagrama();
+        	diagrama.diagram = aux.getDiagrama();
         	tab.getTabItem().getInformation().setInfo(aux.getInfo());
         	tab.getTabItem().getInformation().upDateTime();
         	BaseDeDiagrama.getInstance().resetScrollBar();
-        	diagrama.diagrama.firstElement().setBounds(r);
-        	chart.agregarFiguras(diagrama.diagrama,chart);
-        	connection.crearConexiones(diagrama.diagrama);
+        	diagrama.diagram.firstElement().setBounds(r);
+        	chart.agregarFiguras(diagrama.diagram,chart);
+        	connection.crearConexiones(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
 	}
 	public Vector<Figura> getDiagrama(){
-		return diagrama.diagrama;
+		return diagrama.diagram;
 	}
 	public AdminDiagrama getAdminDiagrama(){
 		return diagrama;
@@ -189,12 +189,12 @@ public class CustomLeaf {
 	public void cambiarInicio(){
 		CircleFigure inicio = new CircleFigure();
 		inicio.setMessage(" Inicio");
-		inicio.setLocation(diagrama.diagrama.elementAt(0).getLocation());
-		diagrama.diagrama.removeElementAt(0);
-		diagrama.diagrama.insertElementAt(inicio,0);
-		new ContextualMenuListener(diagrama.diagrama.elementAt(0));
+		inicio.setLocation(diagrama.diagram.elementAt(0).getLocation());
+		diagrama.diagram.removeElementAt(0);
+		diagrama.diagram.insertElementAt(inicio,0);
+		new ContextualMenuListener(diagrama.diagram.elementAt(0));
 		if(pasoInicio){
-			diagrama.diagrama.elementAt(0).setPasoAPaso(true);
+			diagrama.diagram.elementAt(0).setPasoAPaso(true);
 		}
 	}
 

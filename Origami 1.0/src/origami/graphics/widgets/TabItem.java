@@ -82,7 +82,7 @@ public class TabItem extends CTabItem {
 	}
 	posicionRetroceso++;
 	retroseso.add(new AdminDiagrama(selec));
-	retroseso.elementAt(posicionRetroceso).diagrama.removeAllElements();
+	retroseso.elementAt(posicionRetroceso).diagram.removeAllElements();
 	for (int index = 0; index < diagrama.size(); index++) {
 	    if (diagrama.elementAt(index) instanceof DecisionFigure) {
 		DecisionFigure copia = new DecisionFigure();
@@ -93,7 +93,7 @@ public class TabItem extends CTabItem {
 			    .add(actual.instructionComposed.simpleInstructionList
 				    .elementAt(element));
 		}
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof ForFigure) {
 		ForFigure copia = new ForFigure();
 		ForFigure actual = (ForFigure) diagrama.elementAt(index);
@@ -103,7 +103,7 @@ public class TabItem extends CTabItem {
 			    .add(actual.instructionComposed.simpleInstructionList
 				    .elementAt(element));
 		}
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof WhileFigure) {
 		WhileFigure copia = new WhileFigure();
 		WhileFigure actual = (WhileFigure) diagrama.elementAt(index);
@@ -113,27 +113,27 @@ public class TabItem extends CTabItem {
 			    .add(actual.instructionComposed.simpleInstructionList
 				    .elementAt(element));
 		}
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof SentenceFigure) {
 		SentenceFigure copia = new SentenceFigure();
 		SentenceFigure actual = (SentenceFigure) diagrama.elementAt(index);
 		copia.instruction.simpleInstruction =
 			actual.instruction.simpleInstruction;
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof InputFigure) {
 		InputFigure copia = new InputFigure();
 		InputFigure actual = (InputFigure) diagrama.elementAt(index);
 		copia.instruction.simpleInstruction =
 			actual.instruction.simpleInstruction;
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else if (diagrama.elementAt(index) instanceof OutputFigure) {
 		OutputFigure copia = new OutputFigure();
 		OutputFigure actual = (OutputFigure) diagrama.elementAt(index);
 		copia.instruction.simpleInstruction =
 			actual.instruction.simpleInstruction;
-		retroseso.elementAt(posicionRetroceso).diagrama.add(copia);
+		retroseso.elementAt(posicionRetroceso).diagram.add(copia);
 	    } else {
-		retroseso.elementAt(posicionRetroceso).diagrama.add(diagrama
+		retroseso.elementAt(posicionRetroceso).diagram.add(diagrama
 			.elementAt(index));
 	    }
 	}

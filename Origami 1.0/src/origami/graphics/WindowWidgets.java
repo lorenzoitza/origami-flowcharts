@@ -218,7 +218,7 @@ public class WindowWidgets {
     }
 	
     public void disableAll(boolean isEnabled) {
-	customToolBar.setEnabledStepByStepToolItems(isEnabled);
+	customToolBar.disableComponentStepByStep(isEnabled);
 	    
 	figuresToolBar.setEnabledAllButtons(isEnabled);
 	
@@ -228,7 +228,7 @@ public class WindowWidgets {
     }
     
     public void setEnabledSaveItems(boolean isEnable) {
-	customToolBar.setEnableSaveToolItem(isEnable);
+	customToolBar.disableComponentStepByStep(isEnable);
 	customMenu.setEnabledSaveMenuItem(isEnable);
     }
     
