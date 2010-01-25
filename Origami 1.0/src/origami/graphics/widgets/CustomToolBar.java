@@ -21,6 +21,7 @@ import origami.graphics.listeners.ExportToCPPListener;
 import origami.graphics.listeners.ExportToEXEListener;
 import origami.graphics.listeners.NewDiagramListener;
 import origami.graphics.listeners.OpenDiagramListener;
+import origami.graphics.listeners.RunWatch;
 import origami.graphics.listeners.SaveDiagramListener;
 import origami.graphics.listeners.StepByStepListener;
 import origami.graphics.listeners.ViewCodeCListener;
@@ -181,6 +182,12 @@ public class CustomToolBar {
 	toolItem.setImage(ImageLoader.getImage("run.png"));
 	toolItem.setToolTipText("Compilar/Ejecutar");
 	toolItem.addSelectionListener(new CompileListener());
+	toolItems.add(toolItem);
+	
+	toolItem = new ToolItem(toolbar, SWT.PUSH);
+	toolItem.setImage(ImageLoader.getImage("run.png"));
+	toolItem.setToolTipText("Watch");
+	toolItem.addSelectionListener(new RunWatch());
 	toolItems.add(toolItem);
 
 	toolItem = new ToolItem(toolbar, SWT.PUSH);
