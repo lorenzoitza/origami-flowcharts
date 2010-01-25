@@ -115,7 +115,7 @@ public class watch {
 //	    }
 //    }
 
-    public void main(){
+    /*public void main(){
     	watch v=new watch();
     	v.insertString("suma Old value = 3 New value = 5");
     	v.insertString("multiplicacion Old value = 3 New value = 5");
@@ -123,15 +123,15 @@ public class watch {
     	v.insertString("suma Old value = 4 New value = 6"); 
     	v.insertString("multiplicacion Old value = 6 New value = 9"); 
     	v.insertString("multiplicacion Old value = 9 New value = 1"); 
-    	shell.open();
-	while (!shell.isDisposed()) {
+    	//shell.open();
+	while (!shell1.isDisposed()) {
 
 	    if (!MainWindow.shell.getDisplay().readAndDispatch()) {
 
 		MainWindow.shell.getDisplay().sleep();
 	    }
 	}
-    }
+    }*/
         
     public String getNewValue(String l){
 		String newValue="";
