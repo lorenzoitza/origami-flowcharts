@@ -30,7 +30,7 @@ public class ChangeCursorVerification{
     
     private IFigure iFigure;
     
-    public final Cursor[] cursor = ApplicationState.cursor;
+    public Cursor[] cursor = ApplicationState.cursor;
 	
     public TabFolder tabFolder;
     

@@ -61,7 +61,7 @@ public class InputFigure extends FigureStructure {
     }
 
     private boolean isInstruction() {
-	boolean isNull = instruction.getInstruccionSimple() == "null";
+	boolean isNull = instruction.getInstruccionSimple().compareTo("null") == 0;
 
 	boolean isEmpty = instruction.getInstruccionSimple().isEmpty();
 

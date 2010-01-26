@@ -286,7 +286,6 @@ public class KeyTypeListener implements KeyListener {
 		    new Cursor(MainWindow.display, ImageLoader.getImage(figure)
 			    .getImageData(), 0, 0);
 	    new AddFigureLogic().changeCursotTo(figure);
-	    new AddFigureLogic().disableCursor();
 	}
 
     }

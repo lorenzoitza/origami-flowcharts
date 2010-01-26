@@ -25,7 +25,7 @@ public class AddSentenceFigureListener implements SelectionListener{
     public void widgetSelected(SelectionEvent event) {
 	ApplicationState.cursor[0] = new Cursor(display, ImageLoader.getImage("cursorProceso.png").getImageData(), 0, 0);
 	new AddFigureLogic().addSentence();
-	new AddFigureLogic().disableCursor();
+	//new AddFigureLogic().disableCursor();
     }
 
 }

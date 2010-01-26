@@ -210,9 +210,12 @@ public class AddFigureVerification{
     
     private void changeCursor(){
 	ApplicationState.mainFigure = null;
+	ApplicationState.cursor[0]=new Cursor(null, mainCursor);
+	
 	Cursor oldCursor = cursor[0];
 	cursor[0] = new Cursor(null, mainCursor);
-	tabFolder.getTabItem().getLeaf().getChart().setCursor(cursor[0]);
+//	ApplicationState.cursor[0]=cursor[0];
+	tabFolder.getTabItem().getLeaf().getChart().setCursor(ApplicationState.cursor[0]);
 	if (oldCursor != null){
 	    oldCursor.dispose();
 	}

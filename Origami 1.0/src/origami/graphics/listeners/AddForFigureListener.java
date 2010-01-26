@@ -25,7 +25,7 @@ public class AddForFigureListener implements SelectionListener{
     public void widgetSelected(SelectionEvent event) {
 	ApplicationState.cursor[0] = new Cursor(display, ImageLoader.getImage("cursorFor.png").getImageData(), 0, 0);
 	new AddFigureLogic().addFor();
-	new AddFigureLogic().disableCursor();
+	//new AddFigureLogic().disableCursor();
     }
 
 }

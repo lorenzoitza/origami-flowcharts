@@ -58,6 +58,7 @@ public class CustomLeaf {
 		MainWindow.shell.layout();
 		DiagramStructure.getInstance().resetScrollBar();
 	 }
+	 tab.getTabItem().getLeaf().getChart().setCursor(ApplicationState.cursor[0]);
 	}
 	
 	/**

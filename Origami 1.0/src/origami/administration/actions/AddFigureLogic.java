@@ -13,11 +13,11 @@ import origami.graphics.figures.WhileFigure;
 
 public class AddFigureLogic {
     
-    public void disableCursor() {
-	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart().disableCursor(
-	WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama(),
-	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart());
-    }
+//    public void disableCursor() {
+//	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart().disableCursor(
+//	WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama(),
+//	WindowWidgets.tabFolder.getTabItem().getLeaf().getChart());
+//    }
     
     public void addInput() {
 	InputFigure inputFigure = new InputFigure();
