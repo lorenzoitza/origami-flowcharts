@@ -44,7 +44,11 @@ public class ManagerCodeFormat {
 	    	format.applyFormat();
 	    	this.instructionsFormat = format.getInstructionsFormat();
 	}
-	
+	public void formatCodeJava(){
+	    format = new JavaCodeFormatter();
+	    format.applyFormat();
+	    this.instructionsFormat = format.getInstructionsFormat();
+	}
 	public String getInstructionsFormat(){
 		return instructionsFormat;
 	}

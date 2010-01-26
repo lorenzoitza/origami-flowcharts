@@ -232,7 +232,15 @@ public class CustomMenu {
 	optionsMenuItem.setText("Opciones ");
 	optionsMenuItem.setMenu(optionsMenu);
 	
-	buildCodeMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
+	Menu optionsMenu2 = new Menu(shell, SWT.DROP_DOWN);
+	
+	MenuItem aa = new MenuItem(optionsMenu, SWT.CASCADE);
+	aa.setText("aaaaa");
+	aa.setMenu(optionsMenu2);
+	
+	
+	
+	buildCodeMenuItem = new MenuItem(optionsMenu2, SWT.PUSH);
 	buildCodeMenuItem.setText("Codigo Fuente C        F4");
 	buildCodeMenuItem.addSelectionListener(new ViewCodeCListener());
 	
