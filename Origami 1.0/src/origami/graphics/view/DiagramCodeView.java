@@ -1,10 +1,16 @@
 package origami.graphics.view;
 
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -14,6 +20,13 @@ import org.eclipse.swt.widgets.ToolBar;
 import origami.administration.functionality.DiagramExporter;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
+import origami.graphics.listeners.ViewCodeBasicListener;
+import origami.graphics.listeners.ViewCodeCListener;
+import origami.graphics.listeners.ViewCodeCppListener;
+import origami.graphics.listeners.ViewCodeCsharpListener;
+import origami.graphics.listeners.ViewCodeJavaListener;
+import origami.graphics.listeners.ViewCodePseudoListener;
+import origami.graphics.listeners.ViewCodeRubyListener;
 import origami.images.ImageLoader;
 
 public class DiagramCodeView {
@@ -21,19 +34,28 @@ public class DiagramCodeView {
     private Shell shell;
 
     private String code;
+    
+    private Combo combo;
+    
+    private Table table ; 
+    
+    private static int selection;
+    
 
     public DiagramCodeView(String code) {
 	this.code = code;
     }
-
+    public DiagramCodeView(){
+	
+    }
     public void createWindow() {
+	
 	shell = new Shell(MainWindow.shell);
-	shell.setSize(500, 387);
+	shell.setSize(600, 500);
 	shell.setLocation(300, 200);
 	shell.setText("Codigo Fuente");
 	initTable(code);
 	initToolBar();
-
     }
 
     public void show() {
@@ -45,14 +67,16 @@ public class DiagramCodeView {
 		MainWindow.shell.getDisplay().sleep();
 	    }
 	}
+	selection = 0;
     }
 
+    
     public void initTable(String code) {
-	Table table = new Table(shell, SWT.BORDER);
-	table.setBounds(0, 0, 496, 320);
+	table = new Table(shell, SWT.BORDER);
+	table.setBounds(0,0, 496, 320);
 
 	TableColumn lineColumn = new TableColumn(table, SWT.CENTER);
-	lineColumn.setWidth(20);
+	lineColumn.setWidth(40);
 	lineColumn.setText("Linea");
 
 	TableColumn instructionColumn = new TableColumn(table, SWT.LEFT);
@@ -169,6 +193,7 @@ public class DiagramCodeView {
 	initExportCButton(toolBar);
 	initExportCppButton(toolBar);
 	initExportExeButton(toolBar);
+	initCombo(toolBar);
     }
 
     public void initToolBar() {
@@ -176,5 +201,52 @@ public class DiagramCodeView {
 	toolBar.setBounds(0, 320, 500, 40);
 	initToolBarButtons(toolBar);
     }
-
+    
+ 
+    
+    public void initCombo(ToolBar toolBar){
+	combo = new Combo(toolBar,SWT.READ_ONLY | SWT.Selection);
+	combo.setBounds(100, 0, 150, 100);
+	String items[] = {"C","C++","C#","Java","Ruby","Pseudocodigo","Basic"};
+	combo.setItems(items);
+	if(selection != 0)
+	    combo.select(selection);
+	else
+	    combo.select(0);
+	combo.addSelectionListener(new SelectionAdapter() {
+	      public void widgetSelected(SelectionEvent e){
+		  shell.setVisible(false);
+		  selection = combo.getSelectionIndex();
+		  mostrarCodigo(e);
+		      }
+		    });
+	}
+	
+	public void mostrarCodigo(SelectionEvent e){
+	    if(combo.getText().equals("C")){
+		new ViewCodeCListener().widgetSelected(e);
+	}
+	    else if(combo.getText().equals("C++")){
+		new ViewCodeCppListener().widgetSelected(e);
+	    }
+	   else if(combo.getText().equals("C#")){
+		new ViewCodeCsharpListener().widgetSelected(e);
+	   	}
+	    else if(combo.getText().equals("Pseudocodigo")){
+		new ViewCodePseudoListener().widgetSelected(e);
+		    }
+	    else if(combo.getText().equals("Java")){
+		new ViewCodeJavaListener().widgetSelected(e);
+			    }
+	    else if(combo.getText().equals("Basic")){
+		new ViewCodeBasicListener().widgetSelected(e);
+			    }
+	    else {
+		new ViewCodeRubyListener().widgetSelected(e);		
+		    }
+    }
 }
+
+
+
+

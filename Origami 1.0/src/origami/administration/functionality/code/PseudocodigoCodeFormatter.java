@@ -8,8 +8,11 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
     private Vector<String> prePseudocodigo;
     private Vector<String> pila;
     
-    PseudocodigoCodeFormatter(){
+    PseudocodigoCodeFormatter(Vector<String> codeOfFigure,
+	    Vector<String> TableOfVariable){
 	super();
+	setCodeOfFigure(codeOfFigure);
+	setTableOfVariable(TableOfVariable);
 	pseudocodigo = new Vector<String>();
 	prePseudocodigo = new Vector<String>();
 	pila = new Vector<String>();
@@ -17,7 +20,6 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
     
     @Override
     public void applyFormat() {
-	// TODO Auto-generated method stub
 	traducirCodigo();
     }
 
@@ -580,3 +582,5 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
 	}
     }
 }
+
+   

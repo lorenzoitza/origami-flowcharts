@@ -39,40 +39,6 @@ public class ManagerCodeFormat {
 		this.instructionsFormat = format.getInstructionsFormat();
 	}
 	
-	public void formatCodeBasic(){
-	    	Instruction getCodeOfFigures = new Instruction();
-		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-		System.out.println(result);
-		format = new BasicCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-		format.applyFormat();
-		this.instructionsFormat = format.getInstructionsFormat();
-	}
-	public void formatCodeCsharp(){
-	    	Instruction getCodeOfFigures = new Instruction();
-	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-		System.out.println(result);
-		format = new CsharpCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-		format.applyFormat();
-		this.instructionsFormat = format.getInstructionsFormat();
-	}
-	
-	public void formatCodePseudocode(){
-	    	Instruction getCodeOfFigures = new Instruction();
-	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-		System.out.println(result);
-		format = new  PseudocodigoCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-		format.applyFormat();
-		this.instructionsFormat = format.getInstructionsFormat();
-	}
-	
-	public void formatCodeRuby(){
-	    	Instruction getCodeOfFigures = new Instruction();
-	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-		System.out.println(result);
-		format = new RubyCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-		format.applyFormat();
-		this.instructionsFormat = format.getInstructionsFormat();
-	}
 	public void formatCodeGDB(){
 	    	format = new GDBCodeFormatter();
 	    	format.applyFormat();
@@ -80,11 +46,44 @@ public class ManagerCodeFormat {
 	}
 	public void formatCodeJava(){
 	    Instruction getCodeOfFigures = new Instruction();
-	    Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-	    System.out.println(result);
-	    format = new JavaCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-	    format.applyFormat();
-	    this.instructionsFormat = format.getInstructionsFormat();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println(result);
+		format = new JavaCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
+	}
+	public void formatCodeCsharp(){
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println(result);
+		format = new CsharpCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
+	}
+	public void formatCodePseudocode(){
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println(result);
+		format = new PseudocodigoCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
+	}
+	public void formatCodeBasic(){
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println(result);
+		format = new BasicCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
+		System.out.println("formatbas");
+	}
+	public void formatCodeRuby(){
+		Instruction getCodeOfFigures = new Instruction();
+		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println(result);
+		format = new RubyCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
 	}
 	public String getInstructionsFormat(){
 		return instructionsFormat;

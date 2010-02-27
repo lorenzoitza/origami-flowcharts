@@ -170,11 +170,11 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new ViewCodeCListener());
 	toolItems.add(toolItem);
 
-	toolItem = new ToolItem(toolbar, SWT.PUSH);
+	/**toolItem = new ToolItem(toolbar, SWT.PUSH);
 	toolItem.setImage(ImageLoader.getImage("codigoCpp.png"));
 	toolItem.setToolTipText("Generar Codigo C++");
 	toolItem.addSelectionListener(new ViewCodeCppListener());
-	toolItems.add(toolItem);
+	toolItems.add(toolItem);**/
 
 	new ToolItem(toolbar, SWT.SEPARATOR);
 
