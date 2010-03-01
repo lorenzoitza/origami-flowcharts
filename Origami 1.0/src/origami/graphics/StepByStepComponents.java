@@ -9,14 +9,14 @@ import org.eclipse.swt.widgets.MessageBox;
 
 import origami.administration.ApplicationState;
 import origami.administration.functionality.CodeCompiler;
-import origami.administration.functionality.ConsoleController;
+import origami.administration.functionality.ProcessConsole;
 import origami.administration.functionality.PasoAPaso;
 import origami.graphics.widgets.CustomFiguresToolBar;
 import origami.graphics.widgets.CustomMenu;
 
 
 public class StepByStepComponents {
-    private ConsoleController consoleController;
+    private ProcessConsole consoleController;
     
     private PasoAPaso stepByStep;
     
@@ -125,7 +125,7 @@ public class StepByStepComponents {
     	setIsExecuted(true);
     	disableExecution(windowWidgets);
     	if (isSaved) {
-    	    setConsoleController(new ConsoleController());
+    	    setConsoleController(new ProcessConsole());
     	    getExecution().execute(windowWidgets, "main.exe", codeCompiler);
     	    setSeleccion(true);
     	} else {
@@ -183,11 +183,11 @@ public class StepByStepComponents {
     	}
     }
 
-    public void setConsoleController(ConsoleController consoleController) {
+    public void setConsoleController(ProcessConsole consoleController) {
 	this.consoleController = consoleController;
     }
 
-    public ConsoleController getExecution() {
+    public ProcessConsole getExecution() {
 	return consoleController;
     }
 

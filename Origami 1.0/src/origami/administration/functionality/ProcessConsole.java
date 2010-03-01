@@ -10,7 +10,7 @@ import origami.graphics.widgets.TabItem;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez, Hudy Chan
  */
-public class ConsoleController implements ExecProcessor {
+public class ProcessConsole implements ExecProcessor {
 	
     protected ExecHelper execHelper;
 	

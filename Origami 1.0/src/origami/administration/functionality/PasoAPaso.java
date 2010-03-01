@@ -26,7 +26,7 @@ import origami.graphics.widgets.TabItem;
  * @version Origami 1.0
  * @author Juan Ku, Victor Rodriguez
  */
-public class PasoAPaso extends ConsoleController{
+public class PasoAPaso extends ProcessConsole{
 	public TabFolder tab;
 	public TabItem a;
 	public int contador = 0;
