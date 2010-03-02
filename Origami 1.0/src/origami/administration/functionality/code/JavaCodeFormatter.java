@@ -33,7 +33,7 @@ public class JavaCodeFormatter extends AbstractInstructionFormatter {
 			pseudocodigo.add("class Clase{");
 			pseudocodigo.add("public static void main(String [] args){");
 			for(int i=0; i<TableOfVariable.size(); i++){
-				pseudocodigo.add(TableOfVariable.get(i)+";");
+				pseudocodigo.add("private "+TableOfVariable.get(i));
 			}
 			for(int i = 0; i < codeOfFigure.size(); i++){
 				pseudocodigo.add(traducirLinea(codeOfFigure.get(i),i));
@@ -114,7 +114,9 @@ public class JavaCodeFormatter extends AbstractInstructionFormatter {
 					}
 				}
 				else{
+				    if(linea.indexOf("int")==-1&&linea.indexOf("float")==-1&&linea.indexOf("char")==-1){
 					newLine += linea;
+				    }				    
 				}
 			}
 			return newLine;

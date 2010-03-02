@@ -35,12 +35,11 @@ public class CsharpCodeFormatter extends AbstractInstructionFormatter {
 	pseudocodigo.add("class Clase{");
 	pseudocodigo.add("	static void Main(){");
 	for(int i=0; i<TableOfVariable.size(); i++){
-		pseudocodigo.add(TableOfVariable.get(i)+";");
+		pseudocodigo.add(TableOfVariable.get(i));
 	}
 	for(int i = 0; i < codeOfFigure.size(); i++){
 		pseudocodigo.add(traducirLinea(codeOfFigure.get(i),i));
 	}
-	pseudocodigo.add("	Console.ReadLine();");
 	pseudocodigo.add("	}");
 	pseudocodigo.add("}");
 }
@@ -106,16 +105,18 @@ public class CsharpCodeFormatter extends AbstractInstructionFormatter {
 				int pos=linea.indexOf("\\p")+2;
 				if(linea.substring(pos,linea.length()-1).indexOf(",")!=-1){
 					String v=linea.substring(pos,linea.length()-1).replace(o, u);		
-					newLine+="	System.Console.WriteLine("+""+v+""+");";
+					newLine+="	Console.WriteLine("+""+v+""+");";
 
 				}
 				else{
 					pos=linea.indexOf("\\p")+2;
-					newLine+="	System.Console.WriteLine("+""+linea.substring(pos,linea.length()-1)+""+");"; 
+					newLine+="	Console.WriteLine("+""+linea.substring(pos,linea.length()-1)+""+");"; 
 				}
 			}
 			else{
+			    if(linea.indexOf("int")==-1&&linea.indexOf("float")==-1&&linea.indexOf("char")==-1){
 				newLine += linea;
+			    }	
 			}
 		}
 		return newLine;
