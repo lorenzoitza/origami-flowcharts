@@ -113,6 +113,22 @@ public class PasoAPaso extends ProcessConsole{
 				}
 			}
 		}
+		boolean isWatch = false;
+		String oldValue = "";
+		String newValue = "";
+		
+		for(int x=0;x<lineas.length;x++){
+			if(lineas[x].contains("Old value")){
+				isWatch = true;
+				oldValue = lineas[x];
+			}
+			if(lineas[x].contains("New value")){
+				isWatch = true;
+				newValue = lineas[x];
+			}
+		}
+		if(isWatch){
+		}
 		if(salida.compareTo("")!=0){
 			return salida;
 		}
@@ -140,9 +156,17 @@ public class PasoAPaso extends ProcessConsole{
     	}
     	return false;
 	}
+	public static int dd= 1;
 	public void sendNext(){
-		inputActionPerformed("next");
+		if(dd==2){
+			inputActionPerformed("watch x");
+		}else{
+			inputActionPerformed("next");
+				
+		}
+		dd++;
 	}
+	
 	public void limpiarPasoAnterior(){
 		if(colaPintaFinIf.size()>0){
 			for(int i=0; i<colaPintaFinIf.size(); i++){
