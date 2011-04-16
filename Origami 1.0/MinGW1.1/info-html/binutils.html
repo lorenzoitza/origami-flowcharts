@@ -1,0 +1,3440 @@
+<html lang="en"><head>
+<title>Untitled</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name=description content="Untitled">
+<meta name=generator content="makeinfo 4.0">
+<link href="http://texinfo.org/" rel=generator-home>
+</head><body>
+
+<p>Copyright &copy; 1991, 92, 93, 94, 95, 96, 97, 98, 99, 2000, 2001 Free Software Foundation, Inc.
+
+<p>Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+
+<p><hr>
+Node:<a name="Top">Top</a>,
+Next:<a rel=next href="#ar">ar</a>,
+<br>
+
+<h1>Introduction</h1>
+
+<p>This brief manual contains preliminary documentation for the <small>GNU</small> binary
+utilities (collectively version 2.11.90):
+
+<p>This document is distributed under the terms of the GNU Free
+Documentation License.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+
+<ul>
+<li><a href="#ar">ar</a>:                           Create, modify, and extract from archives
+<li><a href="#nm">nm</a>:                           List symbols from object files
+<li><a href="#objcopy">objcopy</a>: 			Copy and translate object files
+<li><a href="#objdump">objdump</a>:                      Display information from object files
+<li><a href="#ranlib">ranlib</a>:                       Generate index to archive contents
+<li><a href="#readelf">readelf</a>: 			Display the contents of ELF format files. 
+<li><a href="#size">size</a>:                         List section sizes and total size
+<li><a href="#strings">strings</a>:                      List printable strings from files
+<li><a href="#strip">strip</a>:                        Discard symbols
+<li><a href="#c++filt">c++filt</a>: 			Filter to demangle encoded C++ symbols
+<li><a href="#c++filt">cxxfilt</a>:              MS-DOS name for c++filt
+<li><a href="#addr2line">addr2line</a>: 			Convert addresses to file and line
+<li><a href="#nlmconv">nlmconv</a>:                      Converts object code into an NLM
+<li><a href="#windres">windres</a>: 			Manipulate Windows resources
+<li><a href="#dlltool">dlltool</a>: 			Create files needed to build and use DLLs
+<li><a href="#Selecting%20The%20Target%20System">Selecting The Target System</a>:  How these utilities determine the target. 
+<li><a href="#Reporting%20Bugs">Reporting Bugs</a>:               Reporting Bugs
+<li><a href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>:   GNU Free Documentation License
+<li><a href="#Index">Index</a>:                        Index
+</ul>
+
+<p><hr>
+Node:<a name="ar">ar</a>,
+Next:<a rel=next href="#nm">nm</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>ar</h1>
+
+<pre>ar [-]<var>p</var>[<var>mod</var> [<var>relpos</var>] [<var>count</var>]] <var>archive</var> [<var>member</var><small>...</small>]
+ar -M [ &lt;mri-script ]
+</pre>
+
+<p>The <small>GNU</small> <code>ar</code> program creates, modifies, and extracts from
+archives.  An <dfn>archive</dfn> is a single file holding a collection of
+other files in a structure that makes it possible to retrieve
+the original individual files (called <dfn>members</dfn> of the archive).
+
+<p>The original files' contents, mode (permissions), timestamp, owner, and
+group are preserved in the archive, and can be restored on
+extraction.
+
+<p><small>GNU</small> <code>ar</code> can maintain archives whose members have names of any
+length; however, depending on how <code>ar</code> is configured on your
+system, a limit on member-name length may be imposed for compatibility
+with archive formats maintained with other tools.  If it exists, the
+limit is often 15 characters (typical of formats related to a.out) or 16
+characters (typical of formats related to coff).
+
+<p><code>ar</code> is considered a binary utility because archives of this sort
+are most often used as <dfn>libraries</dfn> holding commonly needed
+subroutines.
+
+<p><code>ar</code> creates an index to the symbols defined in relocatable
+object modules in the archive when you specify the modifier <code>s</code>. 
+Once created, this index is updated in the archive whenever <code>ar</code>
+makes a change to its contents (save for the <code>q</code> update operation). 
+An archive with such an index speeds up linking to the library, and
+allows routines in the library to call each other without regard to
+their placement in the archive.
+
+<p>You may use <code>nm -s</code> or <code>nm --print-armap</code> to list this index
+table.  If an archive lacks the table, another form of <code>ar</code> called
+<code>ranlib</code> can be used to add just the table.
+
+<p><small>GNU</small> <code>ar</code> is designed to be compatible with two different
+facilities.  You can control its activity using command-line options,
+like the different varieties of <code>ar</code> on Unix systems; or, if you
+specify the single command-line option <code>-M</code>, you can control it
+with a script supplied via standard input, like the MRI "librarian"
+program.
+
+<ul>
+<li><a href="#ar%20cmdline">ar cmdline</a>:                   Controlling <code>ar</code> on the command line
+<li><a href="#ar%20scripts">ar scripts</a>:                   Controlling <code>ar</code> with a script
+</ul>
+
+<p><hr>
+Node:<a name="ar%20cmdline">ar cmdline</a>,
+Next:<a rel=next href="#ar%20scripts">ar scripts</a>,
+Up:<a rel=up href="#ar">ar</a>
+<br>
+
+<h2>Controlling <code>ar</code> on the command line</h2>
+
+<pre>ar [<code>-X32_64</code>] [<code>-</code>]<var>p</var>[<var>mod</var> [<var>relpos</var>] [<var>count</var>]] <var>archive</var> [<var>member</var><small>...</small>]
+</pre>
+
+<p>When you use <code>ar</code> in the Unix style, <code>ar</code> insists on at least two
+arguments to execute: one keyletter specifying the <em>operation</em>
+(optionally accompanied by other keyletters specifying
+<em>modifiers</em>), and the archive name to act on.
+
+<p>Most operations can also accept further <var>member</var> arguments,
+specifying particular files to operate on.
+
+<p><small>GNU</small> <code>ar</code> allows you to mix the operation code <var>p</var> and modifier
+flags <var>mod</var> in any order, within the first command-line argument.
+
+<p>If you wish, you may begin the first command-line argument with a
+dash.
+
+<p>The <var>p</var> keyletter specifies what operation to execute; it may be
+any of the following, but you must specify only one of them:
+
+<dl>
+<dt><code>d</code>
+<dd><em>Delete</em> modules from the archive.  Specify the names of modules to
+be deleted as <var>member</var><small>...</small>; the archive is untouched if you
+specify no files to delete.
+
+<p>If you specify the <code>v</code> modifier, <code>ar</code> lists each module
+as it is deleted.
+
+<br><dt><code>m</code>
+<dd>Use this operation to <em>move</em> members in an archive.
+
+<p>The ordering of members in an archive can make a difference in how
+programs are linked using the library, if a symbol is defined in more
+than one member.
+
+<p>If no modifiers are used with <code>m</code>, any members you name in the
+<var>member</var> arguments are moved to the <em>end</em> of the archive;
+you can use the <code>a</code>, <code>b</code>, or <code>i</code> modifiers to move them to a
+specified place instead.
+
+<br><dt><code>p</code>
+<dd><em>Print</em> the specified members of the archive, to the standard
+output file.  If the <code>v</code> modifier is specified, show the member
+name before copying its contents to standard output.
+
+<p>If you specify no <var>member</var> arguments, all the files in the archive are
+printed.
+
+<br><dt><code>q</code>
+<dd><em>Quick append</em>; Historically, add the files <var>member</var><small>...</small> to the end of
+<var>archive</var>, without checking for replacement.
+
+<p>The modifiers <code>a</code>, <code>b</code>, and <code>i</code> do <em>not</em> affect this
+operation; new members are always placed at the end of the archive.
+
+<p>The modifier <code>v</code> makes <code>ar</code> list each file as it is appended.
+
+<p>Since the point of this operation is speed, the archive's symbol table
+index is not updated, even if it already existed; you can use <code>ar s</code> or
+<code>ranlib</code> explicitly to update the symbol table index.
+
+<p>However, too many different systems assume quick append rebuilds the
+index, so GNU ar implements <code>q</code> as a synonym for <code>r</code>.
+
+<br><dt><code>r</code>
+<dd>Insert the files <var>member</var><small>...</small> into <var>archive</var> (with
+<em>replacement</em>). This operation differs from <code>q</code> in that any
+previously existing members are deleted if their names match those being
+added.
+
+<p>If one of the files named in <var>member</var><small>...</small> does not exist, <code>ar</code>
+displays an error message, and leaves undisturbed any existing members
+of the archive matching that name.
+
+<p>By default, new members are added at the end of the file; but you may
+use one of the modifiers <code>a</code>, <code>b</code>, or <code>i</code> to request
+placement relative to some existing member.
+
+<p>The modifier <code>v</code> used with this operation elicits a line of
+output for each file inserted, along with one of the letters <code>a</code> or
+<code>r</code> to indicate whether the file was appended (no old member
+deleted) or replaced.
+
+<br><dt><code>t</code>
+<dd>Display a <em>table</em> listing the contents of <var>archive</var>, or those
+of the files listed in <var>member</var><small>...</small> that are present in the
+archive.  Normally only the member name is shown; if you also want to
+see the modes (permissions), timestamp, owner, group, and size, you can
+request that by also specifying the <code>v</code> modifier.
+
+<p>If you do not specify a <var>member</var>, all files in the archive
+are listed.
+
+<p>If there is more than one file with the same name (say, <code>fie</code>) in
+an archive (say <code>b.a</code>), <code>ar t b.a fie</code> lists only the
+first instance; to see them all, you must ask for a complete
+listing--in our example, <code>ar t b.a</code>.
+
+<br><dt><code>x</code>
+<dd><em>Extract</em> members (named <var>member</var>) from the archive.  You can
+use the <code>v</code> modifier with this operation, to request that
+<code>ar</code> list each name as it extracts it.
+
+<p>If you do not specify a <var>member</var>, all files in the archive
+are extracted.
+
+</dl>
+
+<p>A number of modifiers (<var>mod</var>) may immediately follow the <var>p</var>
+keyletter, to specify variations on an operation's behavior:
+
+<dl>
+<dt><code>a</code>
+<dd>Add new files <em>after</em> an existing member of the
+archive.  If you use the modifier <code>a</code>, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.
+
+<br><dt><code>b</code>
+<dd>Add new files <em>before</em> an existing member of the
+archive.  If you use the modifier <code>b</code>, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.  (same as <code>i</code>).
+
+<br><dt><code>c</code>
+<dd><em>Create</em> the archive.  The specified <var>archive</var> is always
+created if it did not exist, when you request an update.  But a warning is
+issued unless you specify in advance that you expect to create it, by
+using this modifier.
+
+<br><dt><code>f</code>
+<dd>Truncate names in the archive.  <small>GNU</small> <code>ar</code> will normally permit file
+names of any length.  This will cause it to create archives which are
+not compatible with the native <code>ar</code> program on some systems.  If
+this is a concern, the <code>f</code> modifier may be used to truncate file
+names when putting them in the archive.
+
+<br><dt><code>i</code>
+<dd>Insert new files <em>before</em> an existing member of the
+archive.  If you use the modifier <code>i</code>, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.  (same as <code>b</code>).
+
+<br><dt><code>l</code>
+<dd>This modifier is accepted but not used.
+
+<br><dt><code>N</code>
+<dd>Uses the <var>count</var> parameter.  This is used if there are multiple
+entries in the archive with the same name.  Extract or delete instance
+<var>count</var> of the given name from the archive.
+
+<br><dt><code>o</code>
+<dd>Preserve the <em>original</em> dates of members when extracting them.  If
+you do not specify this modifier, files extracted from the archive
+are stamped with the time of extraction.
+
+<br><dt><code>P</code>
+<dd>Use the full path name when matching names in the archive.  <small>GNU</small>
+<code>ar</code> can not create an archive with a full path name (such archives
+are not POSIX complaint), but other archive creators can.  This option
+will cause <small>GNU</small> <code>ar</code> to match file names using a complete path
+name, which can be convenient when extracting a single file from an
+archive created by another tool.
+
+<br><dt><code>s</code>
+<dd>Write an object-file index into the archive, or update an existing one,
+even if no other change is made to the archive.  You may use this modifier
+flag either with any operation, or alone.  Running <code>ar s</code> on an
+archive is equivalent to running <code>ranlib</code> on it.
+
+<br><dt><code>S</code>
+<dd>Do not generate an archive symbol table.  This can speed up building a
+large library in several steps.  The resulting archive can not be used
+with the linker.  In order to build a symbol table, you must omit the
+<code>S</code> modifier on the last execution of <code>ar</code>, or you must run
+<code>ranlib</code> on the archive.
+
+<br><dt><code>u</code>
+<dd>Normally, <code>ar r</code><small>...</small> inserts all files
+listed into the archive.  If you would like to insert <em>only</em> those
+of the files you list that are newer than existing members of the same
+names, use this modifier.  The <code>u</code> modifier is allowed only for the
+operation <code>r</code> (replace).  In particular, the combination <code>qu</code> is
+not allowed, since checking the timestamps would lose any speed
+advantage from the operation <code>q</code>.
+
+<br><dt><code>v</code>
+<dd>This modifier requests the <em>verbose</em> version of an operation.  Many
+operations display additional information, such as filenames processed,
+when the modifier <code>v</code> is appended.
+
+<br><dt><code>V</code>
+<dd>This modifier shows the version number of <code>ar</code>. 
+</dl>
+
+<p><code>ar</code> ignores an initial option spelt <code>-X32_64</code>, for
+compatibility with AIX.  The behaviour produced by this option is the
+default for GNU <code>ar</code>.  <code>ar</code> does not support any of the other
+<code>-X</code> options; in particular, it does not support <code>-X32</code>
+which is the default for AIX <code>ar</code>.
+
+<p><hr>
+Node:<a name="ar%20scripts">ar scripts</a>,
+Previous:<a rel=previous href="#ar%20cmdline">ar cmdline</a>,
+Up:<a rel=up href="#ar">ar</a>
+<br>
+
+<h2>Controlling <code>ar</code> with a script</h2>
+
+<pre>ar -M [ &lt;<var>script</var> ]
+</pre>
+
+<p>If you use the single command-line option <code>-M</code> with <code>ar</code>, you
+can control its operation with a rudimentary command language.  This
+form of <code>ar</code> operates interactively if standard input is coming
+directly from a terminal.  During interactive use, <code>ar</code> prompts for
+input (the prompt is <code>AR &gt;</code>), and continues executing even after
+errors.  If you redirect standard input to a script file, no prompts are
+issued, and <code>ar</code> abandons execution (with a nonzero exit code)
+on any error.
+
+<p>The <code>ar</code> command language is <em>not</em> designed to be equivalent
+to the command-line options; in fact, it provides somewhat less control
+over archives.  The only purpose of the command language is to ease the
+transition to <small>GNU</small> <code>ar</code> for developers who already have scripts
+written for the MRI "librarian" program.
+
+<p>The syntax for the <code>ar</code> command language is straightforward:
+<ul>
+<li>commands are recognized in upper or lower case; for example, <code>LIST</code>
+is the same as <code>list</code>.  In the following descriptions, commands are
+shown in upper case for clarity.
+
+<li>a single command may appear on each line; it is the first word on the
+line.
+
+<li>empty lines are allowed, and have no effect.
+
+<li>comments are allowed; text after either of the characters <code>*</code>
+or <code>;</code> is ignored.
+
+<li>Whenever you use a list of names as part of the argument to an <code>ar</code>
+command, you can separate the individual names with either commas or
+blanks.  Commas are shown in the explanations below, for clarity.
+
+<li><code>+</code> is used as a line continuation character; if <code>+</code> appears
+at the end of a line, the text on the following line is considered part
+of the current command. 
+</ul>
+
+<p>Here are the commands you can use in <code>ar</code> scripts, or when using
+<code>ar</code> interactively.  Three of them have special significance:
+
+<p><code>OPEN</code> or <code>CREATE</code> specify a <dfn>current archive</dfn>, which is
+a temporary file required for most of the other commands.
+
+<p><code>SAVE</code> commits the changes so far specified by the script.  Prior
+to <code>SAVE</code>, commands affect only the temporary copy of the current
+archive.
+
+<dl>
+<dt><code>ADDLIB <var>archive</var></code>
+<dt><code>ADDLIB <var>archive</var> (<var>module</var>, <var>module</var>, <small>...</small> <var>module</var>)</code>
+<dd>Add all the contents of <var>archive</var> (or, if specified, each named
+<var>module</var> from <var>archive</var>) to the current archive.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>ADDMOD <var>member</var>, <var>member</var>, <small>...</small> <var>member</var></code>
+<dd>Add each named <var>member</var> as a module in the current archive.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>CLEAR</code>
+<dd>Discard the contents of the current archive, canceling the effect of
+any operations since the last <code>SAVE</code>.  May be executed (with no
+effect) even if  no current archive is specified.
+
+<br><dt><code>CREATE <var>archive</var></code>
+<dd>Creates an archive, and makes it the current archive (required for many
+other commands).  The new archive is created with a temporary name; it
+is not actually saved as <var>archive</var> until you use <code>SAVE</code>. 
+You can overwrite existing archives; similarly, the contents of any
+existing file named <var>archive</var> will not be destroyed until <code>SAVE</code>.
+
+<br><dt><code>DELETE <var>module</var>, <var>module</var>, <small>...</small> <var>module</var></code>
+<dd>Delete each listed <var>module</var> from the current archive; equivalent to
+<code>ar -d <var>archive</var> <var>module</var> <small>...</small> <var>module</var></code>.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>DIRECTORY <var>archive</var> (<var>module</var>, <small>...</small> <var>module</var>)</code>
+<dt><code>DIRECTORY <var>archive</var> (<var>module</var>, <small>...</small> <var>module</var>) <var>outputfile</var></code>
+<dd>List each named <var>module</var> present in <var>archive</var>.  The separate
+command <code>VERBOSE</code> specifies the form of the output: when verbose
+output is off, output is like that of <code>ar -t <var>archive</var>
+<var>module</var><small>...</small></code>.  When verbose output is on, the listing is like
+<code>ar -tv <var>archive</var> <var>module</var><small>...</small></code>.
+
+<p>Output normally goes to the standard output stream; however, if you
+specify <var>outputfile</var> as a final argument, <code>ar</code> directs the
+output to that file.
+
+<br><dt><code>END</code>
+<dd>Exit from <code>ar</code>, with a <code>0</code> exit code to indicate successful
+completion.  This command does not save the output file; if you have
+changed the current archive since the last <code>SAVE</code> command, those
+changes are lost.
+
+<br><dt><code>EXTRACT <var>module</var>, <var>module</var>, <small>...</small> <var>module</var></code>
+<dd>Extract each named <var>module</var> from the current archive, writing them
+into the current directory as separate files.  Equivalent to <code>ar -x
+<var>archive</var> <var>module</var><small>...</small></code>.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>LIST</code>
+<dd>Display full contents of the current archive, in "verbose" style
+regardless of the state of <code>VERBOSE</code>.  The effect is like <code>ar
+tv <var>archive</var></code>.  (This single command is a <small>GNU</small> <code>ar</code>
+enhancement, rather than present for MRI compatibility.)
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>OPEN <var>archive</var></code>
+<dd>Opens an existing archive for use as the current archive (required for
+many other commands).  Any changes as the result of subsequent commands
+will not actually affect <var>archive</var> until you next use <code>SAVE</code>.
+
+<br><dt><code>REPLACE <var>module</var>, <var>module</var>, <small>...</small> <var>module</var></code>
+<dd>In the current archive, replace each existing <var>module</var> (named in
+the <code>REPLACE</code> arguments) from files in the current working directory. 
+To execute this command without errors, both the file, and the module in
+the current archive, must exist.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+<br><dt><code>VERBOSE</code>
+<dd>Toggle an internal flag governing the output from <code>DIRECTORY</code>. 
+When the flag is on, <code>DIRECTORY</code> output matches output from
+<code>ar -tv </code><small>...</small>.
+
+<br><dt><code>SAVE</code>
+<dd>Commit your changes to the current archive, and actually save it as a
+file with the name specified in the last <code>CREATE</code> or <code>OPEN</code>
+command.
+
+<p>Requires prior use of <code>OPEN</code> or <code>CREATE</code>.
+
+</dl>
+
+<p><hr>
+Node:<a name="nm">nm</a>,
+Next:<a rel=next href="#objcopy">objcopy</a>,
+Previous:<a rel=previous href="#ar">ar</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>nm</h1>
+
+<pre>nm [<code>-a</code>|<code>--debug-syms</code>] [<code>-g</code>|<code>--extern-only</code>]
+   [<code>-B</code>] [<code>-C</code>|<code>--demangle</code>[=<var>style</var>]] [<code>-D</code>|<code>--dynamic</code>]
+   [<code>-s</code>|<code>--print-armap</code>] [<code>-A</code>|<code>-o</code>|<code>--print-file-name</code>]
+   [<code>-n</code>|<code>-v</code>|<code>--numeric-sort</code>] [<code>-p</code>|<code>--no-sort</code>]
+   [<code>-r</code>|<code>--reverse-sort</code>] [<code>--size-sort</code>] [<code>-u</code>|<code>--undefined-only</code>]
+   [<code>-t</code> <var>radix</var>|<code>--radix=</code><var>radix</var>] [<code>-P</code>|<code>--portability</code>]
+   [<code>--target=</code><var>bfdname</var>] [<code>-f</code><var>format</var>|<code>--format=</code><var>format</var>]
+   [<code>--defined-only</code>] [<code>-l</code>|<code>--line-numbers</code>] [<code>--no-demangle</code>]
+   [<code>-V</code>|<code>--version</code>] [<code>-X 32_64</code>] [<code>--help</code>]  [<var>objfile</var><small>...</small>]
+</pre>
+
+<p><small>GNU</small> <code>nm</code> lists the symbols from object files <var>objfile</var><small>...</small>. 
+If no object files are listed as arguments, <code>nm</code> assumes the file
+<code>a.out</code>.
+
+<p>For each symbol, <code>nm</code> shows:
+
+<ul>
+<li>The symbol value, in the radix selected by options (see below), or
+hexadecimal by default.
+
+<li>The symbol type.  At least the following types are used; others are, as
+well, depending on the object file format.  If lowercase, the symbol is
+local; if uppercase, the symbol is global (external).
+
+<dl>
+<dt><code>A</code>
+<dd>The symbol's value is absolute, and will not be changed by further
+linking.
+
+<br><dt><code>B</code>
+<dd>The symbol is in the uninitialized data section (known as BSS).
+
+<br><dt><code>C</code>
+<dd>The symbol is common.  Common symbols are uninitialized data.  When
+linking, multiple common symbols may appear with the same name.  If the
+symbol is defined anywhere, the common symbols are treated as undefined
+references. 
+For more details on common symbols, see the discussion of
+-warn-common in <a href="ld.info.html#Linker%20options">Options</a>.
+
+<br><dt><code>D</code>
+<dd>The symbol is in the initialized data section.
+
+<br><dt><code>G</code>
+<dd>The symbol is in an initialized data section for small objects.  Some
+object file formats permit more efficient access to small data objects,
+such as a global int variable as opposed to a large global array.
+
+<br><dt><code>I</code>
+<dd>The symbol is an indirect reference to another symbol.  This is a GNU
+extension to the a.out object file format which is rarely used.
+
+<br><dt><code>N</code>
+<dd>The symbol is a debugging symbol.
+
+<br><dt><code>R</code>
+<dd>The symbol is in a read only data section.
+
+<br><dt><code>S</code>
+<dd>The symbol is in an uninitialized data section for small objects.
+
+<br><dt><code>T</code>
+<dd>The symbol is in the text (code) section.
+
+<br><dt><code>U</code>
+<dd>The symbol is undefined.
+
+<br><dt><code>V</code>
+<dd>The symbol is a weak object.  When a weak defined symbol is linked with
+a normal defined symbol, the normal defined symbol is used with no error. 
+When a weak undefined symbol is linked and the symbol is not defined,
+the value of the weak symbol becomes zero with no error.
+
+<br><dt><code>W</code>
+<dd>The symbol is a weak symbol that has not been specifically tagged as a
+weak object symbol.  When a weak defined symbol is linked with a normal
+defined symbol, the normal defined symbol is used with no error. 
+When a weak undefined symbol is linked and the symbol is not defined,
+the value of the weak symbol becomes zero with no error.
+
+<br><dt><code>-</code>
+<dd>The symbol is a stabs symbol in an a.out object file.  In this case, the
+next values printed are the stabs other field, the stabs desc field, and
+the stab type.  Stabs symbols are used to hold debugging information. 
+For more information, see <a href="stabs.info.html#Stabs">Top</a>.
+
+<br><dt><code>?</code>
+<dd>The symbol type is unknown, or object file format specific. 
+</dl>
+
+<li>The symbol name. 
+</ul>
+
+<p>The long and short forms of options, shown here as alternatives, are
+equivalent.
+
+<dl>
+<dt><code>-A</code>
+<dt><code>-o</code>
+<dt><code>--print-file-name</code>
+<dd>Precede each symbol by the name of the input file (or archive member)
+in which it was found, rather than identifying the input file once only,
+before all of its symbols.
+
+<br><dt><code>-a</code>
+<dt><code>--debug-syms</code>
+<dd>Display all symbols, even debugger-only symbols; normally these are not
+listed.
+
+<br><dt><code>-B</code>
+<dd>The same as <code>--format=bsd</code> (for compatibility with the MIPS <code>nm</code>).
+
+<br><dt><code>-C</code>
+<dt><code>--demangle[=<var>style</var>]</code>
+<dd>Decode (<dfn>demangle</dfn>) low-level symbol names into user-level names. 
+Besides removing any initial underscore prepended by the system, this
+makes C++ function names readable. Different compilers have different
+mangling styles. The optional demangling style argument can be used to
+choose an appropriate demangling style for your compiler. See <a href="#c++filt">c++filt</a>,
+for more information on demangling.
+
+<br><dt><code>--no-demangle</code>
+<dd>Do not demangle low-level symbol names.  This is the default.
+
+<br><dt><code>-D</code>
+<dt><code>--dynamic</code>
+<dd>Display the dynamic symbols rather than the normal symbols.  This is
+only meaningful for dynamic objects, such as certain types of shared
+libraries.
+
+<br><dt><code>-f <var>format</var></code>
+<dt><code>--format=<var>format</var></code>
+<dd>Use the output format <var>format</var>, which can be <code>bsd</code>,
+<code>sysv</code>, or <code>posix</code>.  The default is <code>bsd</code>. 
+Only the first character of <var>format</var> is significant; it can be
+either upper or lower case.
+
+<br><dt><code>-g</code>
+<dt><code>--extern-only</code>
+<dd>Display only external symbols.
+
+<br><dt><code>-l</code>
+<dt><code>--line-numbers</code>
+<dd>For each symbol, use debugging information to try to find a filename and
+line number.  For a defined symbol, look for the line number of the
+address of the symbol.  For an undefined symbol, look for the line
+number of a relocation entry which refers to the symbol.  If line number
+information can be found, print it after the other symbol information.
+
+<br><dt><code>-n</code>
+<dt><code>-v</code>
+<dt><code>--numeric-sort</code>
+<dd>Sort symbols numerically by their addresses, rather than alphabetically
+by their names.
+
+<br><dt><code>-p</code>
+<dt><code>--no-sort</code>
+<dd>Do not bother to sort the symbols in any order; print them in the order
+encountered.
+
+<br><dt><code>-P</code>
+<dt><code>--portability</code>
+<dd>Use the POSIX.2 standard output format instead of the default format. 
+Equivalent to <code>-f posix</code>.
+
+<br><dt><code>-s</code>
+<dt><code>--print-armap</code>
+<dd>When listing symbols from archive members, include the index: a mapping
+(stored in the archive by <code>ar</code> or <code>ranlib</code>) of which modules
+contain definitions for which names.
+
+<br><dt><code>-r</code>
+<dt><code>--reverse-sort</code>
+<dd>Reverse the order of the sort (whether numeric or alphabetic); let the
+last come first.
+
+<br><dt><code>--size-sort</code>
+<dd>Sort symbols by size.  The size is computed as the difference between
+the value of the symbol and the value of the symbol with the next higher
+value.  The size of the symbol is printed, rather than the value.
+
+<br><dt><code>-t <var>radix</var></code>
+<dt><code>--radix=<var>radix</var></code>
+<dd>Use <var>radix</var> as the radix for printing the symbol values.  It must be
+<code>d</code> for decimal, <code>o</code> for octal, or <code>x</code> for hexadecimal.
+
+<br><dt><code>--target=<var>bfdname</var></code>
+<dd>Specify an object code format other than your system's default format. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-u</code>
+<dt><code>--undefined-only</code>
+<dd>Display only undefined symbols (those external to each object file).
+
+<br><dt><code>--defined-only</code>
+<dd>Display only defined symbols for each object file.
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Show the version number of <code>nm</code> and exit.
+
+<br><dt><code>-X</code>
+<dd>This option is ignored for compatibility with the AIX version of
+<code>nm</code>.  It takes one parameter which must be the string
+<code>32_64</code>.  The default mode of AIX <code>nm</code> corresponds
+to <code>-X 32</code>, which is not supported by <small>GNU</small> <code>nm</code>.
+
+<br><dt><code>--help</code>
+<dd>Show a summary of the options to <code>nm</code> and exit. 
+</dl>
+
+<p><hr>
+Node:<a name="objcopy">objcopy</a>,
+Next:<a rel=next href="#objdump">objdump</a>,
+Previous:<a rel=previous href="#nm">nm</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>objcopy</h1>
+
+<pre>objcopy [<code>-F</code> <var>bfdname</var>|<code>--target=</code><var>bfdname</var>]
+        [<code>-I</code> <var>bfdname</var>|<code>--input-target=</code><var>bfdname</var>]
+        [<code>-O</code> <var>bfdname</var>|<code>--output-target=</code><var>bfdname</var>]
+        [<code>-B</code> <var>bfdarch</var>|<code>--binary-architecture=</code><var>bfdarch</var>]
+        [<code>-S</code>|<code>--strip-all</code>] [<code>-g</code>|<code>--strip-debug</code>]
+        [<code>-K</code> <var>symbolname</var>|<code>--keep-symbol=</code><var>symbolname</var>]
+        [<code>-N</code> <var>symbolname</var>|<code>--strip-symbol=</code><var>symbolname</var>]
+        [<code>-G</code> <var>symbolname</var>|<code>--keep-global-symbol=</code><var>symbolname</var>]
+        [<code>-L</code> <var>symbolname</var>|<code>--localize-symbol=</code><var>symbolname</var>]
+        [<code>-W</code> <var>symbolname</var>|<code>--weaken-symbol=</code><var>symbolname</var>]
+        [<code>-x</code>|<code>--discard-all</code>] [<code>-X</code>|<code>--discard-locals</code>]
+        [<code>-b</code> <var>byte</var>|<code>--byte=</code><var>byte</var>]
+        [<code>-i</code> <var>interleave</var>|<code>--interleave=</code><var>interleave</var>]
+        [<code>-j</code> <var>sectionname</var>|<code>--only-section=</code><var>sectionname</var>]
+        [<code>-R</code> <var>sectionname</var>|<code>--remove-section=</code><var>sectionname</var>]
+        [<code>-p</code>|<code>--preserve-dates</code>]
+        [<code>--debugging</code>]
+        [<code>--gap-fill=</code><var>val</var>] [<code>--pad-to=</code><var>address</var>]
+        [<code>--set-start=</code><var>val</var>] [<code>--adjust-start=</code><var>incr</var>]
+        [<code>--change-addresses=</code><var>incr</var>]
+        [<code>--change-section-address</code> <var>section</var>{=,+,-}<var>val</var>]
+        [<code>--change-section-lma</code> <var>section</var>{=,+,-}<var>val</var>]
+        [<code>--change-section-vma</code> <var>section</var>{=,+,-}<var>val</var>]
+        [<code>--change-warnings</code>] [<code>--no-change-warnings</code>]
+        [<code>--set-section-flags</code> <var>section</var>=<var>flags</var>]
+        [<code>--add-section</code> <var>sectionname</var>=<var>filename</var>]
+        [<code>--rename-section</code> <var>oldname</var>=<var>newname</var>[,<var>flags</var>]]
+        [<code>--change-leading-char</code> ] [<code>--remove-leading-char</code>]
+        [<code>--srec-len=</code><var>ival</var> ] [<code>--srec-forceS3</code>]
+        [<code>--redefine-sym</code> <var>old</var>=<var>new</var> ]
+        [<code>--weaken</code>]
+        [<code>--keep-symbols=</code><var>filename</var>]
+        [<code>--strip-symbols=</code><var>filename</var>]
+        [<code>--keep-global-symbols=</code><var>filename</var>]
+        [<code>--localize-symbols=</code><var>filename</var>]
+        [<code>--weaken-symbols=</code><var>filename</var>]
+        [<code>--alt-machine-code=<var>index</var></code>]
+        [<code>-v</code>|<code>--verbose</code>]
+        [<code>-V</code>|<code>--version</code>]
+        [<code>--help</code>]
+        <var>infile</var> [<var>outfile</var>]
+</pre>
+
+<p>The <small>GNU</small> <code>objcopy</code> utility copies the contents of an object
+file to another.  <code>objcopy</code> uses the <small>GNU</small> <small>BFD</small> Library to
+read and write the object files.  It can write the destination object
+file in a format different from that of the source object file.  The
+exact behavior of <code>objcopy</code> is controlled by command-line options. 
+Note that <code>objcopy</code> should be able to copy a fully linked file
+between any two formats. However, copying a relocatable object file
+between any two formats may not work as expected.
+
+<p><code>objcopy</code> creates temporary files to do its translations and
+deletes them afterward.  <code>objcopy</code> uses <small>BFD</small> to do all its
+translation work; it has access to all the formats described in <small>BFD</small>
+and thus is able to recognize most formats without being told
+explicitly.  See <a href="ld.info.html#BFD">BFD</a>.
+
+<p><code>objcopy</code> can be used to generate S-records by using an output
+target of <code>srec</code> (e.g., use <code>-O srec</code>).
+
+<p><code>objcopy</code> can be used to generate a raw binary file by using an
+output target of <code>binary</code> (e.g., use <code>-O binary</code>).  When
+<code>objcopy</code> generates a raw binary file, it will essentially produce
+a memory dump of the contents of the input object file.  All symbols and
+relocation information will be discarded.  The memory dump will start at
+the load address of the lowest section copied into the output file.
+
+<p>When generating an S-record or a raw binary file, it may be helpful to
+use <code>-S</code> to remove sections containing debugging information.  In
+some cases <code>-R</code> will be useful to remove sections which contain
+information that is not needed by the binary file.
+
+<p>Note - <code>objcopy</code> is not able to change the endianness of its input
+files.  If the input format has an endianness, (some formats do not),
+<code>objcopy</code> can only copy the inputs into file formats that have the
+same endianness or which have no endianness (eg <code>srec</code>).
+
+<dl>
+<dt><code><var>infile</var></code>
+<dt><code><var>outfile</var></code>
+<dd>The input and output files, respectively. 
+If you do not specify <var>outfile</var>, <code>objcopy</code> creates a
+temporary file and destructively renames the result with
+the name of <var>infile</var>.
+
+<br><dt><code>-I <var>bfdname</var></code>
+<dt><code>--input-target=<var>bfdname</var></code>
+<dd>Consider the source file's object format to be <var>bfdname</var>, rather than
+attempting to deduce it.  See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-O <var>bfdname</var></code>
+<dt><code>--output-target=<var>bfdname</var></code>
+<dd>Write the output file using the object format <var>bfdname</var>. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-F <var>bfdname</var></code>
+<dt><code>--target=<var>bfdname</var></code>
+<dd>Use <var>bfdname</var> as the object format for both the input and the output
+file; i.e., simply transfer data from source to destination with no
+translation.  See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-B <var>bfdarch</var></code>
+<dt><code>--binary-architecture=<var>bfdarch</var></code>
+<dd>Useful when transforming a raw binary input file into an object file. 
+In this case the output architecture can be set to <var>bfdarch</var>. This
+option will be ignored if the input file has a known <var>bfdarch</var>. You
+can access this binary data inside a program by referencing the special
+symbols that are created by the conversion process.  These symbols are
+called _binary_<var>objfile</var>_start, _binary_<var>objfile</var>_end and
+_binary_<var>objfile</var>_size.  e.g. you can transform a picture file into
+an object file and then access it in your code using these symbols.
+
+<br><dt><code>-j <var>sectionname</var></code>
+<dt><code>--only-section=<var>sectionname</var></code>
+<dd>Copy only the named section from the input file to the output file. 
+This option may be given more than once.  Note that using this option
+inappropriately may make the output file unusable.
+
+<br><dt><code>-R <var>sectionname</var></code>
+<dt><code>--remove-section=<var>sectionname</var></code>
+<dd>Remove any section named <var>sectionname</var> from the output file.  This
+option may be given more than once.  Note that using this option
+inappropriately may make the output file unusable.
+
+<br><dt><code>-S</code>
+<dt><code>--strip-all</code>
+<dd>Do not copy relocation and symbol information from the source file.
+
+<br><dt><code>-g</code>
+<dt><code>--strip-debug</code>
+<dd>Do not copy debugging symbols from the source file.
+
+<br><dt><code>--strip-unneeded</code>
+<dd>Strip all symbols that are not needed for relocation processing.
+
+<br><dt><code>-K <var>symbolname</var></code>
+<dt><code>--keep-symbol=<var>symbolname</var></code>
+<dd>Copy only symbol <var>symbolname</var> from the source file.  This option may
+be given more than once.
+
+<br><dt><code>-N <var>symbolname</var></code>
+<dt><code>--strip-symbol=<var>symbolname</var></code>
+<dd>Do not copy symbol <var>symbolname</var> from the source file.  This option
+may be given more than once.
+
+<br><dt><code>-G <var>symbolname</var></code>
+<dt><code>--keep-global-symbol=<var>symbolname</var></code>
+<dd>Keep only symbol <var>symbolname</var> global.  Make all other symbols local
+to the file, so that they are not visible externally.  This option may
+be given more than once.
+
+<br><dt><code>-L <var>symbolname</var></code>
+<dt><code>--localize-symbol=<var>symbolname</var></code>
+<dd>Make symbol <var>symbolname</var> local to the file, so that it is not
+visible externally.  This option may be given more than once.
+
+<br><dt><code>-W <var>symbolname</var></code>
+<dt><code>--weaken-symbol=<var>symbolname</var></code>
+<dd>Make symbol <var>symbolname</var> weak. This option may be given more than once.
+
+<br><dt><code>-x</code>
+<dt><code>--discard-all</code>
+<dd>Do not copy non-global symbols from the source file.
+
+<br><dt><code>-X</code>
+<dt><code>--discard-locals</code>
+<dd>Do not copy compiler-generated local symbols. 
+(These usually start with <code>L</code> or <code>.</code>.)
+
+<br><dt><code>-b <var>byte</var></code>
+<dt><code>--byte=<var>byte</var></code>
+<dd>Keep only every <var>byte</var>th byte of the input file (header data is not
+affected).  <var>byte</var> can be in the range from 0 to <var>interleave</var>-1,
+where <var>interleave</var> is given by the <code>-i</code> or <code>--interleave</code>
+option, or the default of 4.  This option is useful for creating files
+to program <small>ROM</small>.  It is typically used with an <code>srec</code> output
+target.
+
+<br><dt><code>-i <var>interleave</var></code>
+<dt><code>--interleave=<var>interleave</var></code>
+<dd>Only copy one out of every <var>interleave</var> bytes.  Select which byte to
+copy with the <code>-b</code> or <code>--byte</code> option.  The default is 4. 
+<code>objcopy</code> ignores this option if you do not specify either <code>-b</code> or
+<code>--byte</code>.
+
+<br><dt><code>-p</code>
+<dt><code>--preserve-dates</code>
+<dd>Set the access and modification dates of the output file to be the same
+as those of the input file.
+
+<br><dt><code>--debugging</code>
+<dd>Convert debugging information, if possible.  This is not the default
+because only certain debugging formats are supported, and the
+conversion process can be time consuming.
+
+<br><dt><code>--gap-fill <var>val</var></code>
+<dd>Fill gaps between sections with <var>val</var>.  This operation applies to
+the <em>load address</em> (LMA) of the sections.  It is done by increasing
+the size of the section with the lower address, and filling in the extra
+space created with <var>val</var>.
+
+<br><dt><code>--pad-to <var>address</var></code>
+<dd>Pad the output file up to the load address <var>address</var>.  This is
+done by increasing the size of the last section.  The extra space is
+filled in with the value specified by <code>--gap-fill</code> (default zero).
+
+<br><dt><code>--set-start <var>val</var></code>
+<dd>Set the start address of the new file to <var>val</var>.  Not all object file
+formats support setting the start address.
+
+<br><dt><code>--change-start <var>incr</var></code>
+<dt><code>--adjust-start <var>incr</var></code>
+<dd>Change the start address by adding <var>incr</var>.  Not all object file
+formats support setting the start address.
+
+<br><dt><code>--change-addresses <var>incr</var></code>
+<dt><code>--adjust-vma <var>incr</var></code>
+<dd>Change the VMA and LMA addresses of all sections, as well as the start
+address, by adding <var>incr</var>.  Some object file formats do not permit
+section addresses to be changed arbitrarily.  Note that this does not
+relocate the sections; if the program expects sections to be loaded at a
+certain address, and this option is used to change the sections such
+that they are loaded at a different address, the program may fail.
+
+<br><dt><code>--change-section-address <var>section</var>{=,+,-}<var>val</var></code>
+<dt><code>--adjust-section-vma <var>section</var>{=,+,-}<var>val</var></code>
+<dd>Set or change both the VMA address and the LMA address of the named
+<var>section</var>.  If <code>=</code> is used, the section address is set to
+<var>val</var>.  Otherwise, <var>val</var> is added to or subtracted from the
+section address.  See the comments under <code>--change-addresses</code>,
+above. If <var>section</var> does not exist in the input file, a warning will
+be issued, unless <code>--no-change-warnings</code> is used.
+
+<br><dt><code>--change-section-lma <var>section</var>{=,+,-}<var>val</var></code>
+<dd>Set or change the LMA address of the named <var>section</var>.  The LMA
+address is the address where the section will be loaded into memory at
+program load time.  Normally this is the same as the VMA address, which
+is the address of the section at program run time, but on some systems,
+especially those where a program is held in ROM, the two can be
+different.  If <code>=</code> is used, the section address is set to
+<var>val</var>.  Otherwise, <var>val</var> is added to or subtracted from the
+section address.  See the comments under <code>--change-addresses</code>,
+above.  If <var>section</var> does not exist in the input file, a warning
+will be issued, unless <code>--no-change-warnings</code> is used.
+
+<br><dt><code>--change-section-vma <var>section</var>{=,+,-}<var>val</var></code>
+<dd>Set or change the VMA address of the named <var>section</var>.  The VMA
+address is the address where the section will be located once the
+program has started executing.  Normally this is the same as the LMA
+address, which is the address where the section will be loaded into
+memory, but on some systems, especially those where a program is held in
+ROM, the two can be different.  If <code>=</code> is used, the section address
+is set to <var>val</var>.  Otherwise, <var>val</var> is added to or subtracted
+from the section address.  See the comments under
+<code>--change-addresses</code>, above.  If <var>section</var> does not exist in
+the input file, a warning will be issued, unless
+<code>--no-change-warnings</code> is used.
+
+<br><dt><code>--change-warnings</code>
+<dt><code>--adjust-warnings</code>
+<dd>If <code>--change-section-address</code> or <code>--change-section-lma</code> or
+<code>--change-section-vma</code> is used, and the named section does not
+exist, issue a warning.  This is the default.
+
+<br><dt><code>--no-change-warnings</code>
+<dt><code>--no-adjust-warnings</code>
+<dd>Do not issue a warning if <code>--change-section-address</code> or
+<code>--adjust-section-lma</code> or <code>--adjust-section-vma</code> is used, even
+if the named section does not exist.
+
+<br><dt><code>--set-section-flags <var>section</var>=<var>flags</var></code>
+<dd>Set the flags for the named section.  The <var>flags</var> argument is a
+comma separated string of flag names.  The recognized names are
+<code>alloc</code>, <code>contents</code>, <code>load</code>, <code>noload</code>,
+<code>readonly</code>, <code>code</code>, <code>data</code>, <code>rom</code>, <code>share</code>, and
+<code>debug</code>.  You can set the <code>contents</code> flag for a section which
+does not have contents, but it is not meaningful to clear the
+<code>contents</code> flag of a section which does have contents-just remove
+the section instead.  Not all flags are meaningful for all object file
+formats.
+
+<br><dt><code>--add-section <var>sectionname</var>=<var>filename</var></code>
+<dd>Add a new section named <var>sectionname</var> while copying the file.  The
+contents of the new section are taken from the file <var>filename</var>.  The
+size of the section will be the size of the file.  This option only
+works on file formats which can support sections with arbitrary names.
+
+<br><dt><code>--rename-section <var>oldname</var>=<var>newname</var>[,<var>flags</var>]</code>
+<dd>Rename a section from <var>oldname</var> to <var>newname</var>, optionally
+changing the section's flags to <var>flags</var> in the process.  This has
+the advantage over usng a linker script to perform the rename in that
+the output stays as an object file and does not become a linked
+executable.
+
+<p>This option is particularly helpful when the input format is binary,
+since this will always create a section called .data.  If for example,
+you wanted instead to create a section called .rodata containing binary
+data you could use the following command line to achieve it:
+
+<pre>  objcopy -I binary -O &lt;output_format&gt; -B &lt;architecture&gt; \
+   --rename-section .data=.rodata,alloc,load,readonly,data,contents \
+   &lt;input_binary_file&gt; &lt;output_object_file&gt;
+</pre>
+
+<br><dt><code>--change-leading-char</code>
+<dd>Some object file formats use special characters at the start of
+symbols.  The most common such character is underscore, which compilers
+often add before every symbol.  This option tells <code>objcopy</code> to
+change the leading character of every symbol when it converts between
+object file formats.  If the object file formats use the same leading
+character, this option has no effect.  Otherwise, it will add a
+character, or remove a character, or change a character, as
+appropriate.
+
+<br><dt><code>--remove-leading-char</code>
+<dd>If the first character of a global symbol is a special symbol leading
+character used by the object file format, remove the character.  The
+most common symbol leading character is underscore.  This option will
+remove a leading underscore from all global symbols.  This can be useful
+if you want to link together objects of different file formats with
+different conventions for symbol names.  This is different from
+<code>--change-leading-char</code> because it always changes the symbol name
+when appropriate, regardless of the object file format of the output
+file.
+
+<br><dt><code>--srec-len=<var>ival</var></code>
+<dd>Meaningful only for srec output.  Set the maximum length of the Srecords
+being produced to <var>ival</var>.  This length covers both address, data and
+crc fields.
+
+<br><dt><code>--srec-forceS3</code>
+<dd>Meaningful only for srec output.  Avoid generation of S1/S2 records,
+creating S3-only record format.
+
+<br><dt><code>--redefine-sym <var>old</var>=<var>new</var></code>
+<dd>Change the name of a symbol <var>old</var>, to <var>new</var>.  This can be useful
+when one is trying link two things together for which you have no
+source, and there are name collisions.
+
+<br><dt><code>--weaken</code>
+<dd>Change all global symbols in the file to be weak.  This can be useful
+when building an object which will be linked against other objects using
+the <code>-R</code> option to the linker.  This option is only effective when
+using an object file format which supports weak symbols.
+
+<br><dt><code>--keep-symbols=<var>filename</var></code>
+<dd>Apply <code>--keep-symbol</code> option to each symbol listed in the file
+<var>filename</var>.  <var>filename</var> is simply a flat file, with one symbol
+name per line.  Line comments may be introduced by the hash character. 
+This option may be given more than once.
+
+<br><dt><code>--strip-symbols=<var>filename</var></code>
+<dd>Apply <code>--strip-symbol</code> option to each symbol listed in the file
+<var>filename</var>.  <var>filename</var> is simply a flat file, with one symbol
+name per line.  Line comments may be introduced by the hash character. 
+This option may be given more than once.
+
+<br><dt><code>--keep-global-symbols=<var>filename</var></code>
+<dd>Apply <code>--keep-global-symbol</code> option to each symbol listed in the
+file <var>filename</var>.  <var>filename</var> is simply a flat file, with one
+symbol name per line.  Line comments may be introduced by the hash
+character.  This option may be given more than once.
+
+<br><dt><code>--localize-symbols=<var>filename</var></code>
+<dd>Apply <code>--localize-symbol</code> option to each symbol listed in the file
+<var>filename</var>.  <var>filename</var> is simply a flat file, with one symbol
+name per line.  Line comments may be introduced by the hash character. 
+This option may be given more than once.
+
+<br><dt><code>--weaken-symbols=<var>filename</var></code>
+<dd>Apply <code>--weaken-symbol</code> option to each symbol listed in the file
+<var>filename</var>.  <var>filename</var> is simply a flat file, with one symbol
+name per line.  Line comments may be introduced by the hash character. 
+This option may be given more than once.
+
+<br><dt><code>--alt-machine-code=<var>index</var></code>
+<dd>If the output architecture has alternate machine codes, use the
+<var>index</var>th code instead of the default one.  This is useful in case
+a machine is assigned an official code and the tool-chain adopts the
+new code, but other applications still depend on the original code
+being used.
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Show the version number of <code>objcopy</code>.
+
+<br><dt><code>-v</code>
+<dt><code>--verbose</code>
+<dd>Verbose output: list all object files modified.  In the case of
+archives, <code>objcopy -V</code> lists all members of the archive.
+
+<br><dt><code>--help</code>
+<dd>Show a summary of the options to <code>objcopy</code>. 
+</dl>
+
+<p><hr>
+Node:<a name="objdump">objdump</a>,
+Next:<a rel=next href="#ranlib">ranlib</a>,
+Previous:<a rel=previous href="#objcopy">objcopy</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>objdump</h1>
+
+<pre>objdump [<code>-a</code>|<code>--archive-headers</code>]
+        [<code>-b</code> <var>bfdname</var>|<code>--target=<var>bfdname</var></code>]
+        [<code>-C</code>|<code>--demangle</code>[=<var>style</var>] ]
+        [<code>-d</code>|<code>--disassemble</code>]
+        [<code>-D</code>|<code>--disassemble-all</code>]
+        [<code>-z</code>|<code>--disassemble-zeroes</code>]
+        [<code>-EB</code>|<code>-EL</code>|<code>--endian=</code>{big | little }]
+        [<code>-f</code>|<code>--file-headers</code>]
+        [<code>--file-start-context</code>]
+        [<code>-g</code>|<code>--debugging</code>]
+        [<code>-h</code>|<code>--section-headers</code>|<code>--headers</code>]
+        [<code>-i</code>|<code>--info</code>]
+        [<code>-j</code> <var>section</var>|<code>--section=</code><var>section</var>]
+        [<code>-l</code>|<code>--line-numbers</code>]
+        [<code>-S</code>|<code>--source</code>]
+        [<code>-m</code> <var>machine</var>|<code>--architecture=</code><var>machine</var>]
+        [<code>-M</code> <var>options</var>|<code>--disassembler-options=</code><var>options</var>]
+        [<code>-p</code>|<code>--private-headers</code>]
+        [<code>-r</code>|<code>--reloc</code>]
+        [<code>-R</code>|<code>--dynamic-reloc</code>]
+        [<code>-s</code>|<code>--full-contents</code>]
+        [<code>-G</code>|<code>--stabs</code>]
+        [<code>-t</code>|<code>--syms</code>]
+        [<code>-T</code>|<code>--dynamic-syms</code>]
+        [<code>-x</code>|<code>--all-headers</code>]
+        [<code>-w</code>|<code>--wide</code>]
+        [<code>--start-address=</code><var>address</var>]
+        [<code>--stop-address=</code><var>address</var>]
+        [<code>--prefix-addresses</code>]
+        [<code>--[no-]show-raw-insn</code>]
+        [<code>--adjust-vma=</code><var>offset</var>]
+        [<code>-V</code>|<code>--version</code>]
+        [<code>-H</code>|<code>--help</code>]
+        <var>objfile</var><small>...</small>
+</pre>
+
+<p><code>objdump</code> displays information about one or more object files. 
+The options control what particular information to display.  This
+information is mostly useful to programmers who are working on the
+compilation tools, as opposed to programmers who just want their
+program to compile and work.
+
+<p><var>objfile</var><small>...</small> are the object files to be examined.  When you
+specify archives, <code>objdump</code> shows information on each of the member
+object files.
+
+<p>The long and short forms of options, shown here as alternatives, are
+equivalent.  At least one option from the list
+<code>-a,-d,-D,-f,-g,-G,-h,-H,-p,-r,-R,-S,-t,-T,-V,-x</code> must be given.
+
+<dl>
+<dt><code>-a</code>
+<dt><code>--archive-header</code>
+<dd>If any of the <var>objfile</var> files are archives, display the archive
+header information (in a format similar to <code>ls -l</code>).  Besides the
+information you could list with <code>ar tv</code>, <code>objdump -a</code> shows
+the object file format of each archive member.
+
+<br><dt><code>--adjust-vma=<var>offset</var></code>
+<dd>When dumping information, first add <var>offset</var> to all the section
+addresses.  This is useful if the section addresses do not correspond to
+the symbol table, which can happen when putting sections at particular
+addresses when using a format which can not represent section addresses,
+such as a.out.
+
+<br><dt><code>-b <var>bfdname</var></code>
+<dt><code>--target=<var>bfdname</var></code>
+<dd>Specify that the object-code format for the object files is
+<var>bfdname</var>.  This option may not be necessary; <var>objdump</var> can
+automatically recognize many formats.
+
+<p>For example,
+<pre>objdump -b oasys -m vax -h fu.o
+</pre>
+
+<p>displays summary information from the section headers (<code>-h</code>) of
+<code>fu.o</code>, which is explicitly identified (<code>-m</code>) as a VAX object
+file in the format produced by Oasys compilers.  You can list the
+formats available with the <code>-i</code> option. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-C</code>
+<dt><code>--demangle[=<var>style</var>]</code>
+<dd>Decode (<dfn>demangle</dfn>) low-level symbol names into user-level names. 
+Besides removing any initial underscore prepended by the system, this
+makes C++ function names readable.  Different compilers have different
+mangling styles. The optional demangling style argument can be used to
+choose an appropriate demangling style for your compiler. See <a href="#c++filt">c++filt</a>,
+for more information on demangling.
+
+<br><dt><code>-G</code>
+<br><dt><code>--debugging</code>
+<dd>Display debugging information.  This attempts to parse debugging
+information stored in the file and print it out using a C like syntax. 
+Only certain types of debugging information have been implemented.
+
+<br><dt><code>-d</code>
+<dt><code>--disassemble</code>
+<dd>Display the assembler mnemonics for the machine instructions from
+<var>objfile</var>.  This option only disassembles those sections which are
+expected to contain instructions.
+
+<br><dt><code>-D</code>
+<dt><code>--disassemble-all</code>
+<dd>Like <code>-d</code>, but disassemble the contents of all sections, not just
+those expected to contain instructions.
+
+<br><dt><code>--prefix-addresses</code>
+<dd>When disassembling, print the complete address on each line.  This is
+the older disassembly format.
+
+<br><dt><code>--disassemble-zeroes</code>
+<dd>Normally the disassembly output will skip blocks of zeroes.  This
+option directs the disassembler to disassemble those blocks, just like
+any other data.
+
+<br><dt><code>-EB</code>
+<dt><code>-EL</code>
+<dt><code>--endian={big|little}</code>
+<dd>Specify the endianness of the object files.  This only affects
+disassembly.  This can be useful when disassembling a file format which
+does not describe endianness information, such as S-records.
+
+<br><dt><code>-f</code>
+<dt><code>--file-header</code>
+<dd>Display summary information from the overall header of
+each of the <var>objfile</var> files.
+
+<br><dt><code>--file-start-context</code>
+<dd>Specify that when displaying interlisted source code/disassembly
+(assumes <code>-S</code>) from a file that has not yet been displayed, extend the
+context to the start of the file.
+
+<br><dt><code>-h</code>
+<dt><code>--section-header</code>
+<dt><code>--header</code>
+<dd>Display summary information from the section headers of the
+object file.
+
+<p>File segments may be relocated to nonstandard addresses, for example by
+using the <code>-Ttext</code>, <code>-Tdata</code>, or <code>-Tbss</code> options to
+<code>ld</code>.  However, some object file formats, such as a.out, do not
+store the starting address of the file segments.  In those situations,
+although <code>ld</code> relocates the sections correctly, using <code>objdump
+-h</code> to list the file section headers cannot show the correct addresses. 
+Instead, it shows the usual addresses, which are implicit for the
+target.
+
+<br><dt><code>--help</code>
+<dd>Print a summary of the options to <code>objdump</code> and exit.
+
+<br><dt><code>-i</code>
+<dt><code>--info</code>
+<dd>Display a list showing all architectures and object formats available
+for specification with <code>-b</code> or <code>-m</code>.
+
+<br><dt><code>-j <var>name</var></code>
+<dt><code>--section=<var>name</var></code>
+<dd>Display information only for section <var>name</var>.
+
+<br><dt><code>-l</code>
+<dt><code>--line-numbers</code>
+<dd>Label the display (using debugging information) with the filename and
+source line numbers corresponding to the object code or relocs shown. 
+Only useful with <code>-d</code>, <code>-D</code>, or <code>-r</code>.
+
+<br><dt><code>-m <var>machine</var></code>
+<dt><code>--architecture=<var>machine</var></code>
+<dd>Specify the architecture to use when disassembling object files.  This
+can be useful when disassembling object files which do not describe
+architecture information, such as S-records.  You can list the available
+architectures with the <code>-i</code> option.
+
+<br><dt><code>-M <var>options</var></code>
+<dt><code>--disassembler-options=<var>options</var></code>
+<dd>Pass target specific information to the disassembler.  Only supported on
+some targets.
+
+<p>If the target is an ARM architecture then this switch can be used to
+select which register name set is used during disassembler.  Specifying
+<code>-M reg-name-std</code> (the default) will select the register names as
+used in ARM's instruction set documentation, but with register 13 called
+'sp', register 14 called 'lr' and register 15 called 'pc'.  Specifying
+<code>-M reg-names-apcs</code> will select the name set used by the ARM
+Procedure Call Standard, whilst specifying <code>-M reg-names-raw</code> will
+just use <code>r</code> followed by the register number.
+
+<p>There are also two variants on the APCS register naming scheme enabled
+by <code>-M reg-names-atpcs</code> and <code>-M reg-names-special-atpcs</code> which
+use the ARM/Thumb Procedure Call Standard naming conventions.  (Either
+with the normal register name or the special register names).
+
+<p>This option can also be used for ARM architectures to force the
+disassembler to interpret all instructions as Thumb instructions by
+using the switch <code>--disassembler-options=force-thumb</code>.  This can be
+useful when attempting to disassemble thumb code produced by other
+compilers.
+
+<br><dt><code>-p</code>
+<dt><code>--private-headers</code>
+<dd>Print information that is specific to the object file format.  The exact
+information printed depends upon the object file format.  For some
+object file formats, no additional information is printed.
+
+<br><dt><code>-r</code>
+<dt><code>--reloc</code>
+<dd>Print the relocation entries of the file.  If used with <code>-d</code> or
+<code>-D</code>, the relocations are printed interspersed with the
+disassembly.
+
+<br><dt><code>-R</code>
+<dt><code>--dynamic-reloc</code>
+<dd>Print the dynamic relocation entries of the file.  This is only
+meaningful for dynamic objects, such as certain types of shared
+libraries.
+
+<br><dt><code>-s</code>
+<dt><code>--full-contents</code>
+<dd>Display the full contents of any sections requested.
+
+<br><dt><code>-S</code>
+<dt><code>--source</code>
+<dd>Display source code intermixed with disassembly, if possible.  Implies
+<code>-d</code>.
+
+<br><dt><code>--show-raw-insn</code>
+<dd>When disassembling instructions, print the instruction in hex as well as
+in symbolic form.  This is the default except when
+<code>--prefix-addresses</code> is used.
+
+<br><dt><code>--no-show-raw-insn</code>
+<dd>When disassembling instructions, do not print the instruction bytes. 
+This is the default when <code>--prefix-addresses</code> is used.
+
+<br><dt><code>-G</code>
+<br><dt><code>--stabs</code>
+<dd>Display the full contents of any sections requested.  Display the
+contents of the .stab and .stab.index and .stab.excl sections from an
+ELF file.  This is only useful on systems (such as Solaris 2.0) in which
+<code>.stab</code> debugging symbol-table entries are carried in an ELF
+section.  In most other file formats, debugging symbol-table entries are
+interleaved with linkage symbols, and are visible in the <code>--syms</code>
+output. 
+For more information on stabs symbols, see <a href="stabs.info.html#Stabs">Top</a>.
+
+<br><dt><code>--start-address=<var>address</var></code>
+<dd>Start displaying data at the specified address.  This affects the output
+of the <code>-d</code>, <code>-r</code> and <code>-s</code> options.
+
+<br><dt><code>--stop-address=<var>address</var></code>
+<dd>Stop displaying data at the specified address.  This affects the output
+of the <code>-d</code>, <code>-r</code> and <code>-s</code> options.
+
+<br><dt><code>-t</code>
+<dt><code>--syms</code>
+<dd>Print the symbol table entries of the file. 
+This is similar to the information provided by the <code>nm</code> program.
+
+<br><dt><code>-T</code>
+<dt><code>--dynamic-syms</code>
+<dd>Print the dynamic symbol table entries of the file.  This is only
+meaningful for dynamic objects, such as certain types of shared
+libraries.  This is similar to the information provided by the <code>nm</code>
+program when given the <code>-D</code> (<code>--dynamic</code>) option.
+
+<br><dt><code>--version</code>
+<dd>Print the version number of <code>objdump</code> and exit.
+
+<br><dt><code>-x</code>
+<dt><code>--all-header</code>
+<dd>Display all available header information, including the symbol table and
+relocation entries.  Using <code>-x</code> is equivalent to specifying all of
+<code>-a -f -h -r -t</code>.
+
+<br><dt><code>-w</code>
+<dt><code>--wide</code>
+<dd>Format some lines for output devices that have more than 80 columns. 
+</dl>
+
+<p><hr>
+Node:<a name="ranlib">ranlib</a>,
+Next:<a rel=next href="#readelf">readelf</a>,
+Previous:<a rel=previous href="#objdump">objdump</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>ranlib</h1>
+
+<pre>ranlib [<code>-vV</code>] <var>archive</var>
+</pre>
+
+<p><code>ranlib</code> generates an index to the contents of an archive and
+stores it in the archive.  The index lists each symbol defined by a
+member of an archive that is a relocatable object file.
+
+<p>You may use <code>nm -s</code> or <code>nm --print-armap</code> to list this index.
+
+<p>An archive with such an index speeds up linking to the library and
+allows routines in the library to call each other without regard to
+their placement in the archive.
+
+<p>The <small>GNU</small> <code>ranlib</code> program is another form of <small>GNU</small> <code>ar</code>; running
+<code>ranlib</code> is completely equivalent to executing <code>ar -s</code>. 
+See <a href="#ar">ar</a>.
+
+<dl>
+<dt><code>-v</code>
+<dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Show the version number of <code>ranlib</code>. 
+</dl>
+
+<p><hr>
+Node:<a name="size">size</a>,
+Next:<a rel=next href="#strings">strings</a>,
+Previous:<a rel=previous href="#readelf">readelf</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>size</h1>
+
+<pre>size [<code>-A</code>|<code>-B</code>|<code>--format=</code><var>compatibility</var>]
+     [<code>--help</code>] [<code>-d</code>|<code>-o</code>|<code>-x</code>|<code>--radix=</code><var>number</var>]
+     [<code>--target=</code><var>bfdname</var>] [<code>-V</code>|<code>--version</code>]
+     [<var>objfile</var><small>...</small>]
+</pre>
+
+<p>The <small>GNU</small> <code>size</code> utility lists the section sizes--and the total
+size--for each of the object or archive files <var>objfile</var> in its
+argument list.  By default, one line of output is generated for each
+object file or each module in an archive.
+
+<p><var>objfile</var><small>...</small> are the object files to be examined. 
+If none are specified, the file <code>a.out</code> will be used.
+
+<p>The command line options have the following meanings:
+
+<dl>
+<dt><code>-A</code>
+<dt><code>-B</code>
+<dt><code>--format=<var>compatibility</var></code>
+<dd>Using one of these options, you can choose whether the output from <small>GNU</small>
+<code>size</code> resembles output from System V <code>size</code> (using <code>-A</code>,
+or <code>--format=sysv</code>), or Berkeley <code>size</code> (using <code>-B</code>, or
+<code>--format=berkeley</code>).  The default is the one-line format similar to
+Berkeley's.
+
+<p>Here is an example of the Berkeley (default) format of output from
+<code>size</code>:
+<pre>$ size --format=Berkeley ranlib size
+text    data    bss     dec     hex     filename
+294880  81920   11592   388392  5ed28   ranlib
+294880  81920   11888   388688  5ee50   size
+</pre>
+
+<p>This is the same data, but displayed closer to System V conventions:
+
+<pre>$ size --format=SysV ranlib size
+ranlib  :
+section         size         addr
+.text         294880         8192
+.data          81920       303104
+.bss           11592       385024
+Total         388392
+
+
+size  :
+section         size         addr
+.text         294880         8192
+.data          81920       303104
+.bss           11888       385024
+Total         388688
+</pre>
+
+<br><dt><code>--help</code>
+<dd>Show a summary of acceptable arguments and options.
+
+<br><dt><code>-d</code>
+<dt><code>-o</code>
+<dt><code>-x</code>
+<dt><code>--radix=<var>number</var></code>
+<dd>Using one of these options, you can control whether the size of each
+section is given in decimal (<code>-d</code>, or <code>--radix=10</code>); octal
+(<code>-o</code>, or <code>--radix=8</code>); or hexadecimal (<code>-x</code>, or
+<code>--radix=16</code>).  In <code>--radix=<var>number</var></code>, only the three
+values (8, 10, 16) are supported.  The total size is always given in two
+radices; decimal and hexadecimal for <code>-d</code> or <code>-x</code> output, or
+octal and hexadecimal if you're using <code>-o</code>.
+
+<br><dt><code>--target=<var>bfdname</var></code>
+<dd>Specify that the object-code format for <var>objfile</var> is
+<var>bfdname</var>.  This option may not be necessary; <code>size</code> can
+automatically recognize many formats. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Display the version number of <code>size</code>. 
+</dl>
+
+<p><hr>
+Node:<a name="strings">strings</a>,
+Next:<a rel=next href="#strip">strip</a>,
+Previous:<a rel=previous href="#size">size</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>strings</h1>
+
+<pre>strings [<code>-afov</code>] [<code>-</code><var>min-len</var>] [<code>-n</code> <var>min-len</var>] [<code>-t</code> <var>radix</var>] [<code>-</code>]
+        [<code>--all</code>] [<code>--print-file-name</code>] [<code>--bytes=</code><var>min-len</var>]
+        [<code>--radix=</code><var>radix</var>] [<code>--target=</code><var>bfdname</var>]
+        [<code>--help</code>] [<code>--version</code>] <var>file</var><small>...</small>
+</pre>
+
+<p>For each <var>file</var> given, <small>GNU</small> <code>strings</code> prints the printable
+character sequences that are at least 4 characters long (or the number
+given with the options below) and are followed by an unprintable
+character.  By default, it only prints the strings from the initialized
+and loaded sections of object files; for other types of files, it prints
+the strings from the whole file.
+
+<p><code>strings</code> is mainly useful for determining the contents of non-text
+files.
+
+<dl>
+<dt><code>-a</code>
+<dt><code>--all</code>
+<dt><code>-</code>
+<dd>Do not scan only the initialized and loaded sections of object files;
+scan the whole files.
+
+<br><dt><code>-f</code>
+<dt><code>--print-file-name</code>
+<dd>Print the name of the file before each string.
+
+<br><dt><code>--help</code>
+<dd>Print a summary of the program usage on the standard output and exit.
+
+<br><dt><code>-<var>min-len</var></code>
+<dt><code>-n <var>min-len</var></code>
+<dt><code>--bytes=<var>min-len</var></code>
+<dd>Print sequences of characters that are at least <var>min-len</var> characters
+long, instead of the default 4.
+
+<br><dt><code>-o</code>
+<dd>Like <code>-t o</code>.  Some other versions of <code>strings</code> have <code>-o</code>
+act like <code>-t d</code> instead.  Since we can not be compatible with both
+ways, we simply chose one.
+
+<br><dt><code>-t <var>radix</var></code>
+<dt><code>--radix=<var>radix</var></code>
+<dd>Print the offset within the file before each string.  The single
+character argument specifies the radix of the offset--<code>o</code> for
+octal, <code>x</code> for hexadecimal, or <code>d</code> for decimal.
+
+<br><dt><code>--target=<var>bfdname</var></code>
+<dd>Specify an object code format other than your system's default format. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-v</code>
+<dt><code>--version</code>
+<dd>Print the program version number on the standard output and exit. 
+</dl>
+
+<p><hr>
+Node:<a name="strip">strip</a>,
+Next:<a rel=next href="#c++filt">c++filt</a>,
+Previous:<a rel=previous href="#strings">strings</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>strip</h1>
+
+<pre>strip [<code>-F</code> <var>bfdname</var> |<code>--target=</code><var>bfdname</var> ]
+      [<code>-I</code> <var>bfdname</var> |<code>--input-target=</code><var>bfdname</var> ]
+      [<code>-O</code> <var>bfdname</var> |<code>--output-target=</code><var>bfdname</var> ]
+      [<code>-s</code>|<code>--strip-all</code>] [<code>-S</code>|<code>-g</code>|<code>--strip-debug</code>]
+      [<code>-K</code> <var>symbolname</var> |<code>--keep-symbol=</code><var>symbolname</var> ]
+      [<code>-N</code> <var>symbolname</var> |<code>--strip-symbol=</code><var>symbolname</var> ]
+      [<code>-x</code>|<code>--discard-all</code> ] [<code>-X</code> |<code>--discard-locals</code>]
+      [<code>-R</code> <var>sectionname</var> |<code>--remove-section=</code><var>sectionname</var> ]
+      [<code>-o</code> <var>file</var> ] [<code>-p</code>|<code>--preserve-dates</code>]
+      [<code>-v</code> |<code>--verbose</code>]  [<code>-V</code>|<code>--version</code>] [<code>--help</code>]
+      <var>objfile</var><small>...</small>
+</pre>
+
+<p><small>GNU</small> <code>strip</code> discards all symbols from object files
+<var>objfile</var>.  The list of object files may include archives. 
+At least one object file must be given.
+
+<p><code>strip</code> modifies the files named in its argument,
+rather than writing modified copies under different names.
+
+<dl>
+<dt><code>-F <var>bfdname</var></code>
+<dt><code>--target=<var>bfdname</var></code>
+<dd>Treat the original <var>objfile</var> as a file with the object
+code format <var>bfdname</var>, and rewrite it in the same format. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>--help</code>
+<dd>Show a summary of the options to <code>strip</code> and exit.
+
+<br><dt><code>-I <var>bfdname</var></code>
+<dt><code>--input-target=<var>bfdname</var></code>
+<dd>Treat the original <var>objfile</var> as a file with the object
+code format <var>bfdname</var>. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-O <var>bfdname</var></code>
+<dt><code>--output-target=<var>bfdname</var></code>
+<dd>Replace <var>objfile</var> with a file in the output format <var>bfdname</var>. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-R <var>sectionname</var></code>
+<dt><code>--remove-section=<var>sectionname</var></code>
+<dd>Remove any section named <var>sectionname</var> from the output file.  This
+option may be given more than once.  Note that using this option
+inappropriately may make the output file unusable.
+
+<br><dt><code>-s</code>
+<dt><code>--strip-all</code>
+<dd>Remove all symbols.
+
+<br><dt><code>-g</code>
+<dt><code>-S</code>
+<dt><code>--strip-debug</code>
+<dd>Remove debugging symbols only.
+
+<br><dt><code>--strip-unneeded</code>
+<dd>Remove all symbols that are not needed for relocation processing.
+
+<br><dt><code>-K <var>symbolname</var></code>
+<dt><code>--keep-symbol=<var>symbolname</var></code>
+<dd>Keep only symbol <var>symbolname</var> from the source file.  This option may
+be given more than once.
+
+<br><dt><code>-N <var>symbolname</var></code>
+<dt><code>--strip-symbol=<var>symbolname</var></code>
+<dd>Remove symbol <var>symbolname</var> from the source file. This option may be
+given more than once, and may be combined with strip options other than
+<code>-K</code>.
+
+<br><dt><code>-o <var>file</var></code>
+<dd>Put the stripped output in <var>file</var>, rather than replacing the
+existing file.  When this argument is used, only one <var>objfile</var>
+argument may be specified.
+
+<br><dt><code>-p</code>
+<dt><code>--preserve-dates</code>
+<dd>Preserve the access and modification dates of the file.
+
+<br><dt><code>-x</code>
+<dt><code>--discard-all</code>
+<dd>Remove non-global symbols.
+
+<br><dt><code>-X</code>
+<dt><code>--discard-locals</code>
+<dd>Remove compiler-generated local symbols. 
+(These usually start with <code>L</code> or <code>.</code>.)
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Show the version number for <code>strip</code>.
+
+<br><dt><code>-v</code>
+<dt><code>--verbose</code>
+<dd>Verbose output: list all object files modified.  In the case of
+archives, <code>strip -v</code> lists all members of the archive. 
+</dl>
+
+<p><hr>
+Node:<a name="c++filt">c++filt</a>,
+Next:<a rel=next href="#addr2line">addr2line</a>,
+Previous:<a rel=previous href="#strip">strip</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>c++filt</h1>
+
+<pre>c++filt [<code>-_</code>|<code>--strip-underscores</code>]
+        [<code>-j</code>|<code>--java</code>]
+        [<code>-n</code>|<code>--no-strip-underscores</code>]
+        [<code>-s</code> <var>format</var>|<code>--format=</code><var>format</var>]
+        [<code>--help</code>]  [<code>--version</code>]  [<var>symbol</var><small>...</small>]
+</pre>
+
+<p>The C++ and Java languages provides function overloading, which means
+that you can write many functions with the same name (providing each
+takes parameters of different types).  All C++ and Java function names
+are encoded into a low-level assembly label (this process is known as
+<dfn>mangling</dfn>). The <code>c++filt</code>
+<a rel=footnote href="#fn-1"><sup>1</sup></a>
+program does the inverse mapping: it decodes (<dfn>demangles</dfn>) low-level
+names into user-level names so that the linker can keep these overloaded
+functions from clashing.
+
+<p>Every alphanumeric word (consisting of letters, digits, underscores,
+dollars, or periods) seen in the input is a potential label.  If the
+label decodes into a C++ name, the C++ name replaces the low-level
+name in the output.
+
+<p>You can use <code>c++filt</code> to decipher individual symbols:
+
+<pre>c++filt <var>symbol</var>
+</pre>
+
+<p>If no <var>symbol</var> arguments are given, <code>c++filt</code> reads symbol
+names from the standard input and writes the demangled names to the
+standard output.  All results are printed on the standard output.
+
+<dl>
+<dt><code>-_</code>
+<dt><code>--strip-underscores</code>
+<dd>On some systems, both the C and C++ compilers put an underscore in front
+of every name.  For example, the C name <code>foo</code> gets the low-level
+name <code>_foo</code>.  This option removes the initial underscore.  Whether
+<code>c++filt</code> removes the underscore by default is target dependent.
+
+<br><dt><code>-j</code>
+<dt><code>--java</code>
+<dd>Prints demangled names using Java syntax.  The default is to use C++
+syntax.
+
+<br><dt><code>-n</code>
+<dt><code>--no-strip-underscores</code>
+<dd>Do not remove the initial underscore.
+
+<br><dt><code>-s <var>format</var></code>
+<dt><code>--format=<var>format</var></code>
+<dd><small>GNU</small> <code>nm</code> can decode three different methods of mangling, used by
+different C++ compilers.  The argument to this option selects which
+method it uses:
+
+<dl>
+<dt><code>gnu</code>
+<dd>the one used by the <small>GNU</small> compiler (the default method)
+<br><dt><code>lucid</code>
+<dd>the one used by the Lucid compiler
+<br><dt><code>arm</code>
+<dd>the one specified by the C++ Annotated Reference Manual
+<br><dt><code>hp</code>
+<dd>the one used by the HP compiler
+<br><dt><code>edg</code>
+<dd>the one used by the EDG compiler
+<br><dt><code>gnu-new-abi</code>
+<dd>the one used by the <small>GNU</small> compiler with the new ABI. 
+</dl>
+
+<br><dt><code>--help</code>
+<dd>Print a summary of the options to <code>c++filt</code> and exit.
+
+<br><dt><code>--version</code>
+<dd>Print the version number of <code>c++filt</code> and exit. 
+</dl>
+
+<blockquote>
+<em>Warning:</em> <code>c++filt</code> is a new utility, and the details of its
+user interface are subject to change in future releases.  In particular,
+a command-line option may be required in the the future to decode a name
+passed as an argument on the command line; in other words,
+
+<pre>c++filt <var>symbol</var>
+</pre>
+
+<p>may in a future release become
+
+<pre>c++filt <var>option</var> <var>symbol</var>
+</pre>
+</blockquote>
+
+<p><hr>
+Node:<a name="addr2line">addr2line</a>,
+Next:<a rel=next href="#nlmconv">nlmconv</a>,
+Previous:<a rel=previous href="#c++filt">c++filt</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>addr2line</h1>
+
+<pre>addr2line [<code>-b</code> <var>bfdname</var>|<code>--target=</code><var>bfdname</var>]
+          [<code>-C</code>|<code>--demangle</code>[=<var>style</var>]
+          [<code>-e</code> <var>filename</var>|<code>--exe=</code><var>filename</var>]
+          [<code>-f</code>|<code>--functions</code>] [<code>-s</code>|<code>--basename</code>]
+          [<code>-H</code>|<code>--help</code>] [<code>-V</code>|<code>--version</code>]
+          [addr addr <small>...</small>]
+</pre>
+
+<p><code>addr2line</code> translates program addresses into file names and line
+numbers.  Given an address and an executable, it uses the debugging
+information in the executable to figure out which file name and line
+number are associated with a given address.
+
+<p>The executable to use is specified with the <code>-e</code> option.  The
+default is the file <code>a.out</code>.
+
+<p><code>addr2line</code> has two modes of operation.
+
+<p>In the first, hexadecimal addresses are specified on the command line,
+and <code>addr2line</code> displays the file name and line number for each
+address.
+
+<p>In the second, <code>addr2line</code> reads hexadecimal addresses from
+standard input, and prints the file name and line number for each
+address on standard output.  In this mode, <code>addr2line</code> may be used
+in a pipe to convert dynamically chosen addresses.
+
+<p>The format of the output is <code>FILENAME:LINENO</code>.  The file name and
+line number for each address is printed on a separate line.  If the
+<code>-f</code> option is used, then each <code>FILENAME:LINENO</code> line is
+preceded by a <code>FUNCTIONNAME</code> line which is the name of the function
+containing the address.
+
+<p>If the file name or function name can not be determined,
+<code>addr2line</code> will print two question marks in their place.  If the
+line number can not be determined, <code>addr2line</code> will print 0.
+
+<p>The long and short forms of options, shown here as alternatives, are
+equivalent.
+
+<dl>
+<dt><code>-b <var>bfdname</var></code>
+<dt><code>--target=<var>bfdname</var></code>
+<dd>Specify that the object-code format for the object files is
+<var>bfdname</var>.
+
+<br><dt><code>-C</code>
+<dt><code>--demangle[=<var>style</var>]</code>
+<dd>Decode (<dfn>demangle</dfn>) low-level symbol names into user-level names. 
+Besides removing any initial underscore prepended by the system, this
+makes C++ function names readable.  Different compilers have different
+mangling styles. The optional demangling style argument can be used to
+choose an appropriate demangling style for your compiler. See <a href="#c++filt">c++filt</a>,
+for more information on demangling.
+
+<br><dt><code>-e <var>filename</var></code>
+<dt><code>--exe=<var>filename</var></code>
+<dd>Specify the name of the executable for which addresses should be
+translated.  The default file is <code>a.out</code>.
+
+<br><dt><code>-f</code>
+<dt><code>--functions</code>
+<dd>Display function names as well as file and line number information.
+
+<br><dt><code>-s</code>
+<dt><code>--basenames</code>
+<dd>Display only the base of each file name. 
+</dl>
+
+<p><hr>
+Node:<a name="nlmconv">nlmconv</a>,
+Next:<a rel=next href="#windres">windres</a>,
+Previous:<a rel=previous href="#addr2line">addr2line</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>nlmconv</h1>
+
+<p><code>nlmconv</code> converts a relocatable object file into a NetWare
+Loadable Module.
+
+<blockquote>
+<em>Warning:</em> <code>nlmconv</code> is not always built as part of the binary
+utilities, since it is only useful for NLM targets. 
+</blockquote>
+
+<pre>nlmconv [<code>-I</code> <var>bfdname</var>|<code>--input-target=</code><var>bfdname</var>]
+        [<code>-O</code> <var>bfdname</var>|<code>--output-target=</code><var>bfdname</var>]
+        [<code>-T</code> <var>headerfile</var>|<code>--header-file=</code><var>headerfile</var>]
+        [<code>-d</code>|<code>--debug</code>] [<code>-l</code> <var>linker</var>|<code>--linker=</code><var>linker</var>]
+        [<code>-h</code>|<code>--help</code>] [<code>-V</code>|<code>--version</code>]
+        <var>infile</var> <var>outfile</var>
+</pre>
+
+<p><code>nlmconv</code> converts the relocatable <code>i386</code> object file
+<var>infile</var> into the NetWare Loadable Module <var>outfile</var>, optionally
+reading <var>headerfile</var> for NLM header information.  For instructions
+on writing the NLM command file language used in header files, see the
+<code>linkers</code> section, <code>NLMLINK</code> in particular, of the <cite>NLM
+Development and Tools Overview</cite>, which is part of the NLM Software
+Developer's Kit ("NLM SDK"), available from Novell, Inc. 
+<code>nlmconv</code> uses the <small>GNU</small> Binary File Descriptor library to read
+<var>infile</var>;
+see <a href="ld.info.html#BFD">BFD</a>, for more information.
+
+<p><code>nlmconv</code> can perform a link step.  In other words, you can list
+more than one object file for input if you list them in the definitions
+file (rather than simply specifying one input file on the command line). 
+In this case, <code>nlmconv</code> calls the linker for you.
+
+<dl>
+<dt><code>-I <var>bfdname</var></code>
+<dt><code>--input-target=<var>bfdname</var></code>
+<dd>Object format of the input file.  <code>nlmconv</code> can usually determine
+the format of a given file (so no default is necessary). 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-O <var>bfdname</var></code>
+<dt><code>--output-target=<var>bfdname</var></code>
+<dd>Object format of the output file.  <code>nlmconv</code> infers the output
+format based on the input format, e.g. for a <code>i386</code> input file the
+output format is <code>nlm32-i386</code>. 
+See <a href="#Target%20Selection">Target Selection</a>, for more information.
+
+<br><dt><code>-T <var>headerfile</var></code>
+<dt><code>--header-file=<var>headerfile</var></code>
+<dd>Reads <var>headerfile</var> for NLM header information.  For instructions on
+writing the NLM command file language used in header files, see see the
+<code>linkers</code> section, of the <cite>NLM Development and Tools
+Overview</cite>, which is part of the NLM Software Developer's Kit, available
+from Novell, Inc.
+
+<br><dt><code>-d</code>
+<dt><code>--debug</code>
+<dd>Displays (on standard error) the linker command line used by <code>nlmconv</code>.
+
+<br><dt><code>-l <var>linker</var></code>
+<dt><code>--linker=<var>linker</var></code>
+<dd>Use <var>linker</var> for any linking.  <var>linker</var> can be an absolute or a
+relative pathname.
+
+<br><dt><code>-h</code>
+<dt><code>--help</code>
+<dd>Prints a usage summary.
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Prints the version number for <code>nlmconv</code>. 
+</dl>
+
+<p><hr>
+Node:<a name="windres">windres</a>,
+Next:<a rel=next href="#dlltool">dlltool</a>,
+Previous:<a rel=previous href="#nlmconv">nlmconv</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>windres</h1>
+
+<p><code>windres</code> may be used to manipulate Windows resources.
+
+<blockquote>
+<em>Warning:</em> <code>windres</code> is not always built as part of the binary
+utilities, since it is only useful for Windows targets. 
+</blockquote>
+
+<pre>windres [options] [input-file] [output-file]
+</pre>
+
+<p><code>windres</code> reads resources from an input file and copies them into
+an output file.  Either file may be in one of three formats:
+
+<dl>
+<dt><code>rc</code>
+<dd>A text format read by the Resource Compiler.
+
+<br><dt><code>res</code>
+<dd>A binary format generated by the Resource Compiler.
+
+<br><dt><code>coff</code>
+<dd>A COFF object or executable. 
+</dl>
+
+<p>The exact description of these different formats is available in
+documentation from Microsoft.
+
+<p>When <code>windres</code> converts from the <code>rc</code> format to the <code>res</code>
+format, it is acting like the Windows Resource Compiler.  When
+<code>windres</code> converts from the <code>res</code> format to the <code>coff</code>
+format, it is acting like the Windows <code>CVTRES</code> program.
+
+<p>When <code>windres</code> generates an <code>rc</code> file, the output is similar
+but not identical to the format expected for the input.  When an input
+<code>rc</code> file refers to an external filename, an output <code>rc</code> file
+will instead include the file contents.
+
+<p>If the input or output format is not specified, <code>windres</code> will
+guess based on the file name, or, for the input file, the file contents. 
+A file with an extension of <code>.rc</code> will be treated as an <code>rc</code>
+file, a file with an extension of <code>.res</code> will be treated as a
+<code>res</code> file, and a file with an extension of <code>.o</code> or
+<code>.exe</code> will be treated as a <code>coff</code> file.
+
+<p>If no output file is specified, <code>windres</code> will print the resources
+in <code>rc</code> format to standard output.
+
+<p>The normal use is for you to write an <code>rc</code> file, use <code>windres</code>
+to convert it to a COFF object file, and then link the COFF file into
+your application.  This will make the resources described in the
+<code>rc</code> file available to Windows.
+
+<dl>
+<dt><code>-i <var>filename</var></code>
+<dt><code>--input <var>filename</var></code>
+<dd>The name of the input file.  If this option is not used, then
+<code>windres</code> will use the first non-option argument as the input file
+name.  If there are no non-option arguments, then <code>windres</code> will
+read from standard input.  <code>windres</code> can not read a COFF file from
+standard input.
+
+<br><dt><code>-o <var>filename</var></code>
+<dt><code>--output <var>filename</var></code>
+<dd>The name of the output file.  If this option is not used, then
+<code>windres</code> will use the first non-option argument, after any used
+for the input file name, as the output file name.  If there is no
+non-option argument, then <code>windres</code> will write to standard output. 
+<code>windres</code> can not write a COFF file to standard output.
+
+<br><dt><code>-I <var>format</var></code>
+<dt><code>--input-format <var>format</var></code>
+<dd>The input format to read.  <var>format</var> may be <code>res</code>, <code>rc</code>, or
+<code>coff</code>.  If no input format is specified, <code>windres</code> will
+guess, as described above.
+
+<br><dt><code>-O <var>format</var></code>
+<dt><code>--output-format <var>format</var></code>
+<dd>The output format to generate.  <var>format</var> may be <code>res</code>,
+<code>rc</code>, or <code>coff</code>.  If no output format is specified,
+<code>windres</code> will guess, as described above.
+
+<br><dt><code>-F <var>target</var></code>
+<dt><code>--target <var>target</var></code>
+<dd>Specify the BFD format to use for a COFF file as input or output.  This
+is a BFD target name; you can use the <code>--help</code> option to see a list
+of supported targets.  Normally <code>windres</code> will use the default
+format, which is the first one listed by the <code>--help</code> option. 
+<a href="#Target%20Selection">Target Selection</a>.
+
+<br><dt><code>--preprocessor <var>program</var></code>
+<dd>When <code>windres</code> reads an <code>rc</code> file, it runs it through the C
+preprocessor first.  This option may be used to specify the preprocessor
+to use, including any leading arguments.  The default preprocessor
+argument is <code>gcc -E -xc-header -DRC_INVOKED</code>.
+
+<br><dt><code>--include-dir <var>directory</var></code>
+<dd>Specify an include directory to use when reading an <code>rc</code> file. 
+<code>windres</code> will pass this to the preprocessor as an <code>-I</code>
+option.  <code>windres</code> will also search this directory when looking for
+files named in the <code>rc</code> file.
+
+<br><dt><code>-D <var>target</var></code>
+<dt><code>--define <var>sym</var>[=<var>val</var>]</code>
+<dd>Specify a <code>-D</code> option to pass to the preprocessor when reading an
+<code>rc</code> file.
+
+<br><dt><code>-v</code>
+<dd>Enable verbose mode.  This tells you what the preprocessor is if you
+didn't specify one.
+
+<br><dt><code>--language <var>val</var></code>
+<dd>Specify the default language to use when reading an <code>rc</code> file. 
+<var>val</var> should be a hexadecimal language code.  The low eight bits are
+the language, and the high eight bits are the sublanguage.
+
+<br><dt><code>--use-temp-file</code>
+<dd>Use a temporary file to instead of using popen to read the output of
+the preprocessor. Use this option if the popen implementation is buggy
+on the host (eg., certain non-English language versions of Windows 95 and
+Windows 98 are known to have buggy popen where the output will instead
+go the console).
+
+<br><dt><code>--no-use-temp-file</code>
+<dd>Use popen, not a temporary file, to read the output of the preprocessor. 
+This is the default behaviour.
+
+<br><dt><code>--help</code>
+<dd>Prints a usage summary.
+
+<br><dt><code>--version</code>
+<dd>Prints the version number for <code>windres</code>.
+
+<br><dt><code>--yydebug</code>
+<dd>If <code>windres</code> is compiled with <code>YYDEBUG</code> defined as <code>1</code>,
+this will turn on parser debugging. 
+</dl>
+
+<p><hr>
+Node:<a name="dlltool">dlltool</a>,
+Next:<a rel=next href="#Selecting%20The%20Target%20System">Selecting The Target System</a>,
+Previous:<a rel=previous href="#windres">windres</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Create files needed to build and use DLLs</h1>
+
+<p><code>dlltool</code> may be used to create the files needed to build and use
+dynamic link libraries (DLLs).
+
+<blockquote>
+<em>Warning:</em> <code>dlltool</code> is not always built as part of the binary
+utilities, since it is only useful for those targets which support DLLs. 
+</blockquote>
+
+<pre>dlltool [<code>-d</code>|<code>--input-def</code> <var>def-file-name</var>]
+        [<code>-b</code>|<code>--base-file</code> <var>base-file-name</var>]
+        [<code>-e</code>|<code>--output-exp</code> <var>exports-file-name</var>]
+        [<code>-z</code>|<code>--output-def</code> <var>def-file-name</var>]
+        [<code>-l</code>|<code>--output-lib</code> <var>library-file-name</var>]
+        [<code>--export-all-symbols</code>] [<code>--no-export-all-symbols</code>]
+        [<code>--exclude-symbols</code> <var>list</var>]
+        [<code>--no-default-excludes</code>]
+        [<code>-S</code>|<code>--as</code> <var>path-to-assembler</var>] [<code>-f</code>|<code>--as-flags</code> <var>options</var>]
+        [<code>-D</code>|<code>--dllname</code> <var>name</var>] [<code>-m</code>|<code>--machine</code> <var>machine</var>]
+        [<code>-a</code>|<code>--add-indirect</code>] [<code>-U</code>|<code>--add-underscore</code>] [<code>-k</code>|<code>--kill-at</code>]
+        [<code>-A</code>|<code>--add-stdcall-alias</code>]
+        [<code>-x</code>|<code>--no-idata4</code>] [<code>-c</code>|<code>--no-idata5</code>] [<code>-i</code>|<code>--interwork</code>]
+        [<code>-n</code>|<code>--nodelete</code>] [<code>-v</code>|<code>--verbose</code>]
+        [<code>-h</code>|<code>--help</code>] [<code>-V</code>|<code>--version</code>]
+        [object-file <small>...</small>]
+</pre>
+
+<p><code>dlltool</code> reads its inputs, which can come from the <code>-d</code> and
+<code>-b</code> options as well as object files specified on the command
+line.  It then processes these inputs and if the <code>-e</code> option has
+been specified it creates a exports file.  If the <code>-l</code> option
+has been specified it creates a library file and if the <code>-z</code> option
+has been specified it creates a def file.  Any or all of the <code>-e</code>,
+<code>-l</code> and <code>-z</code> options can be present in one invocation of
+dlltool.
+
+<p>When creating a DLL, along with the source for the DLL, it is necessary
+to have three other files.  <code>dlltool</code> can help with the creation of
+these files.
+
+<p>The first file is a <code>.def</code> file which specifies which functions are
+exported from the DLL, which functions the DLL imports, and so on.  This
+is a text file and can be created by hand, or <code>dlltool</code> can be used
+to create it using the <code>-z</code> option.  In this case <code>dlltool</code>
+will scan the object files specified on its command line looking for
+those functions which have been specially marked as being exported and
+put entries for them in the .def file it creates.
+
+<p>In order to mark a function as being exported from a DLL, it needs to
+have an <code>-export:&lt;name_of_function&gt;</code> entry in the <code>.drectve</code>
+section of the object file.  This can be done in C by using the
+asm() operator:
+
+<pre>  asm (".section .drectve");
+  asm (".ascii \"-export:my_func\"");
+
+  int my_func (void) { <small>...</small> }
+</pre>
+
+<p>The second file needed for DLL creation is an exports file.  This file
+is linked with the object files that make up the body of the DLL and it
+handles the interface between the DLL and the outside world.  This is a
+binary file and it can be created by giving the <code>-e</code> option to
+<code>dlltool</code> when it is creating or reading in a .def file.
+
+<p>The third file needed for DLL creation is the library file that programs
+will link with in order to access the functions in the DLL.  This file
+can be created by giving the <code>-l</code> option to dlltool when it
+is creating or reading in a .def file.
+
+<p><code>dlltool</code> builds the library file by hand, but it builds the
+exports file by creating temporary files containing assembler statements
+and then assembling these.  The <code>-S</code> command line option can be
+used to specify the path to the assembler that dlltool will use,
+and the <code>-f</code> option can be used to pass specific flags to that
+assembler.  The <code>-n</code> can be used to prevent dlltool from deleting
+these temporary assembler files when it is done, and if <code>-n</code> is
+specified twice then this will prevent dlltool from deleting the
+temporary object files it used to build the library.
+
+<p>Here is an example of creating a DLL from a source file <code>dll.c</code> and
+also creating a program (from an object file called <code>program.o</code>)
+that uses that DLL:
+
+<pre>  gcc -c dll.c
+  dlltool -e exports.o -l dll.lib dll.o
+  gcc dll.o exports.o -o dll.dll
+  gcc program.o dll.lib -o program
+</pre>
+
+<p>The command line options have the following meanings:
+
+<dl>
+
+<br><dt><code>-d <var>filename</var></code>
+<dt><code>--input-def <var>filename</var></code>
+<dd>Specifies the name of a .def file to be read in and processed.
+
+<br><dt><code>-b <var>filename</var></code>
+<dt><code>--base-file <var>filename</var></code>
+<dd>Specifies the name of a base file to be read in and processed.  The
+contents of this file will be added to the relocation section in the
+exports file generated by dlltool.
+
+<br><dt><code>-e <var>filename</var></code>
+<dt><code>--output-exp <var>filename</var></code>
+<dd>Specifies the name of the export file to be created by dlltool.
+
+<br><dt><code>-z <var>filename</var></code>
+<dt><code>--output-def <var>filename</var></code>
+<dd>Specifies the name of the .def file to be created by dlltool.
+
+<br><dt><code>-l <var>filename</var></code>
+<dt><code>--output-lib <var>filename</var></code>
+<dd>Specifies the name of the library file to be created by dlltool.
+
+<br><dt><code>--export-all-symbols</code>
+<dd>Treat all global and weak defined symbols found in the input object
+files as symbols to be exported.  There is a small list of symbols which
+are not exported by default; see the <code>--no-default-excludes</code>
+option.  You may add to the list of symbols to not export by using the
+<code>--exclude-symbols</code> option.
+
+<br><dt><code>--no-export-all-symbols</code>
+<dd>Only export symbols explicitly listed in an input .def file or in
+<code>.drectve</code> sections in the input object files.  This is the default
+behaviour.  The <code>.drectve</code> sections are created by <code>dllexport</code>
+attributes in the source code.
+
+<br><dt><code>--exclude-symbols <var>list</var></code>
+<dd>Do not export the symbols in <var>list</var>.  This is a list of symbol names
+separated by comma or colon characters.  The symbol names should not
+contain a leading underscore.  This is only meaningful when
+<code>--export-all-symbols</code> is used.
+
+<br><dt><code>--no-default-excludes</code>
+<dd>When <code>--export-all-symbols</code> is used, it will by default avoid
+exporting certain special symbols.  The current list of symbols to avoid
+exporting is <code>DllMain@12</code>, <code>DllEntryPoint@0</code>,
+<code>impure_ptr</code>.  You may use the <code>--no-default-excludes</code> option
+to go ahead and export these special symbols.  This is only meaningful
+when <code>--export-all-symbols</code> is used.
+
+<br><dt><code>-S <var>path</var></code>
+<dt><code>--as <var>path</var></code>
+<dd>Specifies the path, including the filename, of the assembler to be used
+to create the exports file.
+
+<br><dt><code>-f <var>switches</var></code>
+<dt><code>--as-flags <var>switches</var></code>
+<dd>Specifies any specific command line switches to be passed to the
+assembler when building the exports file.  This option will work even if
+the <code>-S</code> option is not used.  This option only takes one argument,
+and if it occurs more than once on the command line, then later
+occurrences will override earlier occurrences.  So if it is necessary to
+pass multiple switches to the assembler they should be enclosed in
+double quotes.
+
+<br><dt><code>-D <var>name</var></code>
+<dt><code>--dll-name <var>name</var></code>
+<dd>Specifies the name to be stored in the .def file as the name of the DLL
+when the <code>-e</code> option is used.  If this option is not present, then
+the filename given to the <code>-e</code> option will be used as the name of
+the DLL.
+
+<br><dt><code>-m <var>machine</var></code>
+<dt><code>-machine <var>machine</var></code>
+<dd>Specifies the type of machine for which the library file should be
+built.  <code>dlltool</code> has a built in default type, depending upon how
+it was created, but this option can be used to override that.  This is
+normally only useful when creating DLLs for an ARM processor, when the
+contents of the DLL are actually encode using Thumb instructions.
+
+<br><dt><code>-a</code>
+<dt><code>--add-indirect</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports file it
+should add a section which allows the exported functions to be
+referenced without using the import library.  Whatever the hell that
+means!
+
+<br><dt><code>-U</code>
+<dt><code>--add-underscore</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports file it
+should prepend an underscore to the names of the exported functions.
+
+<br><dt><code>-k</code>
+<dt><code>--kill-at</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports file it
+should not append the string <code>@ &lt;number&gt;</code>.  These numbers are
+called ordinal numbers and they represent another way of accessing the
+function in a DLL, other than by name.
+
+<br><dt><code>-A</code>
+<dt><code>--add-stdcall-alias</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports file it
+should add aliases for stdcall symbols without <code>@ &lt;number&gt;</code>
+in addition to the symbols with <code>@ &lt;number&gt;</code>.
+
+<br><dt><code>-x</code>
+<dt><code>--no-idata4</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports and library
+files it should omit the <code>.idata4</code> section.  This is for compatibility
+with certain operating systems.
+
+<br><dt><code>-c</code>
+<dt><code>--no-idata5</code>
+<dd>Specifies that when <code>dlltool</code> is creating the exports and library
+files it should omit the <code>.idata5</code> section.  This is for compatibility
+with certain operating systems.
+
+<br><dt><code>-i</code>
+<dt><code>--interwork</code>
+<dd>Specifies that <code>dlltool</code> should mark the objects in the library
+file and exports file that it produces as supporting interworking
+between ARM and Thumb code.
+
+<br><dt><code>-n</code>
+<dt><code>--nodelete</code>
+<dd>Makes <code>dlltool</code> preserve the temporary assembler files it used to
+create the exports file.  If this option is repeated then dlltool will
+also preserve the temporary object files it uses to create the library
+file.
+
+<br><dt><code>-v</code>
+<dt><code>--verbose</code>
+<dd>Make dlltool describe what it is doing.
+
+<br><dt><code>-h</code>
+<dt><code>--help</code>
+<dd>Displays a list of command line options and then exits.
+
+<br><dt><code>-V</code>
+<dt><code>--version</code>
+<dd>Displays dlltool's version number and then exits.
+
+</dl>
+
+<p><hr>
+Node:<a name="readelf">readelf</a>,
+Next:<a rel=next href="#size">size</a>,
+Previous:<a rel=previous href="#ranlib">ranlib</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>readelf</h1>
+
+<pre>readelf [<code>-a</code>|<code>--all</code>]
+        [<code>-h</code>|<code>--file-header</code>]
+        [<code>-l</code>|<code>--program-headers</code>|<code>--segments</code>]
+        [<code>-S</code>|<code>--section-headers</code>|<code>--sections</code>]
+        [<code>-e</code>|<code>--headers</code>]
+        [<code>-s</code>|<code>--syms</code>|<code>--symbols</code>]
+        [<code>-n</code>|<code>--notes</code>]
+        [<code>-r</code>|<code>--relocs</code>]
+        [<code>-u</code>|<code>--unwind</code>]
+        [<code>-d</code>|<code>--dynamic</code>]
+        [<code>-V</code>|<code>--version-info</code>]
+        [<code>-D</code>|<code>--use-dynamic</code>]
+        [<code>-x</code> &lt;number&gt;|<code>--hex-dump=</code>&lt;number&gt;]
+        [<code>-w[liaprmf]</code>|<code>--debug-dump</code>[=line,=info,=abbrev,=pubnames,=ranges,=macro,=frames]]
+        [<code>-histogram</code>]
+        [<code>-v</code>|<code>--version</code>]
+        [<code>-H</code>|<code>--help</code>]
+        <var>elffile</var><small>...</small>
+</pre>
+
+<p><code>readelf</code> displays information about one or more ELF format object
+files.  The options control what particular information to display.
+
+<p><var>elffile</var><small>...</small> are the object files to be examined.  At the
+moment, <code>readelf</code> does not support examining archives, nor does it
+support examing 64 bit ELF files.
+
+<p>The long and short forms of options, shown here as alternatives, are
+equivalent.  At least one option besides <code>-v</code> or <code>-H</code> must be
+given.
+
+<dl>
+<dt><code>-a</code>
+<dt><code>--all</code>
+<dd>Equivalent to specifiying <code>--file-header</code>,
+<code>--program-headers</code>, <code>--sections</code>, <code>--symbols</code>,
+<code>--relocs</code>, <code>--dynamic</code>, <code>--notes</code> and
+<code>--version-info</code>.
+
+<br><dt><code>-h</code>
+<dt><code>--file-header</code>
+<dd>Displays the information contained in the ELF header at the start of the
+file.
+
+<br><dt><code>-l</code>
+<dt><code>--program-headers</code>
+<dt><code>--segments</code>
+<dd>Displays the information contained in the file's segment headers, if it
+has any.
+
+<br><dt><code>-S</code>
+<dt><code>--sections</code>
+<dt><code>--section-headers</code>
+<dd>Displays the information contained in the file's section headers, if it
+has any.
+
+<br><dt><code>-s</code>
+<dt><code>--symbols</code>
+<dt><code>--syms</code>
+<dd>Displays the entries in symbol table section of the file, if it has one.
+
+<br><dt><code>-e</code>
+<dt><code>--headers</code>
+<dd>Display all the headers in the file.  Equivalent to <code>-h -l -S</code>.
+
+<br><dt><code>-n</code>
+<dt><code>--notes</code>
+<dd>Displays the contents of the NOTE segment, if it exists.
+
+<br><dt><code>-r</code>
+<dt><code>--relocs</code>
+<dd>Displays the contents of the file's relocation section, if it has one.
+
+<br><dt><code>-u</code>
+<dt><code>--unwind</code>
+<dd>Displays the contents of the file's unwind section, if it has one.  Only
+the unwind sections for IA64 ELF files are currently supported.
+
+<br><dt><code>-d</code>
+<dt><code>--dynamic</code>
+<dd>Displays the contents of the file's dynamic section, if it has one.
+
+<br><dt><code>-V</code>
+<dt><code>--version-info</code>
+<dd>Displays the contents of the version sections in the file, it they
+exist.
+
+<br><dt><code>-D</code>
+<dt><code>--use-dynamic</code>
+<dd>When displaying symbols, this option makes <code>readelf</code> use the
+symbol table in the file's dynamic section, rather than the one in the
+symbols section.
+
+<br><dt><code>-x &lt;number&gt;</code>
+<dt><code>--hex-dump=&lt;number&gt;</code>
+<dd>Displays the contents of the indicated section as a hexadecimal dump.
+
+<br><dt><code>-w[liaprmf]</code>
+<dt><code>--debug-dump[=line,=info,=abbrev,=pubnames,=ranges,=macro,=frames]</code>
+<dd>Displays the contents of the debug sections in the file, if any are
+present.  If one of the optional letters or words follows the switch
+then only data found in those specific sections will be dumped.
+
+<br><dt><code>--histogram</code>
+<dd>Display a histogram of bucket list lengths when displaying the contents
+of the symbol tables.
+
+<br><dt><code>-v</code>
+<dt><code>--version</code>
+<dd>Display the version number of readelf.
+
+<br><dt><code>-H</code>
+<dt><code>--help</code>
+<dd>Display the command line options understood by <code>readelf</code>.
+
+</dl>
+
+<p><hr>
+Node:<a name="Selecting%20The%20Target%20System">Selecting The Target System</a>,
+Next:<a rel=next href="#Reporting%20Bugs">Reporting Bugs</a>,
+Previous:<a rel=previous href="#dlltool">dlltool</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Selecting the target system</h1>
+
+<p>You can specify three aspects of the target system to the <small>GNU</small>
+binary file utilities, each in several ways:
+
+<ul>
+<li>the target
+
+<li>the architecture
+
+<li>the linker emulation (which applies to the linker only)
+</ul>
+
+<p>In the following summaries, the lists of ways to specify values are in
+order of decreasing precedence.  The ways listed first override those
+listed later.
+
+<p>The commands to list valid values only list the values for which the
+programs you are running were configured.  If they were configured with
+<code>--enable-targets=all</code>, the commands list most of the available
+values, but a few are left out; not all targets can be configured in at
+once because some of them can only be configured <dfn>native</dfn> (on hosts
+with the same type as the target system).
+
+<ul>
+<li><a href="#Target%20Selection">Target Selection</a>: 
+<li><a href="#Architecture%20Selection">Architecture Selection</a>: 
+<li><a href="#Linker%20Emulation%20Selection">Linker Emulation Selection</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Target%20Selection">Target Selection</a>,
+Next:<a rel=next href="#Architecture%20Selection">Architecture Selection</a>,
+Up:<a rel=up href="#Selecting%20The%20Target%20System">Selecting The Target System</a>
+<br>
+
+<h2>Target Selection</h2>
+
+<p>A <dfn>target</dfn> is an object file format.  A given target may be
+supported for multiple architectures (see <a href="#Architecture%20Selection">Architecture Selection</a>). 
+A target selection may also have variations for different operating
+systems or architectures.
+
+<p>The command to list valid target values is <code>objdump -i</code>
+(the first column of output contains the relevant information).
+
+<p>Some sample values are: <code>a.out-hp300bsd</code>, <code>ecoff-littlemips</code>,
+<code>a.out-sunos-big</code>.
+
+<p>You can also specify a target using a configuration triplet.  This is
+the same sort of name that is passed to <code>configure</code> to specify a
+target.  When you use a configuration triplet as an argument, it must be
+fully canonicalized.  You can see the canonical version of a triplet by
+running the shell script <code>config.sub</code> which is included with the
+sources.
+
+<p>Some sample configuration triplets are: <code>m68k-hp-bsd</code>,
+<code>mips-dec-ultrix</code>, <code>sparc-sun-sunos</code>.
+
+<h3><code>objdump</code> Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>-b</code> or <code>--target</code>
+
+<li>environment variable <code>GNUTARGET</code>
+
+<li>deduced from the input file
+</ol>
+
+<h3><code>objcopy</code> and <code>strip</code> Input Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line options: <code>-I</code> or <code>--input-target</code>, or <code>-F</code> or <code>--target</code>
+
+<li>environment variable <code>GNUTARGET</code>
+
+<li>deduced from the input file
+</ol>
+
+<h3><code>objcopy</code> and <code>strip</code> Output Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line options: <code>-O</code> or <code>--output-target</code>, or <code>-F</code> or <code>--target</code>
+
+<li>the input target (see "<code>objcopy</code> and <code>strip</code> Input Target" above)
+
+<li>environment variable <code>GNUTARGET</code>
+
+<li>deduced from the input file
+</ol>
+
+<h3><code>nm</code>, <code>size</code>, and <code>strings</code> Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>--target</code>
+
+<li>environment variable <code>GNUTARGET</code>
+
+<li>deduced from the input file
+</ol>
+
+<h3>Linker Input Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>-b</code> or <code>--format</code>
+(see <a href="ld.info.html#Options">Options</a>)
+
+<li>script command <code>TARGET</code>
+(see <a href="ld.info.html#Option%20Commands">Option Commands</a>)
+
+<li>environment variable <code>GNUTARGET</code>
+(see <a href="ld.info.html#Environment">Environment</a>)
+
+<li>the default target of the selected linker emulation
+(see <a href="#Linker%20Emulation%20Selection">Linker Emulation Selection</a>)
+</ol>
+
+<h3>Linker Output Target</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>-oformat</code>
+(see <a href="ld.info.html#Options">Options</a>)
+
+<li>script command <code>OUTPUT_FORMAT</code>
+(see <a href="ld.info.html#Option%20Commands">Option Commands</a>)
+
+<li>the linker input target (see "Linker Input Target" above)
+</ol>
+
+<p><hr>
+Node:<a name="Architecture%20Selection">Architecture Selection</a>,
+Next:<a rel=next href="#Linker%20Emulation%20Selection">Linker Emulation Selection</a>,
+Previous:<a rel=previous href="#Target%20Selection">Target Selection</a>,
+Up:<a rel=up href="#Selecting%20The%20Target%20System">Selecting The Target System</a>
+<br>
+
+<h2>Architecture selection</h2>
+
+<p>An <dfn>architecture</dfn> is a type of <small>CPU</small> on which an object file is
+to run.  Its name may contain a colon, separating the name of the
+processor family from the name of the particular <small>CPU</small>.
+
+<p>The command to list valid architecture values is <code>objdump -i</code> (the
+second column contains the relevant information).
+
+<p>Sample values: <code>m68k:68020</code>, <code>mips:3000</code>, <code>sparc</code>.
+
+<h3><code>objdump</code> Architecture</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>-m</code> or <code>--architecture</code>
+
+<li>deduced from the input file
+</ol>
+
+<h3><code>objcopy</code>, <code>nm</code>, <code>size</code>, <code>strings</code> Architecture</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>deduced from the input file
+</ol>
+
+<h3>Linker Input Architecture</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>deduced from the input file
+</ol>
+
+<h3>Linker Output Architecture</h3>
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>script command <code>OUTPUT_ARCH</code>
+(see <a href="ld.info.html#Option%20Commands">Option Commands</a>)
+
+<li>the default architecture from the linker output target
+(see <a href="#Target%20Selection">Target Selection</a>)
+</ol>
+
+<p><hr>
+Node:<a name="Linker%20Emulation%20Selection">Linker Emulation Selection</a>,
+Previous:<a rel=previous href="#Architecture%20Selection">Architecture Selection</a>,
+Up:<a rel=up href="#Selecting%20The%20Target%20System">Selecting The Target System</a>
+<br>
+
+<h2>Linker emulation selection</h2>
+
+<p>A linker <dfn>emulation</dfn> is a "personality" of the linker, which gives
+the linker default values for the other aspects of the target system. 
+In particular, it consists of
+
+<ul>
+<li>the linker script
+
+<li>the target
+
+<li>several "hook" functions that are run at certain stages of the linking
+process to do special things that some targets require
+</ul>
+
+<p>The command to list valid linker emulation values is <code>ld -V</code>.
+
+<p>Sample values: <code>hp300bsd</code>, <code>mipslit</code>, <code>sun4</code>.
+
+<p>Ways to specify:
+
+<ol type=1 start=1>
+</p><li>command line option: <code>-m</code>
+(see <a href="ld.info.html#Options">Options</a>)
+
+<li>environment variable <code>LDEMULATION</code>
+
+<li>compiled-in <code>DEFAULT_EMULATION</code> from <code>Makefile</code>,
+which comes from <code>EMUL</code> in <code>config/<var>target</var>.mt</code>
+</ol>
+
+<p><hr>
+Node:<a name="Reporting%20Bugs">Reporting Bugs</a>,
+Next:<a rel=next href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Previous:<a rel=previous href="#Selecting%20The%20Target%20System">Selecting The Target System</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Reporting Bugs</h1>
+
+<p>Your bug reports play an essential role in making the binary utilities
+reliable.
+
+<p>Reporting a bug may help you by bringing a solution to your problem, or
+it may not.  But in any case the principal function of a bug report is
+to help the entire community by making the next version of the binary
+utilities work better.  Bug reports are your contribution to their
+maintenance.
+
+<p>In order for a bug report to serve its purpose, you must include the
+information that enables us to fix the bug.
+
+<ul>
+<li><a href="#Bug%20Criteria">Bug Criteria</a>:                 Have you found a bug? 
+<li><a href="#Bug%20Reporting">Bug Reporting</a>:                How to report bugs
+</ul>
+
+<p><hr>
+Node:<a name="Bug%20Criteria">Bug Criteria</a>,
+Next:<a rel=next href="#Bug%20Reporting">Bug Reporting</a>,
+Up:<a rel=up href="#Reporting%20Bugs">Reporting Bugs</a>
+<br>
+
+<h2>Have you found a bug?</h2>
+
+<p>If you are not sure whether you have found a bug, here are some guidelines:
+
+<ul>
+<li>If a binary utility gets a fatal signal, for any input whatever, that is
+a bug.  Reliable utilities never crash.
+
+<li>If a binary utility produces an error message for valid input, that is a
+bug.
+
+<li>If you are an experienced user of binary utilities, your suggestions for
+improvement are welcome in any case. 
+</ul>
+
+<p><hr>
+Node:<a name="Bug%20Reporting">Bug Reporting</a>,
+Previous:<a rel=previous href="#Bug%20Criteria">Bug Criteria</a>,
+Up:<a rel=up href="#Reporting%20Bugs">Reporting Bugs</a>
+<br>
+
+<h2>How to report bugs</h2>
+
+<p>A number of companies and individuals offer support for <small>GNU</small>
+products.  If you obtained the binary utilities from a support
+organization, we recommend you contact that organization first.
+
+<p>You can find contact information for many support companies and
+individuals in the file <code>etc/SERVICE</code> in the <small>GNU</small> Emacs
+distribution.
+
+<p>In any event, we also recommend that you send bug reports for the binary
+utilities to <code>bug-binutils@gnu.org</code>.
+
+<p>The fundamental principle of reporting bugs usefully is this:
+<strong>report all the facts</strong>.  If you are not sure whether to state a
+fact or leave it out, state it!
+
+<p>Often people omit facts because they think they know what causes the
+problem and assume that some details do not matter.  Thus, you might
+assume that the name of a file you use in an example does not matter. 
+Well, probably it does not, but one cannot be sure.  Perhaps the bug is
+a stray memory reference which happens to fetch from the location where
+that pathname is stored in memory; perhaps, if the pathname were
+different, the contents of that location would fool the utility into
+doing the right thing despite the bug.  Play it safe and give a
+specific, complete example.  That is the easiest thing for you to do,
+and the most helpful.
+
+<p>Keep in mind that the purpose of a bug report is to enable us to fix the bug if
+it is new to us.  Therefore, always write your bug reports on the assumption
+that the bug has not been reported previously.
+
+<p>Sometimes people give a few sketchy facts and ask, "Does this ring a
+bell?"  Those bug reports are useless, and we urge everyone to
+<em>refuse to respond to them</em> except to chide the sender to report
+bugs properly.
+
+<p>To enable us to fix the bug, you should include all these things:
+
+<ul>
+<li>The version of the utility.  Each utility announces it if you start it
+with the <code>--version</code> argument.
+
+<p>Without this, we will not know whether there is any point in looking for
+the bug in the current version of the binary utilities.
+
+</p><li>Any patches you may have applied to the source, including any patches
+made to the <code>BFD</code> library.
+
+<li>The type of machine you are using, and the operating system name and
+version number.
+
+<li>What compiler (and its version) was used to compile the utilities--e.g. 
+"<code>gcc-2.7</code>".
+
+<li>The command arguments you gave the utility to observe the bug.  To
+guarantee you will not omit something important, list them all.  A copy
+of the Makefile (or the output from make) is sufficient.
+
+<p>If we were to try to guess the arguments, we would probably guess wrong
+and then we might not encounter the bug.
+
+</p><li>A complete input file, or set of input files, that will reproduce the
+bug.  If the utility is reading an object file or files, then it is
+generally most helpful to send the actual object files, uuencoded if
+necessary to get them through the mail system.  Note that
+<code>bug-binutils@gnu.org</code> is a mailing list, so you should avoid
+sending very large files to it.  Making the files available for
+anonymous FTP is OK.
+
+<p>If the source files were produced exclusively using <small>GNU</small> programs
+(e.g., <code>gcc</code>, <code>gas</code>, and/or the <small>GNU</small> <code>ld</code>), then it
+may be OK to send the source files rather than the object files.  In
+this case, be sure to say exactly what version of <code>gcc</code>, or
+whatever, was used to produce the object files.  Also say how
+<code>gcc</code>, or whatever, was configured.
+
+</p><li>A description of what behavior you observe that you believe is
+incorrect.  For example, "It gets a fatal signal."
+
+<p>Of course, if the bug is that the utility gets a fatal signal, then we
+will certainly notice it.  But if the bug is incorrect output, we might
+not notice unless it is glaringly wrong.  You might as well not give us
+a chance to make a mistake.
+
+<p>Even if the problem you experience is a fatal signal, you should still
+say so explicitly.  Suppose something strange is going on, such as your
+copy of the utility is out of synch, or you have encountered a bug in
+the C library on your system.  (This has happened!)  Your copy might
+crash and ours would not.  If you told us to expect a crash, then when
+ours fails to crash, we would know that the bug was not happening for
+us.  If you had not told us to expect a crash, then we would not be able
+to draw any conclusion from our observations.
+
+</p><li>If you wish to suggest changes to the source, send us context diffs, as
+generated by <code>diff</code> with the <code>-u</code>, <code>-c</code>, or <code>-p</code>
+option.  Always send diffs from the old file to the new file.  If you
+wish to discuss something in the <code>ld</code> source, refer to it by
+context, not by line number.
+
+<p>The line numbers in our development sources will not match those in your
+sources.  Your line numbers would convey no useful information to us. 
+</ul>
+
+<p>Here are some things that are not necessary:
+
+<ul>
+<li>A description of the envelope of the bug.
+
+<p>Often people who encounter a bug spend a lot of time investigating
+which changes to the input file will make the bug go away and which
+changes will not affect it.
+
+<p>This is often time consuming and not very useful, because the way we
+will find the bug is by running a single example under the debugger
+with breakpoints, not by pure deduction from a series of examples. 
+We recommend that you save your time for something else.
+
+<p>Of course, if you can find a simpler example to report <em>instead</em>
+of the original one, that is a convenience for us.  Errors in the
+output will be easier to spot, running under the debugger will take
+less time, and so on.
+
+<p>However, simplification is not vital; if you do not want to do this,
+report the bug anyway and send us the entire test case you used.
+
+</p><li>A patch for the bug.
+
+<p>A patch for the bug does help us if it is a good one.  But do not omit
+the necessary information, such as the test case, on the assumption that
+a patch is all we need.  We might see problems with your patch and decide
+to fix the problem another way, or we might not understand it at all.
+
+<p>Sometimes with programs as complicated as the binary utilities it is
+very hard to construct an example that will make the program follow a
+certain path through the code.  If you do not send us the example, we
+will not be able to construct one, so we will not be able to verify that
+the bug is fixed.
+
+<p>And if we cannot understand what bug you are trying to fix, or why your
+patch should be an improvement, we will not install it.  A test case will
+help us to understand.
+
+</p><li>A guess about what the bug is or what it depends on.
+
+<p>Such guesses are usually wrong.  Even we cannot guess right about such
+things without first using the debugger to find the facts. 
+</ul>
+
+<p><hr>
+Node:<a name="GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Next:<a rel=next href="#Index">Index</a>,
+Previous:<a rel=previous href="#Reporting%20Bugs">Reporting Bugs</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>GNU Free Documentation License</h1>
+
+<p>GNU Free Documentation License
+
+<p>Version 1.1, March 2000
+
+<p>Copyright (C) 2000  Free Software Foundation, Inc. 
+  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+<p>Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+<p>0. PREAMBLE
+
+<p>The purpose of this License is to make a manual, textbook, or other
+written document "free" in the sense of freedom: to assure everyone
+the effective freedom to copy and redistribute it, with or without
+modifying it, either commercially or noncommercially.  Secondarily,
+this License preserves for the author and publisher a way to get
+credit for their work, while not being considered responsible for
+modifications made by others.
+
+<p>This License is a kind of "copyleft", which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+<p>We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+<p>1. APPLICABILITY AND DEFINITIONS
+
+<p>This License applies to any manual or other work that contains a
+notice placed by the copyright holder saying it can be distributed
+under the terms of this License.  The "Document", below, refers to any
+such manual or work.  Any member of the public is a licensee, and is
+addressed as "you".
+
+<p>A "Modified Version" of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+<p>A "Secondary Section" is a named appendix or a front-matter section of
+the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall subject
+(or to related matters) and contains nothing that could fall directly
+within that overall subject.  (For example, if the Document is in part a
+textbook of mathematics, a Secondary Section may not explain any
+mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+<p>The "Invariant Sections" are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.
+
+<p>The "Cover Texts" are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.
+
+<p>A "Transparent" copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, whose contents can be viewed and edited directly and
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup has been designed to thwart or discourage
+subsequent modification by readers is not Transparent.  A copy that is
+not "Transparent" is called "Opaque".
+
+<p>Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, LaTeX input format, SGML
+or XML using a publicly available DTD, and standard-conforming simple
+HTML designed for human modification.  Opaque formats include
+PostScript, PDF, proprietary formats that can be read and edited only
+by proprietary word processors, SGML or XML for which the DTD and/or
+processing tools are not generally available, and the
+machine-generated HTML produced by some word processors for output
+purposes only.
+
+<p>The "Title Page" means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, "Title Page" means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+<p>2. VERBATIM COPYING
+
+<p>You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no other
+conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+<p>You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+<p>3. COPYING IN QUANTITY
+
+<p>If you publish printed copies of the Document numbering more than 100,
+and the Document's license notice requires Cover Texts, you must enclose
+the copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition. 
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+<p>If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+<p>If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a publicly-accessible computer-network location containing a complete
+Transparent copy of the Document, free of added material, which the
+general network-using public has access to download anonymously at no
+charge using public-standard network protocols.  If you use the latter
+option, you must take reasonably prudent steps, when you begin
+distribution of Opaque copies in quantity, to ensure that this
+Transparent copy will remain thus accessible at the stated location
+until at least one year after the last time you distribute an Opaque
+copy (directly or through your agents or retailers) of that edition to
+the public.
+
+<p>It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give
+them a chance to provide you with an updated version of the Document.
+
+<p>4. MODIFICATIONS
+
+<p>You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+<p>A. Use in the Title Page (and on the covers, if any) a title distinct
+   from that of the Document, and from those of previous versions
+   (which should, if there were any, be listed in the History section
+   of the Document).  You may use the same title as a previous version
+   if the original publisher of that version gives permission. 
+B. List on the Title Page, as authors, one or more persons or entities
+   responsible for authorship of the modifications in the Modified
+   Version, together with at least five of the principal authors of the
+   Document (all of its principal authors, if it has less than five). 
+C. State on the Title page the name of the publisher of the
+   Modified Version, as the publisher. 
+D. Preserve all the copyright notices of the Document. 
+E. Add an appropriate copyright notice for your modifications
+   adjacent to the other copyright notices. 
+F. Include, immediately after the copyright notices, a license notice
+   giving the public permission to use the Modified Version under the
+   terms of this License, in the form shown in the Addendum below. 
+G. Preserve in that license notice the full lists of Invariant Sections
+   and required Cover Texts given in the Document's license notice. 
+H. Include an unaltered copy of this License. 
+I. Preserve the section entitled "History", and its title, and add to
+   it an item stating at least the title, year, new authors, and
+   publisher of the Modified Version as given on the Title Page.  If
+   there is no section entitled "History" in the Document, create one
+   stating the title, year, authors, and publisher of the Document as
+   given on its Title Page, then add an item describing the Modified
+   Version as stated in the previous sentence. 
+J. Preserve the network location, if any, given in the Document for
+   public access to a Transparent copy of the Document, and likewise
+   the network locations given in the Document for previous versions
+   it was based on.  These may be placed in the "History" section. 
+   You may omit a network location for a work that was published at
+   least four years before the Document itself, or if the original
+   publisher of the version it refers to gives permission. 
+K. In any section entitled "Acknowledgements" or "Dedications",
+   preserve the section's title, and preserve in the section all the
+   substance and tone of each of the contributor acknowledgements
+   and/or dedications given therein. 
+L. Preserve all the Invariant Sections of the Document,
+   unaltered in their text and in their titles.  Section numbers
+   or the equivalent are not considered part of the section titles. 
+M. Delete any section entitled "Endorsements".  Such a section
+   may not be included in the Modified Version. 
+N. Do not retitle any existing section as "Endorsements"
+   or to conflict in title with any Invariant Section.
+
+<p>If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice. 
+These titles must be distinct from any other section titles.
+
+<p>You may add a section entitled "Endorsements", provided it contains
+nothing but endorsements of your Modified Version by various
+parties-for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+<p>You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+<p>The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+<p>5. COMBINING DOCUMENTS
+
+<p>You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice.
+
+<p>The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number. 
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+<p>In the combination, you must combine any sections entitled "History"
+in the various original documents, forming one section entitled
+"History"; likewise combine any sections entitled "Acknowledgements",
+and any sections entitled "Dedications".  You must delete all sections
+entitled "Endorsements."
+
+<p>6. COLLECTIONS OF DOCUMENTS
+
+<p>You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in
+the collection, provided that you follow the rules of this License for
+verbatim copying of each of the documents in all other respects.
+
+<p>You may extract a single document from such a collection, and distribute
+it individually under this License, provided you insert a copy of this
+License into the extracted document, and follow this License in all
+other respects regarding verbatim copying of that document.
+
+<p>7. AGGREGATION WITH INDEPENDENT WORKS
+
+<p>A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, does not as a whole count as a Modified Version
+of the Document, provided no compilation copyright is claimed for the
+compilation.  Such a compilation is called an "aggregate", and this
+License does not apply to the other self-contained works thus compiled
+with the Document, on account of their being thus compiled, if they
+are not themselves derivative works of the Document.
+
+<p>If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one quarter
+of the entire aggregate, the Document's Cover Texts may be placed on
+covers that surround only the Document within the aggregate. 
+Otherwise they must appear on covers around the whole aggregate.
+
+<p>8. TRANSLATION
+
+<p>Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4. 
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License provided that you also include the
+original English version of this License.  In case of a disagreement
+between the translation and the original English version of this
+License, the original English version will prevail.
+
+<p>9. TERMINATION
+
+<p>You may not copy, modify, sublicense, or distribute the Document except
+as expressly provided for under this License.  Any other attempt to
+copy, modify, sublicense or distribute the Document is void, and will
+automatically terminate your rights under this License.  However,
+parties who have received copies, or rights, from you under this
+License will not have their licenses terminated so long as such
+parties remain in full compliance.
+
+<p>10. FUTURE REVISIONS OF THIS LICENSE
+
+<p>The Free Software Foundation may publish new, revised versions
+of the GNU Free Documentation License from time to time.  Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.  See
+http://www.gnu.org/copyleft/.
+
+<p>Each version of the License is given a distinguishing version number. 
+If the Document specifies that a particular numbered version of this
+License "or any later version" applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.
+
+<p>ADDENDUM: How to use this License for your documents
+
+<p>To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+<pre>    Copyright (c)  YEAR  YOUR NAME.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.1
+    or any later version published by the Free Software Foundation;
+    with the Invariant Sections being LIST THEIR TITLES, with the
+    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+    A copy of the license is included in the section entitled "GNU
+    Free Documentation License".
+</pre>
+
+<p>If you have no Invariant Sections, write "with no Invariant Sections"
+instead of saying which ones are invariant.  If you have no
+Front-Cover Texts, write "no Front-Cover Texts" instead of
+"Front-Cover Texts being LIST"; likewise for Back-Cover Texts.
+
+<p>If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+
+<p><hr>
+Node:<a name="Index">Index</a>,
+Previous:<a rel=previous href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Index</h1>
+
+<ul compact>
+<li>.stab: <a href="#objdump">objdump</a>
+<li><code>addr2line</code>: <a href="#addr2line">addr2line</a>
+<li>address to file name and line number: <a href="#addr2line">addr2line</a>
+<li>all header information, object file: <a href="#objdump">objdump</a>
+<li><code>ar</code>: <a href="#ar">ar</a>
+<li><code>ar</code> compatibility: <a href="#ar">ar</a>
+<li>architecture: <a href="#objdump">objdump</a>
+<li>architectures available: <a href="#objdump">objdump</a>
+<li>archive contents: <a href="#ranlib">ranlib</a>
+<li>archive headers: <a href="#objdump">objdump</a>
+<li>archives: <a href="#ar">ar</a>
+<li>base files: <a href="#dlltool">dlltool</a>
+<li>bug criteria: <a href="#Bug%20Criteria">Bug Criteria</a>
+<li>bug reports: <a href="#Bug%20Reporting">Bug Reporting</a>
+<li>bugs: <a href="#Reporting%20Bugs">Reporting Bugs</a>
+<li>bugs, reporting: <a href="#Bug%20Reporting">Bug Reporting</a>
+<li><code>c++filt</code>: <a href="#c++filt">c++filt</a>
+<li>changing object addresses: <a href="#objcopy">objcopy</a>
+<li>changing section address: <a href="#objcopy">objcopy</a>
+<li>changing section LMA: <a href="#objcopy">objcopy</a>
+<li>changing section VMA: <a href="#objcopy">objcopy</a>
+<li>changing start address: <a href="#objcopy">objcopy</a>
+<li>collections of files: <a href="#ar">ar</a>
+<li>compatibility, <code>ar</code>: <a href="#ar">ar</a>
+<li>contents of archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>crash: <a href="#Bug%20Criteria">Bug Criteria</a>
+<li>creating archives: <a href="#ar%20cmdline">ar cmdline</a>
+<li><code>cxxfilt</code>: <a href="#c++filt">c++filt</a>
+<li>dates in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>debug symbols: <a href="#objdump">objdump</a>
+<li>debugging symbols: <a href="#nm">nm</a>
+<li>deleting from archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>demangling C++ symbols: <a href="#c++filt">c++filt</a>
+<li>demangling in nm: <a href="#nm">nm</a>
+<li>demangling in objdump: <a href="#addr2line">addr2line</a>, <a href="#objdump">objdump</a>
+<li>disassembling object code: <a href="#objdump">objdump</a>
+<li>disassembly architecture: <a href="#objdump">objdump</a>
+<li>disassembly endianness: <a href="#objdump">objdump</a>
+<li>disassembly, with source: <a href="#objdump">objdump</a>
+<li>discarding symbols: <a href="#strip">strip</a>
+<li>DLL: <a href="#dlltool">dlltool</a>
+<li><code>dlltool</code>: <a href="#dlltool">dlltool</a>
+<li>dynamic relocation entries, in object file: <a href="#objdump">objdump</a>
+<li>dynamic symbol table entries, printing: <a href="#objdump">objdump</a>
+<li>dynamic symbols: <a href="#nm">nm</a>
+<li>ELF core notes: <a href="#readelf">readelf</a>
+<li>ELF dynamic section information: <a href="#readelf">readelf</a>
+<li>ELF file header information: <a href="#readelf">readelf</a>
+<li>ELF file information: <a href="#readelf">readelf</a>
+<li>ELF object file format: <a href="#objdump">objdump</a>
+<li>ELF program header information: <a href="#readelf">readelf</a>
+<li>ELF reloc information: <a href="#readelf">readelf</a>
+<li>ELF section information: <a href="#readelf">readelf</a>
+<li>ELF segment information: <a href="#readelf">readelf</a>
+<li>ELF symbol table information: <a href="#readelf">readelf</a>
+<li>ELF version sections informations: <a href="#readelf">readelf</a>
+<li>endianness: <a href="#objdump">objdump</a>
+<li>error on valid input: <a href="#Bug%20Criteria">Bug Criteria</a>
+<li>external symbols: <a href="#nm">nm</a>
+<li>extract from archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>fatal signal: <a href="#Bug%20Criteria">Bug Criteria</a>
+<li>file name: <a href="#nm">nm</a>
+<li>GNU Free Documentation License: <a href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>
+<li>header information, all: <a href="#objdump">objdump</a>
+<li>input .def file: <a href="#dlltool">dlltool</a>
+<li>input file name: <a href="#nm">nm</a>
+<li>libraries: <a href="#ar">ar</a>
+<li>listings strings: <a href="#strings">strings</a>
+<li>machine instructions: <a href="#objdump">objdump</a>
+<li>moving in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>MRI compatibility, <code>ar</code>: <a href="#ar%20scripts">ar scripts</a>
+<li>name duplication in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>name length: <a href="#ar">ar</a>
+<li><code>nm</code>: <a href="#nm">nm</a>
+<li><code>nm</code> compatibility: <a href="#nm">nm</a>
+<li><code>nm</code> format: <a href="#nm">nm</a>
+<li>not writing archive index: <a href="#ar%20cmdline">ar cmdline</a>
+<li><code>objdump</code>: <a href="#objdump">objdump</a>
+<li>object code format: <a href="#objdump">objdump</a>, <a href="#nm">nm</a>, <a href="#addr2line">addr2line</a>, <a href="#size">size</a>, <a href="#strings">strings</a>
+<li>object file header: <a href="#objdump">objdump</a>
+<li>object file information: <a href="#objdump">objdump</a>
+<li>object file sections: <a href="#objdump">objdump</a>
+<li>object formats available: <a href="#objdump">objdump</a>
+<li>operations on archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>printing from archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>printing strings: <a href="#strings">strings</a>
+<li>quick append to archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>radix for section sizes: <a href="#size">size</a>
+<li><code>ranlib</code>: <a href="#ranlib">ranlib</a>
+<li><code>readelf</code>: <a href="#readelf">readelf</a>
+<li>relative placement in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>relocation entries, in object file: <a href="#objdump">objdump</a>
+<li>removing symbols: <a href="#strip">strip</a>
+<li>repeated names in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>replacement in archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>reporting bugs: <a href="#Reporting%20Bugs">Reporting Bugs</a>
+<li>scripts, <code>ar</code>: <a href="#ar%20scripts">ar scripts</a>
+<li>section addresses in objdump: <a href="#objdump">objdump</a>
+<li>section headers: <a href="#objdump">objdump</a>
+<li>section information: <a href="#objdump">objdump</a>
+<li>section sizes: <a href="#size">size</a>
+<li>sections, full contents: <a href="#objdump">objdump</a>
+<li><code>size</code>: <a href="#size">size</a>
+<li><code>size</code> display format: <a href="#size">size</a>
+<li><code>size</code> number format: <a href="#size">size</a>
+<li>sorting symbols: <a href="#nm">nm</a>
+<li>source code context: <a href="#objdump">objdump</a>
+<li>source disassembly: <a href="#objdump">objdump</a>
+<li>source file name: <a href="#nm">nm</a>
+<li>source filenames for object files: <a href="#objdump">objdump</a>
+<li>stab: <a href="#objdump">objdump</a>
+<li>start-address: <a href="#objdump">objdump</a>
+<li>stop-address: <a href="#objdump">objdump</a>
+<li><code>strings</code>: <a href="#strings">strings</a>
+<li>strings, printing: <a href="#strings">strings</a>
+<li><code>strip</code>: <a href="#strip">strip</a>
+<li>symbol index: <a href="#ranlib">ranlib</a>, <a href="#ar">ar</a>
+<li>symbol index, listing: <a href="#nm">nm</a>
+<li>symbol line numbers: <a href="#nm">nm</a>
+<li>symbol table entries, printing: <a href="#objdump">objdump</a>
+<li>symbols: <a href="#nm">nm</a>
+<li>symbols, discarding: <a href="#strip">strip</a>
+<li>undefined symbols: <a href="#nm">nm</a>
+<li>Unix compatibility, <code>ar</code>: <a href="#ar%20cmdline">ar cmdline</a>
+<li>unwind information: <a href="#readelf">readelf</a>
+<li>updating an archive: <a href="#ar%20cmdline">ar cmdline</a>
+<li>version: <a href="#Top">Top</a>
+<li>VMA in objdump: <a href="#objdump">objdump</a>
+<li>wide output, printing: <a href="#objdump">objdump</a>
+<li>writing archive index: <a href="#ar%20cmdline">ar cmdline</a>
+</ul>
+
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#Top">Introduction</a>
+<li><a href="#ar">ar</a>
+<ul>
+<li><a href="#ar%20cmdline">Controlling <code>ar</code> on the command line</a>
+<li><a href="#ar%20scripts">Controlling <code>ar</code> with a script</a>
+</ul>
+<li><a href="#nm">nm</a>
+<li><a href="#objcopy">objcopy</a>
+<li><a href="#objdump">objdump</a>
+<li><a href="#ranlib">ranlib</a>
+<li><a href="#size">size</a>
+<li><a href="#strings">strings</a>
+<li><a href="#strip">strip</a>
+<li><a href="#c++filt">c++filt</a>
+<li><a href="#addr2line">addr2line</a>
+<li><a href="#nlmconv">nlmconv</a>
+<li><a href="#windres">windres</a>
+<li><a href="#dlltool">Create files needed to build and use DLLs</a>
+<li><a href="#readelf">readelf</a>
+<li><a href="#Selecting%20The%20Target%20System">Selecting the target system</a>
+<ul>
+<li><a href="#Target%20Selection">Target Selection</a>
+<li><a href="#Architecture%20Selection">Architecture selection</a>
+<li><a href="#Linker%20Emulation%20Selection">Linker emulation selection</a>
+</ul>
+<li><a href="#Reporting%20Bugs">Reporting Bugs</a>
+<ul>
+<li><a href="#Bug%20Criteria">Have you found a bug?</a>
+<li><a href="#Bug%20Reporting">How to report bugs</a>
+</ul>
+<li><a href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>
+<li><a href="#Index">Index</a>
+</ul>
+
+
+<hr><h4>Footnotes</h4>
+<ol type="1">
+<li><a name="fn-1"></a>
+<p>MS-DOS does not allow <kbd>+</kbd> characters in file names, so on
+MS-DOS this program is named <code>cxxfilt</code>.</p>
+
+</ol><hr>
+
+</body></html>
+
