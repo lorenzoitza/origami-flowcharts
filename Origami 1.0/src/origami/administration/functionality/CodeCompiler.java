@@ -44,7 +44,8 @@ public class CodeCompiler {
     public boolean canCreateExecuteFile(String fileName) {
 	CommandFile commandFile = new CommandFile();
 	
-	commandFile.setComand("cmd /c gcc -g -o " + fileName + " " + fileName + ".c");
+//	commandFile.setComand("cmd /c gcc -g -o " + fileName + " " + fileName + ".c");
+	commandFile.setComand("MinGW1.1/bin/gcc.exe -g -o " + fileName + " " + fileName + ".c");
 	
 	commandFile.setSourcerFile(fileName+ ".c");
 	
@@ -137,6 +138,7 @@ public class CodeCompiler {
 
 		if (source.exists()) {
 		    System.out.println("exist code ");
+		    
 		    Process process = Runtime.getRuntime().exec(commandFile.getComand());
 
 		    InputStream errorStream = process.getErrorStream();

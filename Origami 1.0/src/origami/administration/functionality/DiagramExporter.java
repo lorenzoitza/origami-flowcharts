@@ -116,7 +116,7 @@ public class DiagramExporter {
 		int width = x2Coord - x1Coord;
 		int height = y1Coord - y2Coord;
 		PaintDiagram panel = new PaintDiagram(width, height);
-		
+		panel.setAdminSelec(selectedTab.getAdminSelection());
 		if (width <= 0) {
 			
 			width = 50;

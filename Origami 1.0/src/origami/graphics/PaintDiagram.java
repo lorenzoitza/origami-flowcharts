@@ -142,4 +142,7 @@ public class PaintDiagram extends Figure {
 	    chart.add(conexion.elementAt(x)); 
 	}
     }
+    public void setAdminSelec(AdminSelection selec){
+	this.selec = selec;
+    }
 }

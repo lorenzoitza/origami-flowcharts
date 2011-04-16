@@ -3,8 +3,11 @@ package origami.administration.functionality;
 
 public class CommandFile {
     
-    public static String COMMAND_MAIN_C = "cmd /c gcc -g -o main main.c";
-    public static String COMMAND_MAIN_CPP = "cmd /c g++ -g -o main main.cpp";
+//    public static String COMMAND_MAIN_C = "cmd /c gcc -g -o main main.c";
+//    public static String COMMAND_MAIN_CPP = "cmd /c g++ -g -o main main.cpp";
+    public static String COMMAND_MAIN_C = "MinGW1.1/bin/gcc.exe -g -o main main.c";
+    public static String COMMAND_MAIN_CPP = "MinGW1.1/bin/g++.exe -g -o main main.cpp";
+    
     
     private String sourcerFile;
     

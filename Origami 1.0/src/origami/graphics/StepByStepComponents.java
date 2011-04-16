@@ -148,7 +148,8 @@ public class StepByStepComponents {
     		windowWidgets.getByStepComponents().disableStepByStep(windowWidgets, false);
     	    } else {
     		setStepByStep(new PasoAPaso(WindowWidgets.tabFolder,ApplicationState._selectionAdministrator));
-    		getStepByStep().execute(windowWidgets, "gdb", codeCompiler);
+//    		getStepByStep().execute(windowWidgets, "gdb", codeCompiler);
+    		getStepByStep().execute(windowWidgets, "MinGW1.1/bin/gdb.exe", codeCompiler);
     		getStepByStep().main();
     		setSeleccion(false);
     		MainWindow.getComponents().customToolBar.getToolItems().get(12).setEnabled(true);
