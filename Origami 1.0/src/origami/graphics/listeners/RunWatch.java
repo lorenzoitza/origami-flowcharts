@@ -42,18 +42,9 @@ public class RunWatch implements SelectionListener {
 				    MainWindow.getComponents().customConsole.getTextField().setText("");
 				}
 				MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-						"/Ec - Error en la compilacion:");
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-						code.errorTipe);
 				code.deleteMainFiles();
 			} else {
 			    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
-				WindowWidgets.tabFolder
-						.getTabItem()
-						.getInformation()
-						.addInformation(
-								"/C - Se Compilo el diagrama de manera correcta");
 			}
 			if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 			    CustomMenu.getConsoleMenuItem().setSelection(true);

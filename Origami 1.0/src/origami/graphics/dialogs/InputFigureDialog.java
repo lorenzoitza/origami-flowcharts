@@ -73,7 +73,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 		text.setText(textBoxContent[contentBoxElement]);
 
 		addReadButton(contentBoxElement);
-		addDeleteButton(contentBoxElement);
+		addDeleteButton(contentBoxElement,AbstractInputOutputDialog.INPUT);
 		addKeyListener(text);
 		
 		
@@ -147,7 +147,7 @@ public class InputFigureDialog extends AbstractInputOutputDialog<InputFigure> {
 
 	addReadButton(position);
 
-	addDeleteButton(position);
+	addDeleteButton(position,AbstractInputOutputDialog.INPUT);
     }
     
     @Override

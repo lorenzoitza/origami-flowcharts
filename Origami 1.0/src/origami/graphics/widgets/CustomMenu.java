@@ -42,6 +42,8 @@ public class CustomMenu {
     
     private Menu mainMenu;
     
+    private Menu editMenu;
+    
     private MenuItem figuresBarMenuItem;
 
     private MenuItem decisionMenuItem;
@@ -160,7 +162,7 @@ public class CustomMenu {
 	MenuItem editMenuItem = new MenuItem(mainMenu, SWT.CASCADE);
 	editMenuItem.setText("Edicion ");
 	
-	Menu editMenu = new Menu(shell, SWT.DROP_DOWN);
+	editMenu = new Menu(shell, SWT.DROP_DOWN);
 	_editMenu = new ContextualMenu(editMenu);
 	_editMenu.createMenu();
 	editMenuItem.setMenu(editMenu);
@@ -235,7 +237,7 @@ public class CustomMenu {
 	Menu optionsMenu2 = new Menu(shell, SWT.DROP_DOWN);
 	
 	MenuItem aa = new MenuItem(optionsMenu, SWT.CASCADE);
-	aa.setText("aaaaa");
+	aa.setText("Generar");
 	aa.setMenu(optionsMenu2);
 	
 	
@@ -245,7 +247,7 @@ public class CustomMenu {
 	buildCodeMenuItem.addSelectionListener(new ViewCodeCListener());
 	
 	compileMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
-	compileMenuItem.setText("Compilar/Ejecutar      F5");
+	compileMenuItem.setText("Compilar/Ejecutar                F5");
 	compileMenuItem.addSelectionListener(new CompileListener());
 	
 	resetDiagramMenuItem = new MenuItem(optionsMenu, SWT.PUSH);
@@ -279,32 +281,49 @@ public class CustomMenu {
 	aboutMenuItem.addSelectionListener(new ViewAboutListener());
     }
     
-    public void setEnabledStepByStepMenuItems(boolean isEnabled) {
-	decisionMenuItem.setEnabled(isEnabled);
-	sentenceMenuItem.setEnabled(isEnabled);
-	inputMenuItem.setEnabled(isEnabled);
-	outputMenuItem.setEnabled(isEnabled);
-	forMenuItem.setEnabled(isEnabled);
-	whileMenuItem.setEnabled(isEnabled);
-	exportMenuItem.setEnabled(isEnabled);
-	compileMenuItem.setEnabled(isEnabled);
-	resetDiagramMenuItem.setEnabled(isEnabled);
-	stepByStepMenuItem.setEnabled(isEnabled);
-    }
-    
-    public void setEnabledAllMenuItems(boolean isEnabled) {
-	decisionMenuItem.setEnabled(isEnabled);
-	sentenceMenuItem.setEnabled(isEnabled);
-	inputMenuItem.setEnabled(isEnabled);
-	outputMenuItem.setEnabled(isEnabled);
-	forMenuItem.setEnabled(isEnabled);
-	whileMenuItem.setEnabled(isEnabled);
-	exportMenuItem.setEnabled(isEnabled);
-	compileMenuItem.setEnabled(isEnabled);
-	resetDiagramMenuItem.setEnabled(isEnabled);
-	stepByStepMenuItem.setEnabled(isEnabled);
-	saveAsMenuItem.setEnabled(isEnabled);
-	buildCodeMenuItem.setEnabled(isEnabled);
+//    public void setEnabledStepByStepMenuItems(boolean isEnabled) {
+//	decisionMenuItem.setEnabled(isEnabled);
+//	sentenceMenuItem.setEnabled(isEnabled);
+//	inputMenuItem.setEnabled(isEnabled);
+//	outputMenuItem.setEnabled(isEnabled);
+//	forMenuItem.setEnabled(isEnabled);
+//	whileMenuItem.setEnabled(isEnabled);
+//	exportMenuItem.setEnabled(isEnabled);
+//	compileMenuItem.setEnabled(isEnabled);
+//	resetDiagramMenuItem.setEnabled(isEnabled);
+//	stepByStepMenuItem.setEnabled(isEnabled);
+//    }
+//    
+//    public void setEnabledAllMenuItems(boolean isEnabled) {
+//	decisionMenuItem.setEnabled(isEnabled);
+//	sentenceMenuItem.setEnabled(isEnabled);
+//	inputMenuItem.setEnabled(isEnabled);
+//	outputMenuItem.setEnabled(isEnabled);
+//	forMenuItem.setEnabled(isEnabled);
+//	whileMenuItem.setEnabled(isEnabled);
+//	exportMenuItem.setEnabled(isEnabled);
+//	compileMenuItem.setEnabled(isEnabled);
+//	resetDiagramMenuItem.setEnabled(isEnabled);
+//	stepByStepMenuItem.setEnabled(isEnabled);
+//	saveAsMenuItem.setEnabled(isEnabled);
+//	buildCodeMenuItem.setEnabled(isEnabled);
+//    }
+    public void setEnabledItemsCloseAllTabItem(boolean enabled){
+	decisionMenuItem.setEnabled(enabled);
+	sentenceMenuItem.setEnabled(enabled);
+	inputMenuItem.setEnabled(enabled);
+	outputMenuItem.setEnabled(enabled);
+	forMenuItem.setEnabled(enabled);
+	whileMenuItem.setEnabled(enabled);
+	exportMenuItem.setEnabled(enabled);
+	compileMenuItem.setEnabled(enabled);
+	resetDiagramMenuItem.setEnabled(enabled);
+	stepByStepMenuItem.setEnabled(enabled);
+	saveAsMenuItem.setEnabled(enabled);
+	buildCodeMenuItem.setEnabled(enabled);
+	saveMenuItem.setEnabled(enabled);
+	saveAsMenuItem.setEnabled(enabled);
+	_editMenu.setEnabledAllItems(enabled);
     }
     
     public void setEnabledSaveMenuItem(boolean isEnabled){

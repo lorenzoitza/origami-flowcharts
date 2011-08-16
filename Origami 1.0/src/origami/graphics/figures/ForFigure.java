@@ -124,7 +124,7 @@ public class ForFigure extends FigureStructure {
 	return instructionText;
     }
 
-    private String getInstructionCode() {
+    public String getInstructionCode() {
 	return instructionComposed.getFirstInstructionSimple();
     }
 

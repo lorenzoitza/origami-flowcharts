@@ -40,15 +40,15 @@ public class StepByStepListener implements SelectionListener{
 				}
 				
 				MainWindow.getComponents().customConsole.getTextField().setText(codigo.errorTipe);
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/Ep - Error en el paso a paso:");
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(codigo.errorTipe);
+//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/Ep - Error en el paso a paso:");
+//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(codigo.errorTipe);
 				codigo.deleteMainFiles();
 			}
 			else{
 				
 			    	MainWindow.getComponents().getByStepComponents().disableStepByStep(MainWindow.getComponents(), true);
 			    	MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), false,codigo);
-			    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
+//			    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 			}
 		}
 	}
@@ -62,14 +62,14 @@ public class StepByStepListener implements SelectionListener{
 			}
 			
 			MainWindow.getComponents().customConsole.getTextField().setText(codigo.errorTipe);
-			WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/Ep - Error en el paso a paso:");
-			WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(codigo.errorTipe);
+//			WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/Ep - Error en el paso a paso:");
+//			WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(codigo.errorTipe);
 			codigo.deleteMainFiles();
 		}
 		else{
 		    	MainWindow.getComponents().getByStepComponents().disableStepByStep(MainWindow.getComponents(), true);
 		    	MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), false,codigo);
-		    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
+//		    	WindowWidgets.tabFolder.getTabItem().getInformation().addInformation("/P - Se inicio el paso a paso de manera correcta");
 		}
 	}
 			

@@ -36,6 +36,10 @@ public abstract class AbstractInputOutputDialog<Figure> extends
     protected Label addVariableLabel;
 
     protected Label writeVariableLabel;
+    
+    public static int INPUT = 0;
+    
+    public static int OUTPUT = 1;
 
     public AbstractInputOutputDialog(Shell shell, Figure figura) {
 		super();
@@ -128,7 +132,16 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 		};
     }
 
-    protected void addDeleteButton(int location) {
+    protected void addDeleteButton(int location,int type) {
+		int sapaceTemp = 0;
+		if(type==AbstractInputOutputDialog.INPUT){
+		    sapaceTemp = 3;
+		}
+		else if(type==AbstractInputOutputDialog.OUTPUT){
+		    sapaceTemp = 2;
+		}
+		
+		final int space = sapaceTemp;
 		final Button deleteButton = new Button(composite, SWT.PUSH);
 		
 		deleteButton.setBounds(280, location * 25, 20, 20);
@@ -136,7 +149,7 @@ public abstract class AbstractInputOutputDialog<Figure> extends
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 	
 		    public void widgetSelected(SelectionEvent event) {
-			for (int x = 0; x < scrolledCompositeContent.length; x += 3) {
+			for (int x = 0; x < scrolledCompositeContent.length; x += space) {
 			    if (scrolledCompositeContent[x].getBounds().y == deleteButton.getBounds().y) {
 				Text text = (Text) scrolledCompositeContent[x];
 				text.setText("");

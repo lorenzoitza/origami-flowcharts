@@ -98,7 +98,8 @@ public class CustomToolBar {
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure());
 		new ContextualMenuActions().Cortar(fig);
-		disableToolBar();
+//		disableToolBar();
+		updateEnabledItems();
 	    }
 	});
 	toolItems.add(toolItem);
@@ -118,7 +119,8 @@ public class CustomToolBar {
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure());
 		new ContextualMenuActions().Copiar(figure);
-		disableToolBar();
+//		disableToolBar();
+		updateEnabledItems();
 	    }
 	});
 	toolItems.add(toolItem);
@@ -138,7 +140,8 @@ public class CustomToolBar {
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure());
 		new ContextualMenuActions().Pegar(fig);
-		disableToolBar();
+//		disableToolBar();
+		updateEnabledItems();
 	    }
 	});
 	toolItems.add(toolItem);
@@ -267,88 +270,167 @@ public class CustomToolBar {
 	toolItems.add(toolItem);
     }
 
-    public void disableToolBar() {
-	int startStandartButtons=4;
-	int endStandartButtons=7;
-	int paste=6;
+//    public void disableToolBar() {
+//	int startStandartButtons=4;
+//	int endStandartButtons=7;
+//	int paste=6;
+//	if (ApplicationState._selectionAdministrator.getSelectedFigure() == -1) {
+//	    for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+//		toolItems.get(index).setEnabled(false);
+//	    }
+//	} else {
+//	    if (ApplicationState._selectionAdministrator
+//		    .getSelectedFigure() != 0) {
+//		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+//		    toolItems.get(index).setEnabled(true);
+//		}
+//		if (ApplicationState._diagramAdministrator.diagram.size() == 0) {
+//		    toolItems.get(paste).setEnabled(false);
+//		}
+//	    } else {
+//		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
+//		    toolItems.get(index).setEnabled(false);
+//		}
+//		if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
+//		    toolItems.get(paste).setEnabled(true);
+//		}
+//	    }
+//	}
+//    }
+
+    public void updateEnabledItems(){
 	if (ApplicationState._selectionAdministrator.getSelectedFigure() == -1) {
-	    for (int index = startStandartButtons; index <= endStandartButtons; index++) {
-		toolItems.get(index).setEnabled(false);
+	    setEnabledItemsEdition(false, false);
+	}
+	else if (ApplicationState._selectionAdministrator.getSelectedFigure() == 0) {
+	    if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
+		setEnabledItemsEdition(false, true);
 	    }
-	} else {
-	    if (ApplicationState._selectionAdministrator
-		    .getSelectedFigure() != 0) {
-		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
-		    toolItems.get(index).setEnabled(true);
-		}
-		if (ApplicationState._diagramAdministrator.diagram.size() == 0) {
-		    toolItems.get(paste).setEnabled(false);
-		}
-	    } else {
-		for (int index = startStandartButtons; index <= endStandartButtons; index++) {
-		    toolItems.get(index).setEnabled(false);
-		}
-		if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
-		    toolItems.get(paste).setEnabled(true);
-		}
+	    else{
+		setEnabledItemsEdition(false, false);
 	    }
 	}
+	else {
+	    if (ApplicationState._diagramAdministrator.diagram.size() != 0) {
+		setEnabledItemsEdition(true, true);
+	    }
+	    else{
+		setEnabledItemsEdition(true, false);
+	    }
+	}
+	
     }
-
-    public void setEnabledStepByStepToolItems(boolean isEnable) {
-	int back=3;
+    public void setEnabledItemsEdition(boolean enabled,boolean cmdPaste){
 	int cut=4;
 	int copy=5;
 	int paste=6;
 	int delete=7;
-	int execute=10;
-	int executeStepByStep=11;
-	int stopExecute=13;
-	int exportCodeC=14;
-	int exportCodeCpp=15;
-	int exportExe=16;
-	if (isEnable) {
-	    toolItems.get(back).setEnabled(true);
-	    toolItems.get(cut).setEnabled(false);
-	    toolItems.get(copy).setEnabled(false);
-	    toolItems.get(paste).setEnabled(false);
-	    toolItems.get(delete).setEnabled(false);
-	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(executeStepByStep).setEnabled(true);
-	    toolItems.get(stopExecute).setEnabled(false);
-	    toolItems.get(exportCodeC).setEnabled(true);
-	    toolItems.get(exportCodeCpp).setEnabled(true);
-	    toolItems.get(exportExe).setEnabled(true);
-	} else {
-	    toolItems.get(back).setEnabled(true);
-	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(execute).setEnabled(true);
-	    toolItems.get(stopExecute).setEnabled(false);
-	    toolItems.get(exportCodeC).setEnabled(true);
-	    toolItems.get(exportCodeCpp).setEnabled(true);
-	    toolItems.get(exportExe).setEnabled(true);
-	}
+	
+	toolItems.get(cut).setEnabled(enabled);
+	toolItems.get(copy).setEnabled(enabled);
+	toolItems.get(paste).setEnabled(cmdPaste);
+	toolItems.get(delete).setEnabled(enabled);
     }
-
-    public void setEnableCompileToolItems(boolean isEnabled) {
-	int back=3;
-	int generateCCode=8;
-	int generateCppCode=9;
-	int execute=10;
-	int executeStepByStep=11;
+    public void setEnabledItemsExport(boolean enabled){
 	int exportCodeC=14;
 	int exportCodeCpp=15;
 	int exportExe=16;
 	
-	toolItems.get(back).setEnabled(isEnabled);
-	toolItems.get(generateCCode).setEnabled(isEnabled);
-	toolItems.get(generateCppCode).setEnabled(isEnabled);
-	toolItems.get(execute).setEnabled(isEnabled);
-	toolItems.get(executeStepByStep).setEnabled(isEnabled);
-	toolItems.get(exportCodeC).setEnabled(isEnabled);
-	toolItems.get(exportCodeCpp).setEnabled(isEnabled);
-	toolItems.get(exportExe).setEnabled(isEnabled);
+	toolItems.get(exportCodeC).setEnabled(enabled);
+	toolItems.get(exportCodeCpp).setEnabled(enabled);
+	toolItems.get(exportExe).setEnabled(enabled);
     }
+    public void setEnabledItemsExecutions(boolean enabled){
+	int run=9;
+	int watch=10;
+	int stepByStep=11;
+	int nextStep=12;
+	int stopRun=13;
+	
+	if(enabled){
+	    toolItems.get(run).setEnabled(enabled);
+	    toolItems.get(watch).setEnabled(enabled);
+	    toolItems.get(stepByStep).setEnabled(enabled);
+	    toolItems.get(nextStep).setEnabled(false);
+	    toolItems.get(stopRun).setEnabled(false);
+	}
+	else{
+	    toolItems.get(run).setEnabled(enabled);
+	    toolItems.get(watch).setEnabled(enabled);
+	    toolItems.get(stepByStep).setEnabled(enabled);
+	    toolItems.get(nextStep).setEnabled(enabled);
+	    toolItems.get(stopRun).setEnabled(enabled);
+	}
+    }
+    public void setEnabledItemSave(boolean enabled){
+	int save=2;
+	toolItems.get(save).setEnabled(enabled);
+    }
+    public void setEnabledItemUndo(boolean enabled){
+	int undo=3;
+	toolItems.get(undo).setEnabled(enabled);
+    }
+    public void setEnabledItemGenerateCode(boolean enabled){
+	int generateCode=8;
+	toolItems.get(generateCode).setEnabled(enabled);
+    }
+    /**
+     * Probarlooooooooooo
+     * @param enabled
+     */
+    public void setEnabledItemsCloseAllTabItem(boolean enabled){
+	if(enabled){
+	    setEnabledItemsEdition(false, false);
+	    setEnabledItemsExport(true);
+	    setEnabledItemsExecutions(true);
+	    setEnabledItemSave(true);
+	    setEnabledItemUndo(true);
+	    setEnabledItemGenerateCode(true);
+	}
+	else{
+	    setEnabledItemsEdition(false, false);
+	    setEnabledItemsExport(false);
+	    setEnabledItemsExecutions(false);
+	    setEnabledItemSave(false);
+	    setEnabledItemUndo(false);
+	    setEnabledItemGenerateCode(false);
+	}
+    }
+    
+//    public void setEnabledStepByStepToolItems(boolean isEnable) {
+//	int back=3;
+//	int cut=4;
+//	int copy=5;
+//	int paste=6;
+//	int delete=7;
+//	int execute=10;
+//	int executeStepByStep=11;
+//	int stopExecute=13;
+//	int exportCodeC=14;
+//	int exportCodeCpp=15;
+//	int exportExe=16;
+//	if (isEnable) {
+//	    toolItems.get(back).setEnabled(true);
+//	    toolItems.get(cut).setEnabled(false);
+//	    toolItems.get(copy).setEnabled(false);
+//	    toolItems.get(paste).setEnabled(false);
+//	    toolItems.get(delete).setEnabled(false);
+//	    toolItems.get(execute).setEnabled(true);
+//	    toolItems.get(executeStepByStep).setEnabled(true);
+//	    toolItems.get(stopExecute).setEnabled(false);
+//	    toolItems.get(exportCodeC).setEnabled(true);
+//	    toolItems.get(exportCodeCpp).setEnabled(true);
+//	    toolItems.get(exportExe).setEnabled(true);
+//	} else {
+//	    toolItems.get(back).setEnabled(true);
+//	    toolItems.get(execute).setEnabled(true);
+//	    toolItems.get(execute).setEnabled(true);
+//	    toolItems.get(stopExecute).setEnabled(false);
+//	    toolItems.get(exportCodeC).setEnabled(true);
+//	    toolItems.get(exportCodeCpp).setEnabled(true);
+//	    toolItems.get(exportExe).setEnabled(true);
+//	}
+//    }
 
     public ArrayList<ToolItem> getToolItems() {
 	return toolItems;

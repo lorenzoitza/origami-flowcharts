@@ -95,7 +95,8 @@ public class PaintDiagram extends Figure {
 		CustomMenu.get_editMenu().setMenuAvailable();
 	}
 	if(dispToolItem){
-		MainWindow.getComponents().customToolBar.disableToolBar();
+//		MainWindow.getComponents().customToolBar.disableToolBar();
+		MainWindow.getComponents().customToolBar.updateEnabledItems();
 	}
 	dispToolItem = true;
     }
@@ -138,7 +139,7 @@ public class PaintDiagram extends Figure {
     }
     
     public void agregarConexiones(Vector <PolylineConnection> conexion,Figure chart){
-	for(int x=0;x<conexion.size();x++){	
+	for(int x=0;x<conexion.size();x++){
 	    chart.add(conexion.elementAt(x)); 
 	}
     }

@@ -13,6 +13,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import origami.administration.ApplicationState;
 import origami.administration.FigureStructure;
+import origami.administration.Information;
 import origami.graphics.MainWindow;
 import origami.graphics.dialogs.DecisionFigureDialog;
 import origami.graphics.dialogs.ForFigureDialog;
@@ -522,52 +523,47 @@ public class ContextualMenuActions {
     	}
     }
     public void Eliminar(FigureStructure fig){
-    	String tipo ="";
     	for(int x=0;x<MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getSizeDiagrama();x++){
     		if(x == ApplicationState._selectionAdministrator.getSelectedFigure()){
     			int y=0,x2=0,cont=0;
     			if(fig instanceof DecisionFigure){
-    				tipo="si";
     				y = DiagramCiclePath.getDecisionEndPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				y = DiagramCiclePath.getFirstForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),y);
     				x2=y-x;
     				while(cont<x2+2){
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformationFigure(
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x), Information.DELETE);
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			} 
     			else if(fig instanceof ForFigure){
-    				tipo="para";
     				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformationFigure(
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x), Information.DELETE);
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			}
     			else if(fig instanceof WhileFigure){
-    				tipo="mientras";
     				y = DiagramCiclePath.getLastForPointIndex(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama(),x);
     				x2=y-x;
     				while(cont<x2+6){
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformationFigure(
+    				    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x), Information.DELETE);
     					MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
     					cont++;
     				}
     			}
     			else{
+    			    	MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformationFigure(
+    			    	MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getFigureIndexOf(x), Information.DELETE);
     				MainWindow.getComponents().tabFolder.getTabItem().getLeaf().removeFigureIndexOf(x);
-    				if(fig instanceof OutputFigure){
-    					tipo="Salida";
-    				}
-    				else if(fig instanceof InputFigure){
-    					tipo="Entrada";
-    				}
-    				else{
-    					tipo="Proceso";
-    				}
     			}
-    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
-    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagram(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
+//    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().addInformation("/D - Se elimino una figura de tipo \" "+tipo+"\"");
+//    			MainWindow.getComponents().tabFolder.getTabItem().getInformation().setDiagram(MainWindow.getComponents().tabFolder.getTabItem().getLeaf().getDiagrama());
     			ApplicationState._selectionAdministrator.setSelectedFigure(-1);
     			Repintar();
     			break;

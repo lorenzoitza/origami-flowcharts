@@ -75,7 +75,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 		tempInputText.setBounds(0, 0 + inputTextElement * 25, 250, 20);
 		tempInputText.setText(textBoxContent[inputTextElement]);
 
-		addDeleteButton(inputTextElement);
+		addDeleteButton(inputTextElement,AbstractInputOutputDialog.OUTPUT);
 		addKeyListener(tempInputText);
 		inputTextCounter++;
 	    }
@@ -156,7 +156,7 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
     @Override
     protected void addTextComponent(int position) {
 	addTextField(position);
-	addDeleteButton(position);
+	addDeleteButton(position,AbstractInputOutputDialog.OUTPUT);
     }
     
     @Override
@@ -175,9 +175,13 @@ public class OutputFigureDialog extends AbstractInputOutputDialog<OutputFigure> 
 		    inputCode += concatenatCode(inputText);
 		}
 	    }
-	    
-	   // new DialogValidator().validate(abstractFigure, inputCode,"salida");
-	    new DialogValidator().validate(inputCode, abstractFigure, "entrada");
+	    if(inputCode.compareToIgnoreCase("")==0){
+		inputCode="null";
+	    }
+	    System.out.println(inputCode);
+//	    new DialogValidator().validate(abstractFigure, inputCode,"salida");
+//	    new DialogValidator().validate(inputCode, abstractFigure, "entrada");
+	    new DialogValidator().validate(inputCode, abstractFigure, "salida");
 	}
     }
     

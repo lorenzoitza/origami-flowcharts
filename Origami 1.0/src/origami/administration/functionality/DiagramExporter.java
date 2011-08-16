@@ -238,17 +238,6 @@ public class DiagramExporter {
 		}
 	}
 
-	public void infomationExport(String adress) {
-		String content = "";
-		
-		selectedTab.getTabItem().getInformation().addTime();
-		for (int i = 0; i < selectedTab.getTabItem().getInformation().getInformation().size(); i++) {
-			
-			content += selectedTab.getTabItem().getInformation().getInformation().elementAt(i);
-		}
-		save(adress, content);
-		selectedTab.getTabItem().getInformation().removeTime();
-	}
 
 	private void save(String adress, String content) {
 		FileWriter writer;

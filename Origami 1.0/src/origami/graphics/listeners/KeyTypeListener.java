@@ -5,12 +5,14 @@ import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.graphics.Cursor;
 
 import origami.administration.ApplicationState;
+import origami.administration.Information;
 import origami.administration.actions.AddFigureLogic;
 import origami.administration.actions.ContextualMenuActions;
 import origami.administration.functionality.CodeCompiler;
 import origami.administration.functionality.code.ManagerCodeFormat;
 import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.figures.CircleFigure;
 import origami.graphics.help.AboutWindow;
 import origami.graphics.help.HelpWindow;
@@ -83,10 +85,13 @@ public class KeyTypeListener implements KeyListener {
 	    saveDiagram();
 	} else if (keyPressed + keyPressedSecond == Keys.Ctrl + Keys.X) {
 	    cutSelectionFigure();
+	    MainWindow.getComponents().customToolBar.updateEnabledItems();
 	} else if (keyPressed + keyPressedSecond == Keys.Ctrl + Keys.C) {
 	    copySelectionFigure();
+	    MainWindow.getComponents().customToolBar.updateEnabledItems();
 	} else if (keyPressed + keyPressedSecond == Keys.Ctrl + Keys.V) {
 	    pasteFigure();
+	    MainWindow.getComponents().customToolBar.updateEnabledItems();
 	} else if (keyPressed + keyPressedSecond == Keys.Ctrl + Keys.N) {
 	    openNewTabItem();
 	} else if (keyPressed + keyPressedSecond == Keys.Ctrl + Keys.Z) {
@@ -130,8 +135,11 @@ public class KeyTypeListener implements KeyListener {
 
     private void openNewTabItem() {
 	MainWindow.getComponents().tabFolder.addTabItem();
-	MainWindow.getComponents().setEnabledSaveItems(true);
-	MainWindow.getComponents().disableAll(true);
+//	MainWindow.getComponents().setEnabledSaveItems(true);
+//	MainWindow.getComponents().disableAll(true);
+	MainWindow.getComponents().setEnabledItemsToolbarDefault();
+	MainWindow.getComponents().getFiguresToolBar().setEnabledAllButtons(true);
+	MainWindow.getComponents().getCustomMenu().setEnabledItemsCloseAllTabItem(true);
     }
 
     private void pasteFigure() {
@@ -144,7 +152,8 @@ public class KeyTypeListener implements KeyListener {
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure()));
-		MainWindow.getComponents().customToolBar.disableToolBar();
+//		MainWindow.getComponents().customToolBar.disableToolBar();
+		MainWindow.getComponents().customToolBar.updateEnabledItems();
 	    }
 	}
     }
@@ -165,7 +174,8 @@ public class KeyTypeListener implements KeyListener {
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure()));
-		MainWindow.getComponents().customToolBar.disableToolBar();
+//		MainWindow.getComponents().customToolBar.disableToolBar();
+		MainWindow.getComponents().customToolBar.updateEnabledItems();
 	    }
 	}
     }
@@ -186,7 +196,8 @@ public class KeyTypeListener implements KeyListener {
 				.getFigureIndexOf(
 					ApplicationState._selectionAdministrator
 						.getSelectedFigure()));
-		MainWindow.getComponents().customToolBar.disableToolBar();
+//		MainWindow.getComponents().customToolBar.disableToolBar();
+		MainWindow.getComponents().customToolBar.updateEnabledItems();
 	    }
 	}
     }
@@ -247,20 +258,23 @@ public class KeyTypeListener implements KeyListener {
 		}
 		MainWindow.getComponents().customConsole.getTextField()
 			.setText(codigo.errorTipe);
-		MainWindow.getComponents().tabFolder.getTabItem()
-			.getInformation().addInformation(
-				"/Ec - Error en la compilacion:");
-		MainWindow.getComponents().tabFolder.getTabItem()
-			.getInformation().addInformation(codigo.errorTipe);
+//		MainWindow.getComponents().tabFolder.getTabItem()
+//			.getInformation().addInformation(
+//				"/Ec - Error en la compilacion:");
+//		MainWindow.getComponents().tabFolder.getTabItem()
+//			.getInformation().addInformation(codigo.errorTipe);
+		WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "Error:"+codigo.errorTipe);
+		
 		codigo.deleteMainFiles();
 	    } else {
 		MainWindow.getComponents().getByStepComponents().execute(
 			MainWindow.getComponents(), true, codigo);
-		MainWindow.getComponents().tabFolder
-			.getTabItem()
-			.getInformation()
-			.addInformation(
-				"/C - Se Compilo el diagrama de manera correcta");
+//		MainWindow.getComponents().tabFolder
+//			.getTabItem()
+//			.getInformation()
+//			.addInformation(
+//				"/C - Se Compilo el diagrama de manera correcta");
+		WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
 	    }
 	    if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 		CustomMenu.getConsoleMenuItem().setSelection(true);

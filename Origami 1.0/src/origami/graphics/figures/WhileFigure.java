@@ -120,7 +120,7 @@ public class WhileFigure extends FigureStructure {
 
     }
 
-    private String getInstructionCode() {
+    public String getInstructionCode() {
 	return instructionComposed.getFirstInstructionSimple();
     }
 

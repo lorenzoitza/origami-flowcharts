@@ -46,7 +46,7 @@ public class CustomLeaf {
 		fin.setMessage("  Fin");
 		diagrama.diagram.add(inicio);
 		diagrama.diagram.add(fin);
-		new ContextualMenuListener(diagrama.diagram.elementAt(0));
+		new ContextualMenuListener(diagrama.diagram.elementAt(0),this.seleccion,this.tab);
 		DiagramStructure.getInstance().resetScrollBar();
 		addPropiedades();
 	 }
@@ -125,25 +125,30 @@ public class CustomLeaf {
 	/**
 	 * Mover metodo
 	 */
-	public void openFile(String archivo,DiagramFileManager ser){
-		Rectangle r = diagrama.diagram.firstElement().getBounds();
-        	diagrama.diagram.removeAllElements();
-        	chart.removeAll();
-        	CustomFile aux = ser.recoverDiagram(archivo);
-        	diagrama.diagram = aux.getDiagrama();
-        	tab.getTabItem().getInformation().setInformation(aux.getInfo());
-        	tab.getTabItem().getInformation().upDateTime();
-        	DiagramStructure.getInstance().resetScrollBar();
-        	diagrama.diagram.firstElement().setBounds(r);
-        	chart.agregarFiguras(diagrama.diagram,chart);
-        	connection.createConnections(diagrama.diagram);
-        	chart.agregarConexiones(connection.getConexion(),chart);
-	}
+//	public void openFile(String archivo,DiagramFileManager ser){
+//		Rectangle r = diagrama.diagram.firstElement().getBounds();
+//        	diagrama.diagram.removeAllElements();
+//        	chart.removeAll();
+//        	CustomFile aux = ser.recoverDiagram(archivo);
+//        	diagrama.diagram = aux.getDiagrama();        	
+//        	tab.getTabItem().getInformation().setInformation(aux.getInfo());
+//        	tab.getTabItem().getInformation().upDateTime();
+//        	DiagramStructure.getInstance().resetScrollBar();
+//        	diagrama.diagram.firstElement().setBounds(r);
+//        	
+////        	addFigure();
+//        	
+//        	chart.agregarFiguras(diagrama.diagram,chart);
+//        	connection.createConnections(diagrama.diagram);
+//        	chart.agregarConexiones(connection.getConexion(),chart);
+//	}
 	//este metodo es usado cuando no hay tabs y por lo tanto se llamaba a addDiagram el cual
 	//agregaba todo de nuevo a los vectores para que no ocurriese ningun error.
 	public void openNewFile(String archivo,DiagramFileManager ser ){
 		DiagramStructure.getInstance().addPaintDiagram(chart);
-		addPropiedades();
+		//No deberia agregar esta propiedad por que ya fue agregada al momento
+		//de agregarse un TabItem
+//		addPropiedades();
 		if(tab.getItemCount()==1){
 			MainWindow.getComponents().diagramData.exclude=false;
 			MainWindow.shell.layout();
@@ -155,12 +160,19 @@ public class CustomLeaf {
         	CustomFile aux = ser.recoverDiagram(archivo);
         	diagrama.diagram = aux.getDiagrama();
         	tab.getTabItem().getInformation().setInformation(aux.getInfo());
-        	tab.getTabItem().getInformation().upDateTime();
+        	tab.getTabItem().getInformation().updateFile(Information.OPEN);
         	DiagramStructure.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
+//        	addFigure();
         	chart.agregarFiguras(diagrama.diagram,chart);
         	connection.createConnections(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
+        	
+        	System.out.println("--------------------------------");
+        	for(int index=0; index<aux.getInfo().size(); index++)
+        	System.out.println(aux.getInfo().elementAt(index));
+        	System.out.println("--------------------------------");
+        	
 	}
 	public Vector<FigureStructure> getDiagrama(){
 		return diagrama.diagram;
@@ -177,7 +189,7 @@ public class CustomLeaf {
 		inicio.setLocation(diagrama.diagram.elementAt(0).getLocation());
 		diagrama.diagram.removeElementAt(0);
 		diagrama.diagram.insertElementAt(inicio,0);
-		new ContextualMenuListener(diagrama.diagram.elementAt(0));
+		new ContextualMenuListener(diagrama.diagram.elementAt(0),this.seleccion,this.tab);
 		if(pasoInicio){
 			diagrama.diagram.elementAt(0).setPasoAPaso(true);
 		}

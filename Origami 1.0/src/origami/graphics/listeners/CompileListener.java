@@ -3,6 +3,7 @@ package origami.graphics.listeners;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 
+import origami.administration.Information;
 import origami.administration.functionality.CodeCompiler;
 import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
@@ -42,18 +43,21 @@ public class CompileListener implements SelectionListener{
 				    MainWindow.getComponents().customConsole.getTextField().setText("");
 				}
 				MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-						"/Ec - Error en la compilacion:");
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-						code.errorTipe);
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "Error:"+code.errorTipe);
+//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
+//						"/Ec - Error en la compilacion:");
+//				
+//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
+//						code.errorTipe);
 				code.deleteMainFiles();
 			} else {
 			    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
-				WindowWidgets.tabFolder
-						.getTabItem()
-						.getInformation()
-						.addInformation(
-								"/C - Se Compilo el diagrama de manera correcta");
+//				WindowWidgets.tabFolder
+//						.getTabItem()
+//						.getInformation()
+//						.addInformation(
+//								"/C - Se Compilo el diagrama de manera correcta");
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
 			}
 			if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 			    CustomMenu.getConsoleMenuItem().setSelection(true);
@@ -72,9 +76,11 @@ public class CompileListener implements SelectionListener{
 			    MainWindow.getComponents().customConsole.getTextField().setText("");
 			}
 			MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
+			WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "Error:"+code.errorTipe);
 			code.deleteMainFiles();
 		} else {
 		    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
+		    WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
 		}
 		if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 		    CustomMenu.getConsoleMenuItem().setSelection(true);

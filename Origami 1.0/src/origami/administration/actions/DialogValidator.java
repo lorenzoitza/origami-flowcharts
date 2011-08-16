@@ -3,6 +3,8 @@ package origami.administration.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import origami.administration.FigureStructure;
+import origami.administration.Information;
 import origami.administration.functionality.code.SimpleInstruction;
 import origami.graphics.WindowWidgets;
 
@@ -33,28 +35,31 @@ public class DialogValidator {
 			
 			boolean equalInstructions = (Boolean)equalInstructionsMethod.invoke(abstractFigure,instructionCode);
 			
+			
+			addInstructionSimpleMethod.invoke(abstractFigure, code);
+			
 			if(!isEmpyInstructionList && !equalInstructions){
 				
 				
 				WindowWidgets.tabFolder.getTabItem().getSave().setSave(false);
 				
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-							"/M - Se agrego"
-							+ " o modifico una "
-							+ "instruccion en una figura de tipo \""+info+"\"\n");
+//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
+//							"/M - Se agrego"
+//							+ " o modifico una "
+//							+ "instruccion en una figura de tipo \""+info+"\"\n");
+				
+				WindowWidgets.tabFolder.getTabItem().getInformation().addInformationFigure((FigureStructure)abstractFigure, Information.EDIT);
+				
 				isChanged = true;
 			}
-			
-			
-			addInstructionSimpleMethod.invoke(abstractFigure, code);
 			
 			WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
 			
 			WindowWidgets.tabFolder.getTabItem().getLeaf().guardarRetroceso();
 			
 			if (isChanged) {
-			    WindowWidgets.tabFolder.getTabItem().getInformation().setDiagram(
-				WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
+//			    WindowWidgets.tabFolder.getTabItem().getInformation().setDiagram(
+//				WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
 			}
 			
 		} catch (SecurityException e) {

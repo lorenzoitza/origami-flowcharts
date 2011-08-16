@@ -80,7 +80,10 @@ public class SaveDiagramController {
 	    MainWindow.getComponents().diagramData.exclude = true;
 	    DiagramStructure.getInstance().setBoundsToZero();
 	    tabFolder.getTabItem().getLeaf().getDiagrama().removeAllElements();
-	    MainWindow.getComponents().disableAll(false);
+//	    MainWindow.getComponents().disableAll(false);
+	    MainWindow.getComponents().customToolBar.setEnabledItemsCloseAllTabItem(false);
+	    MainWindow.getComponents().getFiguresToolBar().setEnabledAllButtons(false);
+	    MainWindow.getComponents().getCustomMenu().setEnabledItemsCloseAllTabItem(false);
 	}
     }
 
@@ -90,16 +93,19 @@ public class SaveDiagramController {
 	    if (nombre.startsWith("*")) {
 		nombre = nombre.substring(1);
 		tabFolder.changeName(nombre);
-		MainWindow.getComponents().setEnabledSaveItems(false);
+//		MainWindow.getComponents().setEnabledSaveItems(false);
+		MainWindow.getComponents().customToolBar.setEnabledItemSave(false);
 	    } else {
-		MainWindow.getComponents().setEnabledSaveItems(false);
+//		MainWindow.getComponents().setEnabledSaveItems(false);
+		MainWindow.getComponents().customToolBar.setEnabledItemSave(false);
 	    }
 	} else {
 	    String nombre = tabFolder.getCurrentTabItemName();
 	    if (!nombre.startsWith("*")) {
 		nombre = "*" + nombre;
 		tabFolder.changeName(nombre);
-		MainWindow.getComponents().setEnabledSaveItems(true);
+//		MainWindow.getComponents().setEnabledSaveItems(true);
+		MainWindow.getComponents().customToolBar.setEnabledItemSave(true);
 	    }
 	}
     }
@@ -107,12 +113,15 @@ public class SaveDiagramController {
     public void checkChanges() {
 	if (isSaved) {
 	    if (tabFolder.getTabItem().getLeaf().getDiagrama().size() == 2) {
-		MainWindow.getComponents().setEnabledSaveItems(true);
+//		MainWindow.getComponents().setEnabledSaveItems(true);
+		MainWindow.getComponents().customToolBar.setEnabledItemSave(true);
 	    } else {
-		MainWindow.getComponents().setEnabledSaveItems(false);
+//		MainWindow.getComponents().setEnabledSaveItems(false);
+		MainWindow.getComponents().customToolBar.setEnabledItemSave(false);
 	    }
 	} else {
-	    MainWindow.getComponents().setEnabledSaveItems(true);
+//	    MainWindow.getComponents().setEnabledSaveItems(true);
+	    MainWindow.getComponents().customToolBar.setEnabledItemSave(true);
 	}
     }
 
