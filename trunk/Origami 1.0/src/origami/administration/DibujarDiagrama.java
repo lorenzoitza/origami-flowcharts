@@ -75,6 +75,7 @@ public class DibujarDiagrama{
 		}
 	    }	
 	}
+	
 	return diagrama;
     }
     public Vector<FigureStructure> agregarFigurasExportar(Vector<FigureStructure> diagrama,int lugar,int alt){   
@@ -670,7 +671,7 @@ public class DibujarDiagrama{
 			if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 				new SelectionListener(diagrama.elementAt(0),selec,tab);
 			}
-			for(int x =1;x<diagrama.size()-1;x++ ){
+			for(int x =1;x<diagrama.size();x++ ){
 				if(diagrama.elementAt(x) instanceof DecisionFigure){
 					pt = diagrama.elementAt(x).getLocation();
 					DecisionFigure figuras = (DecisionFigure)diagrama.elementAt(x);
@@ -679,11 +680,12 @@ public class DibujarDiagrama{
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -695,11 +697,12 @@ public class DibujarDiagrama{
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -711,11 +714,12 @@ public class DibujarDiagrama{
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -727,11 +731,12 @@ public class DibujarDiagrama{
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -743,11 +748,12 @@ public class DibujarDiagrama{
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new origami.graphics.listeners.DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
 				}
@@ -759,13 +765,38 @@ public class DibujarDiagrama{
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
 					figura.setPasoAPaso(figuras.isPasoAPaso());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					diagrama.insertElementAt(figura,x);
 					if(!MainWindow.getComponents().getByStepComponents().isStepByStep()){
 						new DoubleClickListener(diagrama.elementAt(x),selec,tab);
-						new ContextualMenuListener(diagrama.elementAt(x));
+						new ContextualMenuListener(diagrama.elementAt(x),selec,tab);
 						new SelectionListener(diagrama.elementAt(x),selec,tab);
 					}
+				}
+				else if(diagrama.elementAt(x) instanceof DecisionFigureEnd){
+					pt = diagrama.elementAt(x).getLocation();
+					diagrama.removeElementAt(x);
+					DecisionFigureEnd ini = new DecisionFigureEnd();
+					ini.setLocation(pt);
+					diagrama.insertElementAt(ini,x);
+				}
+				else if(diagrama.elementAt(x) instanceof CircleFigure){
+					pt = diagrama.elementAt(x).getLocation();
+					CircleFigure fig = (CircleFigure)diagrama.elementAt(x);
+					diagrama.removeElementAt(x);
+					CircleFigure ini = new CircleFigure();
+					ini.setMessage(fig.getMessage());
+					ini.setListaPosicion(fig.getPosicion());
+					ini.setLocation(pt);
+					diagrama.insertElementAt(ini,x);
+				}
+				else if(diagrama.elementAt(x) instanceof EllipseFigure){
+				    	pt = diagrama.elementAt(x).getLocation();
+					diagrama.removeElementAt(x);
+					EllipseFigure ini = new EllipseFigure();
+					ini.setLocation(pt);
+					diagrama.insertElementAt(ini,x);
 				}
 			}
 		}
@@ -778,6 +809,7 @@ public class DibujarDiagrama{
 					DecisionFigure figura = new DecisionFigure();
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
@@ -789,6 +821,7 @@ public class DibujarDiagrama{
 					ForFigure figura = new ForFigure();
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
@@ -800,6 +833,7 @@ public class DibujarDiagrama{
 					WhileFigure figura = new WhileFigure();
 					figura.instructionComposed = figuras.instructionComposed;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
@@ -811,6 +845,7 @@ public class DibujarDiagrama{
 					InputFigure figura = new InputFigure();
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
@@ -822,6 +857,7 @@ public class DibujarDiagrama{
 					OutputFigure figura = new OutputFigure();
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);
@@ -833,6 +869,7 @@ public class DibujarDiagrama{
 					SentenceFigure figura = new SentenceFigure();
 					figura.instruction = figuras.instruction;
 					figura.setListaPosicion(figuras.getPosicion());
+					figura.setId(figuras.getId());
 					figura.setLocation(pt);
 					figura.setPasoAPaso(figuras.isPasoAPaso());
 					diagrama.insertElementAt(figura,x);

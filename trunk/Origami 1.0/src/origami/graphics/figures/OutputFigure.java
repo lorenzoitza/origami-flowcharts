@@ -152,7 +152,7 @@ public class OutputFigure extends FigureStructure {
 	return instructionText;
     }
     
-    private String getInstructionCode() {
+    public String getInstructionCode() {
 	return instruction.getInstruccionSimple();
     }
 

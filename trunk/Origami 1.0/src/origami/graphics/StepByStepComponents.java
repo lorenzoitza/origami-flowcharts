@@ -166,21 +166,23 @@ public class StepByStepComponents {
     	    WindowWidgets.tabFolder.getAdminSelection().setSelectedFigure(-1);
     	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
-    		
-    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
-    	    
-    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
+    	    //revisar
+//    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
+//    		
+//    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
+//    	    
+//    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
     
     	} else {
     	    setIsStepByStep(false);
     	    WindowWidgets.tabFolder.getTabItem().getLeaf().addFigure();
     		
-    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
-    		
-    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
-    
-    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
+    	    //revisar
+//    	    windowWidgets.customToolBar.setEnabledStepByStepToolItems(isEnable);
+//    		
+//    	    customFiguresToolBar.setEnabledAllButtons(!isEnable);
+//    
+//    	    customMenu.setEnabledStepByStepMenuItems(!isEnable);
     	}
     }
 

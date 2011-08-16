@@ -106,7 +106,7 @@ public class DecisionFigure extends FigureStructure {
     	return getInstructionCode().length() - 2;
     }
 
-    private String getInstructionCode() {
+    public String getInstructionCode() {
     	return instructionComposed.getFirstInstructionSimple();
     }
 

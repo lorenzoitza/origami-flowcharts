@@ -19,10 +19,12 @@ import org.eclipse.swt.widgets.Display;
 import origami.administration.AdminDiagram;
 import origami.administration.AdminSelection;
 import origami.administration.FigureStructure;
+import origami.administration.actions.NewDiagramLogic;
 import origami.administration.functionality.DiagramFileManager;
 import origami.administration.functionality.SaveDiagramController;
 import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.listeners.KeyTypeListener;
 
 /**
@@ -113,6 +115,9 @@ public class TabFolder {
 	item.setText("Diagrama " + aux);
 	item.SetId(counter);
 	getAdminSelection().setDiagramSelection(counter);
+	if(counter!=0){
+	    getAdminSelection().setSelectedFigure(0);
+	}
 	item.initLeaf();
 	selectionTabItem();
 	item.enabledLeaf();
@@ -180,20 +185,9 @@ public class TabFolder {
     }
     
     public void changeName(String name) {
-	if (tabFolder.getSelectionIndex() != -1) {
-	    TabItem item =
+	TabItem item =
 		    (TabItem) tabFolder.getItem(tabFolder.getSelectionIndex());
 	    item.setText(name);
-	} else {
-	    counter++;
-	    TabItem item = new TabItem(tabFolder, SWT.NONE, getAdminSelection());
-	    item.setTabFolder(this);
-	    item.SetId(counter);
-	    item.setText(name);
-	    getAdminSelection().setDiagramSelection(counter);
-	    getAdminSelection().setSelectedFigure(0);
-	    selectionTabItem();
-	}
     }
     
     private void selectionTabItem() {
@@ -218,8 +212,8 @@ public class TabFolder {
 
     public void openDiagram(String archivo, DiagramFileManager ser) {
 	getTabItem().getLeaf().openNewFile(archivo, ser);
-	setSelectionTabItem(0);
-	getAdminSelection().setSelectedFigure(-1);
+//	setSelectionTabItem(0);
+	getAdminSelection().setSelectedFigure(0);
     }
 
     public int getSelectedTabItemId() {

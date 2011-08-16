@@ -17,9 +17,9 @@ public class FigureConnections extends Figure{
     
     private TabFolder tabFolder;
 
-    private Label yesMessage = new Label("Si");
+    private String yesMessage = "Si";
 
-    private Label noMessage = new Label("No");
+    private String noMessage = "No";
 	
     public FigureConnections(TabFolder tabfolder){
 	tabFolder = tabfolder;
@@ -28,7 +28,7 @@ public class FigureConnections extends Figure{
     public void createConnections(Vector<FigureStructure> diagram){
 	int bottomRightPoint, upLeftPoint, index, cicleIndex;
 	connections.removeAllElements();
-	for(index=0;index<tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;index++){	
+	for(index=0;index<tabFolder.getTabItem().getLeaf().getSizeDiagrama()-1;index++){
 	    if(diagram.elementAt(index+1) instanceof CircleFigure){
 		PolylineConnection coneccion = new PolylineConnection();
 		coneccion.setForegroundColor(BLACK_COLOR);
@@ -75,7 +75,7 @@ public class FigureConnections extends Figure{
 		ConnectionEndpointLocator localizacion = new ConnectionEndpointLocator(thirdConnection, false);
 		localizacion.setVDistance(-10);
 		localizacion.setUDistance(20);
-		thirdConnection.add(yesMessage, localizacion);
+		thirdConnection.add(new Label(yesMessage), localizacion);
 		
 		firstConnection.setSourceAnchor(new ChopboxAnchor(diagram.elementAt(bottomRightPoint)));
 		
@@ -87,7 +87,7 @@ public class FigureConnections extends Figure{
 		ConnectionEndpointLocator localizacion2 = new ConnectionEndpointLocator(fourthConnection, false);
 		localizacion2.setVDistance(-10);
 		localizacion2.setUDistance(20);
-		fourthConnection.add(noMessage, localizacion2);
+		fourthConnection.add(new Label(noMessage), localizacion2);
 		
 		upLeftPoint = connectCicle(diagram,bottomRightPoint+1); 
 		
@@ -161,7 +161,7 @@ public class FigureConnections extends Figure{
 		ConnectionEndpointLocator localizacion2 = new ConnectionEndpointLocator(fourthConnection, true);
 		localizacion2.setVDistance(-5);
 		localizacion2.setUDistance(25);
-		fourthConnection.add(noMessage, localizacion2);
+		fourthConnection.add(new Label(noMessage), localizacion2);
 		
 		connections.addElement(fourthConnection);
 		
@@ -214,7 +214,7 @@ public class FigureConnections extends Figure{
 		ConnectionEndpointLocator localizacion2 = new ConnectionEndpointLocator(conector, true);
 		localizacion2.setVDistance(10);
 		localizacion2.setUDistance(30);
-		conector.add(yesMessage, localizacion2);
+		conector.add(new Label(yesMessage), localizacion2);
 	    }
 	    if(diagram.elementAt(index+1) instanceof DecisionFigure){
 		PolygonDecoration decoration = new PolygonDecoration();
@@ -241,7 +241,7 @@ public class FigureConnections extends Figure{
 		localizacion.setVDistance(-10);
 		localizacion.setUDistance(20);
 		
-		thirdConnection.add(yesMessage, localizacion);
+		thirdConnection.add(new Label(yesMessage), localizacion);
 		upRightPoint = connectCicle(diagram,index+2); 
 		
 		firstConnection.setSourceAnchor(new ChopboxAnchor(diagram.elementAt(upRightPoint)));
@@ -255,7 +255,7 @@ public class FigureConnections extends Figure{
 		localizacion2.setVDistance(-10);
 		localizacion2.setUDistance(20);
 		
-		fourthConnection.add(noMessage, localizacion2);
+		fourthConnection.add(new Label(noMessage), localizacion2);
 		
 		upLeftPoint = connectCicle(diagram,upRightPoint+1); 
 		
@@ -330,7 +330,7 @@ public class FigureConnections extends Figure{
 		ConnectionEndpointLocator localizacion2 = new ConnectionEndpointLocator(fourthConnection, true);
 		localizacion2.setVDistance(-5);
 		localizacion2.setUDistance(25);
-		fourthConnection.add(noMessage, localizacion2);
+		fourthConnection.add(new Label(noMessage), localizacion2);
 		connections.addElement(fourthConnection);
 		
 		PolylineConnection fifthConnection = new PolylineConnection();

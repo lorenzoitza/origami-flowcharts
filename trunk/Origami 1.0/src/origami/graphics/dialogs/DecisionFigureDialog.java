@@ -35,6 +35,9 @@ public class DecisionFigureDialog extends AbstractDialog<DecisionFigure> {
 
 		new DialogValidator().validate(instructionCode, abstractFigure,"si");
 	    }
+//	    else{
+//		new DialogValidator().validate("null", abstractFigure,"si");
+//	    }
 	}
     }
 

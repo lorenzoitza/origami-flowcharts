@@ -18,8 +18,29 @@ public class WindowWidgets {
     
     private CustomMenu customMenu;
     
+    
+    public CustomMenu getCustomMenu() {
+        return customMenu;
+    }
+
+
+    
+    public void setCustomMenu(CustomMenu customMenu) {
+        this.customMenu = customMenu;
+    }
+
     private CustomFiguresToolBar figuresToolBar;
     
+    
+    public CustomFiguresToolBar getFiguresToolBar() {
+        return figuresToolBar;
+    }
+
+    
+    public void setFiguresToolBar(CustomFiguresToolBar figuresToolBar) {
+        this.figuresToolBar = figuresToolBar;
+    }
+
     private StepByStepComponents stepByStepComponents;
 	
     private GridData toolBarData = new GridData(SWT.FILL, SWT.FILL, true,
@@ -217,19 +238,30 @@ public class WindowWidgets {
 	MainWindow.shell.layout();
     }
 	
-    public void disableAll(boolean isEnabled) {
-	customToolBar.setEnabledStepByStepToolItems(isEnabled);
-	    
-	figuresToolBar.setEnabledAllButtons(isEnabled);
-	
-	customMenu.setEnabledAllMenuItems(isEnabled);
-	
-	setEnabledSaveItems(isEnabled);
-    }
+//    public void disableAll(boolean isEnabled) {
+//	customToolBar.setEnabledStepByStepToolItems(isEnabled);
+//	    
+//	figuresToolBar.setEnabledAllButtons(isEnabled);
+//	
+//	customMenu.setEnabledAllMenuItems(isEnabled);
+//	
+//	setEnabledSaveItems(isEnabled);
+//    }
+//    
+//    public void setEnabledSaveItems(boolean isEnable) {
+//	customToolBar.setEnabledStepByStepToolItems(isEnable);
+//	customMenu.setEnabledSaveMenuItem(isEnable);
+//    }
     
-    public void setEnabledSaveItems(boolean isEnable) {
-	customToolBar.setEnabledStepByStepToolItems(isEnable);
-	customMenu.setEnabledSaveMenuItem(isEnable);
+    public void setEnabledItemsToolbarDefault(){
+	customToolBar.setEnabledItemGenerateCode(true);
+	customToolBar.setEnabledItemSave(true);
+	//verificar si hay un objeto en el copy
+	customToolBar.updateEnabledItems();
+//	customToolBar.setEnabledItemsEdition(false, false);
+	customToolBar.setEnabledItemsExecutions(true);
+	customToolBar.setEnabledItemsExport(true);
+	customToolBar.setEnabledItemUndo(true);
     }
     
     public void setByStepComponents(StepByStepComponents byStepComponents) {

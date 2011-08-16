@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 
 import origami.administration.ApplicationState;
+import origami.administration.actions.NewDiagramLogic;
 import origami.administration.functionality.DiagramFileManager;
 import origami.graphics.MainWindow;
 import origami.graphics.WindowWidgets;
@@ -26,51 +27,25 @@ public class OpenFileView {
 	}
 	String fileURL = dialog.open();
 	if (fileURL != null) {
-	    if (WindowWidgets.tabFolder.getTabItem().getLeaf()
-		    .getSizeDiagrama() == 0) {
-		openNewDiagram(dialog.getFileName(), fileURL);
-	    } else {
-		openDiagram(dialog.getFileName(), fileURL);
-	    }
+	    System.out.println(WindowWidgets.tabFolder.getItemCount());
+	    openNewDiagram(dialog.getFileName(), fileURL);
 	}
     }
 
     public void openNewDiagram(String fileName, String address) {
 	switch (openType) {
 	case OPEN:
+	    new NewDiagramLogic().addTab();
 	    int position = fileName.indexOf('.');
 	    String name = fileName.substring(0, position);
 	    WindowWidgets.tabFolder.changeName(name);
 	    WindowWidgets.tabFolder.getTabItem().getSave()
 		    .setSave(true);
+	    //El problema esta aqui....
 	    WindowWidgets.tabFolder.openDiagram(address, _serializer);
+	    //aaaaaaaaaaaaaaaaaaaaa
 	    WindowWidgets.tabFolder.getTabItem().getSave().setDir(
 		    address);
-	    break;
-	case OPENEXAMPLE:
-	    position = fileName.indexOf('.');
-	    String name2 = fileName.substring(0, position);
-	    WindowWidgets.tabFolder.changeName(name2);
-	    WindowWidgets.tabFolder.openDiagram(address, _serializer);
-	    break;
-	default:
-	    break;
-	}
-    }
-
-    public void openDiagram(String nomArchivo, String address) {
-	switch (openType) {
-	case OPEN:
-	    ApplicationState._selectionAdministrator.setSelectedFigure(0);
-	    WindowWidgets.tabFolder.getTabItem().getLeaf()
-		    .openFile(address, _serializer);
-	    WindowWidgets.tabFolder.getTabItem().getSave().setDir(
-		    address);
-	    int pos = nomArchivo.indexOf('.');
-	    String name = nomArchivo.substring(0, pos);
-	    WindowWidgets.tabFolder.changeName(name);
-	    WindowWidgets.tabFolder.getTabItem().getSave()
-		    .setSave(true);
 	    WindowWidgets.tabFolder.getTabItem().resetUndo();
 	    WindowWidgets.tabFolder.getTabItem().addUndo(
 		    WindowWidgets.tabFolder.getTabItem().getLeaf()
@@ -78,12 +53,10 @@ public class OpenFileView {
 		    WindowWidgets.tabFolder.getAdminSelection());
 	    break;
 	case OPENEXAMPLE:
-	    ApplicationState._selectionAdministrator.setSelectedFigure(0);
-	    WindowWidgets.tabFolder.getTabItem().getLeaf()
-		    .openFile(address, _serializer);
-	    int pos2 = nomArchivo.indexOf('.');
-	    String name2 = nomArchivo.substring(0, pos2);
+	    position = fileName.indexOf('.');
+	    String name2 = fileName.substring(0, position);
 	    WindowWidgets.tabFolder.changeName(name2);
+	    WindowWidgets.tabFolder.openDiagram(address, _serializer);
 	    break;
 	default:
 	    break;

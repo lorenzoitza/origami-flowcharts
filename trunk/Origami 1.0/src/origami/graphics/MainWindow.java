@@ -65,7 +65,9 @@ public class MainWindow {
 		ApplicationState.mainFigure = null;
 		Cursor oldCursor = cursor[0];
 		cursor[0] = new Cursor(null, SWT.CURSOR_ARROW);
-		WindowWidgets.tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
+		if(WindowWidgets.tabFolder.getItemCount()!=0){
+		    WindowWidgets.tabFolder.getTabItem().getLeaf().getDibujarDiagrama().setCursor(cursor[0]);
+		}
 		if (oldCursor != null) {
 		    oldCursor.dispose();
 		}

@@ -26,7 +26,6 @@ public class DiagramFileManager {
 		    .getInformation());
 	    
 	    serializer.writeFile(seriliazableFile, fileName);
-	    selectedTab.getTabItem().getInformation().removeTime();
 	} catch (Exception e) {
 	    errorMessage();
 	    e.printStackTrace();

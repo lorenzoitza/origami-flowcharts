@@ -109,6 +109,5 @@ public class AdminDiagram {
 		diagram.add(u, temporalDiagram.elementAt(u - 1));
 	    }
 	}
-
     }
 }

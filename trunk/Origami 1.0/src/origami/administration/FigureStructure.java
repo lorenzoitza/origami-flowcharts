@@ -48,6 +48,9 @@ public class FigureStructure extends Figure implements Serializable {
 
     protected static final Color DARKBLUE =
 	    MainWindow.display.getSystemColor(SWT.COLOR_DARK_BLUE);
+    
+    private int id;
+    
 
     public FigureStructure() {
 	addMouseListener(new MouseListener() {
@@ -117,5 +120,11 @@ public class FigureStructure extends Figure implements Serializable {
 	DerIzqFin = derIzqFin;
     }
     
-    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

@@ -149,8 +149,7 @@ public class TabItem extends CTabItem {
     }
 
     public void addInformation() {
-	information.addInformation("Inicio un nuevo diagrama");
-	information.setDiagram(tab.getTabItem().getLeaf().getDiagrama());
+	information.initDiagram();
     }
 
     public SaveDiagramController getSave() {

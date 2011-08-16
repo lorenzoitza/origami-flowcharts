@@ -118,7 +118,7 @@ public class InputFigure extends FigureStructure {
 	return _subInstruction;
     }
     
-    private String getInstructionCode() {
+    public String getInstructionCode() {
 	return instruction.getInstruccionSimple();
     }
 

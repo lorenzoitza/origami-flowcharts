@@ -6,6 +6,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 
+import origami.administration.Information;
 import origami.administration.functionality.DiagramExporter;
 import origami.administration.functionality.DiagramFileManager;
 import origami.graphics.MainWindow;
@@ -64,6 +65,7 @@ public class SaveFileView {
     }
 
     public boolean saveAction() {
+	WindowWidgets.tabFolder.getTabItem().getInformation().updateFile(Information.SAVE);
 	serializer.setFile(WindowWidgets.tabFolder.getTabItem()
 		.getSave().getDir());
 	serializer.saveDiagram(WindowWidgets.tabFolder);
@@ -110,7 +112,7 @@ public class SaveFileView {
 		new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);
 	messageBox.setText("Origami");
 	messageBox
-		.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es vlido");
+		.setMessage("El nombre de archivo, directorio o etiqueta del volumn no es valido");
 	int seleccion = messageBox.open();
 	switch (seleccion) {
 	case 64:
@@ -152,6 +154,7 @@ public class SaveFileView {
     }
 
     private void save(String fileName,String fileAdress) {
+	WindowWidgets.tabFolder.getTabItem().getInformation().updateFile(Information.SAVE);
 	WindowWidgets.tabFolder.getTabItem().getSave().setDir(
 		fileName);
 	serializer.setFile(fileAdress);
