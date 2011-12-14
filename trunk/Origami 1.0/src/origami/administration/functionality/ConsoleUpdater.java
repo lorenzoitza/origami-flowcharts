@@ -20,6 +20,7 @@ public class ConsoleUpdater implements Runnable{
 		if(linea.compareTo("") != 0){
 			linea = linea +"\n";
 			consoleComponent.customConsole.getTextField().append(linea);
+			System.out.println("Salida: "+linea);
 		}
 	}
 	else{

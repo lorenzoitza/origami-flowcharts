@@ -4,8 +4,10 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolderEvent;
 import org.eclipse.swt.widgets.MessageBox;
 
+import origami.administration.Information;
 import origami.graphics.DiagramStructure;
 import origami.graphics.MainWindow;
+import origami.graphics.WindowWidgets;
 import origami.graphics.view.SaveFileView;
 import origami.graphics.view.SaveType;
 import origami.graphics.widgets.TabFolder;
@@ -51,7 +53,8 @@ public class SaveDiagramController {
 	}
 	tabSelectedIndex = messageBox.open();
 	switch (tabSelectedIndex) {
-	case 64: 
+	case 64:
+	    WindowWidgets.tabFolder.getTabItem().getInformation().updateFile(Information.CLOSE);
 	    SaveFileView save = new SaveFileView();
 	    if (tabFolder.getTabItem().getSave().getDir() == "null") {
 		save.setSaveType(SaveType.SAVE);
@@ -65,6 +68,7 @@ public class SaveDiagramController {
 	    break;
 	case 128:
 	    cTabFolderEvent.doit = true;
+	    WindowWidgets.tabFolder.getTabItem().getInformation().updateFileAndNotSave(Information.CLOSE);
 	    closeCTabFolder(tabItem.GetId());
 	    break;
 	case 256:

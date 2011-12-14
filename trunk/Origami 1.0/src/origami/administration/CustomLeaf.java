@@ -42,6 +42,9 @@ public class CustomLeaf {
 	    if(diagrama.diagram.size()==0){
 		CircleFigure inicio = new CircleFigure();
 		inicio.setMessage(" Inicio");
+		int centerPosition = (this.chart.getBounds().width-inicio.getBounds().width)/2;
+		inicio.setBounds(new Rectangle(centerPosition,inicio.getBounds().y,inicio.getBounds().width,inicio.getBounds().height));
+		
 		CircleFigure fin = new CircleFigure();
 		fin.setMessage("  Fin");
 		diagrama.diagram.add(inicio);
@@ -154,7 +157,8 @@ public class CustomLeaf {
 			MainWindow.shell.layout();
 		}
 		chart.setOpaque(true);
-        	Rectangle r = new Rectangle(1090,100,80,50);
+		int centerPosition = (this.chart.getBounds().width-80)/2;
+        	Rectangle r = new Rectangle(centerPosition,100,80,50);
         	diagrama.diagram.removeAllElements();
         	chart.removeAll();
         	CustomFile aux = ser.recoverDiagram(archivo);
@@ -163,15 +167,12 @@ public class CustomLeaf {
         	tab.getTabItem().getInformation().updateFile(Information.OPEN);
         	DiagramStructure.getInstance().resetScrollBar();
         	diagrama.diagram.firstElement().setBounds(r);
-//        	addFigure();
+        	
         	chart.agregarFiguras(diagrama.diagram,chart);
         	connection.createConnections(diagrama.diagram);
         	chart.agregarConexiones(connection.getConexion(),chart);
         	
-        	System.out.println("--------------------------------");
-        	for(int index=0; index<aux.getInfo().size(); index++)
-        	System.out.println(aux.getInfo().elementAt(index));
-        	System.out.println("--------------------------------");
+        	addFigure();
         	
 	}
 	public Vector<FigureStructure> getDiagrama(){

@@ -73,7 +73,16 @@ public class SaveFileView {
 		true);
 	return true;
     }
-
+    
+    public void saveLog(){
+	if(!WindowWidgets.tabFolder.getTabItem()
+		.getSave().getDir().equalsIgnoreCase("null")){
+	    serializer.setFile(WindowWidgets.tabFolder.getTabItem()
+			.getSave().getDir());
+	    serializer.saveLog(WindowWidgets.tabFolder);
+	}
+    }
+    
     private void action(String fileName, String fileAdress) {
 	switch (saveType) {
 	case SAVE:

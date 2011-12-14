@@ -33,6 +33,7 @@ public class ManagerCodeFormat {
 	public void formatCodeCpp(){
 		Instruction getCodeOfFigures = new Instruction();
 		Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		System.out.println("---code---");
 		System.out.println(result);
 		format = new CppCodeFormatter(result,getCodeOfFigures.getVariablesTable());
 		format.applyFormat();

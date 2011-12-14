@@ -38,7 +38,7 @@ public class PaintDiagram extends Figure {
 	setBorder(new MarginBorder(5));
 	setBackgroundColor(ColorConstants.white);
 	setOpaque(true);
-	setBounds(new Rectangle(0,0,2250,2500));
+	setBounds(new Rectangle(0,0,4500,2500));
 	selec = selecc;
 	tab = tabfolder;
 	addMouseListener(new MouseListener(){

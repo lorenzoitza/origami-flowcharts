@@ -33,7 +33,17 @@ public class DiagramFileManager {
 	}
 	return true;
     }
-
+    public void saveLog(TabFolder selectedTab){
+	try {
+	    CustomFile seriliazableFile=(CustomFile)serializer.readFile(fileName);
+	    seriliazableFile.setInfo(selectedTab.getTabItem().getInformation()
+		    .getInformation());
+	    serializer.writeFile(seriliazableFile, fileName);
+	} catch (Exception e) {
+	    errorMessage();
+	    e.printStackTrace();
+	}
+    }
     private void errorMessage() {
 	MessageBox messageBox =
 		new MessageBox(MainWindow.shell, SWT.ICON_ERROR | SWT.OK);

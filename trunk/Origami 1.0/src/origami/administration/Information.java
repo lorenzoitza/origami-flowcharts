@@ -19,10 +19,15 @@ public class Information implements Serializable {
     private Vector<String> information;
 
     private String format = "dd/MM/yyyy HH:mm:ss";
+    private String formatToday = "dd/MM/yyyy";
     
     private String[] FileManagement = {"NEW","OPEN","SAVE","CLOSE"};
     private String[] FigureManagement = {"ADD","DELETE","EDIT"};
-    private String[] ExecutionManagement = {"COMPIL","Test"};
+    private String[] ExecutionManagement = {"COMPIL","Test","STOP","FULL"};
+    
+    private String instructionExecution="";
+    private String textNotSave="<NotSave>";
+    
     public static int OPEN=1;
     public static int SAVE=2;
     public static int CLOSE=3;
@@ -33,6 +38,8 @@ public class Information implements Serializable {
     
     public static int COMPIL=0;
     public static int TEST=1;
+    public static int STOP=2;
+    public static int FULL=3;
     
     public Information() {
 	information = new Vector<String>();
@@ -44,31 +51,53 @@ public class Information implements Serializable {
     public void updateFile(int action){
 	Calendar calendar = Calendar.getInstance();
 	information.add(getDate(calendar,this.format)+" "+FileManagement[action]);
+	if(action==this.SAVE){
+	    deleteInfoNotSave();
+	}
     }
-    
+    public void updateFileAndNotSave(int action){
+	Calendar calendar = Calendar.getInstance();
+	information.add(getDate(calendar,this.format)+" "+FileManagement[action]);
+	//guardar unicamente el log...
+	saveLog();
+    }
     public void addInformationExecution(int action,String message){
 	Calendar calendar = Calendar.getInstance();
-	information.add(getDate(calendar,this.format)+" "+ExecutionManagement[action]+" "+message);
-	save();
+	if(action==this.STOP || action==this.FULL){
+	    information.add(this.instructionExecution);
+	    information.add(getDate(calendar,this.format)+" "+ExecutionManagement[action]+" "+message);
+	    save();
+	}
+	else if(action==this.TEST){
+	    this.instructionExecution = getDate(calendar,this.format)+" "+ExecutionManagement[action]+" ; ";
+	}
+	else{
+	    information.add(getDate(calendar,this.format)+" "+ExecutionManagement[action]+" "+message);
+	    save();
+	}
     }
     public void save(){
 	SaveFileView save = new SaveFileView();
 	save.saveAction();
     }
+    public void saveLog(){
+	SaveFileView save = new SaveFileView();
+	save.saveLog();
+    }
     public void addInformationFigure(FigureStructure figure,int action) {
 	Calendar calendar = Calendar.getInstance();
 	if (figure instanceof DecisionFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Decision "+figure.getId()+" "+((DecisionFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Decision "+figure.getId()+" "+((DecisionFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	} else if (figure instanceof ForFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" For "+figure.getId()+" "+((ForFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" For "+figure.getId()+" "+((ForFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	} else if (figure instanceof WhileFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" While "+figure.getId()+" "+((WhileFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" While "+figure.getId()+" "+((WhileFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	} else if (figure instanceof InputFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Input "+figure.getId()+" "+((InputFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Input "+figure.getId()+" "+((InputFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	} else if (figure instanceof OutputFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Output "+figure.getId()+" "+((OutputFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Output "+figure.getId()+" "+((OutputFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	} else if (figure instanceof SentenceFigure) {
-	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Expression "+figure.getId()+" "+((SentenceFigure)figure).getInstructionCode());
+	    information.add(getDate(calendar,this.format)+" "+FigureManagement[action]+" Expression "+figure.getId()+" "+((SentenceFigure)figure).getInstructionCode()+" "+this.textNotSave);
 	}
     }
     
@@ -77,11 +106,32 @@ public class Information implements Serializable {
 	SimpleDateFormat dateFormat = new SimpleDateFormat(format);
 
 	return dateFormat.format(date.getTime());
-}
+    }
     
+    private void deleteInfoNotSave(){
+	Calendar calendar = Calendar.getInstance();
+	for(int index=0; index<information.size(); index++){
+	    String[] info = information.elementAt(index).split(" ");
+	    System.out.println(info[info.length-1]);
+	    if(info[0].startsWith(getDate(calendar,this.formatToday)) && info[info.length-1].endsWith(this.textNotSave)){
+		System.out.println("entroooo");
+		String temp = information.elementAt(index);
+		information.remove(index);
+		information.insertElementAt(temp.substring(0,temp.length()-11), index);
+	    }
+	}
+    }
     
+    public void addInstructionExecutionInput(String input){
+	int index = this.instructionExecution.lastIndexOf(";");
+	this.instructionExecution = this.instructionExecution.substring(0,index-1)+" "+input+" ;"+this.instructionExecution.substring(index+1);
+    }
     
-    
+    public void addInstructionExecutionOutput(String output){
+	int index = this.instructionExecution.lastIndexOf(";");
+	this.instructionExecution = this.instructionExecution.substring(0,index-1)+"; "+output+" "+this.instructionExecution.substring(index+1);
+    }
+
     private int aux = 0;
 
     private int hour;
