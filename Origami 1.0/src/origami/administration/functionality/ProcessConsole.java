@@ -2,6 +2,7 @@ package origami.administration.functionality;
 
 import java.io.*;
 
+import origami.administration.Information;
 import origami.graphics.WindowWidgets;
 import origami.graphics.MainWindow;
 import origami.graphics.widgets.TabItem;
@@ -24,6 +25,7 @@ public class ProcessConsole implements ExecProcessor {
 	
 	
     public void processNewInput(String input) {
+	WindowWidgets.tabFolder.getTabItem().getInformation().addInstructionExecutionOutput(input);
 	MainWindow.display.syncExec(new ConsoleUpdater(console,input));
     }
 	
@@ -66,6 +68,7 @@ public class ProcessConsole implements ExecProcessor {
 
     public void stopExecution(){
 	MainWindow.getComponents().customToolBar.getToolItems().get(12).setEnabled(false);
+	WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.STOP,"Test");
 	if(execHelper != null){
 	    execHelper.stopEjecucion();	
 	}

@@ -36,7 +36,7 @@ public class CcodeFormatter extends AbstractInstructionFormatter {
     private void divideDataInputForCodeC() {
 	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
 
-	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf(dataInput) >= 0) {
+	    if (codeOfFigure.elementAt(indexCodeFigure).toLowerCase().lastIndexOf(dataInput) >= 0) {
 
 		processInputData(indexCodeFigure);
 
@@ -56,7 +56,7 @@ public class CcodeFormatter extends AbstractInstructionFormatter {
 			.elementAt(indexCodeOfFigure));
 
 	int indexCharacterL =
-		codeOfFigure.elementAt(indexCodeOfFigure).indexOf("L");
+		codeOfFigure.elementAt(indexCodeOfFigure).toLowerCase().indexOf("l");
 
 	String space =
 		codeOfFigure.elementAt(indexCodeOfFigure).substring(0,
@@ -111,7 +111,7 @@ public class CcodeFormatter extends AbstractInstructionFormatter {
 	String defaultScan = "scanf(" + "\"" + "%" + "d" + "\"" + "," + "&";
 
 	String currentFormattedData =
-		linea.substring(linea.lastIndexOf(dataInput) + 5, linea
+		linea.substring(linea.toLowerCase().lastIndexOf(dataInput) + 5, linea
 			.length());
 
 	while (currentFormattedData.startsWith(" ")) {
@@ -235,12 +235,17 @@ public class CcodeFormatter extends AbstractInstructionFormatter {
 	    data = data.substring(1);
 	}
 
+	while (data.endsWith(" ")) {
+	    data = data.substring(0,data.length()-1);
+	}
+	
 	toPrint.add(addPrintSentence(data));
 
 	return toPrint;
     }
 
     private String addPrintSentence(String data) {
+	System.out.println(data);
 	String printTag = "printf(" + "\" ";
 	
 	String integerTag = "%d ";
@@ -259,30 +264,128 @@ public class CcodeFormatter extends AbstractInstructionFormatter {
 
 	String endOfInstruction = "";
 
-	for (int i = 0; i < datos.length; i++) {
-	    String tipo = this.getTypeOfData(datos[i]);
-	    if (tipo != null) {
-		if (tipo == "int") {
-		    instruction = instruction + integerTag;
-		} else if (tipo == "float") {
-		    instruction = instruction + floatTag;
-		} else {
-		    instruction = instruction + characterTag;
+	
+	//new code.....
+	int indexPosition = 0;
+	while(indexPosition<data.length()){
+	    String instructionTemp = data.substring(indexPosition);
+	    while (instructionTemp.startsWith(" ")) {
+		instructionTemp = instructionTemp.substring(1);
+		indexPosition++;
+	    }
+	    
+	    
+	    if(instructionTemp.startsWith("\"")){
+		int initString = instructionTemp.indexOf("\"");
+		int endString = instructionTemp.indexOf("\"",initString+1);
+		if(endString!=-1){
+		    instruction = instruction + instructionTemp.substring(initString+1, endString);
+		    
+		    indexPosition = indexPosition+endString+1;
+		    
+		    String rest = instructionTemp.substring(endString+1);
+		    if(rest.length()!=0){
+			 while (rest.startsWith(" ")) {
+			     rest = rest.substring(1);
+			     indexPosition++;
+			 }
+			 if(rest.startsWith(",")){
+			     indexPosition++;
+			 }
+			 else if(rest.contains(",")){
+			     int position = rest.indexOf(",");
+			     instruction = instruction + rest.substring(0,position);
+			     indexPosition = indexPosition + position+1;
+			 }
+		    }
 		}
+		else{
+		    if(instructionTemp.contains(",")){
+			int separatePosition = instructionTemp.indexOf(",");
+			
+			String tipo = this.getTypeOfData(instructionTemp.substring(0, separatePosition));
+			String delimeterTag = characterTag;
+			if (tipo != null) {
+			    if (tipo == "int") {
+				delimeterTag = integerTag;
+			    } else if (tipo == "float") {
+				delimeterTag =  floatTag;
+			    } else {
+				delimeterTag = characterTag;
+			    }
+			} 
+			instruction = instruction + delimeterTag;
+			endOfInstruction =
+				endOfInstruction + separatorTag + instructionTemp.substring(0, separatePosition);
+			
+			indexPosition = indexPosition+separatePosition+1;
+		    }
+		    else{
+			String tipo = this.getTypeOfData(instructionTemp);
+			String delimeterTag = characterTag;
+			if (tipo != null) {
+			    if (tipo == "int") {
+				delimeterTag = integerTag;
+			    } else if (tipo == "float") {
+				delimeterTag =  floatTag;
+			    } else {
+				delimeterTag = characterTag;
+			    }
+			}
+			
+			instruction = instruction + delimeterTag + instructionTemp;
+			indexPosition = indexPosition+instructionTemp.length();
+		    }
+		}
+		
+	    }
+	    else if(instructionTemp.contains(",")){
+		int separatePosition = instructionTemp.indexOf(",");
+		
+		String tipo = this.getTypeOfData(instructionTemp.substring(0, separatePosition));
+		String delimeterTag = characterTag;
+		if (tipo != null) {
+		    if (tipo == "int") {
+			delimeterTag = integerTag;
+		    } else if (tipo == "float") {
+			delimeterTag =  floatTag;
+		    } else {
+			delimeterTag = characterTag;
+		    }
+		} 
+		instruction = instruction + delimeterTag;
 		endOfInstruction =
-			endOfInstruction + separatorTag + datos[i];
-	    } else {
-		if (datos[i].contains("\"")) {
-		    instruction =
-			    instruction
-				    + datos[i].substring(1,
-					    datos[i].length() - 1);
-		} else {
+			endOfInstruction + separatorTag + instructionTemp.substring(0, separatePosition);
+		
+		indexPosition = indexPosition+separatePosition+1;
+	    }
+	    else{
+		String tipo = this.getTypeOfData(instructionTemp);
+		String delimeterTag = characterTag;
+		if (tipo != null) {
+		    if (tipo == "int") {
+			delimeterTag = integerTag;
+		    } else if (tipo == "float") {
+			delimeterTag =  floatTag;
+		    } else {
+			delimeterTag = characterTag;
+		    }
+		    instruction = instruction + delimeterTag;
+		    indexPosition = indexPosition+instructionTemp.length();
 		    endOfInstruction =
-			    endOfInstruction + separatorTag + datos[i];
+			endOfInstruction + separatorTag + instructionTemp;
 		}
+		else{
+		    instruction = instruction + delimeterTag;
+		    endOfInstruction =
+			endOfInstruction + separatorTag + instructionTemp;
+		    indexPosition = indexPosition+instructionTemp.length();
+		}
+		
+		
 	    }
 	}
+	//end code....
 
 	instruction = instruction + "\"" + endOfInstruction + close;
 	return instruction;

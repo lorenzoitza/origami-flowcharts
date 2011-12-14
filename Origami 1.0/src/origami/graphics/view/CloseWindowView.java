@@ -51,26 +51,27 @@ public class CloseWindowView {
 
 	    messageBox.setText("Origami");
 	    messageBox
-		    .setMessage("Existen diagramas sin guardar, ¿desea guardarlos?");
+		    .setMessage("Existen diagramas sin guardar. ¿Desea guardarlos?");
 	    optionSelected = messageBox.open();
-
 	    switch (optionSelected) {
-	    case 0:
-		break;
-	    case 64:
-		shellEvent.doit = false;
-		break;
-	    case 128:
-		if (MainWindow.getComponents().getByStepComponents()
-			.getEnEjecucion(MainWindow.getComponents())) {
-		    MainWindow.getComponents().getByStepComponents()
-			    .stopExecution(MainWindow.getComponents());
-		}
-		if (MainWindow.getComponents().getByStepComponents()
-			.getEnEjecucion(MainWindow.getComponents())) {
-		    MainWindow.getComponents().getByStepComponents()
-			    .stopExecution(MainWindow.getComponents());
-		}
+    	    case 64:
+    		shellEvent.doit = false;
+    		break;
+    	    case 128:
+    		if (MainWindow.getComponents().getByStepComponents()
+    			.getEnEjecucion(MainWindow.getComponents())) {
+    		    MainWindow.getComponents().getByStepComponents()
+    			    .stopExecution(MainWindow.getComponents());
+    		}
+    //		if (MainWindow.getComponents().getByStepComponents()
+    //			.getEnEjecucion(MainWindow.getComponents())) {
+    //		    MainWindow.getComponents().getByStepComponents()
+    //			    .stopExecution(MainWindow.getComponents());
+    //		}
+    		break;
+    	    case 256:
+    		shellEvent.doit = false;
+    		break;
 	    }
 	}
     }

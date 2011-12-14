@@ -327,7 +327,7 @@ public class Instruction implements Serializable {
     private Vector<String> getFormattedVariables(String sentenceLine, String variableType) {
 	Vector<String> variables = new Vector<String>();
 	
-	if(sentenceLine.lastIndexOf("Leer:")!=-1){
+	if(sentenceLine.toLowerCase().lastIndexOf("leer:")!=-1){
 	    if(sentenceLine.lastIndexOf("{")!=-1){
 		
 	    }
@@ -341,10 +341,10 @@ public class Instruction implements Serializable {
 		    String dataTypeOfVariable = getDataType(tokenizedSentences[tokenizedSentence ]);
 		    if(dataTypeOfVariable!=""){
 			previousDataType = dataTypeOfVariable;
-			variables.add("Leer: "+tokenizedSentences[tokenizedSentence ]);
+			variables.add("leer: "+tokenizedSentences[tokenizedSentence ]);
 		    }
 		    else{
-			variables.add("Leer: "+previousDataType+" "+tokenizedSentences[tokenizedSentence]);
+			variables.add("leer: "+previousDataType+" "+tokenizedSentences[tokenizedSentence]);
 		    }
 		}
 	    }

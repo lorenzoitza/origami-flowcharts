@@ -26,13 +26,16 @@ public class SentenceFigureDialog extends AbstractDialog<SentenceFigure> {
     @Override
     public void validate(boolean band) {
 	if (band) {
-
+	    
 	    if (!variableTextField.getText().isEmpty() && !dataTextField.getText().isEmpty()) {
 
 		String sentenceCode = constructSentenceCode();
 		
 		getDialogValidator().validate(sentenceCode, abstractFigure,"sentencia");
 		
+	    }
+	    else if (variableTextField.getText().isEmpty() && dataTextField.getText().isEmpty()){
+		abstractFigure.instruction.simpleInstruction = "null";
 	    }
 	}
     }

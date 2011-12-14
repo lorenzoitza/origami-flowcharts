@@ -52,6 +52,7 @@ public class StepByStepComponents {
 
     public void setText(WindowWidgets windowComponents, String consoleText) {
     	if (isSelected()) {
+    	    WindowWidgets.tabFolder.getTabItem().getInformation().addInstructionExecutionInput(consoleText);
     	    getExecution().inputActionPerformed(consoleText);
     	} else {
     	    getStepByStep().inputActionPerformed(consoleText);

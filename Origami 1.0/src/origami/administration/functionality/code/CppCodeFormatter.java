@@ -33,7 +33,7 @@ public class CppCodeFormatter extends AbstractInstructionFormatter {
 
 	for (int indexCodeFigure = 0; indexCodeFigure < codeOfFigure.size(); indexCodeFigure++) {
 
-	    if (codeOfFigure.elementAt(indexCodeFigure).lastIndexOf(dataInput) >= 0) {
+	    if (codeOfFigure.elementAt(indexCodeFigure).toLowerCase().lastIndexOf(dataInput) >= 0) {
 
 		processInputData(indexCodeFigure);
 		
@@ -54,7 +54,7 @@ public class CppCodeFormatter extends AbstractInstructionFormatter {
 
 	String cppCodeOfFigure = codeOfFigure.elementAt(indexCodeFigure);
 
-	int codeLengthOfFigure = codeOfFigure.elementAt(indexCodeFigure).indexOf("L");
+	int codeLengthOfFigure = codeOfFigure.elementAt(indexCodeFigure).toLowerCase().indexOf("l");
 
 	cppCodeOfFigure = cppCodeOfFigure.substring(0, codeLengthOfFigure);
 
@@ -108,7 +108,7 @@ public class CppCodeFormatter extends AbstractInstructionFormatter {
 	String dataToEmbbed = "";
 
 	String formattedLines =
-		lineToBeFormatted.substring(lineToBeFormatted.lastIndexOf(dataInput) + 5, lineToBeFormatted.length());
+		lineToBeFormatted.substring(lineToBeFormatted.toLowerCase().lastIndexOf(dataInput) + 5, lineToBeFormatted.length());
 
 	while (formattedLines.startsWith(" ")) {
 	    formattedLines = formattedLines.substring(1);
@@ -128,7 +128,11 @@ public class CppCodeFormatter extends AbstractInstructionFormatter {
 	    dataToEmbbed =
 		    formattedLines.substring(formattedLines.lastIndexOf("char") + 4, formattedLines
 			    .lastIndexOf(";"));
-	
+	}
+	else{
+	    dataToEmbbed =
+		    formattedLines.substring(0, formattedLines
+			    .lastIndexOf(";"));
 	}
 	 if (!isDeclared(formattedLines)) {
 	this.TableOfVariable.add(formattedLines);
@@ -159,13 +163,68 @@ public class CppCodeFormatter extends AbstractInstructionFormatter {
 	while (formattedLines.startsWith(" ")) {
 	    formattedLines = formattedLines.substring(1);
 	}
-
-	String dataTokensOfCode[] = formattedLines.split(",");
-
+	while (formattedLines.endsWith(" ")) {
+	    formattedLines = formattedLines.substring(0,formattedLines.length()-1);
+	}
+	
 	String formmatedInstruction = coutTag;
-
-	for (int tokenIndex = 0; tokenIndex < dataTokensOfCode.length; tokenIndex++) {
-	    formmatedInstruction = formmatedInstruction + delimeterTag + dataTokensOfCode[tokenIndex];
+	
+	
+	int indexPosition = 0;
+	while(indexPosition<formattedLines.length()){
+	    String instruction = formattedLines.substring(indexPosition);
+	    while (instruction.startsWith(" ")) {
+		instruction = instruction.substring(1);
+		indexPosition++;
+	    }
+	    
+	    
+	    if(instruction.startsWith("\"")){
+		int initString = instruction.indexOf("\"");
+		int endString = instruction.indexOf("\"",initString+1);
+		if(endString!=-1){
+		    formmatedInstruction = formmatedInstruction + delimeterTag + instruction.substring(initString, endString+1);
+		    
+		    indexPosition = indexPosition+endString+1;
+		    
+		    String rest = instruction.substring(endString+1);
+		    if(rest.length()!=0){
+			 while (rest.startsWith(" ")) {
+			     rest = rest.substring(1);
+			     indexPosition++;
+			 }
+			 if(rest.startsWith(",")){
+			     indexPosition++;
+			 }
+			 else if(rest.contains(",")){
+			     int position = rest.indexOf(",");
+			     formmatedInstruction = formmatedInstruction + rest.substring(0,position);
+			     indexPosition = indexPosition + position+1;
+			 }
+		    }
+		}
+		else{
+		    if(instruction.contains(",")){
+			int separatePosition = instruction.indexOf(",");
+			formmatedInstruction = formmatedInstruction + delimeterTag + instruction.substring(0, separatePosition);
+			indexPosition = indexPosition+separatePosition+1;
+		    }
+		    else{
+			formmatedInstruction = formmatedInstruction + delimeterTag + instruction;
+			indexPosition = indexPosition+instruction.length();
+		    }
+		}
+		
+	    }
+	    else if(instruction.contains(",")){
+		int separatePosition = instruction.indexOf(",");
+		formmatedInstruction = formmatedInstruction + delimeterTag + instruction.substring(0, separatePosition);
+		indexPosition = indexPosition+separatePosition+1;
+	    }
+	    else{
+		formmatedInstruction = formmatedInstruction + delimeterTag + instruction;
+		indexPosition = indexPosition+instruction.length();
+	    }
 	}
 
 	formmatedInstruction = formmatedInstruction + endlTag;

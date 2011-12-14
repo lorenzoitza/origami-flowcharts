@@ -187,11 +187,11 @@ public class CustomToolBar {
 	toolItem.addSelectionListener(new CompileListener());
 	toolItems.add(toolItem);
 	
-	toolItem = new ToolItem(toolbar, SWT.PUSH);
-	toolItem.setImage(ImageLoader.getImage("run.png"));
-	toolItem.setToolTipText("Watch");
-	toolItem.addSelectionListener(new RunWatch());
-	toolItems.add(toolItem);
+//	toolItem = new ToolItem(toolbar, SWT.PUSH);
+//	toolItem.setImage(ImageLoader.getImage("run.png"));
+//	toolItem.setToolTipText("Watch");
+//	toolItem.addSelectionListener(new RunWatch());
+//	toolItems.add(toolItem);
 
 	toolItem = new ToolItem(toolbar, SWT.PUSH);
 	toolItem.setImage(ImageLoader.getImage("check.png"));
@@ -332,9 +332,9 @@ public class CustomToolBar {
 	toolItems.get(delete).setEnabled(enabled);
     }
     public void setEnabledItemsExport(boolean enabled){
-	int exportCodeC=14;
-	int exportCodeCpp=15;
-	int exportExe=16;
+	int exportCodeC=13;
+	int exportCodeCpp=14;
+	int exportExe=15;
 	
 	toolItems.get(exportCodeC).setEnabled(enabled);
 	toolItems.get(exportCodeCpp).setEnabled(enabled);
@@ -342,21 +342,21 @@ public class CustomToolBar {
     }
     public void setEnabledItemsExecutions(boolean enabled){
 	int run=9;
-	int watch=10;
-	int stepByStep=11;
-	int nextStep=12;
-	int stopRun=13;
+//	int watch=10;
+	int stepByStep=10;
+	int nextStep=11;
+	int stopRun=12;
 	
 	if(enabled){
 	    toolItems.get(run).setEnabled(enabled);
-	    toolItems.get(watch).setEnabled(enabled);
+//	    toolItems.get(watch).setEnabled(enabled);
 	    toolItems.get(stepByStep).setEnabled(enabled);
 	    toolItems.get(nextStep).setEnabled(false);
 	    toolItems.get(stopRun).setEnabled(false);
 	}
 	else{
 	    toolItems.get(run).setEnabled(enabled);
-	    toolItems.get(watch).setEnabled(enabled);
+//	    toolItems.get(watch).setEnabled(enabled);
 	    toolItems.get(stepByStep).setEnabled(enabled);
 	    toolItems.get(nextStep).setEnabled(enabled);
 	    toolItems.get(stopRun).setEnabled(enabled);

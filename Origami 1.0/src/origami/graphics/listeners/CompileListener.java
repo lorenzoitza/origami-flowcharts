@@ -1,7 +1,10 @@
 package origami.graphics.listeners;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.widgets.Dialog;
+import org.eclipse.swt.widgets.MessageBox;
 
 import origami.administration.Information;
 import origami.administration.functionality.CodeCompiler;
@@ -30,6 +33,7 @@ public class CompileListener implements SelectionListener{
     
     @Override
     public void widgetSelected(SelectionEvent arg0) {
+	
 	if (!WindowWidgets.tabFolder.getTabItem().getSave().isSave()) {
 		if (isSave()) {
 			CodeCompiler code = new CodeCompiler(WindowWidgets.tabFolder);
@@ -44,20 +48,11 @@ public class CompileListener implements SelectionListener{
 				}
 				MainWindow.getComponents().customConsole.getTextField().setText(code.errorTipe);
 				WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "Error:"+code.errorTipe);
-//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-//						"/Ec - Error en la compilacion:");
-//				
-//				WindowWidgets.tabFolder.getTabItem().getInformation().addInformation(
-//						code.errorTipe);
 				code.deleteMainFiles();
 			} else {
+			    WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
+			    WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.TEST, "");
 			    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
-//				WindowWidgets.tabFolder
-//						.getTabItem()
-//						.getInformation()
-//						.addInformation(
-//								"/C - Se Compilo el diagrama de manera correcta");
-				WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
 			}
 			if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 			    CustomMenu.getConsoleMenuItem().setSelection(true);
@@ -79,8 +74,9 @@ public class CompileListener implements SelectionListener{
 			WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "Error:"+code.errorTipe);
 			code.deleteMainFiles();
 		} else {
-		    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
 		    WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.COMPIL, "successful compilation");
+		    WindowWidgets.tabFolder.getTabItem().getInformation().addInformationExecution(Information.TEST, "");
+		    MainWindow.getComponents().getByStepComponents().execute(MainWindow.getComponents(), true, code);
 		}
 		if (!CustomMenu.getConsoleMenuItem().getSelection()) {
 		    CustomMenu.getConsoleMenuItem().setSelection(true);

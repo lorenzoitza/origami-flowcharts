@@ -207,7 +207,8 @@ public class DiagramCodeView {
     public void initCombo(ToolBar toolBar){
 	combo = new Combo(toolBar,SWT.READ_ONLY | SWT.Selection);
 	combo.setBounds(100, 0, 150, 100);
-	String items[] = {"C","C++","C#","Java","Ruby","Pseudocodigo","Basic"};
+//	String items[] = {"C","C++","C#","Java","Ruby","Pseudocodigo","Basic"};
+	String items[] = {"C","C++"};
 	combo.setItems(items);
 	if(selection != 0)
 	    combo.select(selection);

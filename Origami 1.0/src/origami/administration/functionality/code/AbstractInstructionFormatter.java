@@ -11,7 +11,7 @@ public abstract class AbstractInstructionFormatter {
 
     protected String sourceCode;
     
-    protected String dataInput = "Leer:";
+    protected String dataInput = "leer:";
     
     protected String dataOutput = "\\p";
     

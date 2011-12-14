@@ -93,9 +93,8 @@ public class CodeCompiler {
 
     public void saveCode(boolean isCCode, boolean inExecution) {
 	ManagerCodeFormat managerCode = new ManagerCodeFormat(WindowWidgets.tabFolder.getTabItem().getLeaf().getDiagrama());
-	
+		
 	if (isCCode) {
-
 	    source = new File("main.c");
 	    managerCode.formatCodeC();
 	} else if (!isCCode && inExecution) {
