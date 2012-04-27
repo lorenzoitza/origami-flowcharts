@@ -1,0 +1,383 @@
+<html lang="en"><head>
+<title>GNU Objective-C runtime features</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name=description content="GNU Objective-C runtime features">
+<meta name=generator content="makeinfo 4.0">
+<link href="http://texinfo.org/" rel=generator-home>
+</head><body>
+
+<p><hr>
+Node:<a name="Top">Top</a>,
+Next:<a rel=next href="#Executing%20code%20before%20main">Executing code before main</a>,
+<br>
+
+<h1>GNU Objective-C runtime features</h1>
+
+<p>This document is meant to describe some of the GNU Objective-C runtime
+features. It is not intended to teach you Objective-C, there are several
+resources on the Internet that present the language.  Questions and
+comments about this document to Ovidiu Predescu
+<code>&lt;ovidiu@cup.hp.com&gt;</code>.
+
+<ul>
+<li><a href="#Executing%20code%20before%20main">Executing code before main</a>: 
+<li><a href="#Type%20encoding">Type encoding</a>: 
+<li><a href="#Garbage%20Collection">Garbage Collection</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Executing%20code%20before%20main">Executing code before main</a>,
+Next:<a rel=next href="#What%20you%20can%20and%20what%20you%20cannot%20do%20in%20+load">What you can and what you cannot do in +load</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2><code>+load</code>: Executing code before main</h2>
+
+<p>The GNU Objective-C runtime provides a way that allows you to execute
+code before the execution of the program enters the <code>main</code>
+function. The code is executed on a per-class and a per-category basis,
+through a special class method <code>+load</code>.
+
+<p>This facility is very useful if you want to initialize global variables
+which can be accessed by the program directly, without sending a message
+to the class first. The usual way to initialize global variables, in the
+<code>+initialize</code> method, might not be useful because
+<code>+initialize</code> is only called when the first message is sent to a
+class object, which in some cases could be too late.
+
+<p>Suppose for example you have a <code>FileStream</code> class that declares
+<code>Stdin</code>, <code>Stdout</code> and <code>Stderr</code> as global variables, like
+below:
+
+<pre>
+FileStream *Stdin = nil;
+FileStream *Stdout = nil;
+FileStream *Stderr = nil;
+
+@implementation FileStream
+
++ (void)initialize
+{
+    Stdin = [[FileStream new] initWithFd:0];
+    Stdout = [[FileStream new] initWithFd:1];
+    Stderr = [[FileStream new] initWithFd:2];
+}
+
+/* Other methods here */
+@end
+
+</pre>
+
+<p>In this example, the initialization of <code>Stdin</code>, <code>Stdout</code> and
+<code>Stderr</code> in <code>+initialize</code> occurs too late. The programmer can
+send a message to one of these objects before the variables are actually
+initialized, thus sending messages to the <code>nil</code> object. The
+<code>+initialize</code> method which actually initializes the global
+variables is not invoked until the first message is sent to the class
+object. The solution would require these variables to be initialized
+just before entering <code>main</code>.
+
+<p>The correct solution of the above problem is to use the <code>+load</code>
+method instead of <code>+initialize</code>:
+
+<pre>
+@implementation FileStream
+
++ (void)load
+{
+    Stdin = [[FileStream new] initWithFd:0];
+    Stdout = [[FileStream new] initWithFd:1];
+    Stderr = [[FileStream new] initWithFd:2];
+}
+
+/* Other methods here */
+@end
+
+</pre>
+
+<p>The <code>+load</code> is a method that is not overridden by categories. If a
+class and a category of it both implement <code>+load</code>, both methods are
+invoked.  This allows some additional initializations to be performed in
+a category.
+
+<p>This mechanism is not intended to be a replacement for <code>+initialize</code>. 
+You should be aware of its limitations when you decide to use it
+instead of <code>+initialize</code>.
+
+<ul>
+<li><a href="#What%20you%20can%20and%20what%20you%20cannot%20do%20in%20+load">What you can and what you cannot do in +load</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="What%20you%20can%20and%20what%20you%20cannot%20do%20in%20+load">What you can and what you cannot do in +load</a>,
+Next:<a rel=next href="#Type%20encoding">Type encoding</a>,
+Previous:<a rel=previous href="#Executing%20code%20before%20main">Executing code before main</a>,
+Up:<a rel=up href="#Executing%20code%20before%20main">Executing code before main</a>
+<br>
+
+<h3>What you can and what you cannot do in <code>+load</code></h3>
+
+<p>The +load implementation in the GNU runtime guarantees you the following
+things:
+
+<ul>
+
+<li>you can write whatever C code you like;
+
+<li>you can send messages to Objective-C constant strings (@"this is a
+constant string");
+
+<li>you can allocate and send messages to objects whose class is implemented
+in the same file;
+
+<li>the <code>+load</code> implementation of all super classes of a class are executed before the <code>+load</code> of that class is executed;
+
+<li>the <code>+load</code> implementation of a class is executed before the
+<code>+load</code> implementation of any category.
+
+</ul>
+
+<p>In particular, the following things, even if they can work in a
+particular case, are not guaranteed:
+
+<ul>
+
+<li>allocation of or sending messages to arbitrary objects;
+
+<li>allocation of or sending messages to objects whose classes have a
+category implemented in the same file;
+
+</ul>
+
+<p>You should make no assumptions about receiving <code>+load</code> in sibling
+classes when you write <code>+load</code> of a class. The order in which
+sibling classes receive <code>+load</code> is not guaranteed.
+
+<p>The order in which <code>+load</code> and <code>+initialize</code> are called could
+be problematic if this matters. If you don't allocate objects inside
+<code>+load</code>, it is guaranteed that <code>+load</code> is called before
+<code>+initialize</code>. If you create an object inside <code>+load</code> the
+<code>+initialize</code> method of object's class is invoked even if
+<code>+load</code> was not invoked. Note if you explicitly call <code>+load</code>
+on a class, <code>+initialize</code> will be called first. To avoid possible
+problems try to implement only one of these methods.
+
+<p>The <code>+load</code> method is also invoked when a bundle is dynamically
+loaded into your running program. This happens automatically without any
+intervening operation from you. When you write bundles and you need to
+write <code>+load</code> you can safely create and send messages to objects whose
+classes already exist in the running program. The same restrictions as
+above apply to classes defined in bundle.
+
+<p><hr>
+Node:<a name="Type%20encoding">Type encoding</a>,
+Next:<a rel=next href="#Garbage%20Collection">Garbage Collection</a>,
+Previous:<a rel=previous href="#What%20you%20can%20and%20what%20you%20cannot%20do%20in%20+load">What you can and what you cannot do in +load</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Type encoding</h2>
+
+<p>The Objective-C compiler generates type encodings for all the
+types. These type encodings are used at runtime to find out information
+about selectors and methods and about objects and classes.
+
+<p>The types are encoded in the following way:
+
+<p><table><tr align="left"><td><code>char</code>
+<td><code>c</code>
+<br></tr><tr align="left"><td><code>unsigned char</code>
+<td><code>C</code>
+<br></tr><tr align="left"><td><code>short</code>
+<td><code>s</code>
+<br></tr><tr align="left"><td><code>unsigned short</code>
+<td><code>S</code>
+<br></tr><tr align="left"><td><code>int</code>
+<td><code>i</code>
+<br></tr><tr align="left"><td><code>unsigned int</code>
+<td><code>I</code>
+<br></tr><tr align="left"><td><code>long</code>
+<td><code>l</code>
+<br></tr><tr align="left"><td><code>unsigned long</code>
+<td><code>L</code>
+<br></tr><tr align="left"><td><code>long long</code>
+<td><code>q</code>
+<br></tr><tr align="left"><td><code>unsigned long long</code>
+<td><code>Q</code>
+<br></tr><tr align="left"><td><code>float</code>
+<td><code>f</code>
+<br></tr><tr align="left"><td><code>double</code>
+<td><code>d</code>
+<br></tr><tr align="left"><td><code>void</code>
+<td><code>v</code>
+<br></tr><tr align="left"><td><code>id</code>
+<td><code>@</code>
+<br></tr><tr align="left"><td><code>Class</code>
+<td><code>#</code>
+<br></tr><tr align="left"><td><code>SEL</code>
+<td><code>:</code>
+<br></tr><tr align="left"><td><code>char*</code>
+<td><code>*</code>
+<br></tr><tr align="left"><td>unknown type
+<td><code>?</code>
+<br></tr><tr align="left"><td>bitfields
+<td><code>b</code> followed by the starting position of the bitfield, the type of the bitfield and the size of the bitfield (the bitfields encoding was changed from the NeXT's compiler encoding, see below)
+<br></tr></table>
+
+<p>The encoding of bitfields has changed to allow bitfields to be properly
+handled by the runtime functions that compute sizes and alignments of
+types that contain bitfields. The previous encoding contained only the
+size of the bitfield. Using only this information it is not possible to
+reliably compute the size occupied by the bitfield. This is very
+important in the presence of the Boehm's garbage collector because the
+objects are allocated using the typed memory facility available in this
+collector. The typed memory allocation requires information about where
+the pointers are located inside the object.
+
+<p>The position in the bitfield is the position, counting in bits, of the
+bit closest to the beginning of the structure.
+
+<p>The non-atomic types are encoded as follows:
+
+<p><table><tr align="left"><td>pointers
+<td><code>'^'</code> followed by the pointed type. 
+<br></tr><tr align="left"><td>arrays
+<td><code>'['</code> followed by the number of elements in the array followed by the type of the elements followed by <code>']'</code>
+<br></tr><tr align="left"><td>structures
+<td><code>'{'</code> followed by the name of the structure (or '?' if the structure is unnamed), the '=' sign, the type of the members and by <code>'}'</code>
+<br></tr><tr align="left"><td>unions
+<td><code>'('</code> followed by the name of the structure (or '?' if the union is unnamed), the '=' sign, the type of the members followed by <code>')'</code>
+<br></tr></table>
+
+<p>Here are some types and their encodings, as they are generated by the
+compiler on a i386 machine:
+
+<br><p>
+<p><table><tr align="left"><td>Objective-C type
+<td>Compiler encoding
+<br></tr><tr align="left"><td>
+<pre>int a[10];
+</pre>
+<td><code>[10i]</code>
+<br></tr><tr align="left"><td>
+<pre>struct {
+  int i;
+  float f[3];
+  int a:3;
+  int b:2;
+  char c;
+}
+</pre>
+<td><code>{?=i[3f]b128i3b131i2c}</code>
+<br></tr></table>
+
+<br><p>
+<p>In addition to the types the compiler also encodes the type
+specifiers. The table below describes the encoding of the current
+Objective-C type specifiers:
+
+<br><p>
+<p><table><tr align="left"><td>Specifier
+<td>Encoding
+<br></tr><tr align="left"><td><code>const</code>
+<td><code>r</code>
+<br></tr><tr align="left"><td><code>in</code>
+<td><code>n</code>
+<br></tr><tr align="left"><td><code>inout</code>
+<td><code>N</code>
+<br></tr><tr align="left"><td><code>out</code>
+<td><code>o</code>
+<br></tr><tr align="left"><td><code>bycopy</code>
+<td><code>O</code>
+<br></tr><tr align="left"><td><code>oneway</code>
+<td><code>V</code>
+<br></tr></table>
+
+<br><p>
+<p>The type specifiers are encoded just before the type. Unlike types
+however, the type specifiers are only encoded when they appear in method
+argument types.
+
+<p><hr>
+Node:<a name="Garbage%20Collection">Garbage Collection</a>,
+Previous:<a rel=previous href="#Type%20encoding">Type encoding</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Garbage Collection</h2>
+
+<p>Support for a new memory management policy has been added by using a
+powerful conservative garbage collector, known as the
+Boehm-Demers-Weiser conservative garbage collector. It is available from
+<a&nbsp;href="http://reality.sgi.com/boehm_mti/gc.html">http://reality.sgi.com/boehm_mti/gc.html</a>.
+
+<p>To enable the support for it you have to configure the compiler using an
+additional argument, <kbd>--enable-objc-gc</kbd>. You need to have
+garbage collector installed before building the compiler. This will
+build an additional runtime library which has several enhancements to
+support the garbage collector. The new library has a new name,
+<kbd>libobjc_gc.a</kbd> to not conflict with the non-garbage-collected
+library.
+
+<p>When the garbage collector is used, the objects are allocated using the
+so-called typed memory allocation mechanism available in the
+Boehm-Demers-Weiser collector. This mode requires precise information on
+where pointers are located inside objects. This information is computed
+once per class, immediately after the class has been initialized.
+
+<p>There is a new runtime function <code>class_ivar_set_gcinvisible()</code>
+which can be used to declare a so-called <strong>weak pointer</strong>
+reference. Such a pointer is basically hidden for the garbage collector;
+this can be useful in certain situations, especially when you want to
+keep track of the allocated objects, yet allow them to be
+collected. This kind of pointers can only be members of objects, you
+cannot declare a global pointer as a weak reference. Every type which is
+a pointer type can be declared a weak pointer, including <code>id</code>,
+<code>Class</code> and <code>SEL</code>.
+
+<p>Here is an example of how to use this feature. Suppose you want to
+implement a class whose instances hold a weak pointer reference; the
+following class does this:
+
+<pre>
+@interface WeakPointer : Object
+{
+    const void* weakPointer;
+}
+
+- initWithPointer:(const void*)p;
+- (const void*)weakPointer;
+@end
+
+
+@implementation WeakPointer
+
++ (void)initialize
+{
+  class_ivar_set_gcinvisible (self, "weakPointer", YES);
+}
+
+- initWithPointer:(const void*)p
+{
+  weakPointer = p;
+  return self;
+}
+
+- (const void*)weakPointer
+{
+  return weakPointer;
+}
+
+@end
+
+</pre>
+
+<p>Weak pointers are supported through a new type character specifier
+represented by the <code>'!'</code> character. The
+<code>class_ivar_set_gcinvisible()</code> function adds or removes this
+specifier to the string type description of the instance variable named
+as argument.
+
+</body></html>
+
