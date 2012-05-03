@@ -1,0 +1,2082 @@
+<html lang="en"><head>
+<title>G++ internals</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name=description content="G++ internals">
+<meta name=generator content="makeinfo 4.0">
+<link href="http://texinfo.org/" rel=generator-home>
+</head><body>
+
+<p><hr>
+Node:<a name="Top">Top</a>,
+Next:<a rel=next href="#Limitations%20of%20g++">Limitations of g++</a>,
+<br>
+
+<h1>Internal Architecture of the Compiler</h1>
+
+<p>This is meant to describe the C++ front-end for gcc in detail. 
+Questions and comments to Benjamin Kosnik <code>&lt;bkoz@cygnus.com&gt;</code>.
+
+<ul>
+<li><a href="#Limitations%20of%20g++">Limitations of g++</a>: 
+<li><a href="#Routines">Routines</a>: 
+<li><a href="#Implementation%20Specifics">Implementation Specifics</a>: 
+<li><a href="#Glossary">Glossary</a>: 
+<li><a href="#Macros">Macros</a>: 
+<li><a href="#Typical%20Behavior">Typical Behavior</a>: 
+<li><a href="#Coding%20Conventions">Coding Conventions</a>: 
+<li><a href="#Templates">Templates</a>: 
+<li><a href="#Access%20Control">Access Control</a>: 
+<li><a href="#Error%20Reporting">Error Reporting</a>: 
+<li><a href="#Parser">Parser</a>: 
+<li><a href="#Exception%20Handling">Exception Handling</a>: 
+<li><a href="#Free%20Store">Free Store</a>: 
+<li><a href="#Mangling">Mangling</a>:   Function name mangling for C++ and Java
+<li><a href="#Vtables">Vtables</a>:  Two ways to do virtual functions
+<li><a href="#Concept%20Index">Concept Index</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Limitations%20of%20g++">Limitations of g++</a>,
+Next:<a rel=next href="#Routines">Routines</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Limitations of g++</h2>
+
+<ul>
+<li>Limitations on input source code: 240 nesting levels with the parser
+stacksize (YYSTACKSIZE) set to 500 (the default), and requires around
+16.4k swap space per nesting level.  The parser needs about 2.09 *
+number of nesting levels worth of stackspace.
+
+<li>I suspect there are other uses of pushdecl_class_level that do not call
+set_identifier_type_value in tandem with the call to
+pushdecl_class_level.  It would seem to be an omission.
+
+<li>Access checking is unimplemented for nested types.
+
+<li><code>volatile</code> is not implemented in general.
+
+</ul>
+
+<p><hr>
+Node:<a name="Routines">Routines</a>,
+Next:<a rel=next href="#Implementation%20Specifics">Implementation Specifics</a>,
+Previous:<a rel=previous href="#Limitations%20of%20g++">Limitations of g++</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Routines</h2>
+
+<p>This section describes some of the routines used in the C++ front-end.
+
+<p><code>build_vtable</code> and <code>prepare_fresh_vtable</code> is used only within
+the <code>cp-class.c</code> file, and only in <code>finish_struct</code> and
+<code>modify_vtable_entries</code>.
+
+<p><code>build_vtable</code>, <code>prepare_fresh_vtable</code>, and
+<code>finish_struct</code> are the only routines that set <code>DECL_VPARENT</code>.
+
+<p><code>finish_struct</code> can steal the virtual function table from parents,
+this prohibits related_vslot from working.  When finish_struct steals,
+we know that
+
+<pre>get_binfo (DECL_FIELD_CONTEXT (CLASSTYPE_VFIELD (t)), t, 0)
+</pre>
+
+<p>will get the related binfo.
+
+<p><code>layout_basetypes</code> does something with the VIRTUALS.
+
+<p>Supposedly (according to Tiemann) most of the breadth first searching
+done, like in <code>get_base_distance</code> and in <code>get_binfo</code> was not
+because of any design decision.  I have since found out the at least one
+part of the compiler needs the notion of depth first binfo searching, I
+am going to try and convert the whole thing, it should just work.  The
+term left-most refers to the depth first left-most node.  It uses
+<code>MAIN_VARIANT == type</code> as the condition to get left-most, because
+the things that have <code>BINFO_OFFSET</code>s of zero are shared and will
+have themselves as their own <code>MAIN_VARIANT</code>s.  The non-shared right
+ones, are copies of the left-most one, hence if it is its own
+<code>MAIN_VARIANT</code>, we know it IS a left-most one, if it is not, it is
+a non-left-most one.
+
+<p><code>get_base_distance</code>'s path and distance matters in its use in:
+
+<ul>
+<li><code>prepare_fresh_vtable</code> (the code is probably wrong)
+<li><code>init_vfields</code> Depends upon distance probably in a safe way,
+build_offset_ref might use partial paths to do further lookups,
+hack_identifier is probably not properly checking access.
+
+<li><code>get_first_matching_virtual</code> probably should check for
+<code>get_base_distance</code> returning -2.
+
+<li><code>resolve_offset_ref</code> should be called in a more deterministic
+manner.  Right now, it is called in some random contexts, like for
+arguments at <code>build_method_call</code> time, <code>default_conversion</code>
+time, <code>convert_arguments</code> time, <code>build_unary_op</code> time,
+<code>build_c_cast</code> time, <code>build_modify_expr</code> time,
+<code>convert_for_assignment</code> time, and
+<code>convert_for_initialization</code> time.
+
+<p>But, there are still more contexts it needs to be called in, one was the
+ever simple:
+
+<pre>if (obj.*pmi != 7)
+   <small>...</small>
+</pre>
+
+<p>Seems that the problems were due to the fact that <code>TREE_TYPE</code> of
+the <code>OFFSET_REF</code> was not a <code>OFFSET_TYPE</code>, but rather the type
+of the referent (like <code>INTEGER_TYPE</code>).  This problem was fixed by
+changing <code>default_conversion</code> to check <code>TREE_CODE (x)</code>,
+instead of only checking <code>TREE_CODE (TREE_TYPE (x))</code> to see if it
+was <code>OFFSET_TYPE</code>.
+
+</ul>
+
+<p><hr>
+Node:<a name="Implementation%20Specifics">Implementation Specifics</a>,
+Next:<a rel=next href="#Glossary">Glossary</a>,
+Previous:<a rel=previous href="#Routines">Routines</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Implementation Specifics</h2>
+
+<ul>
+<li>Explicit Initialization
+
+<p>The global list <code>current_member_init_list</code> contains the list of
+mem-initializers specified in a constructor declaration.  For example:
+
+<pre>foo::foo() : a(1), b(2) {}
+</pre>
+
+<p>will initialize <code>a</code> with 1 and <code>b</code> with 2. 
+<code>expand_member_init</code> places each initialization (a with 1) on the
+global list.  Then, when the fndecl is being processed,
+<code>emit_base_init</code> runs down the list, initializing them.  It used to
+be the case that g++ first ran down <code>current_member_init_list</code>,
+then ran down the list of members initializing the ones that weren't
+explicitly initialized.  Things were rewritten to perform the
+initializations in order of declaration in the class.  So, for the above
+example, <code>a</code> and <code>b</code> will be initialized in the order that
+they were declared:
+
+<pre>class foo { public: int b; int a; foo (); };
+</pre>
+
+<p>Thus, <code>b</code> will be initialized with 2 first, then <code>a</code> will be
+initialized with 1, regardless of how they're listed in the mem-initializer.
+
+</p><li>The Explicit Keyword
+
+<p>The use of <code>explicit</code> on a constructor is used by <code>grokdeclarator</code>
+to set the field <code>DECL_NONCONVERTING_P</code>.  That value is used by
+<code>build_method_call</code> and <code>build_user_type_conversion_1</code> to decide
+if a particular constructor should be used as a candidate for conversions.
+
+</ul>
+
+<p><hr>
+Node:<a name="Glossary">Glossary</a>,
+Next:<a rel=next href="#Macros">Macros</a>,
+Previous:<a rel=previous href="#Implementation%20Specifics">Implementation Specifics</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Glossary</h2>
+
+<dl>
+<dt>binfo
+<dd>The main data structure in the compiler used to represent the
+inheritance relationships between classes.  The data in the binfo can be
+accessed by the BINFO_ accessor macros.
+
+<br><dt>vtable
+<dt>virtual function table
+<dd>
+The virtual function table holds information used in virtual function
+dispatching.  In the compiler, they are usually referred to as vtables,
+or vtbls.  The first index is not used in the normal way, I believe it
+is probably used for the virtual destructor. There are two forms of
+virtual tables, one that has offsets in addition to pointers, and one
+using thunks. See <a href="#Vtables">Vtables</a>.
+
+<br><dt>vfield
+<dd>
+vfields can be thought of as the base information needed to build
+vtables.  For every vtable that exists for a class, there is a vfield. 
+See also vtable and virtual function table pointer.  When a type is used
+as a base class to another type, the virtual function table for the
+derived class can be based upon the vtable for the base class, just
+extended to include the additional virtual methods declared in the
+derived class.  The virtual function table from a virtual base class is
+never reused in a derived class.  <code>is_normal</code> depends upon this.
+
+<br><dt>virtual function table pointer
+<dd>
+These are <code>FIELD_DECL</code>s that are pointer types that point to
+vtables.  See also vtable and vfield. 
+</dl>
+
+<p><hr>
+Node:<a name="Macros">Macros</a>,
+Next:<a rel=next href="#Typical%20Behavior">Typical Behavior</a>,
+Previous:<a rel=previous href="#Glossary">Glossary</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Macros</h2>
+
+<p>This section describes some of the macros used on trees.  The list
+should be alphabetical.  Eventually all macros should be documented
+here.
+
+<dl>
+<dt><code>BINFO_BASETYPES</code>
+<dd>A vector of additional binfos for the types inherited by this basetype. 
+The binfos are fully unshared (except for virtual bases, in which
+case the binfo structure is shared).
+
+<p>If this basetype describes type D as inherited in C,
+   and if the basetypes of D are E anf F,
+   then this vector contains binfos for inheritance of E and F by C.
+
+<p>Has values of:
+
+<p>	TREE_VECs
+
+<br><dt><code>BINFO_INHERITANCE_CHAIN</code>
+<dd>Temporarily used to represent specific inheritances.  It usually points
+to the binfo associated with the lesser derived type, but it can be
+reversed by reverse_path.  For example:
+
+<pre>	Z ZbY	least derived
+	|
+	Y YbX
+	|
+	X Xb	most derived
+
+TYPE_BINFO (X) == Xb
+BINFO_INHERITANCE_CHAIN (Xb) == YbX
+BINFO_INHERITANCE_CHAIN (Yb) == ZbY
+BINFO_INHERITANCE_CHAIN (Zb) == 0
+</pre>
+
+<p>Not sure is the above is really true, get_base_distance has is point
+towards the most derived type, opposite from above.
+
+<p>Set by build_vbase_path, recursive_bounded_basetype_p,
+get_base_distance, lookup_field, lookup_fnfields, and reverse_path.
+
+<p>What things can this be used on:
+
+<p>	TREE_VECs that are binfos
+
+<br><dt><code>BINFO_OFFSET</code>
+<dd>The offset where this basetype appears in its containing type. 
+BINFO_OFFSET slot holds the offset (in bytes) from the base of the
+complete object to the base of the part of the object that is allocated
+on behalf of this `type'.  This is always 0 except when there is
+multiple inheritance.
+
+<p>Used on TREE_VEC_ELTs of the binfos BINFO_BASETYPES (...) for example.
+
+<br><dt><code>BINFO_VIRTUALS</code>
+<dd>A unique list of functions for the virtual function table.  See also
+TYPE_BINFO_VIRTUALS.
+
+<p>What things can this be used on:
+
+<p>	TREE_VECs that are binfos
+
+<br><dt><code>BINFO_VTABLE</code>
+<dd>Used to find the VAR_DECL that is the virtual function table associated
+with this binfo.  See also TYPE_BINFO_VTABLE.  To get the virtual
+function table pointer, see CLASSTYPE_VFIELD.
+
+<p>What things can this be used on:
+
+<p>	TREE_VECs that are binfos
+
+<p>Has values of:
+
+<p>	VAR_DECLs that are virtual function tables
+
+<br><dt><code>BLOCK_SUPERCONTEXT</code>
+<dd>In the outermost scope of each function, it points to the FUNCTION_DECL
+node.  It aids in better DWARF support of inline functions.
+
+<br><dt><code>CLASSTYPE_TAGS</code>
+<dd>CLASSTYPE_TAGS is a linked (via TREE_CHAIN) list of member classes of a
+class. TREE_PURPOSE is the name, TREE_VALUE is the type (pushclass scans
+these and calls pushtag on them.)
+
+<p>finish_struct scans these to produce TYPE_DECLs to add to the
+TYPE_FIELDS of the type.
+
+<p>It is expected that name found in the TREE_PURPOSE slot is unique,
+resolve_scope_to_name is one such place that depends upon this
+uniqueness.
+
+<br><dt><code>CLASSTYPE_METHOD_VEC</code>
+<dd>The following is true after finish_struct has been called (on the
+class?) but not before.  Before finish_struct is called, things are
+different to some extent.  Contains a TREE_VEC of methods of the class. 
+The TREE_VEC_LENGTH is the number of differently named methods plus one
+for the 0th entry.  The 0th entry is always allocated, and reserved for
+ctors and dtors.  If there are none, TREE_VEC_ELT(N,0) == NULL_TREE. 
+Each entry of the TREE_VEC is a FUNCTION_DECL.  For each FUNCTION_DECL,
+there is a DECL_CHAIN slot.  If the FUNCTION_DECL is the last one with a
+given name, the DECL_CHAIN slot is NULL_TREE.  Otherwise it is the next
+method that has the same name (but a different signature).  It would
+seem that it is not true that because the DECL_CHAIN slot is used in
+this way, we cannot call pushdecl to put the method in the global scope
+(cause that would overwrite the TREE_CHAIN slot), because they use
+different _CHAINs.  finish_struct_methods setups up one version of the
+TREE_CHAIN slots on the FUNCTION_DECLs.
+
+<p>friends are kept in TREE_LISTs, so that there's no need to use their
+TREE_CHAIN slot for anything.
+
+<p>Has values of:
+
+<p>	TREE_VECs
+
+<br><dt><code>CLASSTYPE_VFIELD</code>
+<dd>Seems to be in the process of being renamed TYPE_VFIELD.  Use on types
+to get the main virtual function table pointer.  To get the virtual
+function table use BINFO_VTABLE (TYPE_BINFO ()).
+
+<p>Has values of:
+
+<p>	FIELD_DECLs that are virtual function table pointers
+
+<p>What things can this be used on:
+
+<p>	RECORD_TYPEs
+
+<br><dt><code>DECL_CLASS_CONTEXT</code>
+<dd>Identifies the context that the _DECL was found in.  For virtual function
+tables, it points to the type associated with the virtual function
+table.  See also DECL_CONTEXT, DECL_FIELD_CONTEXT and DECL_FCONTEXT.
+
+<p>The difference between this and DECL_CONTEXT, is that for virtuals
+functions like:
+
+<pre>struct A
+{
+  virtual int f ();
+};
+
+struct B : A
+{
+  int f ();
+};
+
+DECL_CONTEXT (A::f) == A
+DECL_CLASS_CONTEXT (A::f) == A
+
+DECL_CONTEXT (B::f) == A
+DECL_CLASS_CONTEXT (B::f) == B
+</pre>
+
+<p>Has values of:
+
+<p>	RECORD_TYPEs, or UNION_TYPEs
+
+<p>What things can this be used on:
+
+<p>	TYPE_DECLs, _DECLs
+
+<br><dt><code>DECL_CONTEXT</code>
+<dd>Identifies the context that the _DECL was found in.  Can be used on
+virtual function tables to find the type associated with the virtual
+function table, but since they are FIELD_DECLs, DECL_FIELD_CONTEXT is a
+better access method.  Internally the same as DECL_FIELD_CONTEXT, so
+don't us both.  See also DECL_FIELD_CONTEXT, DECL_FCONTEXT and
+DECL_CLASS_CONTEXT.
+
+<p>Has values of:
+
+<p>	RECORD_TYPEs
+
+<p>What things can this be used on:
+
+<pre>VAR_DECLs that are virtual function tables
+_DECLs
+</pre>
+
+<br><dt><code>DECL_FIELD_CONTEXT</code>
+<dd>Identifies the context that the FIELD_DECL was found in.  Internally the
+same as DECL_CONTEXT, so don't us both.  See also DECL_CONTEXT,
+DECL_FCONTEXT and DECL_CLASS_CONTEXT.
+
+<p>Has values of:
+
+<p>	RECORD_TYPEs
+
+<p>What things can this be used on:
+
+<pre>FIELD_DECLs that are virtual function pointers
+FIELD_DECLs
+</pre>
+
+<br><dt><code>DECL_NAME</code>
+<dd>
+Has values of:
+
+<pre>0 for things that don't have names
+IDENTIFIER_NODEs for TYPE_DECLs
+</pre>
+
+<br><dt><code>DECL_IGNORED_P</code>
+<dd>A bit that can be set to inform the debug information output routines in
+the back-end that a certain _DECL node should be totally ignored.
+
+<p>Used in cases where it is known that the debugging information will be
+output in another file, or where a sub-type is known not to be needed
+because the enclosing type is not needed.
+
+<p>A compiler constructed virtual destructor in derived classes that do not
+define an explicit destructor that was defined explicit in a base class
+has this bit set as well.  Also used on __FUNCTION__ and
+__PRETTY_FUNCTION__ to mark they are "compiler generated."  c-decl and
+c-lex.c both want DECL_IGNORED_P set for "internally generated vars,"
+and "user-invisible variable."
+
+<p>Functions built by the C++ front-end such as default destructors,
+virtual destructors and default constructors want to be marked that
+they are compiler generated, but unsure why.
+
+<p>Currently, it is used in an absolute way in the C++ front-end, as an
+optimization, to tell the debug information output routines to not
+generate debugging information that will be output by another separately
+compiled file.
+
+<br><dt><code>DECL_VIRTUAL_P</code>
+<dd>A flag used on FIELD_DECLs and VAR_DECLs.  (Documentation in tree.h is
+wrong.)  Used in VAR_DECLs to indicate that the variable is a vtable. 
+It is also used in FIELD_DECLs for vtable pointers.
+
+<p>What things can this be used on:
+
+<p>	FIELD_DECLs and VAR_DECLs
+
+<br><dt><code>DECL_VPARENT</code>
+<dd>Used to point to the parent type of the vtable if there is one, else it
+is just the type associated with the vtable.  Because of the sharing of
+virtual function tables that goes on, this slot is not very useful, and
+is in fact, not used in the compiler at all.  It can be removed.
+
+<p>What things can this be used on:
+
+<p>	VAR_DECLs that are virtual function tables
+
+<p>Has values of:
+
+<p>	RECORD_TYPEs maybe UNION_TYPEs
+
+<br><dt><code>DECL_FCONTEXT</code>
+<dd>Used to find the first baseclass in which this FIELD_DECL is defined. 
+See also DECL_CONTEXT, DECL_FIELD_CONTEXT and DECL_CLASS_CONTEXT.
+
+<p>How it is used:
+
+<p>	Used when writing out debugging information about vfield and
+	vbase decls.
+
+<p>What things can this be used on:
+
+<p>	FIELD_DECLs that are virtual function pointers
+	FIELD_DECLs
+
+<br><dt><code>DECL_REFERENCE_SLOT</code>
+<dd>Used to hold the initialize for the reference.
+
+<p>What things can this be used on:
+
+<p>	PARM_DECLs and VAR_DECLs that have a reference type
+
+<br><dt><code>DECL_VINDEX</code>
+<dd>Used for FUNCTION_DECLs in two different ways.  Before the structure
+containing the FUNCTION_DECL is laid out, DECL_VINDEX may point to a
+FUNCTION_DECL in a base class which is the FUNCTION_DECL which this
+FUNCTION_DECL will replace as a virtual function.  When the class is
+laid out, this pointer is changed to an INTEGER_CST node which is
+suitable to find an index into the virtual function table.  See
+get_vtable_entry as to how one can find the right index into the virtual
+function table.  The first index 0, of a virtual function table it not
+used in the normal way, so the first real index is 1.
+
+<p>DECL_VINDEX may be a TREE_LIST, that would seem to be a list of
+overridden FUNCTION_DECLs.  add_virtual_function has code to deal with
+this when it uses the variable base_fndecl_list, but it would seem that
+somehow, it is possible for the TREE_LIST to pursist until method_call,
+and it should not.
+
+<p>What things can this be used on:
+
+<p>	FUNCTION_DECLs
+
+<br><dt><code>DECL_SOURCE_FILE</code>
+<dd>Identifies what source file a particular declaration was found in.
+
+<p>Has values of:
+
+<p>	"&lt;built-in&gt;" on TYPE_DECLs to mean the typedef is built in
+
+<br><dt><code>DECL_SOURCE_LINE</code>
+<dd>Identifies what source line number in the source file the declaration
+was found at.
+
+<p>Has values of:
+
+<pre>0 for an undefined label
+
+0 for TYPE_DECLs that are internally generated
+
+0 for FUNCTION_DECLs for functions generated by the compiler
+	(not yet, but should be)
+
+0 for ``magic'' arguments to functions, that the user has no
+	control over
+</pre>
+
+<br><dt><code>TREE_USED</code>
+<dd>
+Has values of:
+
+<p>	0 for unused labels
+
+<br><dt><code>TREE_ADDRESSABLE</code>
+<dd>A flag that is set for any type that has a constructor.
+
+<br><dt><code>TREE_COMPLEXITY</code>
+<dd>They seem a kludge way to track recursion, poping, and pushing.  They only
+appear in cp-decl.c and cp-decl2.c, so the are a good candidate for
+proper fixing, and removal.
+
+<br><dt><code>TREE_HAS_CONSTRUCTOR</code>
+<dd>A flag to indicate when a CALL_EXPR represents a call to a constructor. 
+If set, we know that the type of the object, is the complete type of the
+object, and that the value returned is nonnull.  When used in this
+fashion, it is an optimization.  Can also be used on SAVE_EXPRs to
+indicate when they are of fixed type and nonnull.  Can also be used on
+INDIRECT_EXPRs on CALL_EXPRs that represent a call to a constructor.
+
+<br><dt><code>TREE_PRIVATE</code>
+<dd>Set for FIELD_DECLs by finish_struct.  But not uniformly set.
+
+<p>The following routines do something with PRIVATE access:
+build_method_call, alter_access, finish_struct_methods,
+finish_struct, convert_to_aggr, CWriteLanguageDecl, CWriteLanguageType,
+CWriteUseObject, compute_access, lookup_field, dfs_pushdecl,
+GNU_xref_member, dbxout_type_fields, dbxout_type_method_1
+
+<br><dt><code>TREE_PROTECTED</code>
+<dd>The following routines do something with PROTECTED access:
+build_method_call, alter_access, finish_struct, convert_to_aggr,
+CWriteLanguageDecl, CWriteLanguageType, CWriteUseObject,
+compute_access, lookup_field, GNU_xref_member, dbxout_type_fields,
+dbxout_type_method_1
+
+<br><dt><code>TYPE_BINFO</code>
+<dd>Used to get the binfo for the type.
+
+<p>Has values of:
+
+<p>	TREE_VECs that are binfos
+
+<p>What things can this be used on:
+
+<p>	RECORD_TYPEs
+
+<br><dt><code>TYPE_BINFO_BASETYPES</code>
+<dd>See also BINFO_BASETYPES.
+
+<br><dt><code>TYPE_BINFO_VIRTUALS</code>
+<dd>A unique list of functions for the virtual function table.  See also
+BINFO_VIRTUALS.
+
+<p>What things can this be used on:
+
+<p>	RECORD_TYPEs
+
+<br><dt><code>TYPE_BINFO_VTABLE</code>
+<dd>Points to the virtual function table associated with the given type. 
+See also BINFO_VTABLE.
+
+<p>What things can this be used on:
+
+<p>	RECORD_TYPEs
+
+<p>Has values of:
+
+<p>	VAR_DECLs that are virtual function tables
+
+<br><dt><code>TYPE_NAME</code>
+<dd>Names the type.
+
+<p>Has values of:
+
+<pre>0 for things that don't have names.
+should be IDENTIFIER_NODE for RECORD_TYPEs UNION_TYPEs and
+        ENUM_TYPEs.
+TYPE_DECL for RECORD_TYPEs, UNION_TYPEs and ENUM_TYPEs, but
+        shouldn't be.
+TYPE_DECL for typedefs, unsure why.
+</pre>
+
+<p>What things can one use this on:
+
+<pre>TYPE_DECLs
+RECORD_TYPEs
+UNION_TYPEs
+ENUM_TYPEs
+</pre>
+
+<p>History:
+
+<p>	It currently points to the TYPE_DECL for RECORD_TYPEs,
+	UNION_TYPEs and ENUM_TYPEs, but it should be history soon.
+
+<br><dt><code>TYPE_METHODS</code>
+<dd>Synonym for <code>CLASSTYPE_METHOD_VEC</code>.  Chained together with
+<code>TREE_CHAIN</code>.  <code>dbxout.c</code> uses this to get at the methods of a
+class.
+
+<br><dt><code>TYPE_DECL</code>
+<dd>Used to represent typedefs, and used to represent bindings layers.
+
+<p>Components:
+
+<p>	DECL_NAME is the name of the typedef.  For example, foo would
+	be found in the DECL_NAME slot when <code>typedef int foo;</code> is
+	seen.
+
+<p>	DECL_SOURCE_LINE identifies what source line number in the
+	source file the declaration was found at.  A value of 0
+	indicates that this TYPE_DECL is just an internal binding layer
+	marker, and does not correspond to a user supplied typedef.
+
+<p>	DECL_SOURCE_FILE
+
+<br><dt><code>TYPE_FIELDS</code>
+<dd>A linked list (via <code>TREE_CHAIN</code>) of member types of a class.  The
+list can contain <code>TYPE_DECL</code>s, but there can also be other things
+in the list apparently.  See also <code>CLASSTYPE_TAGS</code>.
+
+<br><dt><code>TYPE_VIRTUAL_P</code>
+<dd>A flag used on a <code>FIELD_DECL</code> or a <code>VAR_DECL</code>, indicates it is
+a virtual function table or a pointer to one.  When used on a
+<code>FUNCTION_DECL</code>, indicates that it is a virtual function.  When
+used on an <code>IDENTIFIER_NODE</code>, indicates that a function with this
+same name exists and has been declared virtual.
+
+<p>When used on types, it indicates that the type has virtual functions, or
+is derived from one that does.
+
+<p>Not sure if the above about virtual function tables is still true.  See
+also info on <code>DECL_VIRTUAL_P</code>.
+
+<p>What things can this be used on:
+
+<p>	FIELD_DECLs, VAR_DECLs, FUNCTION_DECLs, IDENTIFIER_NODEs
+
+<br><dt><code>VF_BASETYPE_VALUE</code>
+<dd>Get the associated type from the binfo that caused the given vfield to
+exist.  This is the least derived class (the most parent class) that
+needed a virtual function table.  It is probably the case that all uses
+of this field are misguided, but they need to be examined on a
+case-by-case basis.  See history for more information on why the
+previous statement was made.
+
+<p>Set at <code>finish_base_struct</code> time.
+
+<p>What things can this be used on:
+
+<p>	TREE_LISTs that are vfields
+
+<p>History:
+
+<p>	This field was used to determine if a virtual function table's
+	slot should be filled in with a certain virtual function, by
+	checking to see if the type returned by VF_BASETYPE_VALUE was a
+	parent of the context in which the old virtual function existed. 
+	This incorrectly assumes that a given type _could_ not appear as
+	a parent twice in a given inheritance lattice.  For single
+	inheritance, this would in fact work, because a type could not
+	possibly appear more than once in an inheritance lattice, but
+	with multiple inheritance, a type can appear more than once.
+
+<br><dt><code>VF_BINFO_VALUE</code>
+<dd>Identifies the binfo that caused this vfield to exist.  If this vfield
+is from the first direct base class that has a virtual function table,
+then VF_BINFO_VALUE is NULL_TREE, otherwise it will be the binfo of the
+direct base where the vfield came from.  Can use <code>TREE_VIA_VIRTUAL</code>
+on result to find out if it is a virtual base class.  Related to the
+binfo found by
+
+<pre>get_binfo (VF_BASETYPE_VALUE (vfield), t, 0)
+</pre>
+
+<p>where <code>t</code> is the type that has the given vfield.
+
+<pre>get_binfo (VF_BASETYPE_VALUE (vfield), t, 0)
+</pre>
+
+<p>will return the binfo for the given vfield.
+
+<p>May or may not be set at <code>modify_vtable_entries</code> time.  Set at
+<code>finish_base_struct</code> time.
+
+<p>What things can this be used on:
+
+<p>	TREE_LISTs that are vfields
+
+<br><dt><code>VF_DERIVED_VALUE</code>
+<dd>Identifies the type of the most derived class of the vfield, excluding
+the class this vfield is for.
+
+<p>Set at <code>finish_base_struct</code> time.
+
+<p>What things can this be used on:
+
+<p>	TREE_LISTs that are vfields
+
+<br><dt><code>VF_NORMAL_VALUE</code>
+<dd>Identifies the type of the most derived class of the vfield, including
+the class this vfield is for.
+
+<p>Set at <code>finish_base_struct</code> time.
+
+<p>What things can this be used on:
+
+<p>	TREE_LISTs that are vfields
+
+<br><dt><code>WRITABLE_VTABLES</code>
+<dd>This is a option that can be defined when building the compiler, that
+will cause the compiler to output vtables into the data segment so that
+the vtables maybe written.  This is undefined by default, because
+normally the vtables should be unwritable.  People that implement object
+I/O facilities may, or people that want to change the dynamic type of
+objects may want to have the vtables writable.  Another way of achieving
+this would be to make a copy of the vtable into writable memory, but the
+drawback there is that that method only changes the type for one object.
+
+</dl>
+
+<p><hr>
+Node:<a name="Typical%20Behavior">Typical Behavior</a>,
+Next:<a rel=next href="#Coding%20Conventions">Coding Conventions</a>,
+Previous:<a rel=previous href="#Macros">Macros</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Typical Behavior</h2>
+
+<p>Whenever seemingly normal code fails with errors like
+<code>syntax error at `\{'</code>, it's highly likely that grokdeclarator is
+returning a NULL_TREE for whatever reason.
+
+<p><hr>
+Node:<a name="Coding%20Conventions">Coding Conventions</a>,
+Next:<a rel=next href="#Templates">Templates</a>,
+Previous:<a rel=previous href="#Typical%20Behavior">Typical Behavior</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Coding Conventions</h2>
+
+<p>It should never be that case that trees are modified in-place by the
+back-end, <em>unless</em> it is guaranteed that the semantics are the same
+no matter how shared the tree structure is.  <code>fold-const.c</code> still
+has some cases where this is not true, but rms hypothesizes that this
+will never be a problem.
+
+<p><hr>
+Node:<a name="Templates">Templates</a>,
+Next:<a rel=next href="#Access%20Control">Access Control</a>,
+Previous:<a rel=previous href="#Coding%20Conventions">Coding Conventions</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Templates</h2>
+
+<p>A template is represented by a <code>TEMPLATE_DECL</code>.  The specific
+fields used are:
+
+<dl>
+<dt><code>DECL_TEMPLATE_RESULT</code>
+<dd>The generic decl on which instantiations are based.  This looks just
+like any other decl.
+
+<br><dt><code>DECL_TEMPLATE_PARMS</code>
+<dd>The parameters to this template. 
+</dl>
+
+<p>The generic decl is parsed as much like any other decl as possible,
+given the parameterization.  The template decl is not built up until the
+generic decl has been completed.  For template classes, a template decl
+is generated for each member function and static data member, as well.
+
+<p>Template members of template classes are represented by a TEMPLATE_DECL
+for the class' parameters around another TEMPLATE_DECL for the member's
+parameters.
+
+<p>All declarations that are instantiations or specializations of templates
+refer to their template and parameters through DECL_TEMPLATE_INFO.
+
+<p>How should I handle parsing member functions with the proper param
+decls?  Set them up again or try to use the same ones?  Currently we do
+the former.  We can probably do this without any extra machinery in
+store_pending_inline, by deducing the parameters from the decl in
+do_pending_inlines.  PRE_PARSED_TEMPLATE_DECL?
+
+<p>If a base is a parm, we can't check anything about it.  If a base is not
+a parm, we need to check it for name binding.  Do finish_base_struct if
+no bases are parameterized (only if none, including indirect, are
+parms).  Nah, don't bother trying to do any of this until instantiation
+- we only need to do name binding in advance.
+
+<p>Always set up method vec and fields, inc. synthesized methods.  Really? 
+We can't know the types of the copy folks, or whether we need a
+destructor, or can have a default ctor, until we know our bases and
+fields.  Otherwise, we can assume and fix ourselves later.  Hopefully.
+
+<p><hr>
+Node:<a name="Access%20Control">Access Control</a>,
+Next:<a rel=next href="#Error%20Reporting">Error Reporting</a>,
+Previous:<a rel=previous href="#Templates">Templates</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Access Control</h2>
+
+<p>The function compute_access returns one of three values:
+
+<dl>
+<dt><code>access_public</code>
+<dd>means that the field can be accessed by the current lexical scope.
+
+<br><dt><code>access_protected</code>
+<dd>means that the field cannot be accessed by the current lexical scope
+because it is protected.
+
+<br><dt><code>access_private</code>
+<dd>means that the field cannot be accessed by the current lexical scope
+because it is private. 
+</dl>
+
+<p>DECL_ACCESS is used for access declarations; alter_access creates a list
+of types and accesses for a given decl.
+
+<p>Formerly, DECL_{PUBLIC,PROTECTED,PRIVATE} corresponded to the return
+codes of compute_access and were used as a cache for compute_access. 
+Now they are not used at all.
+
+<p>TREE_PROTECTED and TREE_PRIVATE are used to record the access levels
+granted by the containing class.  BEWARE: TREE_PUBLIC means something
+completely unrelated to access control!
+
+<p><hr>
+Node:<a name="Error%20Reporting">Error Reporting</a>,
+Next:<a rel=next href="#Parser">Parser</a>,
+Previous:<a rel=previous href="#Access%20Control">Access Control</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Error Reporting</h2>
+
+<p>The C++ front-end uses a call-back mechanism to allow functions to print
+out reasonable strings for types and functions without putting extra
+logic in the functions where errors are found.  The interface is through
+the <code>cp_error</code> function (or <code>cp_warning</code>, etc.).  The
+syntax is exactly like that of <code>error</code>, except that a few more
+conversions are supported:
+
+<ul>
+<li>%C indicates a value of `enum tree_code'. 
+<li>%D indicates a *_DECL node. 
+<li>%E indicates a *_EXPR node. 
+<li>%L indicates a value of `enum languages'. 
+<li>%P indicates the name of a parameter (i.e. "this", "1", "2", ...) 
+<li>%T indicates a *_TYPE node. 
+<li>%O indicates the name of an operator (MODIFY_EXPR -&gt; "operator =").
+
+</ul>
+
+<p>There is some overlap between these; for instance, any of the node
+options can be used for printing an identifier (though only <code>%D</code>
+tries to decipher function names).
+
+<p>For a more verbose message (<code>class foo</code> as opposed to just <code>foo</code>,
+including the return type for functions), use <code>%#c</code>. 
+To have the line number on the error message indicate the line of the
+DECL, use <code>cp_error_at</code> and its ilk; to indicate which argument you want,
+use <code>%+D</code>, or it will default to the first.
+
+<p><hr>
+Node:<a name="Parser">Parser</a>,
+Next:<a rel=next href="#Exception%20Handling">Exception Handling</a>,
+Previous:<a rel=previous href="#Error%20Reporting">Error Reporting</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Parser</h2>
+
+<p>Some comments on the parser:
+
+<p>The <code>after_type_declarator</code> / <code>notype_declarator</code> hack is
+necessary in order to allow redeclarations of <code>TYPENAME</code>s, for
+instance
+
+<pre>typedef int foo;
+class A {
+  char *foo;
+};
+</pre>
+
+<p>In the above, the first <code>foo</code> is parsed as a <code>notype_declarator</code>,
+and the second as a <code>after_type_declarator</code>.
+
+<p>Ambiguities:
+
+<p>There are currently four reduce/reduce ambiguities in the parser.  They are:
+
+<p>1) Between <code>template_parm</code> and
+<code>named_class_head_sans_basetype</code>, for the tokens <code>aggr
+identifier</code>.  This situation occurs in code looking like
+
+<pre>template &lt;class T&gt; class A { };
+</pre>
+
+<p>It is ambiguous whether <code>class T</code> should be parsed as the
+declaration of a template type parameter named <code>T</code> or an unnamed
+constant parameter of type <code>class T</code>.  Section 14.6, paragraph 3 of
+the January '94 working paper states that the first interpretation is
+the correct one.  This ambiguity results in two reduce/reduce conflicts.
+
+<p>2) Between <code>primary</code> and <code>type_id</code> for code like <code>int()</code>
+in places where both can be accepted, such as the argument to
+<code>sizeof</code>.  Section 8.1 of the pre-San Diego working paper specifies
+that these ambiguous constructs will be interpreted as <code>typename</code>s. 
+This ambiguity results in six reduce/reduce conflicts between
+<code>absdcl</code> and <code>functional_cast</code>.
+
+<p>3) Between <code>functional_cast</code> and
+<code>complex_direct_notype_declarator</code>, for various token strings. 
+This situation occurs in code looking like
+
+<pre>int (*a);
+</pre>
+
+<p>This code is ambiguous; it could be a declaration of the variable
+<code>a</code> as a pointer to <code>int</code>, or it could be a functional cast of
+<code>*a</code> to <code>int</code>.  Section 6.8 specifies that the former
+interpretation is correct.  This ambiguity results in 7 reduce/reduce
+conflicts.  Another aspect of this ambiguity is code like 'int (x[2]);',
+which is resolved at the '[' and accounts for 6 reduce/reduce conflicts
+between <code>direct_notype_declarator</code> and
+<code>primary</code>/<code>overqualified_id</code>.  Finally, there are 4 r/r
+conflicts between <code>expr_or_declarator</code> and <code>primary</code> over code
+like 'int (a);', which could probably be resolved but would also
+probably be more trouble than it's worth.  In all, this situation
+accounts for 17 conflicts.  Ack!
+
+<p>The second case above is responsible for the failure to parse 'LinppFile
+ppfile (String (argv[1]), &amp;outs, argc, argv);' (from Rogue Wave
+Math.h++) as an object declaration, and must be fixed so that it does
+not resolve until later.
+
+<p>4) Indirectly between <code>after_type_declarator</code> and <code>parm</code>, for
+type names.  This occurs in (as one example) code like
+
+<pre>typedef int foo, bar;
+class A {
+  foo (bar);
+};
+</pre>
+
+<p>What is <code>bar</code> inside the class definition?  We currently interpret
+it as a <code>parm</code>, as does Cfront, but IBM xlC interprets it as an
+<code>after_type_declarator</code>.  I believe that xlC is correct, in light
+of 7.1p2, which says "The longest sequence of <i>decl-specifiers</i> that
+could possibly be a type name is taken as the <i>decl-specifier-seq</i> of
+a <i>declaration</i>."  However, it seems clear that this rule must be
+violated in the case of constructors.  This ambiguity accounts for 8
+conflicts.
+
+<p>Unlike the others, this ambiguity is not recognized by the Working Paper.
+
+<p><hr>
+Node:<a name="Exception%20Handling">Exception Handling</a>,
+Next:<a rel=next href="#Free%20Store">Free Store</a>,
+Previous:<a rel=previous href="#Parser">Parser</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Exception Handling</h2>
+
+<p>Note, exception handling in g++ is still under development.
+
+<p>This section describes the mapping of C++ exceptions in the C++
+front-end, into the back-end exception handling framework.
+
+<p>The basic mechanism of exception handling in the back-end is
+unwind-protect a la elisp.  This is a general, robust, and language
+independent representation for exceptions.
+
+<p>The C++ front-end exceptions are mapping into the unwind-protect
+semantics by the C++ front-end.  The mapping is describe below.
+
+<p>When -frtti is used, rtti is used to do exception object type checking,
+when it isn't used, the encoded name for the type of the object being
+thrown is used instead.  All code that originates exceptions, even code
+that throws exceptions as a side effect, like dynamic casting, and all
+code that catches exceptions must be compiled with either -frtti, or
+-fno-rtti.  It is not possible to mix rtti base exception handling
+objects with code that doesn't use rtti.  The exceptions to this, are
+code that doesn't catch or throw exceptions, catch (...), and code that
+just rethrows an exception.
+
+<p>Currently we use the normal mangling used in building functions names
+(int's are "i", const char * is PCc) to build the non-rtti base type
+descriptors for exception handling.  These descriptors are just plain
+NULL terminated strings, and internally they are passed around as char
+*.
+
+<p>In C++, all cleanups should be protected by exception regions.  The
+region starts just after the reason why the cleanup is created has
+ended.  For example, with an automatic variable, that has a constructor,
+it would be right after the constructor is run.  The region ends just
+before the finalization is expanded.  Since the backend may expand the
+cleanup multiple times along different paths, once for normal end of the
+region, once for non-local gotos, once for returns, etc, the backend
+must take special care to protect the finalization expansion, if the
+expansion is for any other reason than normal region end, and it is
+`inline' (it is inside the exception region).  The backend can either
+choose to move them out of line, or it can created an exception region
+over the finalization to protect it, and in the handler associated with
+it, it would not run the finalization as it otherwise would have, but
+rather just rethrow to the outer handler, careful to skip the normal
+handler for the original region.
+
+<p>In Ada, they will use the more runtime intensive approach of having
+fewer regions, but at the cost of additional work at run time, to keep a
+list of things that need cleanups.  When a variable has finished
+construction, they add the cleanup to the list, when the come to the end
+of the lifetime of the variable, the run the list down.  If the take a
+hit before the section finishes normally, they examine the list for
+actions to perform.  I hope they add this logic into the back-end, as it
+would be nice to get that alternative approach in C++.
+
+<p>On an rs6000, xlC stores exception objects on that stack, under the try
+block.  When is unwinds down into a handler, the frame pointer is
+adjusted back to the normal value for the frame in which the handler
+resides, and the stack pointer is left unchanged from the time at which
+the object was thrown.  This is so that there is always someplace for
+the exception object, and nothing can overwrite it, once we start
+throwing.  The only bad part, is that the stack remains large.
+
+<p>The below points out some things that work in g++'s exception handling.
+
+<p>All completely constructed temps and local variables are cleaned up in
+all unwinded scopes.  Completely constructed parts of partially
+constructed objects are cleaned up.  This includes partially built
+arrays.  Exception specifications are now handled.  Thrown objects are
+now cleaned up all the time.  We can now tell if we have an active
+exception being thrown or not (__eh_type != 0).  We use this to call
+terminate if someone does a throw; without there being an active
+exception object.  uncaught_exception () works.  Exception handling
+should work right if you optimize.  Exception handling should work with
+-fpic or -fPIC.
+
+<p>The below points out some flaws in g++'s exception handling, as it now
+stands.
+
+<p>Only exact type matching or reference matching of throw types works when
+-fno-rtti is used.  Only works on a SPARC (like Suns) (both -mflat and
+-mno-flat models work), SPARClite, Hitachi SH, i386, arm, rs6000,
+PowerPC, Alpha, mips, VAX, m68k and z8k machines.  SPARC v9 may not
+work.  HPPA is mostly done, but throwing between a shared library and
+user code doesn't yet work.  Some targets have support for data-driven
+unwinding.  Partial support is in for all other machines, but a stack
+unwinder called __unwind_function has to be written, and added to
+libgcc2 for them.  The new EH code doesn't rely upon the
+__unwind_function for C++ code, instead it creates per function
+unwinders right inside the function, unfortunately, on many platforms
+the definition of RETURN_ADDR_RTX in the tm.h file for the machine port
+is wrong.  See below for details on __unwind_function.  RTL_EXPRs for EH
+cond variables for &amp;&amp; and || exprs should probably be wrapped in
+UNSAVE_EXPRs, and RTL_EXPRs tweaked so that they can be unsaved.
+
+<p>We only do pointer conversions on exception matching a la 15.3 p2 case
+3: `A handler with type T, const T, T&amp;, or const T&amp; is a match for a
+throw-expression with an object of type E if [3]T is a pointer type and
+E is a pointer type that can be converted to T by a standard pointer
+conversion (_conv.ptr_) not involving conversions to pointers to private
+or protected base classes.' when -frtti is given.
+
+<p>We don't call delete on new expressions that die because the ctor threw
+an exception.  See except/18 for a test case.
+
+<p>15.2 para 13: The exception being handled should be rethrown if control
+reaches the end of a handler of the function-try-block of a constructor
+or destructor, right now, it is not.
+
+<p>15.2 para 12: If a return statement appears in a handler of
+function-try-block of a constructor, the program is ill-formed, but this
+isn't diagnosed.
+
+<p>15.2 para 11: If the handlers of a function-try-block contain a jump
+into the body of a constructor or destructor, the program is ill-formed,
+but this isn't diagnosed.
+
+<p>15.2 para 9: Check that the fully constructed base classes and members
+of an object are destroyed before entering the handler of a
+function-try-block of a constructor or destructor for that object.
+
+<p>build_exception_variant should sort the incoming list, so that it
+implements set compares, not exact list equality.  Type smashing should
+smash exception specifications using set union.
+
+<p>Thrown objects are usually allocated on the heap, in the usual way.  If
+one runs out of heap space, throwing an object will probably never work. 
+This could be relaxed some by passing an __in_chrg parameter to track
+who has control over the exception object.  Thrown objects are not
+allocated on the heap when they are pointer to object types.  We should
+extend it so that all small (&lt;4*sizeof(void*)) objects are stored
+directly, instead of allocated on the heap.
+
+<p>When the backend returns a value, it can create new exception regions
+that need protecting.  The new region should rethrow the object in
+context of the last associated cleanup that ran to completion.
+
+<p>The structure of the code that is generated for C++ exception handling
+code is shown below:
+
+<pre>Ln:					throw value;
+        copy value onto heap
+        jump throw (Ln, id, address of copy of value on heap)
+
+                                        try {
++Lstart:	the start of the main EH region
+|...						...
++Lend:		the end of the main EH region
+                                        } catch (T o) {
+						...1
+                                        }
+Lresume:
+        nop	used to make sure there is something before
+                the next region ends, if there is one
+...                                     ...
+
+        jump Ldone
+[
+Lmainhandler:    handler for the region Lstart-Lend
+	cleanup
+] zero or more, depending upon automatic vars with dtors
++Lpartial:
+|        jump Lover
++Lhere:
+        rethrow (Lhere, same id, same obj);
+Lterm:		handler for the region Lpartial-Lhere
+        call terminate
+Lover:
+[
+ [
+        call throw_type_match
+        if (eq) {
+ ] these lines disappear when there is no catch condition
++Lsregion2:
+|	...1
+|	jump Lresume
+|Lhandler:	handler for the region Lsregion2-Leregion2
+|	rethrow (Lresume, same id, same obj);
++Leregion2
+        }
+] there are zero or more of these sections, depending upon how many
+  catch clauses there are
+----------------------------- expand_end_all_catch --------------------------
+                here we have fallen off the end of all catch
+                clauses, so we rethrow to outer
+        rethrow (Lresume, same id, same obj);
+----------------------------- expand_end_all_catch --------------------------
+[
+L1:     maybe throw routine
+] depending upon if we have expanded it or not
+Ldone:
+        ret
+
+start_all_catch emits labels: Lresume,
+
+</pre>
+
+<p>The __unwind_function takes a pointer to the throw handler, and is
+expected to pop the stack frame that was built to call it, as well as
+the frame underneath and then jump to the throw handler.  It must
+restore all registers to their proper values as well as all other
+machine state as determined by the context in which we are unwinding
+into.  The way I normally start is to compile:
+
+<p>void *g;
+        foo(void* a) { g = a; }
+
+<p>with -S, and change the thing that alters the PC (return, or ret
+usually) to not alter the PC, making sure to leave all other semantics
+(like adjusting the stack pointer, or frame pointers) in.  After that,
+replicate the prologue once more at the end, again, changing the PC
+altering instructions, and finally, at the very end, jump to `g'.
+
+<p>It takes about a week to write this routine, if someone wants to
+volunteer to write this routine for any architecture, exception support
+for that architecture will be added to g++.  Please send in those code
+donations.  One other thing that needs to be done, is to double check
+that __builtin_return_address (0) works.
+
+<h3>Specific Targets</h3>
+
+<p>For the alpha, the __unwind_function will be something resembling:
+
+<pre>void
+__unwind_function(void *ptr)
+{
+  /* First frame */
+  asm ("ldq $15, 8($30)"); /* get the saved frame ptr; 15 is fp, 30 is sp */
+  asm ("bis $15, $15, $30"); /* reload sp with the fp we found */
+
+  /* Second frame */
+  asm ("ldq $15, 8($30)"); /* fp */
+  asm ("bis $15, $15, $30"); /* reload sp with the fp we found */
+
+  /* Return */
+  asm ("ret $31, ($16), 1"); /* return to PTR, stored in a0 */
+}
+</pre>
+
+<p>However, there are a few problems preventing it from working.  First of
+all, the gcc-internal function <code>__builtin_return_address</code> needs to
+work given an argument of 0 for the alpha.  As it stands as of August
+30th, 1995, the code for <code>BUILT_IN_RETURN_ADDRESS</code> in <code>expr.c</code>
+will definitely not work on the alpha.  Instead, we need to define
+the macros <code>DYNAMIC_CHAIN_ADDRESS</code> (maybe),
+<code>RETURN_ADDR_IN_PREVIOUS_FRAME</code>, and definitely need a new
+definition for <code>RETURN_ADDR_RTX</code>.
+
+<p>In addition (and more importantly), we need a way to reliably find the
+frame pointer on the alpha.  The use of the value 8 above to restore the
+frame pointer (register 15) is incorrect.  On many systems, the frame
+pointer is consistently offset to a specific point on the stack.  On the
+alpha, however, the frame pointer is pushed last.  First the return
+address is stored, then any other registers are saved (e.g., <code>s0</code>),
+and finally the frame pointer is put in place.  So <code>fp</code> could have
+an offset of 8, but if the calling function saved any registers at all,
+they add to the offset.
+
+<p>The only places the frame size is noted are with the <code>.frame</code>
+directive, for use by the debugger and the OSF exception handling model
+(useless to us), and in the initial computation of the new value for
+<code>sp</code>, the stack pointer.  For example, the function may start with:
+
+<pre>lda $30,-32($30)
+.frame $15,32,$26,0
+</pre>
+
+<p>The 32 above is exactly the value we need.  With this, we can be sure
+that the frame pointer is stored 8 bytes less--in this case, at 24(sp)). 
+The drawback is that there is no way that I (Brendan) have found to let
+us discover the size of a previous frame <em>inside</em> the definition
+of <code>__unwind_function</code>.
+
+<p>So to accomplish exception handling support on the alpha, we need two
+things: first, a way to figure out where the frame pointer was stored,
+and second, a functional <code>__builtin_return_address</code> implementation
+for except.c to be able to use it.
+
+<p>Or just support DWARF 2 unwind info.
+
+<h3>New Backend Exception Support</h3>
+
+<p>This subsection discusses various aspects of the design of the
+data-driven model being implemented for the exception handling backend.
+
+<p>The goal is to generate enough data during the compilation of user code,
+such that we can dynamically unwind through functions at run time with a
+single routine (<code>__throw</code>) that lives in libgcc.a, built by the
+compiler, and dispatch into associated exception handlers.
+
+<p>This information is generated by the DWARF 2 debugging backend, and
+includes all of the information __throw needs to unwind an arbitrary
+frame.  It specifies where all of the saved registers and the return
+address can be found at any point in the function.
+
+<p>Major disadvantages when enabling exceptions are:
+
+<ul>
+<li>Code that uses caller saved registers, can't, when flow can be
+transferred into that code from an exception handler.  In high performance
+code this should not usually be true, so the effects should be minimal.
+
+</ul>
+
+<h3>Backend Exception Support</h3>
+
+<p>The backend must be extended to fully support exceptions.  Right now
+there are a few hooks into the alpha exception handling backend that
+resides in the C++ frontend from that backend that allows exception
+handling to work in g++.  An exception region is a segment of generated
+code that has a handler associated with it.  The exception regions are
+denoted in the generated code as address ranges denoted by a starting PC
+value and an ending PC value of the region.  Some of the limitations
+with this scheme are:
+
+<ul>
+<li>The backend replicates insns for such things as loop unrolling and
+function inlining.  Right now, there are no hooks into the frontend's
+exception handling backend to handle the replication of insns.  When
+replication happens, a new exception region descriptor needs to be
+generated for the new region.
+
+<li>The backend expects to be able to rearrange code, for things like jump
+optimization.  Any rearranging of the code needs have exception region
+descriptors updated appropriately.
+
+<li>The backend can eliminate dead code.  Any associated exception region
+descriptor that refers to fully contained code that has been eliminated
+should also be removed, although not doing this is harmless in terms of
+semantics.
+
+</ul>
+
+<p>The above is not meant to be exhaustive, but does include all things I
+have thought of so far.  I am sure other limitations exist.
+
+<p>Below are some notes on the migration of the exception handling code
+backend from the C++ frontend to the backend.
+
+<p>NOTEs are to be used to denote the start of an exception region, and the
+end of the region.  I presume that the interface used to generate these
+notes in the backend would be two functions, start_exception_region and
+end_exception_region (or something like that).  The frontends are
+required to call them in pairs.  When marking the end of a region, an
+argument can be passed to indicate the handler for the marked region. 
+This can be passed in many ways, currently a tree is used.  Another
+possibility would be insns for the handler, or a label that denotes a
+handler.  I have a feeling insns might be the best way to pass it. 
+Semantics are, if an exception is thrown inside the region, control is
+transferred unconditionally to the handler.  If control passes through
+the handler, then the backend is to rethrow the exception, in the
+context of the end of the original region.  The handler is protected by
+the conventional mechanisms; it is the frontend's responsibility to
+protect the handler, if special semantics are required.
+
+<p>This is a very low level view, and it would be nice is the backend
+supported a somewhat higher level view in addition to this view.  This
+higher level could include source line number, name of the source file,
+name of the language that threw the exception and possibly the name of
+the exception.  Kenner may want to rope you into doing more than just
+the basics required by C++.  You will have to resolve this.  He may want
+you to do support for non-local gotos, first scan for exception handler,
+if none is found, allow the debugger to be entered, without any cleanups
+being done.  To do this, the backend would have to know the difference
+between a cleanup-rethrower, and a real handler, if would also have to
+have a way to know if a handler `matches' a thrown exception, and this
+is frontend specific.
+
+<p>The stack unwinder is one of the hardest parts to do.  It is highly
+machine dependent.  The form that kenner seems to like was a couple of
+macros, that would do the machine dependent grunt work.  One preexisting
+function that might be of some use is __builtin_return_address ().  One
+macro he seemed to want was __builtin_return_address, and the other
+would do the hard work of fixing up the registers, adjusting the stack
+pointer, frame pointer, arg pointer and so on.
+
+<p><hr>
+Node:<a name="Free%20Store">Free Store</a>,
+Next:<a rel=next href="#Mangling">Mangling</a>,
+Previous:<a rel=previous href="#Exception%20Handling">Exception Handling</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Free Store</h2>
+
+<p><code>operator new []</code> adds a magic cookie to the beginning of arrays
+for which the number of elements will be needed by <code>operator delete
+[]</code>.  These are arrays of objects with destructors and arrays of objects
+that define <code>operator delete []</code> with the optional size_t argument. 
+This cookie can be examined from a program as follows:
+
+<pre>typedef unsigned long size_t;
+extern "C" int printf (const char *, ...);
+
+size_t nelts (void *p)
+{
+  struct cookie {
+    size_t nelts __attribute__ ((aligned (sizeof (double))));
+  };
+
+  cookie *cp = (cookie *)p;
+  --cp;
+
+  return cp-&gt;nelts;
+}
+
+struct A {
+  ~A() { }
+};
+
+main()
+{
+  A *ap = new A[3];
+  printf ("%ld\n", nelts (ap));
+}
+</pre>
+
+<h2>Linkage</h2>
+
+<p>The linkage code in g++ is horribly twisted in order to meet two design goals:
+
+<p>1) Avoid unnecessary emission of inlines and vtables.
+
+<p>2) Support pedantic assemblers like the one in AIX.
+
+<p>To meet the first goal, we defer emission of inlines and vtables until
+the end of the translation unit, where we can decide whether or not they
+are needed, and how to emit them if they are.
+
+<p><hr>
+Node:<a name="Mangling">Mangling</a>,
+Next:<a rel=next href="#Vtables">Vtables</a>,
+Previous:<a rel=previous href="#Free%20Store">Free Store</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Function name mangling for C++ and Java</h2>
+
+<p>Both C++ and Jave provide overloaded function and methods,
+which are methods with the same types but different parameter lists. 
+Selecting the correct version is done at compile time. 
+Though the overloaded functions have the same name in the source code,
+they need to be translated into different assembler-level names,
+since typical assemblers and linkers cannot handle overloading. 
+This process of encoding the parameter types with the method name
+into a unique name is called <dfn>name mangling</dfn>.  The inverse
+process is called <dfn>demangling</dfn>.
+
+<p>It is convenient that C++ and Java use compatible mangling schemes,
+since the makes life easier for tools such as gdb, and it eases
+integration between C++ and Java.
+
+<p>Note there is also a standard "Jave Native Interface" (JNI) which
+implements a different calling convention, and uses a different
+mangling scheme.  The JNI is a rather abstract ABI so Java can call methods
+written in C or C++;
+we are concerned here about a lower-level interface primarily
+intended for methods written in Java, but that can also be used for C++
+(and less easily C).
+
+<p>Note that on systems that follow BSD tradition, a C identifier <code>var</code>
+would get "mangled" into the assembler name <code>_var</code>.  On such
+systems, all other mangled names are also prefixed by a <code>_</code>
+which is not shown in the following examples.
+
+<h3>Method name mangling</h3>
+
+<p>C++ mangles a method by emitting the function name, followed by <code>__</code>,
+followed by encodings of any method qualifiers (such as <code>const</code>),
+followed by the mangling of the method's class,
+followed by the mangling of the parameters, in order.
+
+<p>For example <code>Foo::bar(int, long) const</code> is mangled
+as <code>bar__C3Fooil</code>.
+
+<p>For a constructor, the method name is left out. 
+That is <code>Foo::Foo(int, long) const</code>  is mangled
+as <code>__C3Fooil</code>.
+
+<p>GNU Java does the same.
+
+<h3>Primitive types</h3>
+
+<p>The C++ types <code>int</code>, <code>long</code>, <code>short</code>, <code>char</code>,
+and <code>long long</code> are mangled as <code>i</code>, <code>l</code>,
+<code>s</code>, <code>c</code>, and <code>x</code>, respectively. 
+The corresponding unsigned types have <code>U</code> prefixed
+to the mangling.  The type <code>signed char</code> is mangled <code>Sc</code>.
+
+<p>The C++ and Java floating-point types <code>float</code> and <code>double</code>
+are mangled as <code>f</code> and <code>d</code> respectively.
+
+<p>The C++ <code>bool</code> type and the Java <code>boolean</code> type are
+mangled as <code>b</code>.
+
+<p>The C++ <code>wchar_t</code> and the Java <code>char</code> types are
+mangled as <code>w</code>.
+
+<p>The Java integral types <code>byte</code>, <code>short</code>, <code>int</code>
+and <code>long</code> are mangled as <code>c</code>, <code>s</code>, <code>i</code>,
+and <code>x</code>, respectively.
+
+<p>C++ code that has included <code>javatypes.h</code> will mangle
+the typedefs  <code>jbyte</code>, <code>jshort</code>, <code>jint</code>
+and <code>jlong</code> as respectively <code>c</code>, <code>s</code>, <code>i</code>,
+and <code>x</code>.  (This has not been implemented yet.)
+
+<h3>Mangling of simple names</h3>
+
+<p>A simple class, package, template, or namespace name is
+encoded as the number of characters in the name, followed by
+the actual characters.  Thus the class <code>Foo</code>
+is encoded as <code>3Foo</code>.
+
+<p>If any of the characters in the name are not alphanumeric
+(i.e not one of the standard ASCII letters, digits, or '_'),
+or the initial character is a digit, then the name is
+mangled as a sequence of encoded Unicode letters. 
+A Unicode encoding starts with a <code>U</code> to indicate
+that Unicode escapes are used, followed by the number of
+bytes used by the Unicode encoding, followed by the bytes
+representing the encoding.  ASSCI letters and
+non-initial digits are encoded without change.  However, all
+other characters (including underscore and initial digits) are
+translated into a sequence starting with an underscore,
+followed by the big-endian 4-hex-digit lower-case encoding of the character.
+
+<p>If a method name contains Unicode-escaped characters, the
+entire mangled method name is followed by a <code>U</code>.
+
+<p>For example, the method <code>X\u0319::M\u002B(int)</code> is encoded as
+<code>M_002b__U6X_0319iU</code>.
+
+<h3>Pointer and reference types</h3>
+
+<p>A C++ pointer type is mangled as <code>P</code> followed by the
+mangling of the type pointed to.
+
+<p>A C++ reference type as mangled as <code>R</code> followed by the
+mangling of the type referenced.
+
+<p>A Java object reference type is equivalent
+to a C++ pointer parameter, so we mangle such an parameter type
+as <code>P</code> followed by the mangling of the class name.
+
+<h3>Squangled type compression</h3>
+
+<p>Squangling (enabled with the <code>-fsquangle</code> option), utilizes the
+<code>B</code> code to indicate reuse of a previously seen type within an
+indentifier. Types are recognized in a left to right manner and given
+increasing values, which are appended to the code in the standard
+manner. Ie, multiple digit numbers are delimited by <code>_</code>
+characters. A type is considered to be any non primitive type,
+regardless of whether its a parameter, template parameter, or entire
+template. Certain codes are considered modifiers of a type, and are not
+included as part of the type. These are the <code>C</code>, <code>V</code>,
+<code>P</code>, <code>A</code>, <code>R</code>, <code>U</code> and <code>u</code> codes, denoting
+constant, volatile, pointer, array, reference, unsigned, and restrict. 
+These codes may precede a <code>B</code> type in order to make the required
+modifications to the type.
+
+<p>For example:
+<pre>template &lt;class T&gt; class class1 { };
+
+template &lt;class T&gt; class class2 { };
+
+class class3 { };
+
+int f(class2&lt;class1&lt;class3&gt; &gt; a ,int b, const class1&lt;class3&gt;&amp;c, class3 *d) { }
+
+    B0 -&gt; class2&lt;class1&lt;class3&gt;
+    B1 -&gt; class1&lt;class3&gt;
+    B2 -&gt; class3
+</pre>
+Produces the mangled name <code>f__FGt6class21Zt6class11Z6class3iRCB1PB2</code>. 
+The int parameter is a basic type, and does not receive a B encoding...
+
+<h3>Qualified names</h3>
+
+<p>Both C++ and Java allow a class to be lexically nested inside another
+class.  C++ also supports namespaces (not yet implemented by G++). 
+Java also supports packages.
+
+<p>These are all mangled the same way:  First the letter <code>Q</code>
+indicates that we are emitting a qualified name. 
+That is followed by the number of parts in the qualified name. 
+If that number is 9 or less, it is emitted with no delimiters. 
+Otherwise, an underscore is written before and after the count. 
+Then follows each part of the qualified name, as described above.
+
+<p>For example <code>Foo::\u0319::Bar</code> is encoded as
+<code>Q33FooU5_03193Bar</code>.
+
+<p>Squangling utilizes the the letter <code>K</code> to indicate a
+remembered portion of a qualified name. As qualified names are processed
+for an identifier, the names are numbered and remembered in a
+manner similar to the <code>B</code> type compression code. 
+Names are recognized left to right, and given increasing values, which are
+appended to the code in the standard manner. ie, multiple digit numbers
+are delimited by <code>_</code> characters.
+
+<p>For example
+<pre>class Andrew
+{
+  class WasHere
+  {
+      class AndHereToo
+      {
+      };
+  };
+};
+
+f(Andrew&amp;r1, Andrew::WasHere&amp; r2, Andrew::WasHere::AndHereToo&amp; r3) { }
+
+   K0 -&gt;  Andrew
+   K1 -&gt;  Andrew::WasHere
+   K2 -&gt;  Andrew::WasHere::AndHereToo
+</pre>
+Function <code>f()</code> would be mangled as :
+<code>f__FR6AndrewRQ2K07WasHereRQ2K110AndHereToo</code>
+
+<p>There are some occasions when either a <code>B</code> or <code>K</code> code could
+be chosen, preference is always given to the <code>B</code> code. Ie, the example
+in the section on <code>B</code> mangling could have used a <code>K</code> code
+instead of <code>B2</code>.
+
+<h3>Templates</h3>
+
+<p>A class template instantiation is encoded as the letter <code>t</code>,
+followed by the encoding of the template name, followed
+the number of template parameters, followed by encoding of the template
+parameters.  If a template parameter is a type, it is written
+as a <code>Z</code> followed by the encoding of the type.
+
+<p>A function template specialization (either an instantiation or an
+explicit specialization) is encoded by an <code>H</code> followed by the
+encoding of the template parameters, as described above, followed by an
+<code>_</code>, the encoding of the argument types to the template function
+(not the specialization), another <code>_</code>, and the return type.  (Like
+the argument types, the return type is the return type of the function
+template, not the specialization.)  Template parameters in the argument
+and return types are encoded by an <code>X</code> for type parameters, or a
+<code>Y</code> for constant parameters, an index indicating their position
+in the template parameter list declaration, and their template depth.
+
+<h3>Arrays</h3>
+
+<p>C++ array types are mangled by emitting <code>A</code>, followed by
+the length of the array, followed by an <code>_</code>, followed by
+the mangling of the element type.  Of course, normally
+array parameter types decay into a pointer types, so you
+don't see this.
+
+<p>Java arrays are objects.  A Java type <code>T[]</code> is mangled
+as if it were the C++ type <code>JArray&lt;T&gt;</code>. 
+For example <code>java.lang.String[]</code> is encoded as
+<code>Pt6JArray1ZPQ34java4lang6String</code>.
+
+<h3>Static fields</h3>
+
+<p>Both C++ and Java classes can have static fields. 
+These are allocated statically, and are shared among all instances.
+
+<p>The mangling starts with a prefix (<code>_</code> in most systems), which is
+followed by the mangling
+of the class name, followed by the "joiner" and finally the field name. 
+The joiner (see <code>JOINER</code> in <code>cp-tree.h</code>) is a special
+separator character.  For historical reasons (and idiosyncracies
+of assembler syntax) it can <code>$</code> or <code>.</code> (or even
+<code>_</code> on a few systems).  If the joiner is <code>_</code> then the prefix
+is <code>__static_</code> instead of just <code>_</code>.
+
+<p>For example <code>Foo::Bar::var</code> (or <code>Foo.Bar.var</code> in Java syntax)
+would be encoded as <code>_Q23Foo3Bar$var</code> or <code>_Q23Foo3Bar.var</code>
+(or rarely <code>__static_Q23Foo3Bar_var</code>).
+
+<p>If the name of a static variable needs Unicode escapes,
+the Unicode indicator <code>U</code> comes before the "joiner". 
+This <code>\u1234Foo::var\u3445</code> becomes <code>_U8_1234FooU.var_3445</code>.
+
+<h3>Table of demangling code characters</h3>
+
+<p>The following special characters are used in mangling:
+
+<dl>
+<dt><code>A</code>
+<dd>Indicates a C++ array type.
+
+<br><dt><code>b</code>
+<dd>Encodes the C++ <code>bool</code> type,
+and the Java <code>boolean</code> type.
+
+<br><dt><code>B</code>
+<dd>Used for squangling. Similar in concept to the 'T' non-squangled code.
+
+<br><dt><code>c</code>
+<dd>Encodes the C++ <code>char</code> type, and the Java <code>byte</code> type.
+
+<br><dt><code>C</code>
+<dd>A modifier to indicate a <code>const</code> type. 
+Also used to indicate a <code>const</code> member function
+(in which cases it precedes the encoding of the method's class).
+
+<br><dt><code>d</code>
+<dd>Encodes the C++ and Java <code>double</code> types.
+
+<br><dt><code>e</code>
+<dd>Indicates extra unknown arguments <code>...</code>.
+
+<br><dt><code>E</code>
+<dd>Indicates the opening parenthesis of an expression.
+
+<br><dt><code>f</code>
+<dd>Encodes the C++ and Java <code>float</code> types.
+
+<br><dt><code>F</code>
+<dd>Used to indicate a function type.
+
+<br><dt><code>H</code>
+<dd>Used to indicate a template function.
+
+<br><dt><code>i</code>
+<dd>Encodes the C++ and Java <code>int</code> types.
+
+<br><dt><code>I</code>
+<dd>Encodes typedef names of the form <code>int<var>n</var>_t</code>, where <var>n</var> is a
+positive decimal number.  The <code>I</code> is followed by either two
+hexidecimal digits, which encode the value of <var>n</var>, or by an
+arbitrary number of hexidecimal digits between underscores.  For
+example, <code>I40</code> encodes the type <code>int64_t</code>, and <code>I_200_</code>
+encodes the type <code>int512_t</code>.
+
+<br><dt><code>J</code>
+<dd>Indicates a complex type.
+
+<br><dt><code>K</code>
+<dd>Used by squangling to compress qualified names.
+
+<br><dt><code>l</code>
+<dd>Encodes the C++ <code>long</code> type.
+
+<br><dt><code>n</code>
+<dd>Immediate repeated type. Followed by the repeat count.
+
+<br><dt><code>N</code>
+<dd>Repeated type. Followed by the repeat count of the repeated type,
+followed by the type index of the repeated type. Due to a bug in
+g++ 2.7.2, this is only generated if index is 0. Superceded by
+<code>n</code> when squangling.
+
+<br><dt><code>P</code>
+<dd>Indicates a pointer type.  Followed by the type pointed to.
+
+<br><dt><code>Q</code>
+<dd>Used to mangle qualified names, which arise from nested classes. 
+Also used for namespaces. 
+In Java used to mangle package-qualified names, and inner classes.
+
+<br><dt><code>r</code>
+<dd>Encodes the GNU C++ <code>long double</code> type.
+
+<br><dt><code>R</code>
+<dd>Indicates a reference type.  Followed by the referenced type.
+
+<br><dt><code>s</code>
+<dd>Encodes the C++ and java <code>short</code> types.
+
+<br><dt><code>S</code>
+<dd>A modifier that indicates that the following integer type is signed. 
+Only used with <code>char</code>.
+
+<p>Also used as a modifier to indicate a static member function.
+
+<br><dt><code>t</code>
+<dd>Indicates a template instantiation.
+
+<br><dt><code>T</code>
+<dd>A back reference to a previously seen type.
+
+<br><dt><code>U</code>
+<dd>A modifier that indicates that the following integer type is unsigned. 
+Also used to indicate that the following class or namespace name
+is encoded using Unicode-mangling.
+
+<br><dt><code>u</code>
+<dd>The <code>restrict</code> type qualifier.
+
+<br><dt><code>v</code>
+<dd>Encodes the C++ and Java <code>void</code> types.
+
+<br><dt><code>V</code>
+<dd>A modifier for a <code>volatile</code> type or method.
+
+<br><dt><code>w</code>
+<dd>Encodes the C++ <code>wchar_t</code> type, and the Java <code>char</code> types.
+
+<br><dt><code>W</code>
+<dd>Indicates the closing parenthesis of an expression.
+
+<br><dt><code>x</code>
+<dd>Encodes the GNU C++ <code>long long</code> type, and the Java <code>long</code> type.
+
+<br><dt><code>X</code>
+<dd>Encodes a template type parameter, when part of a function type.
+
+<br><dt><code>Y</code>
+<dd>Encodes a template constant parameter, when part of a function type.
+
+<br><dt><code>Z</code>
+<dd>Used for template type parameters.
+
+</dl>
+
+<p>The letters <code>G</code>, <code>M</code>, <code>O</code>, and <code>p</code>
+also seem to be used for obscure purposes ...
+
+<p><hr>
+Node:<a name="Vtables">Vtables</a>,
+Next:<a rel=next href="#Concept%20Index">Concept Index</a>,
+Previous:<a rel=previous href="#Mangling">Mangling</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Virtual Tables</h2>
+
+<p>In order to invoke virtual functions, GNU C++ uses virtual tables. Each
+virtual function gets an index, and the table entry points to the
+overridden function to call. Sometimes, and adjustment to the this
+pointer has to be made before calling a virtual function:
+
+<pre>struct A{
+  int i;
+  virtual void foo();
+};
+
+struct B{
+  int j;
+  virtual void bar();
+};
+
+struct C:A,B{
+  virtual void bar();
+};
+
+void C::bar()
+{
+  i++;
+}
+
+int main()
+{
+  C *c = new C;
+  B *b = c;
+  c-&gt;bar();
+}
+</pre>
+
+<p>Here, casting from <code>c</code> to <code>b</code> adds an offset. When <code>bar</code>
+is called, this offset needs to be subtracted, so that <code>C::bar</code> can
+properly access <code>i</code>. One approach of achieving this is to use
+<em>thunks</em>, which are small half-functions put into the virtual
+table. The modify the first argument (the <code>this</code> pointer), and then
+jump into the real function.
+
+<p>The other (traditional) approach is to have an additional integer in the
+virtual table which is added to this. This is an additional overhead
+both at the function call, and in the size of virtual tables: In the
+case of single inheritance (or for the first base class), these integers
+will always be zero.
+
+<h3>Virtual Base Classes with Virtual Tables</h3>
+
+<p>In case of virtual bases, the code is even more
+complicated. Constructors and destructors need to know whether they are
+"in charge" of the virtual bases, and an implicit integer
+<code>__in_chrg</code> for that purpose.
+
+<pre>struct A{
+  int i;
+  virtual void bar();
+  void call_bar(){bar();}
+};
+
+struct B:virtual A{
+  B();
+  int j;
+  virtual void bar();
+};
+
+B::B(){
+  call_bar();
+}
+
+struct C{
+  int k;
+};
+
+struct D:C,B{
+  int l;
+  virtual void bar();
+};
+
+</pre>
+
+<p>When constructing an instance of B, it will have the following layout:
+<code>vbase pointer to A</code>, <code>j</code>, <code>A virtual table</code>, <code>i</code>. 
+On a 32-bit machine, downcasting from <code>A*</code> to <code>B*</code> would need
+to subtract 8, which would be the thunk executed when calling
+<code>B::bar</code> inside <code>call_bar</code>.
+
+<p>When constructing an instance of D, it will have a different layout:
+<code>k</code>, <code>vbase pointer to A</code>, <code>j</code>, <code>l</code>, <code>A virtual
+table</code>, <code>i</code>. So, when downcasting from <code>A*</code> to <code>B*</code> in a
+<code>D</code> object, the offset would be <code>12</code>.
+
+<p>This means that during construction of the <code>B</code> base of a <code>D</code>
+object, a virtual table is needed which has a <code>-12</code> thunk to
+<code>B::bar</code>. This is <em>only</em> needed during construction and
+destruction, as the full object will use a <code>-16</code> thunk to
+<code>D::bar</code>.
+
+<p>In order to implement this, the compiler generates an implicit argument
+(in addition to <code>__in_chrg</code>): the virtual list argument
+<code>__vlist</code>. This is a list of virtual tables needed during
+construction and destruction. The virtual pointers are ordered in the
+way they are used during construction; the destructors will process the
+array in reverse order. The ordering is as follows:
+<ul>
+<li>If the class is in charge, the vlist starts with virtual table pointers
+for the virtual bases that have virtual bases themselves. Here, only
+<em>polymorphic</em> virtual bases (pvbases) are interesting: if a vbase
+has no virtual functions, it doesn't have a virtual table.
+
+<li>Next, the vlist has virtual tables for the initialization of the
+non-virtual bases. These bases are not in charge, so the layout is
+recursive, but ignores virtual bases during recursion.
+
+<li>Next, there is a number of virtual tables for each virtual base. These
+are sorted in the order in which virtual bases are constructed. Each
+virtual base may have more than one <code>vfield</code>, and therefore require
+more than one <code>vtable</code>. The order of vtables is the same as used
+when initializing vfields of non-virtual bases in a constructor. 
+</ul>
+
+<p>The compiler emits a virtual table list in a variable mangled as
+<code>__vl.classname</code>.
+
+<p>Class with virtual bases, but without pvbases, only have the
+<code>__in_chrg</code> argument to their ctors and dtors: they don't have any
+vfields in the vbases to initialize.
+
+<p>A further problem arises with virtual destructors: A destructor
+typically has only the <code>__in_chrg</code> argument, which also indicates
+whether the destructor should call <code>operator delete</code>. A dtor of a
+class with pvbases has an additional argument. Unfortunately, a caller
+of a virtual dtor might not know whether to pass that argument or not. 
+Therefore, the dtor processes the <code>__vlist</code> argument in an
+automatic variable, which is initialized from the class' vlist if the
+__in_chrg flag has a zero value in bit 2 (bit mask 4), or from the
+argument <code>__vlist1</code> if bit 2 of the __in_chrg parameter is set to
+one.
+
+<h3>Specification of non-thunked vtables</h3>
+
+<p>In the traditional implementation of vtables, each slot contains three
+fields: The offset to be added to the this pointer before invoking a
+virtual function, an unused field that is always zero, and the pointer
+to the virtual function. The first two fields are typically 16 bits
+wide. The unused field is called `index'; it may be non-zero in
+pointer-to-member-functions, which use the same layout.
+
+<p>The virtual table then is an array of vtable slots. The first slot is
+always the virtual type info function, the other slots are in the order
+in which the virtual functions appear in the class declaration.
+
+<p>If a class has base classes, it may inherit other bases' vfields. Each
+class may have a primary vfield; the primary vfield of the derived class
+is the primary vfield of the left-most non-virtual base class. If a
+class inherits a primary vfield, any new virtual functions in the
+derived class are appended to the virtual table of the primary
+vfield. If there are new virtual functions in the derived class, and no
+primary vfield is inherited, a new vfield is introduced which becomes
+primary. The redefined virtual functions fill the vtable slots inherited
+from the base; new virtual functions are put into the primary vtable in
+the order of declaration. If no new virtual functions are introduced, no
+primary vfield is allocated.
+
+<p>In a base class that has pvbases, virtual tables are needed which are
+used only in the constructor (see example above). At run-time, the
+virtual tables of the base class are adjusted, to reflect the new offset
+of the pvbase. The compiler knows statically what offset the pvbase has
+for a complete object. At run-time, the offset of the pvbase can be
+extracted from the vbase pointer, which is set in the constructor of the
+complete object. These two offsets result in a delta, which is used to
+adjust the deltas in the vtable (the adjustment might be different for
+different vtable slots). To adjust the vtables, the compiler emits code
+that creates a vtable on the stack. This vtable is initialized with the
+vtable for the complete base type, and then adjusted.
+
+<p>In order to call a virtual function, the compiler gets the offset field
+from the vtable entry, and adds it to the this pointer. It then
+indirectly calls the virtual function pointer, passing the adjusted this
+pointer, and any arguments the virtual function may have.
+
+<p>To implement dynamic casting, the dynamic_cast function needs typeinfos
+for the complete type, and the pointer to the complete type. The
+typeinfo pointer is obtained by calling the virtual typeinfo function
+(which doesn't take a this parameter). The pointer to the complete
+object is obtained by adding the offset of the virtual typeinfo vtable
+slot, since this virtual function is always implemented in the complete
+object.
+
+<h3>Specification of thunked vtables</h3>
+
+<p>For vtable thunks, each slot only consists of a pointer to the virtual
+function, which might be a thunk function. The first slot in the vtable
+is an offset of the this pointer to the complete object, which is needed
+as a parameter to __dynamic_cast. The second slot is the virtual
+typeinfo function. All other slots are allocated with the same procedure
+as in the non-thunked case. Allocation of vfields also uses the same
+procedure as described above.
+
+<p>If the virtual function needs an adjusted this pointer, a thunk function
+is emitted. If supported by the target architecture, this is only a
+half-function. Such a thunk has no stack frame; it merely adjusts the
+first argument of the function, and then directly branches into the
+implementation of the virtual function. If the architecture does not
+support half-functions (i.e. if ASM_OUTPUT_MI_THUNK is not defined), the
+compiler emits a wrapper function, which copies all arguments, adjust
+the this pointer, and then calls the original function. Since objects of
+non-aggregate type are passed by invisible reference, this copies only
+POD arguments. The approach fails for virtual functions with a variable
+number of arguments.
+
+<p>In order to support the vtables needed in base constructors with
+pvbases, the compiler passes an implicit __vlist argument as described
+above, if the version 2 thunks are used. For version 1 thunks, the base
+class constructor will fill in the vtables for the complete base class,
+which will incorrectly adjust the this pointer, leading to a dynamic
+error.
+
+<p><hr>
+Node:<a name="Concept%20Index">Concept Index</a>,
+Previous:<a rel=previous href="#Vtables">Vtables</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h2>Concept Index</h2>
+
+<ul compact>
+<li>access checking: <a href="#Limitations%20of%20g++">Limitations of g++</a>
+<li>parse errors: <a href="#Typical%20Behavior">Typical Behavior</a>
+<li>pushdecl_class_level: <a href="#Limitations%20of%20g++">Limitations of g++</a>
+<li><code>volatile</code>: <a href="#Limitations%20of%20g++">Limitations of g++</a>
+</ul>
+
+
+</body></html>
+
