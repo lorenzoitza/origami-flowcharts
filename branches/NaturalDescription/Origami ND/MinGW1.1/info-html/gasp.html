@@ -1,0 +1,1549 @@
+<html lang="en"><head>
+<title>Untitled</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name=description content="Untitled">
+<meta name=generator content="makeinfo 4.0">
+<link href="http://texinfo.org/" rel=generator-home>
+</head><body>
+
+<p>Copyright &copy; 1994, 1995, 2000 Free Software Foundation, Inc.
+
+<p>Permission is granted to copy, distribute and/or modify this document
+      under the terms of the GNU Free Documentation License, Version 1.1
+      or any later version published by the Free Software Foundation;
+      with no Invariant Sections, with no Front-Cover Texts, and with no
+      Back-Cover Texts.  A copy of the license is included in the
+      section entitled "GNU Free Documentation License".
+
+<p><hr>
+Node:<a name="Top">Top</a>,
+Next:<a rel=next href="#Overview">Overview</a>,
+<br>
+
+<h1>GASP</h1>
+
+<p>GASP is a preprocessor for assembly programs.
+
+<p>This file describes version 1 of GASP.
+
+<p>Steve Chamberlain wrote GASP; Roland Pesch wrote this manual.
+
+<ul>
+<li><a href="#Overview">Overview</a>:                     What is GASP? 
+<li><a href="#Invoking%20GASP">Invoking GASP</a>:                Command line options. 
+<li><a href="#Commands">Commands</a>:                     Preprocessor commands. 
+<li><a href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>:   GNU Free Documentation License
+<li><a href="#Index">Index</a>:                        Index. 
+</ul>
+
+<p><hr>
+Node:<a name="Overview">Overview</a>,
+Next:<a rel=next href="#Invoking%20GASP">Invoking GASP</a>,
+Previous:<a rel=previous href="#Top">Top</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>What is GASP?</h1>
+
+<p>The primary purpose of the <small>GNU</small> assembler is to assemble the output of
+other programs--notably compilers.  When you have to hand-code
+specialized routines in assembly, that means the <small>GNU</small> assembler is
+an unfriendly processor: it has no directives for macros, conditionals,
+or many other conveniences that you might expect.
+
+<p>In some cases you can simply use the C preprocessor, or a generalized
+preprocessor like <small>M4</small>; but this can be awkward, since none of these
+things are designed with assembly in mind.
+
+<p><small>GASP</small> fills this need.  It is expressly designed to provide the
+facilities you need with hand-coded assembly code.  Implementing it as a
+preprocessor, rather than part of the assembler, allows the maximum
+flexibility: you can use it with hand-coded assembly, without paying a
+penalty of added complexity in the assembler you use for compiler
+output.
+
+<p>Here is a small example to give the flavor of <small>GASP</small>.  This input to
+<small>GASP</small>
+
+<pre>        .MACRO  saveregs from=8 to=14
+count   .ASSIGNA \from
+        ! save r\from..r\to
+        .AWHILE  \&amp;count LE \to
+        mov     r\&amp;count,@-sp
+count   .ASSIGNA  \&amp;count + 1
+        .AENDW
+        .ENDM
+
+        saveregs from=12
+
+bar:    mov     #H'dead+10,r0
+foo     .SDATAC "hello"&lt;10&gt;
+        .END
+</pre>
+
+<p>generates this assembly program:
+
+<pre>        ! save r12..r14
+        mov     r12,@-sp
+        mov     r13,@-sp
+        mov     r14,@-sp
+
+bar:    mov     #57005+10,r0
+foo:    .byte   6,104,101,108,108,111,10
+</pre>
+
+<p><hr>
+Node:<a name="Invoking%20GASP">Invoking GASP</a>,
+Next:<a rel=next href="#Commands">Commands</a>,
+Previous:<a rel=previous href="#Overview">Overview</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Command Line Options</h1>
+
+<p>The simplest way to use <small>GASP</small> is to run it as a filter and assemble
+its output.  In Unix and its ilk, you can do this, for example:
+
+<pre>$ gasp prog.asm | as -o prog.o
+</pre>
+
+<p>Naturally, there are also a few command-line options to allow you to
+request variations on this basic theme.  Here is the full set of
+possibilities for the <small>GASP</small> command line.
+
+<pre>gasp  [ -a | --alternate ]
+      [ -c <var>char</var> | --commentchar <var>char</var> ]
+      [ -d | --debug ]  [ -h | --help ] [ -M | --mri ]
+      [ -o <var>outfile</var> | --output <var>outfile</var> ]
+      [ -p | --print ]  [ -s | --copysource ]
+      [ -u | --unreasonable ]  [ -v | --version ]
+      <var>infile</var> <small>...</small>
+</pre>
+
+<dl>
+<dt><code><var>infile</var> <small>...</small></code>
+<dd>The input file names.  You must specify at least one input file; if you
+specify more, <small>GASP</small> preprocesses them all, concatenating the output
+in the order you list the <var>infile</var> arguments.
+
+<p>Mark the end of each input file with the preprocessor command
+<code>.END</code>.  See <a href="#Other%20Commands">Miscellaneous commands</a>.
+
+<br><dt><code>-a</code>
+<dt><code>--alternate</code>
+<dd>Use alternative macro syntax.  See <a href="#Alternate">Alternate macro syntax</a>, for a discussion of how this syntax differs from the default
+<small>GASP</small> syntax.
+
+<br><dt><code>-c '<var>char</var>'</code>
+<dt><code>--commentchar '<var>char</var>'</code>
+<dd>Use <var>char</var> as the comment character.  The default comment character
+is <code>!</code>.  For example, to use a semicolon as the comment character,
+specify <code>-c&nbsp;';'</code> on the <small>GASP</small> command line.  Since
+assembler command characters often have special significance to command
+shells, it is a good idea to quote or escape <var>char</var> when you specify
+a comment character.
+
+<p>For the sake of simplicity, all examples in this manual use the default
+comment character <code>!</code>.
+
+<br><dt><code>-d</code>
+<dt><code>--debug</code>
+<dd>Show debugging statistics.  In this version of <small>GASP</small>, this option
+produces statistics about the string buffers that <small>GASP</small> allocates
+internally.  For each defined buffersize <var>s</var>, <small>GASP</small> shows the
+number of strings <var>n</var> that it allocated, with a line like this:
+
+<pre>strings size <var>s</var> : <var>n</var>
+</pre>
+
+<p><small>GASP</small> displays these statistics on the standard error stream, when
+done preprocessing.
+
+<br><dt><code>-h</code>
+<dt><code>--help</code>
+<dd>Display a summary of the <small>GASP</small> command line options.
+
+<br><dt><code>-M</code>
+<dt><code>--mri</code>
+<dd>Use MRI compatibility mode.  Using this option causes <small>GASP</small> to
+accept the syntax and pseudo-ops used by the Microtec Research
+<code>ASM68K</code> assembler.
+
+<br><dt><code>-o <var>outfile</var></code>
+<dt><code>--output <var>outfile</var></code>
+<dd>Write the output in a file called <var>outfile</var>.  If you do not use the
+<code>-o</code> option, <small>GASP</small> writes its output on the standard output
+stream.
+
+<br><dt><code>-p</code>
+<dt><code>--print</code>
+<dd>Print line numbers.  <small>GASP</small> obeys this option <em>only</em> if you also
+specify <code>-s</code> to copy source lines to its output.  With <code>-s
+-p</code>, <small>GASP</small> displays the line number of each source line copied
+(immediately after the comment character at the beginning of the line).
+
+<br><dt><code>-s</code>
+<dt><code>--copysource</code>
+<dd>Copy the source lines to the output file.  Use this option
+to see the effect of each preprocessor line on the <small>GASP</small> output. 
+<small>GASP</small> places a comment character (<code>!</code> by default) at
+the beginning of each source line it copies, so that you can use this
+option and still assemble the result.
+
+<br><dt><code>-u</code>
+<dt><code>--unreasonable</code>
+<dd>Bypass "unreasonable expansion" limit.  Since you can define <small>GASP</small>
+macros inside other macro definitions, the preprocessor normally
+includes a sanity check.  If your program requires more than 1,000
+nested expansions, <small>GASP</small> normally exits with an error message.  Use
+this option to turn off this check, allowing unlimited nested
+expansions.
+
+<br><dt><code>-v</code>
+<dt><code>--version</code>
+<dd>Display the <small>GASP</small> version number. 
+</dl>
+
+<p><hr>
+Node:<a name="Commands">Commands</a>,
+Next:<a rel=next href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Previous:<a rel=previous href="#Invoking%20GASP">Invoking GASP</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Preprocessor Commands</h1>
+
+<p><small>GASP</small> commands have a straightforward syntax that fits in well with
+assembly conventions.  In general, a command extends for a line, and may
+have up to three fields: an optional label, the command itself, and
+optional arguments to the command.  You can write commands in upper or
+lower case, though this manual shows them in upper case.  See <a href="#Syntax%20Details">Details of the GASP syntax</a>, for more information.
+
+<ul>
+<li><a href="#Conditionals">Conditionals</a>: 
+<li><a href="#Loops">Loops</a>: 
+<li><a href="#Variables">Variables</a>: 
+<li><a href="#Macros">Macros</a>: 
+<li><a href="#Data">Data</a>: 
+<li><a href="#Listings">Listings</a>: 
+<li><a href="#Other%20Commands">Other Commands</a>: 
+<li><a href="#Syntax%20Details">Syntax Details</a>: 
+<li><a href="#Alternate">Alternate</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Conditionals">Conditionals</a>,
+Next:<a rel=next href="#Loops">Loops</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Conditional assembly</h2>
+
+<p>The conditional-assembly directives allow you to include or exclude
+portions of an assembly depending on how a pair of expressions, or a
+pair of strings, compare.
+
+<p>The overall structure of conditionals is familiar from many other
+contexts.  <code>.AIF</code> marks the start of a conditional, and precedes
+assembly for the case when the condition is true.   An optional
+<code>.AELSE</code> precedes assembly for the converse case, and an
+<code>.AENDI</code> marks the end of the condition.
+
+<p>You may nest conditionals up to a depth of 100; <small>GASP</small> rejects
+nesting beyond that, because it may indicate a bug in your macro
+structure.
+
+<p>Conditionals are primarily useful inside macro definitions, where you
+often need different effects depending on argument values. 
+See <a href="#Macros">Defining your own directives</a>, for details about defining
+macros.
+
+<dl>
+<dt><code>.AIF <var>expra</var> <var>cmp</var> <var>exprb</var></code>
+<dt><code>.AIF "<var>stra</var>" <var>cmp</var> "<var>strb</var>"</code>
+<dd>
+The governing condition goes on the same line as the <code>.AIF</code>
+preprocessor command.  You may compare either two strings, or two
+expressions.
+
+<p>When you compare strings, only two conditional <var>cmp</var> comparison
+operators are available: <code>EQ</code> (true if <var>stra</var> and <var>strb</var>
+are identical), and <code>NE</code> (the opposite).
+
+<p>When you compare two expressions, <em>both expressions must be
+absolute</em> (see <a href="#Expressions">Arithmetic expressions in GASP</a>).  You
+can use these <var>cmp</var> comparison operators with expressions:
+
+<dl>
+<dt><code>EQ</code>
+<dd>Are <var>expra</var> and <var>exprb</var> equal?  (For strings, are <var>stra</var> and
+<var>strb</var> identical?)
+
+<br><dt><code>NE</code>
+<dd>Are <var>expra</var> and <var>exprb</var> different?  (For strings, are <var>stra</var>
+and <var>strb</var> different?
+
+<br><dt><code>LT</code>
+<dd>Is <var>expra</var> less than <var>exprb</var>?  (Not allowed for strings.)
+
+<br><dt><code>LE</code>
+<dd>Is <var>expra</var> less than or equal to <var>exprb</var>?  (Not allowed for strings.)
+
+<br><dt><code>GT</code>
+<dd>Is <var>expra</var> greater than <var>exprb</var>?  (Not allowed for strings.)
+
+<br><dt><code>GE</code>
+<dd>Is <var>expra</var> greater than or equal to <var>exprb</var>?  (Not allowed for
+strings.) 
+</dl>
+
+<br><dt><code>.AELSE</code>
+<dd>Marks the start of assembly code to be included if the condition fails. 
+Optional, and only allowed within a conditional (between <code>.AIF</code> and
+<code>.AENDI</code>).
+
+<br><dt><code>.AENDI</code>
+<dd>Marks the end of a conditional assembly. 
+</dl>
+
+<p><hr>
+Node:<a name="Loops">Loops</a>,
+Next:<a rel=next href="#Variables">Variables</a>,
+Previous:<a rel=previous href="#Conditionals">Conditionals</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Repetitive sections of assembly</h2>
+
+<p>Two preprocessor directives allow you to repeatedly issue copies of the
+same block of assembly code.
+
+<dl>
+<dt><code>.AREPEAT <var>aexp</var></code>
+<dt><code>.AENDR</code>
+<dd>If you simply need to repeat the same block of assembly over and over a
+fixed number of times, sandwich one instance of the repeated block
+between <code>.AREPEAT</code> and <code>.AENDR</code>.  Specify the number of
+copies as <var>aexp</var> (which must be an absolute expression).  For
+example, this repeats two assembly statements three times in succession:
+
+<pre>        .AREPEAT        3
+        rotcl   r2
+        div1    r0,r1
+        .AENDR
+</pre>
+
+<br><dt><code>.AWHILE <var>expra</var> <var>cmp</var> <var>exprb</var></code>
+<dt><code>.AENDW</code>
+<dt><code>.AWHILE <var>stra</var> <var>cmp</var> <var>strb</var></code>
+<dt><code>.AENDW</code>
+<dd>To repeat a block of assembly depending on a conditional test, rather
+than repeating it for a specific number of times, use <code>.AWHILE</code>. 
+<code>.AENDW</code> marks the end of the repeated block.  The conditional
+comparison works exactly the same way as for <code>.AIF</code>, with the same
+comparison operators (see <a href="#Conditionals">Conditional assembly</a>).
+
+<p>Since the terms of the comparison must be absolute expression,
+<code>.AWHILE</code> is primarily useful within macros.  See <a href="#Macros">Defining your own directives</a>. 
+</dl>
+
+<p>You can use the <code>.EXITM</code> preprocessor directive to break out of
+loops early (as well as to break out of macros).  See <a href="#Macros">Defining your own directives</a>.
+
+<p><hr>
+Node:<a name="Variables">Variables</a>,
+Next:<a rel=next href="#Macros">Macros</a>,
+Previous:<a rel=previous href="#Loops">Loops</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Preprocessor variables</h2>
+
+<p>You can use variables in <small>GASP</small> to represent strings, registers, or
+the results of expressions.
+
+<p>You must distinguish two kinds of variables:
+<ol type=1 start=1>
+</p><li>Variables defined with <code>.EQU</code> or <code>.ASSIGN</code>.  To evaluate this
+kind of variable in your assembly output, simply mention its name.  For
+example, these two lines define and use a variable <code>eg</code>:
+
+<pre>eg     .EQU   FLIP-64
+       <small>...</small>
+       mov.l  eg,r0
+</pre>
+
+<p><em>Do not use</em> this kind of variable in conditional expressions or
+while loops; <small>GASP</small> only evaluates these variables when writing
+assembly output.
+
+<li>Variables for use during preprocessing.  You can define these
+with <code>.ASSIGNC</code> or <code>.ASSIGNA</code>.  To evaluate this
+kind of variable, write <code>\&amp;</code> before the variable name; for example,
+
+<pre>opcit  .ASSIGNA  47
+       <small>...</small>
+       .AWHILE  \&amp;opcit GT 0
+       <small>...</small>
+       .AENDW
+</pre>
+
+<p><small>GASP</small> treats macro arguments almost the same way, but to evaluate
+them you use the prefix <code>\</code> rather than <code>\&amp;</code>. 
+See <a href="#Macros">Defining your own directives</a>.
+</ol>
+
+<dl>
+<dt><code><var>pvar</var> .EQU <var>expr</var></code>
+<dd>Assign preprocessor variable <var>pvar</var> the value of the expression
+<var>expr</var>.  There are no restrictions on redefinition; use <code>.EQU</code>
+with the same <var>pvar</var> as often as you find it convenient.
+
+<br><dt><code><var>pvar</var> .ASSIGN <var>expr</var></code>
+<dd>Almost the same as <code>.EQU</code>, save that you may not redefine
+<var>pvar</var> using <code>.ASSIGN</code> once it has a value.
+
+<br><dt><code><var>pvar</var> .ASSIGNA <var>aexpr</var></code>
+<dd>Define a variable with a numeric value, for use during preprocessing. 
+<var>aexpr</var> must be an absolute expression.  You can redefine variables
+with <code>.ASSIGNA</code> at any time.
+
+<br><dt><code><var>pvar</var> .ASSIGNC "<var>str</var>"</code>
+<dd>Define a variable with a string value, for use during preprocessing. 
+You can redefine variables with <code>.ASSIGNC</code> at any time.
+
+<br><dt><code><var>pvar</var> .REG (<var>register</var>)</code>
+<dd>Use <code>.REG</code> to define a variable that represents a register.  In
+particular, <var>register</var> is <em>not evaluated</em> as an expression. 
+You may use <code>.REG</code> at will to redefine register variables. 
+</dl>
+
+<p>All these directives accept the variable name in the "label" position,
+that is at the left margin.  You may specify a colon after the variable
+name if you wish; the first example above could have started <code>eg:</code>
+with the same effect.
+
+<p><hr>
+Node:<a name="Macros">Macros</a>,
+Next:<a rel=next href="#Data">Data</a>,
+Previous:<a rel=previous href="#Variables">Variables</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Defining your own directives</h2>
+
+<p>The commands <code>.MACRO</code> and <code>.ENDM</code> allow you to define macros
+that generate assembly output.  You can use these macros with a syntax
+similar to built-in <small>GASP</small> or assembler directives.  For example,
+this definition specifies a macro <code>SUM</code> that adds together a range of
+consecutive registers:
+
+<pre>        .MACRO  SUM FROM=0, TO=9
+        ! \FROM \TO
+        mov     r\FROM,r10
+COUNT   .ASSIGNA        \FROM+1
+        .AWHILE \&amp;COUNT LE \TO
+        add     r\&amp;COUNT,r10
+COUNT   .ASSIGNA        \&amp;COUNT+1
+        .AENDW
+        .ENDM
+</pre>
+
+<p>With that definition, <code>SUM 0,5</code> generates this assembly output:
+
+<pre>        ! 0 5
+        mov     r0,r10
+        add     r1,r10
+        add     r2,r10
+        add     r3,r10
+        add     r4,r10
+        add     r5,r10
+</pre>
+
+<dl>
+<dt><code>.MACRO <var>macname</var></code>
+<dt><code>.MACRO <var>macname</var> <var>macargs</var> <small>...</small></code>
+<dd>Begin the definition of a macro called <var>macname</var>.  If your macro
+definition requires arguments, specify their names after the macro name,
+separated by commas or spaces.  You can supply a default value for any
+macro argument by following the name with <code>=<var>deflt</var></code>.  For
+example, these are all valid <code>.MACRO</code> statements:
+
+<dl>
+<dt><code>.MACRO COMM</code>
+<dd>Begin the definition of a macro called <code>COMM</code>, which takes no
+arguments.
+
+<br><dt><code>.MACRO PLUS1 P, P1</code>
+<dt><code>.MACRO PLUS1 P P1</code>
+<dd>Either statement begins the definition of a macro called <code>PLUS1</code>,
+which takes two arguments; within the macro definition, write
+<code>\P</code> or <code>\P1</code> to evaluate the arguments.
+
+<br><dt><code>.MACRO RESERVE_STR P1=0 P2</code>
+<dd>Begin the definition of a macro called <code>RESERVE_STR</code>, with two
+arguments.  The first argument has a default value, but not the second. 
+After the definition is complete, you can call the macro either as
+<code>RESERVE_STR <var>a</var>,<var>b</var></code> (with <code>\P1</code> evaluating to
+<var>a</var> and <code>\P2</code> evaluating to <var>b</var>), or as <code>RESERVE_STR
+,<var>b</var></code> (with <code>\P1</code> evaluating as the default, in this case
+<code>0</code>, and <code>\P2</code> evaluating to <var>b</var>). 
+</dl>
+
+<p>When you call a macro, you can specify the argument values either by
+position, or by keyword.  For example, <code>SUM 9,17</code> is equivalent to
+<code>SUM TO=17, FROM=9</code>.  Macro arguments are preprocessor variables
+similar to the variables you define with <code>.ASSIGNA</code> or
+<code>.ASSIGNC</code>; in particular, you can use them in conditionals or for
+loop control.  (The only difference is the prefix you write to evaluate
+the variable: for a macro argument, write <code>\<var>argname</var></code>, but for
+a preprocessor variable, write <code>\&amp;<var>varname</var></code>.)
+
+<br><dt><code><var>name</var> .MACRO</code>
+<dt><code><var>name</var> .MACRO ( <var>macargs</var> <small>...</small> )</code>
+<dd>An alternative form of introducing a macro definition: specify the macro
+name in the label position, and the arguments (if any) between
+parentheses after the name.  Defaulting rules and usage work the same
+way as for the other macro definition syntax.
+
+<br><dt><code>.ENDM</code>
+<dd>Mark the end of a macro definition.
+
+<br><dt><code>.EXITM</code>
+<dd>Exit early from the current macro definition, <code>.AREPEAT</code> loop, or
+<code>.AWHILE</code> loop.
+
+<br><dt><code>\@</code>
+<dd><small>GASP</small> maintains a counter of how many macros it has
+executed in this pseudo-variable; you can copy that number to your
+output with <code>\@</code>, but <em>only within a macro definition</em>.
+
+<br><dt><code>LOCAL <var>name</var> [ , <small>...</small> ]</code>
+<dd><em>Warning: <code>LOCAL</code> is only available if you select "alternate
+macro syntax" with <code>-a</code> or <code>--alternate</code>.</em>  See <a href="#Alternate">Alternate macro syntax</a>.
+
+<p>Generate a string replacement for each of the <var>name</var> arguments, and
+replace any instances of <var>name</var> in each macro expansion.  The
+replacement string is unique in the assembly, and different for each
+separate macro expansion.  <code>LOCAL</code> allows you to write macros that
+define symbols, without fear of conflict between separate macro expansions. 
+</dl>
+
+<p><hr>
+Node:<a name="Data">Data</a>,
+Next:<a rel=next href="#Listings">Listings</a>,
+Previous:<a rel=previous href="#Macros">Macros</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Data output</h2>
+
+<p>In assembly code, you often need to specify working areas of memory;
+depending on the application, you may want to initialize such memory or
+not.  <small>GASP</small> provides preprocessor directives to help you avoid
+repetitive coding for both purposes.
+
+<p>You can use labels as usual to mark the data areas.
+
+<ul>
+<li><a href="#Initialized">Initialized</a>: 
+<li><a href="#Uninitialized">Uninitialized</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Initialized">Initialized</a>,
+Next:<a rel=next href="#Uninitialized">Uninitialized</a>,
+Up:<a rel=up href="#Data">Data</a>
+<br>
+
+<h3>Initialized data</h3>
+
+<p>These are the <small>GASP</small> directives for initialized data, and the standard
+<small>GNU</small> assembler directives they expand to:
+
+<dl>
+<dt><code>.DATA <var>expr</var>, <var>expr</var>, <small>...</small></code>
+<dt><code>.DATA.B <var>expr</var>, <var>expr</var>, <small>...</small></code>
+<dt><code>.DATA.W <var>expr</var>, <var>expr</var>, <small>...</small></code>
+<dt><code>.DATA.L <var>expr</var>, <var>expr</var>, <small>...</small></code>
+<dd>Evaluate arithmetic expressions <var>expr</var>, and emit the corresponding
+<code>as</code> directive (labelled with <var>lab</var>).  The unqualified
+<code>.DATA</code> emits <code>.long</code>; <code>.DATA.B</code> emits <code>.byte</code>;
+<code>.DATA.W</code> emits <code>.short</code>; and <code>.DATA.L</code> emits
+<code>.long</code>.
+
+<p>For example, <code>foo .DATA 1,2,3</code> emits <code>foo: .long 1,2,3</code>.
+
+<br><dt><code>.DATAB <var>repeat</var>, <var>expr</var></code>
+<dt><code>.DATAB.B <var>repeat</var>, <var>expr</var></code>
+<dt><code>.DATAB.W <var>repeat</var>, <var>expr</var></code>
+<dt><code>.DATAB.L <var>repeat</var>, <var>expr</var></code>
+<dd>Make <code>as</code> emit <var>repeat</var> copies of the value of the expression
+<var>expr</var> (using the <code>as</code> directive <code>.fill</code>). 
+<code>.DATAB.B</code> repeats one-byte values; <code>.DATAB.W</code> repeats
+two-byte values; and <code>.DATAB.L</code> repeats four-byte values. 
+<code>.DATAB</code> without a suffix repeats four-byte values, just like
+<code>.DATAB.L</code>.
+
+<p><var>repeat</var> must be an absolute expression with a positive value.
+
+<br><dt><code>.SDATA "<var>str</var>" <small>...</small></code>
+<dd>String data.  Emits a concatenation of bytes, precisely as you specify
+them (in particular, <em>nothing is added to mark the end</em> of the
+string).  See <a href="#Constants">String and numeric constants</a>, for details
+about how to write strings.  <code>.SDATA</code> concatenates multiple
+arguments, making it easy to switch between string representations.  You
+can use commas to separate the individual arguments for clarity, if you
+choose.
+
+<br><dt><code>.SDATAB <var>repeat</var>, "<var>str</var>" <small>...</small></code>
+<dd>Repeated string data.  The first argument specifies how many copies of
+the string to emit; the remaining arguments specify the string, in the
+same way as the arguments to <code>.SDATA</code>.
+
+<br><dt><code>.SDATAZ "<var>str</var>" <small>...</small></code>
+<dd>Zero-terminated string data.  Just like <code>.SDATA</code>, except that
+<code>.SDATAZ</code> writes a zero byte at the end of the string.
+
+<br><dt><code>.SDATAC "<var>str</var>" <small>...</small></code>
+<dd>Count-prefixed string data.  Just like <code>.SDATA</code>, except that
+<small>GASP</small> precedes the string with a leading one-byte count.  For
+example, <code>.SDATAC "HI"</code> generates <code>.byte 2,72,73</code>.  Since the
+count field is only one byte, you can only use <code>.SDATAC</code> for
+strings less than 256 bytes in length. 
+</dl>
+
+<p><hr>
+Node:<a name="Uninitialized">Uninitialized</a>,
+Previous:<a rel=previous href="#Initialized">Initialized</a>,
+Up:<a rel=up href="#Data">Data</a>
+<br>
+
+<h3>Uninitialized data</h3>
+
+<p>Use the <code>.RES</code>, <code>.SRES</code>, <code>.SRESC</code>, and <code>.SRESZ</code>
+directives to reserve memory and leave it uninitialized.  <small>GASP</small>
+resolves these directives to appropriate calls of the <small>GNU</small>
+<code>as</code> <code>.space</code> directive.
+
+<dl>
+<dt><code>.RES <var>count</var></code>
+<dt><code>.RES.B <var>count</var></code>
+<dt><code>.RES.W <var>count</var></code>
+<dt><code>.RES.L <var>count</var></code>
+<dd>Reserve room for <var>count</var> uninitialized elements of data.  The
+suffix specifies the size of each element: <code>.RES.B</code> reserves
+<var>count</var> bytes, <code>.RES.W</code> reserves <var>count</var> pairs of bytes,
+and <code>.RES.L</code> reserves <var>count</var> quartets.  <code>.RES</code> without a
+suffix is equivalent to <code>.RES.L</code>.
+
+<br><dt><code>.SRES <var>count</var></code>
+<dt><code>.SRES.B <var>count</var></code>
+<dt><code>.SRES.W <var>count</var></code>
+<dt><code>.SRES.L <var>count</var></code>
+<dd><code>.SRES</code> is a synonym for <code>.RES</code>.
+
+<br><dt><code>.SRESC <var>count</var></code>
+<dt><code>.SRESC.B <var>count</var></code>
+<dt><code>.SRESC.W <var>count</var></code>
+<dt><code>.SRESC.L <var>count</var></code>
+<dd>Like <code>.SRES</code>, but reserves space for <code><var>count</var>+1</code> elements.
+
+<br><dt><code>.SRESZ <var>count</var></code>
+<dt><code>.SRESZ.B <var>count</var></code>
+<dt><code>.SRESZ.W <var>count</var></code>
+<dt><code>.SRESZ.L <var>count</var></code>
+<dd>Like <code>.SRES</code>, but reserves space for <code><var>count</var>+1</code> elements. 
+</dl>
+
+<p><hr>
+Node:<a name="Listings">Listings</a>,
+Next:<a rel=next href="#Other%20Commands">Other Commands</a>,
+Previous:<a rel=previous href="#Data">Data</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Assembly listing control</h2>
+
+<p>The <small>GASP</small> listing-control directives correspond to
+related <small>GNU</small> <code>as</code> directives.
+
+<dl>
+<dt><code>.PRINT LIST</code>
+<dt><code>.PRINT NOLIST</code>
+<dd>Print control.  This directive emits the <small>GNU</small> <code>as</code> directive
+<code>.list</code> or <code>.nolist</code>, according to its argument.  See <a href="as.info.html#%3ccode%3e.list%3c%2fcode%3e">List</a>, for details on how these directives
+interact.
+
+<br><dt><code>.FORM LIN=<var>ln</var></code>
+<dt><code>.FORM COL=<var>cols</var></code>
+<dt><code>.FORM LIN=<var>ln</var> COL=<var>cols</var></code>
+<dd>Specify the page size for assembly listings: <var>ln</var> represents the
+number of lines, and <var>cols</var> the number of columns.  You may specify
+either page dimension independently, or both together.  If you do not
+specify the number of lines, <small>GASP</small> assumes 60 lines; if you do not
+specify the number of columns, <small>GASP</small> assumes 132 columns. 
+(Any values you may have specified in previous instances of <code>.FORM</code>
+do <em>not</em> carry over as defaults.)  Emits the <code>.psize</code>
+assembler directive.
+
+<br><dt><code>.HEADING <var>string</var></code>
+<dd>Specify <var>string</var> as the title of your assembly listings.  Emits
+<code>.title "<var>string</var>"</code>.
+
+<br><dt><code>.PAGE</code>
+<dd>Force a new page in assembly listings.  Emits <code>.eject</code>. 
+</dl>
+
+<p><hr>
+Node:<a name="Other%20Commands">Other Commands</a>,
+Next:<a rel=next href="#Syntax%20Details">Syntax Details</a>,
+Previous:<a rel=previous href="#Listings">Listings</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Miscellaneous commands</h2>
+
+<dl>
+<dt><code>.ALTERNATE</code>
+<dd>Use the alternate macro syntax henceforth in the assembly. 
+See <a href="#Alternate">Alternate macro syntax</a>.
+
+<br><dt><code>.ORG</code>
+<dd>This command is recognized, but not yet implemented.  <small>GASP</small>
+generates an error message for programs that use <code>.ORG</code>.
+
+<br><dt><code>.RADIX <var>s</var></code>
+<dd><small>GASP</small> understands numbers in any of base two, eight, ten, or
+sixteen.  You can encode the base explicitly in any numeric constant
+(see <a href="#Constants">String and numeric constants</a>).  If you write
+numbers without an explicit indication of the base, the most recent
+<code>.RADIX <var>s</var></code> command determines how they are interpreted. 
+<var>s</var> is a single letter, one of the following:
+
+<dl>
+<dt><code>.RADIX B</code>
+<dd>Base 2.
+
+<br><dt><code>.RADIX Q</code>
+<dd>Base 8.
+
+<br><dt><code>.RADIX D</code>
+<dd>Base 10.  This is the original default radix.
+
+<br><dt><code>.RADIX H</code>
+<dd>Base 16. 
+</dl>
+
+<p>You may specify the argument <var>s</var> in lower case (any of <code>bqdh</code>)
+with the same effects.
+
+<br><dt><code>.EXPORT <var>name</var></code>
+<dt><code>.GLOBAL <var>name</var></code>
+<dd>Declare <var>name</var> global (emits <code>.global <var>name</var></code>).  The two
+directives are synonymous.
+
+<br><dt><code>.PROGRAM</code>
+<dd>No effect: <small>GASP</small> accepts this directive, and silently ignores it.
+
+<br><dt><code>.END</code>
+<dd>Mark end of each preprocessor file.  <small>GASP</small> issues a warning if it
+reaches end of file without seeing this command.
+
+<br><dt><code>.INCLUDE "<var>str</var>"</code>
+<dd>Preprocess the file named by <var>str</var>, as if its contents appeared
+where the <code>.INCLUDE</code> directive does.  <small>GASP</small> imposes a maximum
+limit of 30 stacked include files, as a sanity check.
+
+<br><dt><code>.ALIGN <var>size</var></code>
+<dd>Evaluate the absolute expression <var>size</var>, and emit the assembly
+instruction <code>.align <var>size</var></code> using the result. 
+</dl>
+
+<p><hr>
+Node:<a name="Syntax%20Details">Syntax Details</a>,
+Next:<a rel=next href="#Alternate">Alternate</a>,
+Previous:<a rel=previous href="#Other%20Commands">Other Commands</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Details of the GASP syntax</h2>
+
+<p>Since <small>GASP</small> is meant to work with assembly code, its statement
+syntax has no surprises for the assembly programmer.
+
+<p><em>Whitespace</em> (blanks or tabs; <em>not</em> newline) is partially
+significant, in that it delimits up to three fields in a line.  The
+amount of whitespace does not matter; you may line up fields in separate
+lines if you wish, but <small>GASP</small> does not require that.
+
+<p>The <em>first field</em>, an optional <dfn>label</dfn>, must be flush left in a
+line (with no leading whitespace) if it appears at all.  You may use a
+colon after the label if you wish; <small>GASP</small> neither requires the colon
+nor objects to it (but will not include it as part of the label name).
+
+<p>The <em>second field</em>, which must appear after some whitespace,
+contains a <small>GASP</small> or assembly <dfn>directive</dfn>.
+
+<p>Any <em>further fields</em> on a line are <dfn>arguments</dfn> to the
+directive; you can separate them from one another using either commas or
+whitespace.
+
+<ul>
+<li><a href="#Markers">Markers</a>: 
+<li><a href="#Constants">Constants</a>: 
+<li><a href="#Symbols">Symbols</a>: 
+<li><a href="#Expressions">Expressions</a>: 
+<li><a href="#String%20Builtins">String Builtins</a>: 
+</ul>
+
+<p><hr>
+Node:<a name="Markers">Markers</a>,
+Next:<a rel=next href="#Constants">Constants</a>,
+Up:<a rel=up href="#Syntax%20Details">Syntax Details</a>
+<br>
+
+<h3>Special syntactic markers</h3>
+
+<p><small>GASP</small> recognizes a few special markers: to delimit comments, to
+continue a statement on the next line, to separate symbols from other
+characters, and to copy text to the output literally.  (One other
+special marker, <code>\@</code>, works only within macro definitions;
+see <a href="#Macros">Defining your own directives</a>.)
+
+<p>The trailing part of any <small>GASP</small> source line may be a <dfn>comment</dfn>. 
+A comment begins with the first unquoted comment character (<code>!</code> by
+default), or an escaped or doubled comment character (<code>\!</code> or
+<code>!!</code> by default), and extends to the end of a line.  You can
+specify what comment character to use with the <code>-c</code> option
+(see <a href="#Invoking%20GASP">Command Line Options</a>).  The two kinds of
+comment markers lead to slightly different treatment:
+
+<dl>
+<dt><code>!</code>
+<dd>A single, un-escaped comment character generates an assembly comment in
+the <small>GASP</small> output.  <small>GASP</small> evaluates any preprocessor variables
+(macro arguments, or variables defined with <code>.ASSIGNA</code> or
+<code>.ASSIGNC</code>) present.  For example, a macro that begins like this
+
+<pre>        .MACRO  SUM FROM=0, TO=9
+        ! \FROM \TO
+</pre>
+
+<p>issues as the first line of output a comment that records the
+values you used to call the macro.
+
+<br><dt><code>\!</code>
+<dt><code>!!</code>
+<dd>Either an escaped comment character, or a double comment character,
+marks a <small>GASP</small> source comment.  <small>GASP</small> does not copy such comments
+to the assembly output. 
+</dl>
+
+<p>To <em>continue a statement</em> on the next line of the file, begin the
+second line with the character <code>+</code>.
+
+<p>Occasionally you may want to prevent <small>GASP</small> from preprocessing some
+particular bit of text.  To <em>copy literally</em> from the <small>GASP</small>
+source to its output, place <code>\(</code> before the string to copy, and
+<code>)</code> at the end.  For example, write <code>\(\!)</code> if you need the
+characters <code>\!</code> in your assembly output.
+
+<p>To <em>separate a preprocessor variable</em> from text to appear
+immediately after its value, write a single quote (<code>'</code>).  For
+example, <code>.SDATA "\P'1"</code> writes a string built by concatenating the
+value of <code>P</code> and the digit <code>1</code>.  (You cannot achieve this by
+writing just <code>\P1</code>, since <code>P1</code> is itself a valid name for a
+preprocessor variable.)
+
+<p><hr>
+Node:<a name="Constants">Constants</a>,
+Next:<a rel=next href="#Symbols">Symbols</a>,
+Previous:<a rel=previous href="#Markers">Markers</a>,
+Up:<a rel=up href="#Syntax%20Details">Syntax Details</a>
+<br>
+
+<h3>String and numeric constants</h3>
+
+<p>There are two ways of writing <dfn>string constants</dfn> in <small>GASP</small>: as
+literal text, and by numeric byte value.  Specify a string literal
+between double quotes (<code>"<var>str</var>"</code>).  Specify an individual
+numeric byte value as an absolute expression between angle brackets
+(<code>&lt;<var>expr</var>&gt;</code>.  Directives that output strings allow you to
+specify any number of either kind of value, in whatever order is
+convenient, and concatenate the result.  (Alternate syntax mode
+introduces a number of alternative string notations; see <a href="#Alternate">Alternate macro syntax</a>.)
+
+<p>You can write <dfn>numeric constants</dfn> either in a specific base, or in
+whatever base is currently selected (either 10, or selected by the most
+recent <code>.RADIX</code>).
+
+<p>To write a number in a <em>specific base</em>, use the pattern
+<code><var>s</var>'<var>ddd</var></code>: a base specifier character <var>s</var>, followed
+by a single quote followed by digits <var>ddd</var>.  The base specifier
+character matches those you can specify with <code>.RADIX</code>: <code>B</code> for
+base 2, <code>Q</code> for base 8, <code>D</code> for base 10, and <code>H</code> for base
+16.  (You can write this character in lower case if you prefer.)
+
+<p><hr>
+Node:<a name="Symbols">Symbols</a>,
+Next:<a rel=next href="#Expressions">Expressions</a>,
+Previous:<a rel=previous href="#Constants">Constants</a>,
+Up:<a rel=up href="#Syntax%20Details">Syntax Details</a>
+<br>
+
+<h3>Symbols</h3>
+
+<p><small>GASP</small> recognizes symbol names that start with any alphabetic character,
+<code>_</code>, or <code>$</code>, and continue with any of the same characters or
+with digits.  Label names follow the same rules.
+
+<p><hr>
+Node:<a name="Expressions">Expressions</a>,
+Next:<a rel=next href="#String%20Builtins">String Builtins</a>,
+Previous:<a rel=previous href="#Symbols">Symbols</a>,
+Up:<a rel=up href="#Syntax%20Details">Syntax Details</a>
+<br>
+
+<h3>Arithmetic expressions in GASP</h3>
+
+<p>There are two kinds of expressions, depending on their result:
+<dfn>absolute</dfn> expressions, which resolve to a constant (that is, they
+do not involve any values unknown to <small>GASP</small>), and <dfn>relocatable</dfn>
+expressions, which must reduce to the form
+
+<pre><var>addsym</var>+<var>const</var>-<var>subsym</var>
+</pre>
+
+<p>where <var>addsym</var> and <var>subsym</var> are assembly symbols of unknown
+value, and <var>const</var> is a constant.
+
+<p>Arithmetic for <small>GASP</small> expressions follows very similar rules to C. 
+You can use parentheses to change precedence; otherwise, arithmetic
+primitives have decreasing precedence in the order of the following
+list.
+
+<ol type=1 start=1>
+</p><li>Single-argument <code>+</code> (identity), <code>-</code> (arithmetic opposite), or
+<code>~</code> (bitwise negation).  <em>The argument must be an absolute
+expression.</em>
+
+<li><code>*</code> (multiplication) and <code>/</code> (division).  <em>Both arguments
+must be absolute expressions.</em>
+
+<li><code>+</code> (addition) and <code>-</code> (subtraction).  <em>At least one argument
+must be absolute.</em>
+
+<li><code>&amp;</code> (bitwise and).  <em>Both arguments must be absolute.</em>
+
+<li><code>|</code> (bitwise or) and <code>~</code> (bitwise exclusive or; <code>^</code> in
+C).  <em>Both arguments must be absolute.</em>
+</ol>
+
+<p><hr>
+Node:<a name="String%20Builtins">String Builtins</a>,
+Previous:<a rel=previous href="#Expressions">Expressions</a>,
+Up:<a rel=up href="#Syntax%20Details">Syntax Details</a>
+<br>
+
+<h3>String primitives</h3>
+
+<p>You can use these primitives to manipulate strings (in the argument
+field of <small>GASP</small> statements):
+
+<dl>
+<dt><code>.LEN("<var>str</var>")</code>
+<dd>Calculate the length of string <code>"<var>str</var>"</code>, as an absolute
+expression.  For example, <code>.RES.B .LEN("sample")</code> reserves six
+bytes of memory.
+
+<br><dt><code>.INSTR("<var>string</var>", "<var>seg</var>", <var>ix</var>)</code>
+<dd>Search for the first occurrence of <var>seg</var> after position <var>ix</var> of
+<var>string</var>.  For example, <code>.INSTR("ABCDEFG", "CDE", 0)</code> evaluates
+to the absolute result <code>2</code>.
+
+<p>The result is <code>-1</code> if <var>seg</var> does not occur in <var>string</var>
+after position <var>ix</var>.
+
+<br><dt><code>.SUBSTR("<var>string</var>",<var>start</var>,<var>len</var>)</code>
+<dd>The substring of <var>string</var> beginning at byte number <var>start</var> and
+extending for <var>len</var> bytes. 
+</dl>
+
+<p><hr>
+Node:<a name="Alternate">Alternate</a>,
+Previous:<a rel=previous href="#Syntax%20Details">Syntax Details</a>,
+Up:<a rel=up href="#Commands">Commands</a>
+<br>
+
+<h2>Alternate macro syntax</h2>
+
+<p>If you specify <code>-a</code> or <code>--alternate</code> on the <small>GASP</small> command
+line, the preprocessor uses somewhat different syntax.  This syntax is
+reminiscent of the syntax of Phar Lap macro assembler, but it
+is <em>not</em> meant to be a full emulation of Phar Lap or similar
+assemblers.  In particular, <small>GASP</small> does not support directives such
+as <code>DB</code> and <code>IRP</code>, even in alternate syntax mode.
+
+<p>In particular, <code>-a</code> (or <code>--alternate</code>) elicits these
+differences:
+
+<dl>
+<dt><em>Preprocessor directives</em>
+<dd>You can use <small>GASP</small> preprocessor directives without a leading <code>.</code>
+dot.  For example, you can write <code>SDATA</code> with the same effect as
+<code>.SDATA</code>.
+
+<br><dt><em>LOCAL</em>
+<dd>One additional directive, <code>LOCAL</code>, is available.  See <a href="#Macros">Defining your own directives</a>, for an explanation of how to use
+<code>LOCAL</code>.
+
+<br><dt><em>String delimiters</em>
+<dd>You can write strings delimited in these other ways besides
+<code>"<var>string</var>"</code>:
+
+<dl>
+<dt><code>'<var>string</var>'</code>
+<dd>You can delimit strings with single-quote charaters.
+
+<br><dt><code>&lt;<var>string</var>&gt;</code>
+<dd>You can delimit strings with matching angle brackets. 
+</dl>
+
+<br><dt><em>single-character string escape</em>
+<dd>To include any single character literally in a string (even if the
+character would otherwise have some special meaning), you can prefix the
+character with <code>!</code> (an exclamation mark).  For example, you can
+write <code>&lt;4.3 !&gt; 5.4!!&gt;</code> to get the literal text <code>4.3 &gt; 5.4!</code>.
+
+<br><dt><em>Expression results as strings</em>
+<dd>You can write <code>%<var>expr</var></code> to evaluate the expression <var>expr</var>
+and use the result as a string. 
+</dl>
+
+<p><hr>
+Node:<a name="GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Next:<a rel=next href="#Index">Index</a>,
+Previous:<a rel=previous href="#Commands">Commands</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>GNU Free Documentation License</h1>
+
+<p>GNU Free Documentation License
+
+<p>Version 1.1, March 2000
+
+<p>Copyright (C) 2000  Free Software Foundation, Inc. 
+  59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+<p>Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+<p>0. PREAMBLE
+
+<p>The purpose of this License is to make a manual, textbook, or other
+written document "free" in the sense of freedom: to assure everyone
+the effective freedom to copy and redistribute it, with or without
+modifying it, either commercially or noncommercially.  Secondarily,
+this License preserves for the author and publisher a way to get
+credit for their work, while not being considered responsible for
+modifications made by others.
+
+<p>This License is a kind of "copyleft", which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+<p>We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+<p>1. APPLICABILITY AND DEFINITIONS
+
+<p>This License applies to any manual or other work that contains a
+notice placed by the copyright holder saying it can be distributed
+under the terms of this License.  The "Document", below, refers to any
+such manual or work.  Any member of the public is a licensee, and is
+addressed as "you".
+
+<p>A "Modified Version" of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+<p>A "Secondary Section" is a named appendix or a front-matter section of
+the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall subject
+(or to related matters) and contains nothing that could fall directly
+within that overall subject.  (For example, if the Document is in part a
+textbook of mathematics, a Secondary Section may not explain any
+mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+<p>The "Invariant Sections" are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.
+
+<p>The "Cover Texts" are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.
+
+<p>A "Transparent" copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, whose contents can be viewed and edited directly and
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup has been designed to thwart or discourage
+subsequent modification by readers is not Transparent.  A copy that is
+not "Transparent" is called "Opaque".
+
+<p>Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, LaTeX input format, SGML
+or XML using a publicly available DTD, and standard-conforming simple
+HTML designed for human modification.  Opaque formats include
+PostScript, PDF, proprietary formats that can be read and edited only
+by proprietary word processors, SGML or XML for which the DTD and/or
+processing tools are not generally available, and the
+machine-generated HTML produced by some word processors for output
+purposes only.
+
+<p>The "Title Page" means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, "Title Page" means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+<p>2. VERBATIM COPYING
+
+<p>You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no other
+conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+<p>You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+<p>3. COPYING IN QUANTITY
+
+<p>If you publish printed copies of the Document numbering more than 100,
+and the Document's license notice requires Cover Texts, you must enclose
+the copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition. 
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+<p>If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+<p>If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a publicly-accessible computer-network location containing a complete
+Transparent copy of the Document, free of added material, which the
+general network-using public has access to download anonymously at no
+charge using public-standard network protocols.  If you use the latter
+option, you must take reasonably prudent steps, when you begin
+distribution of Opaque copies in quantity, to ensure that this
+Transparent copy will remain thus accessible at the stated location
+until at least one year after the last time you distribute an Opaque
+copy (directly or through your agents or retailers) of that edition to
+the public.
+
+<p>It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to give
+them a chance to provide you with an updated version of the Document.
+
+<p>4. MODIFICATIONS
+
+<p>You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+<p>A. Use in the Title Page (and on the covers, if any) a title distinct
+   from that of the Document, and from those of previous versions
+   (which should, if there were any, be listed in the History section
+   of the Document).  You may use the same title as a previous version
+   if the original publisher of that version gives permission. 
+B. List on the Title Page, as authors, one or more persons or entities
+   responsible for authorship of the modifications in the Modified
+   Version, together with at least five of the principal authors of the
+   Document (all of its principal authors, if it has less than five). 
+C. State on the Title page the name of the publisher of the
+   Modified Version, as the publisher. 
+D. Preserve all the copyright notices of the Document. 
+E. Add an appropriate copyright notice for your modifications
+   adjacent to the other copyright notices. 
+F. Include, immediately after the copyright notices, a license notice
+   giving the public permission to use the Modified Version under the
+   terms of this License, in the form shown in the Addendum below. 
+G. Preserve in that license notice the full lists of Invariant Sections
+   and required Cover Texts given in the Document's license notice. 
+H. Include an unaltered copy of this License. 
+I. Preserve the section entitled "History", and its title, and add to
+   it an item stating at least the title, year, new authors, and
+   publisher of the Modified Version as given on the Title Page.  If
+   there is no section entitled "History" in the Document, create one
+   stating the title, year, authors, and publisher of the Document as
+   given on its Title Page, then add an item describing the Modified
+   Version as stated in the previous sentence. 
+J. Preserve the network location, if any, given in the Document for
+   public access to a Transparent copy of the Document, and likewise
+   the network locations given in the Document for previous versions
+   it was based on.  These may be placed in the "History" section. 
+   You may omit a network location for a work that was published at
+   least four years before the Document itself, or if the original
+   publisher of the version it refers to gives permission. 
+K. In any section entitled "Acknowledgements" or "Dedications",
+   preserve the section's title, and preserve in the section all the
+   substance and tone of each of the contributor acknowledgements
+   and/or dedications given therein. 
+L. Preserve all the Invariant Sections of the Document,
+   unaltered in their text and in their titles.  Section numbers
+   or the equivalent are not considered part of the section titles. 
+M. Delete any section entitled "Endorsements".  Such a section
+   may not be included in the Modified Version. 
+N. Do not retitle any existing section as "Endorsements"
+   or to conflict in title with any Invariant Section.
+
+<p>If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice. 
+These titles must be distinct from any other section titles.
+
+<p>You may add a section entitled "Endorsements", provided it contains
+nothing but endorsements of your Modified Version by various
+parties-for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+<p>You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+<p>The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+<p>5. COMBINING DOCUMENTS
+
+<p>You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice.
+
+<p>The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number. 
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+<p>In the combination, you must combine any sections entitled "History"
+in the various original documents, forming one section entitled
+"History"; likewise combine any sections entitled "Acknowledgements",
+and any sections entitled "Dedications".  You must delete all sections
+entitled "Endorsements."
+
+<p>6. COLLECTIONS OF DOCUMENTS
+
+<p>You may make a collection consisting of the Document and other documents
+released under this License, and replace the individual copies of this
+License in the various documents with a single copy that is included in
+the collection, provided that you follow the rules of this License for
+verbatim copying of each of the documents in all other respects.
+
+<p>You may extract a single document from such a collection, and distribute
+it individually under this License, provided you insert a copy of this
+License into the extracted document, and follow this License in all
+other respects regarding verbatim copying of that document.
+
+<p>7. AGGREGATION WITH INDEPENDENT WORKS
+
+<p>A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, does not as a whole count as a Modified Version
+of the Document, provided no compilation copyright is claimed for the
+compilation.  Such a compilation is called an "aggregate", and this
+License does not apply to the other self-contained works thus compiled
+with the Document, on account of their being thus compiled, if they
+are not themselves derivative works of the Document.
+
+<p>If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one quarter
+of the entire aggregate, the Document's Cover Texts may be placed on
+covers that surround only the Document within the aggregate. 
+Otherwise they must appear on covers around the whole aggregate.
+
+<p>8. TRANSLATION
+
+<p>Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4. 
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License provided that you also include the
+original English version of this License.  In case of a disagreement
+between the translation and the original English version of this
+License, the original English version will prevail.
+
+<p>9. TERMINATION
+
+<p>You may not copy, modify, sublicense, or distribute the Document except
+as expressly provided for under this License.  Any other attempt to
+copy, modify, sublicense or distribute the Document is void, and will
+automatically terminate your rights under this License.  However,
+parties who have received copies, or rights, from you under this
+License will not have their licenses terminated so long as such
+parties remain in full compliance.
+
+<p>10. FUTURE REVISIONS OF THIS LICENSE
+
+<p>The Free Software Foundation may publish new, revised versions
+of the GNU Free Documentation License from time to time.  Such new
+versions will be similar in spirit to the present version, but may
+differ in detail to address new problems or concerns.  See
+http://www.gnu.org/copyleft/.
+
+<p>Each version of the License is given a distinguishing version number. 
+If the Document specifies that a particular numbered version of this
+License "or any later version" applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.
+
+<p>ADDENDUM: How to use this License for your documents
+
+<p>To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+<pre>    Copyright (c)  YEAR  YOUR NAME.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.1
+    or any later version published by the Free Software Foundation;
+    with the Invariant Sections being LIST THEIR TITLES, with the
+    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+    A copy of the license is included in the section entitled "GNU
+    Free Documentation License".
+</pre>
+
+<p>If you have no Invariant Sections, write "with no Invariant Sections"
+instead of saying which ones are invariant.  If you have no
+Front-Cover Texts, write "no Front-Cover Texts" instead of
+"Front-Cover Texts being LIST"; likewise for Back-Cover Texts.
+
+<p>If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+
+<p><hr>
+Node:<a name="Index">Index</a>,
+Previous:<a rel=previous href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>,
+Up:<a rel=up href="#Top">Top</a>
+<br>
+
+<h1>Index</h1>
+
+<ul compact>
+<li><code>!</code> default comment char: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>+</code>: <a href="#Markers">Markers</a>
+<li><code>--alternate</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--commentchar '<var>char</var>'</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--copysource</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--debug</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--help</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--mri</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--output <var>outfile</var></code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--print</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--unreasonable</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>--version</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-a</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-c '<var>char</var>'</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-d</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-h</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-M</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-o <var>outfile</var></code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-p</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-s</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-u</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>-v</code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>.AELSE</code>: <a href="#Conditionals">Conditionals</a>
+<li><code>.AENDI</code>: <a href="#Conditionals">Conditionals</a>
+<li><code>.AENDR</code>: <a href="#Loops">Loops</a>
+<li><code>.AENDW</code>: <a href="#Loops">Loops</a>
+<li><code>.AIF "<var>stra</var>" <var>cmp</var> "<var>strb</var>"</code>: <a href="#Conditionals">Conditionals</a>
+<li><code>.AIF <var>expra</var> <var>cmp</var> <var>exprb</var></code>: <a href="#Conditionals">Conditionals</a>
+<li><code>.ALIGN <var>size</var></code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.ALTERNATE</code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.AREPEAT <var>aexp</var></code>: <a href="#Loops">Loops</a>
+<li><code>.AWHILE <var>expra</var> <var>cmp</var> <var>exprb</var></code>: <a href="#Loops">Loops</a>
+<li><code>.AWHILE <var>stra</var> <var>cmp</var> <var>strb</var></code>: <a href="#Loops">Loops</a>
+<li><code>.DATA <var>expr</var>, <var>expr</var>, <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATA.B <var>expr</var>, <var>expr</var>, <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATA.L <var>expr</var>, <var>expr</var>, <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATA.W <var>expr</var>, <var>expr</var>, <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATAB <var>repeat</var>, <var>expr</var></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATAB.B <var>repeat</var>, <var>expr</var></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATAB.L <var>repeat</var>, <var>expr</var></code>: <a href="#Initialized">Initialized</a>
+<li><code>.DATAB.W <var>repeat</var>, <var>expr</var></code>: <a href="#Initialized">Initialized</a>
+<li><code>.END</code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.ENDM</code>: <a href="#Macros">Macros</a>
+<li><code>.EXITM</code>: <a href="#Macros">Macros</a>
+<li><code>.EXPORT <var>name</var></code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.FORM COL=<var>cols</var></code>: <a href="#Listings">Listings</a>
+<li><code>.FORM LIN=<var>ln</var></code>: <a href="#Listings">Listings</a>
+<li><code>.FORM LIN=<var>ln</var> COL=<var>cols</var></code>: <a href="#Listings">Listings</a>
+<li><code>.GLOBAL <var>name</var></code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.HEADING <var>string</var></code>: <a href="#Listings">Listings</a>
+<li><code>.INCLUDE "<var>str</var>"</code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.INSTR("<var>string</var>", "<var>seg</var>", <var>ix</var>)</code>: <a href="#String%20Builtins">String Builtins</a>
+<li><code>.LEN("<var>str</var>")</code>: <a href="#String%20Builtins">String Builtins</a>
+<li><code>.MACRO <var>macname</var></code>: <a href="#Macros">Macros</a>
+<li><code>.MACRO <var>macname</var> <var>macargs</var> <small>...</small></code>: <a href="#Macros">Macros</a>
+<li><code>.ORG</code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.PAGE</code>: <a href="#Listings">Listings</a>
+<li><code>.PRINT LIST</code>: <a href="#Listings">Listings</a>
+<li><code>.PRINT NOLIST</code>: <a href="#Listings">Listings</a>
+<li><code>.PROGRAM</code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.RADIX <var>s</var></code>: <a href="#Other%20Commands">Other Commands</a>
+<li><code>.RES <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.RES.B <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.RES.L <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.RES.W <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SDATA "<var>str</var>" <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.SDATAB <var>repeat</var>, "<var>str</var>" <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.SDATAC "<var>str</var>" <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.SDATAZ "<var>str</var>" <small>...</small></code>: <a href="#Initialized">Initialized</a>
+<li><code>.SRES <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRES.B <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRES.L <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRES.W <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESC <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESC.B <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESC.L <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESC.W <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESZ <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESZ.B <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESZ.L <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SRESZ.W <var>count</var></code>: <a href="#Uninitialized">Uninitialized</a>
+<li><code>.SUBSTR("<var>string</var>",<var>start</var>,<var>len</var>)</code>: <a href="#String%20Builtins">String Builtins</a>
+<li><code>;</code> as comment char: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li><code>\@</code>: <a href="#Macros">Macros</a>
+<li>absolute expressions: <a href="#Expressions">Expressions</a>
+<li>argument fields: <a href="#Syntax%20Details">Syntax Details</a>
+<li>avoiding preprocessing: <a href="#Markers">Markers</a>
+<li>bang, as comment: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>breaking out of loops: <a href="#Loops">Loops</a>
+<li>comment character, changing: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>comments: <a href="#Markers">Markers</a>
+<li>continuation character: <a href="#Markers">Markers</a>
+<li>copying literally to output: <a href="#Markers">Markers</a>
+<li>directive field: <a href="#Syntax%20Details">Syntax Details</a>
+<li><code>EQ</code>: <a href="#Conditionals">Conditionals</a>
+<li>exclamation mark, as comment: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>fields of <small>GASP</small> source line: <a href="#Syntax%20Details">Syntax Details</a>
+<li><code>GE</code>: <a href="#Conditionals">Conditionals</a>
+<li><code>GT</code>: <a href="#Conditionals">Conditionals</a>
+<li><code><var>infile</var> <small>...</small></code>: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>label field: <a href="#Syntax%20Details">Syntax Details</a>
+<li><code>LE</code>: <a href="#Conditionals">Conditionals</a>
+<li>literal copy to output: <a href="#Markers">Markers</a>
+<li><code>LOCAL <var>name</var> [ , <small>...</small> ]</code>: <a href="#Macros">Macros</a>
+<li>loops, breaking out of: <a href="#Loops">Loops</a>
+<li><code>LT</code>: <a href="#Conditionals">Conditionals</a>
+<li>macros, count executed: <a href="#Macros">Macros</a>
+<li><code><var>name</var> .MACRO</code>: <a href="#Macros">Macros</a>
+<li><code><var>name</var> .MACRO ( <var>macargs</var> <small>...</small> )</code>: <a href="#Macros">Macros</a>
+<li><code>NE</code>: <a href="#Conditionals">Conditionals</a>
+<li>number of macros executed: <a href="#Macros">Macros</a>
+<li>preprocessing, avoiding: <a href="#Markers">Markers</a>
+<li><code><var>pvar</var> .ASSIGN <var>expr</var></code>: <a href="#Variables">Variables</a>
+<li><code><var>pvar</var> .ASSIGNA <var>aexpr</var></code>: <a href="#Variables">Variables</a>
+<li><code><var>pvar</var> .ASSIGNC "<var>str</var>"</code>: <a href="#Variables">Variables</a>
+<li><code><var>pvar</var> .EQU <var>expr</var></code>: <a href="#Variables">Variables</a>
+<li><code><var>pvar</var> .REG (<var>register</var>)</code>: <a href="#Variables">Variables</a>
+<li>relocatable expressions: <a href="#Expressions">Expressions</a>
+<li>semicolon, as comment: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>shriek, as comment: <a href="#Invoking%20GASP">Invoking GASP</a>
+<li>symbol separator: <a href="#Markers">Markers</a>
+<li>symbols, separating from text: <a href="#Markers">Markers</a>
+<li>text, separating from symbols: <a href="#Markers">Markers</a>
+<li>whitespace: <a href="#Syntax%20Details">Syntax Details</a>
+</ul>
+
+<h1>Table of Contents</h1>
+<ul>
+<li><a href="#Top">GASP</a>
+<li><a href="#Overview">What is GASP?</a>
+<li><a href="#Invoking%20GASP">Command Line Options</a>
+<li><a href="#Commands">Preprocessor Commands</a>
+<ul>
+<li><a href="#Conditionals">Conditional assembly</a>
+<li><a href="#Loops">Repetitive sections of assembly</a>
+<li><a href="#Variables">Preprocessor variables</a>
+<li><a href="#Macros">Defining your own directives</a>
+<li><a href="#Data">Data output</a>
+<ul>
+<li><a href="#Initialized">Initialized data</a>
+<li><a href="#Uninitialized">Uninitialized data</a>
+</ul>
+<li><a href="#Listings">Assembly listing control</a>
+<li><a href="#Other%20Commands">Miscellaneous commands</a>
+<li><a href="#Syntax%20Details">Details of the GASP syntax</a>
+<ul>
+<li><a href="#Markers">Special syntactic markers</a>
+<li><a href="#Constants">String and numeric constants</a>
+<li><a href="#Symbols">Symbols</a>
+<li><a href="#Expressions">Arithmetic expressions in GASP</a>
+<li><a href="#String%20Builtins">String primitives</a>
+</ul>
+<li><a href="#Alternate">Alternate macro syntax</a>
+</ul>
+<li><a href="#GNU%20Free%20Documentation%20License">GNU Free Documentation License</a>
+<li><a href="#Index">Index</a>
+</ul>
+
+
+</body></html>
+
