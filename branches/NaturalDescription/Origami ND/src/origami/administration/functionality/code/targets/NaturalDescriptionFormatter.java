@@ -10,25 +10,15 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
     private Vector<String> prePseudocodigo;
     private Vector<String> pila;
    
-    public NaturalDescriptionFormatter() {
-	// TODO Auto-generated constructor stub
-	super();
-	naturalDescription = new Vector<String>();
-	prePseudocodigo = new Vector<String>();
-	
-    }
-    
-
-    public NaturalDescriptionFormatter(Vector<String> result,
-	    Vector<String> variablesTable) {
-	// TODO Auto-generated constructor stub
+    public NaturalDescriptionFormatter(Vector<String> codeOfFigure, 
+	    			       Vector<String> TableOfVariable){
 	super();
 	setCodeOfFigure(codeOfFigure);
 	setTableOfVariable(TableOfVariable);
 	naturalDescription = new Vector<String>();
 	prePseudocodigo = new Vector<String>();
+	pila = new Vector<String>();
     }
-
 
     @Override
     public void applyFormat() {
@@ -39,9 +29,12 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 
     private void produceNaturalDescription(){
 	naturalDescription.add("Inicio del Algoritmo");
+	    System.out.println(codeOfFigure.size());
 	for(int i = 0; i < codeOfFigure.size(); i++){
 	    naturalDescription.add(translateLine(codeOfFigure.get(i)));
+	
 	}
+	naturalDescription.add("Fin del Algoritmo");
 	filtroFinal();
 	vectorToString();
     }
@@ -67,12 +60,14 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	    sourceCode += naturalDescription.get(i)+"\n";
 	}
     }
+    
     private String translateLine(String linea){
 	String newLine = "";
 	/**
 	 * Seccion para traducir un renglon que contenga el codigo origami "Leer:" a Pseudocodigo "Leer "
 	 */
-	if(linea.indexOf("Leer:") != -1 || linea.indexOf("int ") != -1 || linea.indexOf("float") != -1){
+	if(linea.indexOf("Leer:") != -1 || linea.indexOf("int ") != -1 || linea.indexOf("float") != -1
+		|| linea.indexOf("float") != -1 ){
 	    //this returns the formating input block
 	    newLine+=linea;
 	    
