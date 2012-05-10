@@ -40,7 +40,6 @@ public class DiagramDescriptionText {
 	ManagerCodeFormat manager = new ManagerCodeFormat(diagram.getDiagram());
 	manager.formatCodeNaturalDescription();
 	setTextDescription(manager.getInstructionsFormat());
-	System.out.println(new InstructionNaturalDescription().getInstructionOfDiagram(diagram.getDiagram()));
-	
+		
     }
 }

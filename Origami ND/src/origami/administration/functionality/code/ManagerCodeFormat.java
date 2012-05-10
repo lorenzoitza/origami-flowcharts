@@ -66,16 +66,6 @@ public class ManagerCodeFormat {
 		this.instructionsFormat = format.getInstructionsFormat();
 	}
 	
-	public void formatCodePseudocode(){
-	    	Instruction getCodeOfFigures = new Instruction();
-	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
-		//System.out.println(result);
-		format = new  PseudocodigoCodeFormatter(result,getCodeOfFigures.getVariablesTable());
-		System.out.println(getCodeOfFigures.getVariablesTable().toString());
-		format.applyFormat();
-		this.instructionsFormat = format.getInstructionsFormat();
-	}
-	
 	public void formatCodeRuby(){
 	    	Instruction getCodeOfFigures = new Instruction();
 	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
@@ -98,14 +88,26 @@ public class ManagerCodeFormat {
 	    this.instructionsFormat = format.getInstructionsFormat();
 	}
 	
+	public void formatCodePseudocode(){
+	    	Instruction getCodeOfFigures = new Instruction();
+	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
+		//System.out.println(result);
+		format = new  PseudocodigoCodeFormatter(result,getCodeOfFigures.getVariablesTable());
+		System.out.println(getCodeOfFigures.getVariablesTable().toString());
+		format.applyFormat();
+		this.instructionsFormat = format.getInstructionsFormat();
+	}
+	
 	public void formatCodeNaturalDescription(){
 	    	Instruction getCodeOfFigures = new InstructionNaturalDescription();
 	    	Vector<String> result = getCodeOfFigures.getInstructionOfDiagram(figures);
 		//System.out.println(result);
 		format = new  NaturalDescriptionFormatter(result,getCodeOfFigures.getVariablesTable());
-		System.out.println(getCodeOfFigures.getVariablesTable().toString());
+		//System.out.println(getCodeOfFigures.getVariablesTable().toString());
+		//System.out.println(getCodeOfFigures.getInstructionOfDiagram(figures).toString());
 		format.applyFormat();
 		this.instructionsFormat = format.getInstructionsFormat();
+		//System.out.println(instructionsFormat);
 	}
 	public String getInstructionsFormat(){
 		return instructionsFormat;

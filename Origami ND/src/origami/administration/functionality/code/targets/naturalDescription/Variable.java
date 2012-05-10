@@ -11,6 +11,7 @@ public class Variable {
 		this.type = type;
 		listVariables = new Vector<VariableDetails>();
 	}
+	
 
 	public String getType() {
 		return type;
@@ -24,9 +25,20 @@ public class Variable {
 		return listVariables;
 	}
 
-	public void addListVariables(VariableDetails variable) {
+	public void addListVariablesDetaials(VariableDetails variable) {
 		listVariables.add(variable);
 	}
 	
+	public void addListVariablesDetaials(String name, boolean initialization, String initValue) {
+		
+	    	listVariables.add(new VariableDetails(name, initialization, initValue));
+	}
 	
+	public String toString(){
+	    String var= "Type: " + type + "\n";
+	    for(int i = 0; i < listVariables.size(); i++){
+		var+= listVariables.get(i).toString() + "\n";		
+	    }
+	    return var;
+	}
 }

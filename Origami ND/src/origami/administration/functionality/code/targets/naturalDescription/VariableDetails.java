@@ -1,7 +1,15 @@
 package origami.administration.functionality.code.targets.naturalDescription;
+/*
+ * This class maintains the info corresponding to a variable
+ * <type> <var_name> = <number>| <var_name>
+ * if one of the elements appears it will considered valid, otherwise validDeclaration attribute will be false 
+ * and the string name attribute will store it.
+ * 
+ * */
 
 public class VariableDetails {
-	private String name;
+	
+    	private String name;
 	private boolean initialization;
 	private String initValue;
 	
@@ -9,7 +17,7 @@ public class VariableDetails {
 		this.name = name;
 		this.initialization = initialization;
 		this.initValue = initValue;
-	}
+		}
 
 	public String getName() {
 		return name;
@@ -35,4 +43,8 @@ public class VariableDetails {
 		this.initValue = initValue;
 	}
 	
+	public String toString(){
+	    return name + " "+ initialization + " "+ initValue;
+	    
+	}
 }

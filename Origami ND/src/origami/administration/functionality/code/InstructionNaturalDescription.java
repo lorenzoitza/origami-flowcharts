@@ -1,5 +1,6 @@
 package origami.administration.functionality.code;
 
+import java.io.Serializable;
 import java.util.Vector;
 
 import origami.administration.FigureStructure;
@@ -8,9 +9,18 @@ import origami.graphics.figures.InputFigure;
 
 
 
-public class InstructionNaturalDescription extends Instruction{
+public class InstructionNaturalDescription extends Instruction implements Serializable{
 
         
+    /**
+     * 
+     */
+    public InstructionNaturalDescription(){
+	super();
+	
+    }
+ 
+
     protected int getCodeFromInputFigure(Vector<FigureStructure> figures,
 	    int index) {
 

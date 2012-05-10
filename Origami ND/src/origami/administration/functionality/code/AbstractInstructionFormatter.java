@@ -15,12 +15,14 @@ public abstract class AbstractInstructionFormatter {
     
     protected String dataOutput = "\\p";
     
+    
     public AbstractInstructionFormatter(){
 		this.codeOfFigure = new Vector<String>();
 		this.TableOfVariable = new Vector<String>();
 		this.sourceCode = new String();
     }
     
+    //Method to be implemented in subclassses for specific code target
     public abstract void applyFormat();
     
     public String getInstructionsFormat(){
