@@ -13,7 +13,7 @@ public class InputParser {
 	this.lineInput = lineInput;
 	tableVariable = new Vector<Variable>();
 	lineOutput="";
-	
+	parsingLineInput();
     }
     
     public void parsingLineInput(){

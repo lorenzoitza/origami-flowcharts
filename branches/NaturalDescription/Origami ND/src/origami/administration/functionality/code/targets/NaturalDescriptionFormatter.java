@@ -3,6 +3,7 @@ package origami.administration.functionality.code.targets;
 import java.util.Vector;
 
 import origami.administration.functionality.code.AbstractInstructionFormatter;
+import origami.administration.functionality.code.targets.naturalDescription.InputParser;
 
 
 public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
@@ -69,8 +70,40 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	if(linea.indexOf("Leer:") != -1 || linea.indexOf("int ") != -1 || linea.indexOf("float") != -1
 		|| linea.indexOf("float") != -1 ){
 	    //this returns the formating input block
-	    newLine+=linea;
+	    newLine+= new InputParser(linea).getLineOutput();
 	    
+	    return newLine;
+	}
+	
+	/**
+	 * Seccion para traducir un renglon que contenga el codigo origami "X = Y;" a Pseudocodigo "X <- Y;"
+	 */
+	if(linea.indexOf("=") != -1){
+	    System.out.println(linea);
+	    for(int i = 0; i < linea.length(); i++){
+		if(i == linea.indexOf("=")){
+		    newLine += "<-";
+		}
+		else if(i == linea.indexOf("int")){
+		    newLine += "";
+		    i += 3;
+		}
+		else if(i == linea.indexOf("double")){
+		    newLine += "";
+		    i += 6;
+		}
+		else if(i == linea.indexOf("float")){
+		    newLine += "";
+		    i += 5;
+		}
+		else if(i == linea.indexOf("char")){
+		    newLine += "";
+		    i += 4;
+		}
+		else{
+		    newLine += linea.charAt(i);
+		}
+	    }
 	    return newLine;
 	}
 	/**
@@ -102,7 +135,7 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	    pila.add("FinSi");
 	    for(int i = 0; i < linea.length(); i++){
 		if(i == linea.indexOf("if")){
-		    newLine += "Si";
+		    newLine += "SI";
 		    i++;
 		}
 		else if(linea.charAt(i) == '('){
