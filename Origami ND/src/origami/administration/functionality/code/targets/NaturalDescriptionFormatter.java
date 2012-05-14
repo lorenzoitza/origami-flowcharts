@@ -3,7 +3,10 @@ package origami.administration.functionality.code.targets;
 import java.util.Vector;
 
 import origami.administration.functionality.code.AbstractInstructionFormatter;
+import origami.administration.functionality.code.targets.naturalDescription.DecisionParser;
+import origami.administration.functionality.code.targets.naturalDescription.ExpressionParser;
 import origami.administration.functionality.code.targets.naturalDescription.InputParser;
+import origami.administration.functionality.code.targets.naturalDescription.WhileParser;
 
 
 public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
@@ -79,31 +82,8 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	 * Seccion para traducir un renglon que contenga el codigo origami "X = Y;" a Pseudocodigo "X <- Y;"
 	 */
 	if(linea.indexOf("=") != -1){
-	    System.out.println(linea);
-	    for(int i = 0; i < linea.length(); i++){
-		if(i == linea.indexOf("=")){
-		    newLine += "<-";
-		}
-		else if(i == linea.indexOf("int")){
-		    newLine += "";
-		    i += 3;
-		}
-		else if(i == linea.indexOf("double")){
-		    newLine += "";
-		    i += 6;
-		}
-		else if(i == linea.indexOf("float")){
-		    newLine += "";
-		    i += 5;
-		}
-		else if(i == linea.indexOf("char")){
-		    newLine += "";
-		    i += 4;
-		}
-		else{
-		    newLine += linea.charAt(i);
-		}
-	    }
+	    newLine+=new ExpressionParser(linea).getLineOutput();
+	    
 	    return newLine;
 	}
 	/**
@@ -133,41 +113,8 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	 */
 	if(linea.indexOf("if") != -1){
 	    pila.add("FinSi");
-	    for(int i = 0; i < linea.length(); i++){
-		if(i == linea.indexOf("if")){
-		    newLine += "SI";
-		    i++;
-		}
-		else if(linea.charAt(i) == '('){
-		    if(linea.indexOf("!=") != -1){
-			newLine += " ~(";
-		    }
-		    else{
-			newLine += " ";
-		    }
-		}
-		else if(linea.charAt(i) == ')'){
-		    if(linea.indexOf("!=") != -1){
-			newLine += ") ";
-		    }
-		    else{
-			newLine += " ";
-		    }
-		}
-		else if(linea.charAt(i) == '!'){
-		    newLine += "";
-		}
-		else if(linea.charAt(i) == '{'){
-		    newLine += "Entonces";
-		}
-		else if(i == linea.indexOf("==")){
-		    newLine += "=";
-		    i++;
-		}
-		else{
-		    newLine += linea.charAt(i);
-		}
-	    }
+	    newLine+= new DecisionParser(linea).getLineOutput();
+	    
 	    return newLine;
 	}
 	/**
@@ -184,7 +131,7 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	    pila.add("FinSi");
 	    for(int i = 0; i < linea.length(); i++){
 		if(i == linea.indexOf("else")){
-		    newLine += "Sino";
+		    newLine += "SINO";
 		    i += 3;
 		}
 		else if(linea.charAt(i) == '{'){
@@ -208,41 +155,7 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	 */
 	if(linea.indexOf("while") != -1){
 	    pila.add("FinMientras");
-	    for(int i = 0; i < linea.length(); i++){
-		if(i == linea.indexOf("while")){
-		    newLine += "Mientras";
-		    i += 4;
-		}
-		else if(linea.charAt(i) == '('){
-		    if(linea.indexOf("!=") != -1){
-			newLine += " ~(";
-		    }
-		    else{
-			newLine += " ";
-		    }
-		}
-		else if(linea.charAt(i) == ')'){
-		    if(linea.indexOf("!=") != -1){
-			newLine += ") ";
-		    }
-		    else{
-			newLine += " ";
-		    }
-		}
-		else if(linea.charAt(i) == '!'){
-		    newLine += "";
-		}
-		else if(i == linea.indexOf("==")){
-		    newLine += "=";
-		    i++;
-		}
-		else if(linea.charAt(i) == '{'){
-		    newLine += "Hacer";
-		}
-		else{
-		    newLine += linea.charAt(i);
-		}
-	    }
+	    newLine+= new WhileParser(linea).getLineOutput();
 	    return newLine;
 	}
 	/**
@@ -361,42 +274,6 @@ public class NaturalDescriptionFormatter extends AbstractInstructionFormatter {
 	}
 	
 	
-	/**
-	 * Seccion para traducir un renglon que contenga el codigo origami "X++;" a Pseudocodigo "X <- X + 1;"
-	 */
-	if(linea.indexOf("++") != -1){
-	    String variable = "";
-	    for(int i = 0; i < linea.length(); i++){
-		if (i == linea.indexOf("++")){
-		    newLine += variable+"<-"+variable+"+1;";
-		}
-		else if(linea.charAt(i) != '\t'){
-		    variable += linea.charAt(i);
-		}
-		else{
-		    newLine += linea.charAt(i);
-		}
-	    }
-	    return newLine;
-	}
-	/**
-	 * Seccion para traducir un renglon que contenga el codigo origami "X--;" a Pseudocodigo "X <- X - 1;"
-	 */
-	if(linea.indexOf("--") != -1){
-	    String variable = "";
-	    for(int i = 0; i < linea.length(); i++){
-		if (i == linea.indexOf("--")){
-		    newLine += variable+"<-"+variable+"-1;";
-		}
-		else if(linea.charAt(i) != '\t'){
-		    variable += linea.charAt(i);
-		}
-		else{
-		    newLine += linea.charAt(i);
-		}
-	    }
-	    return newLine;
-	}
 	/**
 	 * Seccion para traducir las "}" del codigo origami a sus repectivos "FinSi", "FinMientras" y "FinPara" en Pseudocodigo
 	 */

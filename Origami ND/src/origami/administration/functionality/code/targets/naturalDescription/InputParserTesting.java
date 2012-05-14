@@ -14,7 +14,9 @@ public class InputParserTesting {
 	String testExpression = "x =0 ;y = y +1 ;y=1--y; y++1= ;oiuoi=424c;y = 999; y= y*3; y=y/2;5=89/89; y=0/8; y=r*3";
 	String testExpression1 = "x=x+";
 	//System.out.println(testExpression1.split("[\\+\\-\\*/\\(\\)]",-1).length);
-	new ExpressionParser(testExpression);
+	String testCondition =  "Si ( r>0 && !(k<=rt||x>0)| r && r== 3  p != r *(34) || r>0){";
+	String testFor = "for(int  i =0 ; r>0 && !(k<=rt||x>0); i=i+1){";
+	System.out.println(new ForParser(testFor).getLineOutput());
     }
 
 }
