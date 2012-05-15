@@ -100,7 +100,7 @@ public class ExpressionParser {
         	        			printed = true;
         	        			//System.out.println("Change");
         	        			//System.out.println(printGeneralChanging());
-        	        			lineOutput+=printGeneralUpdating();
+        	        			lineOutput+=printGeneralChanging();
         	        			break;
         	        		    }
         	        		    default:{
@@ -154,7 +154,7 @@ public class ExpressionParser {
 
 	private String printGenericExpression(){
 	        
-	    return "Asignas " + this.rightSide + " a " + this.leftSide;
+	    return "Asignas " + this.rightSide + " en " + this.leftSide;
 	}
 	
 	private String printSetExpression(){
