@@ -77,7 +77,6 @@ public class FigureStructure extends Figure implements Serializable {
 	    graphics.setForegroundColor(RED);
 	} else {
 	    if (seleccion) {
-
 		graphics.setLineWidth(3);
 		graphics.setLineStyle(SWT.LINE_DASH);
 		graphics.setForegroundColor(GRAY);
@@ -103,7 +102,10 @@ public class FigureStructure extends Figure implements Serializable {
     public void setSeleccion(boolean seleccion) {
 	this.seleccion = seleccion;
     }
-
+    public boolean getSeleccion() {
+	return seleccion;
+    }
+    
     public boolean isPasoAPaso() {
 	return PasoAPaso;
     }

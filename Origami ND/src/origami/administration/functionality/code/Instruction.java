@@ -14,6 +14,7 @@ import origami.graphics.figures.WhileFigure;
 
 @SuppressWarnings("serial")
 public class Instruction implements Serializable {
+    protected final String  MARK_SELECTED= "$"; 
 
     protected Vector<String> code = new Vector<String>();
 
@@ -85,9 +86,14 @@ public class Instruction implements Serializable {
     
     private int getCodeFromDecisionFigure(Vector<FigureStructure> figures,
 	    int index) {
-
+	
 	DecisionFigure figure = (DecisionFigure) figures.elementAt(index);
-
+	
+	String selectionMark = "";
+	if(figure.getSeleccion()) {
+	    selectionMark = MARK_SELECTED;
+	}
+	
 	int outputIndex = index;
 
 	int codeSize = 0;
@@ -98,11 +104,11 @@ public class Instruction implements Serializable {
 
 	    if (isValidInstruction(simpleInstruction)) {
 
-		code.add(identator
+		code.add(identator+selectionMark
 
 			+ figure.instructionComposed.getFirstInstructionSimple());
 	    } else {
-		code.add(identator + "if(){");
+		code.add(identator + selectionMark + "if(){");
 	    }
 	}
 	changeIndetator(true);
@@ -130,7 +136,12 @@ public class Instruction implements Serializable {
 	    int index) {
 
 	ForFigure figure = (ForFigure) figures.elementAt(index);
-
+	
+	String selectionMark = "";
+	if(figure.getSeleccion()) {
+	    selectionMark = "$";
+	}
+	
 	int outputIndex = index;
 
 	if (figure.instructionComposed.getFirstInstructionSimple() != null) {

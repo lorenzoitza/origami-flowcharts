@@ -15,8 +15,11 @@ public class InputParserTesting {
 	String testExpression1 = "x=x+";
 	//System.out.println(testExpression1.split("[\\+\\-\\*/\\(\\)]",-1).length);
 	String testCondition =  "Si ( r>0 && !(k<=rt||x>0)| r && r== 3  p != r *(34) || r>0){";
-	String testFor = "for(int  i =0 ; r>0 && !(k<=rt||x>0); i=i+1){";
-	System.out.println(new ForParser(testFor).getLineOutput());
+	//String testFor = "for(int i =0;;){";
+	//System.out.println(new ForParser(testFor).getLineOutput());
+	
+	String testOutput = "\\p\"a,a,a,a,a\",a,a,a;\\p\"otra cadena\", cm d,";
+	System.out.println(new OutputParser(testOutput).getLineOutput());
     }
 
 }
