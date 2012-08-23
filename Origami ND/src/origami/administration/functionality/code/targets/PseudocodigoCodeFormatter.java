@@ -45,6 +45,13 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
      */
     private String traducirLinea(String linea){
 	String newLine = "";
+	
+	System.out.println(linea);
+	if(linea.indexOf("null") != -1) {
+	    //System.out.println("por aqui");
+	return newLine;
+	}
+	
 	/**
 	 * Seccion para traducir un renglon que contenga el codigo origami "Leer:" a Pseudocodigo "Leer "
 	 */
@@ -409,6 +416,7 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
 	 * Seccion para traducir un renglon que contenga el codigo origami "X = Y;" a Pseudocodigo "X <- Y;"
 	 */
 	if(linea.indexOf("=") != -1){
+	    
 	    for(int i = 0; i < linea.length(); i++){
 		if(i == linea.indexOf("=")){
 		    newLine += "<-";
@@ -539,6 +547,7 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
 	    }
 	    return newLine;
 	}
+	
 	return linea;
     }
 	
@@ -555,8 +564,13 @@ public class PseudocodigoCodeFormatter extends AbstractInstructionFormatter {
 	    }
 	}
 	pseudocodigo = new Vector<String>();
+	
 	for(int i = prePseudocodigo.size()-1; i >= 0; i--){
-	    pseudocodigo.add(prePseudocodigo.get(i));
+	    String linea = prePseudocodigo.get(i);
+	    // Just in case a I/O or expresion empty
+	    if(!linea.equals("")){
+		pseudocodigo.add(prePseudocodigo.get(i));
+		}
 	}
     }
 
