@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Text;
 import origami.administration.AdminDiagram;
 import origami.administration.functionality.code.InstructionNaturalDescription;
 import origami.administration.functionality.code.ManagerCodeFormat;
+import origami.graphics.listeners.DiagramDescriptionTextListener;
 
 
 
@@ -18,6 +19,8 @@ public class DiagramDescriptionText {
     public DiagramDescriptionText(Composite parent){
 	textWidget = new Text(parent, SWT.MULTI | SWT.BORDER | SWT.WRAP | SWT.V_SCROLL | SWT.H_SCROLL);
 	textWidget.setEditable(false);
+	//textWidget.addSelectionListener(new DiagramDescriptionTextListener());
+	textWidget.addFocusListener(new DiagramDescriptionTextListener());
 	
     }
 
@@ -36,10 +39,13 @@ public class DiagramDescriptionText {
     public void setTextDescription(String textDescription) {
         this.textWidget.setText(textDescription);
     }
+    // update the text of the right textbox
     public void update(AdminDiagram diagram){
 	ManagerCodeFormat manager = new ManagerCodeFormat(diagram.getDiagram());
-	manager.formatCodeNaturalDescription();
+	manager.formatCodePseudocode();
 	setTextDescription(manager.getInstructionsFormat());
 		
     }
+    
+    
 }

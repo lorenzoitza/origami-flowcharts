@@ -25,6 +25,7 @@ public class Information implements Serializable {
     private String[] FigureManagement = {"ADD","DELETE","EDIT"};
     private String[] ExecutionManagement = {"COMPIL","TEST","STOP","FULL"};
     
+    private String secondRepresentation="SECOND";
     private String instructionExecution="";
     private String textNotSave="<NotSave>";
     
@@ -55,6 +56,11 @@ public class Information implements Serializable {
 	    deleteInfoNotSave();
 	}
     }
+    public void secondRepresentation(){
+	Calendar calendar = Calendar.getInstance();
+	information.add(getDate(calendar,this.format)+" "+ secondRepresentation );
+    }
+    
     public void updateFileAndNotSave(int action){
 	Calendar calendar = Calendar.getInstance();
 	information.add(getDate(calendar,this.format)+" "+FileManagement[action]);
@@ -131,7 +137,8 @@ public class Information implements Serializable {
 	int index = this.instructionExecution.lastIndexOf(";");
 	this.instructionExecution = this.instructionExecution.substring(0,index-1)+"; "+output+" "+this.instructionExecution.substring(index+1);
     }
-
+    
+    
     private int aux = 0;
 
     private int hour;
