@@ -1,0 +1,635 @@
+TOTAL ERRORES: 64
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+Imagenes.CargarImagenes                                 CargarImagenes.java     10      getImagen
+Grafico.Componentes                                     Componentes.java        359     getToolItems
+Grafico.Componentes                                     Componentes.java        93      agregarBarraDeHerramientas
+Grafico.Componentes                                     Componentes.java        84      agregarComponentes
+Grafico.Ventana                                         Ventana.java            871     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3884    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        159     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    26      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          377     <init>
+org.eclipse.swt.graphics.Image                          Image.java              576     <init>
+Grafico.Help.HelpWindow                                 HelpWindow.java         33      setToolBarBottons
+Grafico.Help.HelpWindow                                 HelpWindow.java         103     initToolBar
+Grafico.Help.HelpWindow                                 HelpWindow.java         179     initComponents
+Grafico.Help.HelpWindow                                 HelpWindow.java         192     createWindow
+Grafico.Help.HelpWindow                                 HelpWindow.java         27      <init>
+Grafico.Ventana$1                                       Ventana.java            184     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      228     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            913     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             463     error
+org.eclipse.swt.widgets.Widget                          Widget.java             273     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             146     <init>
+org.eclipse.swt.widgets.Control                         Control.java            105     <init>
+org.eclipse.swt.widgets.Label                           Label.java              102     <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       74      initLabels
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     74      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       46      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       216     initTextFields
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     75      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       38      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       217     initTextFields
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     75      initComponents
+Grafico.VentanaDatos.AbstractDialog                     AbstractDialog.java     48      <init>
+Grafico.VentanaDatos.DatosEntrada                       DatosEntrada.java       39      <init>
+Administracion.Eventos.EventoDobleClick                 EventoDobleClick.java   56      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      183     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1003    sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3880    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3473    readAndDispatch
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initfileMenu
+Grafico.Ventana                                         Ventana.java            551     getMenu
+Grafico.Ventana                                         Ventana.java            909     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initFileMenu
+Grafico.Ventana                                         Ventana.java            830     getMenu
+Grafico.Ventana                                         Ventana.java            944     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initFileMenu
+Grafico.Ventana                                         Ventana.java            887     getMenu
+Grafico.Ventana                                         Ventana.java            950     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initFileMenu
+Grafico.Ventana                                         Ventana.java            887     getMenu
+Grafico.Ventana                                         Ventana.java            950     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initFileMenu
+Grafico.Ventana                                         Ventana.java            887     getMenu
+Grafico.Ventana                                         Ventana.java            950     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3865    error
+org.eclipse.swt.SWT                                     SWT.java                3799    error
+org.eclipse.swt.SWT                                     SWT.java                3770    error
+org.eclipse.swt.widgets.Widget                          Widget.java             619     error
+org.eclipse.swt.widgets.Widget                          Widget.java             399     checkParent
+org.eclipse.swt.widgets.Widget                          Widget.java             127     <init>
+org.eclipse.swt.widgets.Item                            Item.java               63      <init>
+org.eclipse.swt.widgets.MenuItem                        MenuItem.java           79      <init>
+Grafico.Ventana                                         Ventana.java            88      initFileMenu
+Grafico.Ventana                                         Ventana.java            887     getMenu
+Grafico.Ventana                                         Ventana.java            950     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         915     <init>
+Grafico.MainWindow                                      MainWindow.java         930     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         915     <init>
+Grafico.MainWindow                                      MainWindow.java         930     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         915     <init>
+Grafico.MainWindow                                      MainWindow.java         935     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         915     <init>
+Grafico.MainWindow                                      MainWindow.java         930     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         915     <init>
+Grafico.MainWindow                                      MainWindow.java         930     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         916     <init>
+Grafico.MainWindow                                      MainWindow.java         953     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         916     <init>
+Grafico.MainWindow                                      MainWindow.java         943     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java195     menuDisponibleFigura
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java192     menu
+Grafico.MainWindow                                      MainWindow.java         554     initEditMenu
+Grafico.MainWindow                                      MainWindow.java         916     <init>
+Grafico.MainWindow                                      MainWindow.java         954     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Administracion.Eventos.EventoMenuContextual             EventoMenuContextual.java210     menuDisponibleFigura
+Administracion.DibujarDiagrama                          DibujarDiagrama.java    792     agregarSeleccion
+Administracion.DibujarDiagrama                          DibujarDiagrama.java    117     agregarFiguras
+Administracion.Hoja                                     Hoja.java               135     addFigure
+Administracion.Eventos.EventoAgregarFigura              EventoAgregarFigura.java213     Verificar
+Administracion.Eventos.EventoAgregarFigura              EventoAgregarFigura.java66      mousePressed
+org.eclipse.draw2d.Figure                               Figure.java             873     handleMousePressed
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 214     dispatchMousePressed
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  513     mouseDown
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      179     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3543    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1250    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1273    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1258    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1079    notifyListeners
+org.eclipse.swt.widgets.Display                         Display.java            3441    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3100    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         985     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+java.lang.String                                        String.java             1937    substring
+ui.actions.ExportToImageAction                          ExportToImageAction.java81      widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      228     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3543    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1250    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1273    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1258    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1079    notifyListeners
+org.eclipse.swt.widgets.Display                         Display.java            3441    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3100    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         757     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+java.lang.String                                        String.java             1937    substring
+ui.actions.ExportToImageAction                          ExportToImageAction.java81      widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      228     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3543    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1250    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1273    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1258    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1079    notifyListeners
+org.eclipse.swt.widgets.Display                         Display.java            3441    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3100    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         757     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+java.lang.String                                        String.java             1937    substring
+Grafico.MainWindow$3                                    MainWindow.java         241     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      228     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         84      sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3543    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1250    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1273    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1258    sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             1079    notifyListeners
+org.eclipse.swt.widgets.Display                         Display.java            3441    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3100    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         773     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.VentanaDatos.InputFigureDialog                  InputFigureDialog.java  87      initTextFields
+Grafico.VentanaDatos.AbstractInputOutputDialog          AbstractInputOutputDialog.java72      initComponents
+Grafico.VentanaDatos.AbstractInputOutputDialog          AbstractInputOutputDialog.java62      <init>
+Grafico.VentanaDatos.InputFigureDialog                  InputFigureDialog.java  22      <init>
+Administracion.Eventos.DoubleClickEvent                 DoubleClickEvent.java   61      mouseDoubleClicked
+org.eclipse.draw2d.Figure                               Figure.java             813     handleMouseDoubleClicked
+org.eclipse.draw2d.SWTEventDispatcher                   SWTEventDispatcher.java 184     dispatchMouseDoubleClicked
+org.eclipse.draw2d.LightweightSystem$EventHandler       LightweightSystem.java  508     mouseDoubleClick
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      182     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         519     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.CustomeMenu$7                                   CustomeMenu.java        316     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         223     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.CustomeMenu$7                                   CustomeMenu.java        316     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         223     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.CustomeMenu$7                                   CustomeMenu.java        316     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         223     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+Grafico.CustomeMenu$9                                   CustomeMenu.java        355     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+Grafico.MainWindow                                      MainWindow.java         223     main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        14      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        15      getImage
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      69      initToolItems
+origami.graphics.widgets.CustomToolBar                  CustomToolBar.java      42      <init>
+origami.graphics.Componentes                            Componentes.java        77      agregarBarraDeHerramientas
+origami.graphics.Componentes                            Componentes.java        68      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+org.eclipse.swt.SWT                                     SWT.java                3547    error
+org.eclipse.swt.SWT                                     SWT.java                3481    error
+org.eclipse.swt.SWT                                     SWT.java                3452    error
+org.eclipse.swt.graphics.ImageLoader                    ImageLoader.java        125     load
+org.eclipse.swt.graphics.ImageDataLoader                ImageDataLoader.java    22      load
+org.eclipse.swt.graphics.ImageData                      ImageData.java          328     <init>
+org.eclipse.swt.graphics.Image                          Image.java              545     <init>
+origami.images.ImageLoader                              ImageLoader.java        15      getImage
+origami.graphics.widgets.CustomFiguresToolBar           CustomFiguresToolBar.java100     initToolBarButtons
+origami.graphics.widgets.CustomFiguresToolBar           CustomFiguresToolBar.java46      <init>
+origami.graphics.Componentes                            Componentes.java        90      agregarBarraFiguras
+origami.graphics.BaseDeDiagrama                         BaseDeDiagrama.java     34      <init>
+origami.graphics.BaseDeDiagrama                         BaseDeDiagrama.java     44      getInstance
+origami.graphics.Componentes                            Componentes.java        82      agregarTabFolder
+origami.graphics.Componentes                            Componentes.java        69      agregarComponentes
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         89      main
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+origami.graphics.StepByStepComponents                   StepByStepComponents.java58      stopEjecucion
+origami.graphics.widgets.CustomToolBar$7                CustomToolBar.java      223     widgetSelected
+org.eclipse.swt.widgets.TypedListener                   TypedListener.java      227     handleEvent
+org.eclipse.swt.widgets.EventTable                      EventTable.java         66      sendEvent
+org.eclipse.swt.widgets.Widget                          Widget.java             938     sendEvent
+org.eclipse.swt.widgets.Display                         Display.java            3682    runDeferredEvents
+org.eclipse.swt.widgets.Display                         Display.java            3293    readAndDispatch
+origami.graphics.MainWindow                             MainWindow.java         95      main
+
+
+
+
+
+
+
+
+
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+origami.administration.DibujarDiagrama                  DibujarDiagrama.java    671     getFigura
+origami.administration.DibujarDiagrama                  DibujarDiagrama.java    51      agregarFiguras
+origami.graphics.PaintDiagram                           PaintDiagram.java       78      agregarFiguras
+origami.administration.CustomLeaf                       CustomLeaf.java         84      addFigure
+origami.administration.CustomLeaf                       CustomLeaf.java         57      enabledCustomLeaf
+origami.graphics.widgets.CustomTabItem                  CustomTabItem.java      64      enabledLeaf
+origami.graphics.widgets.CustomTabFolder                CustomTabFolder.java    101     addTabItem
+origami.graphics.WindowWidgets                          WindowWidgets.java      75      addTabFolder
+origami.graphics.WindowWidgets                          WindowWidgets.java      64      createWidgets
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         91      main
+
+
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+origami.graphics.DiagramStructure                       DiagramStructure.java   72      initPanels
+origami.graphics.DiagramStructure                       DiagramStructure.java   38      <init>
+origami.graphics.DiagramStructure                       DiagramStructure.java   45      getInstance
+origami.administration.CustomLeaf                       CustomLeaf.java         53      enabledCustomLeaf
+origami.graphics.widgets.CustomTabItem                  CustomTabItem.java      64      enabledLeaf
+origami.graphics.widgets.CustomTabFolder                CustomTabFolder.java    101     addTabItem
+origami.graphics.WindowWidgets                          WindowWidgets.java      91      addTabFolder
+origami.graphics.WindowWidgets                          WindowWidgets.java      78      createWidgets
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         91      main
+
+
+
+****************************************************************************************************************************
+Rastreo de pila proveniente de getStackTrace:
+Clase							Archivo			Linea	Metodo
+origami.graphics.DiagramStructure                       DiagramStructure.java   81      initPanels
+origami.graphics.DiagramStructure                       DiagramStructure.java   38      <init>
+origami.graphics.DiagramStructure                       DiagramStructure.java   45      getInstance
+origami.administration.CustomLeaf                       CustomLeaf.java         53      enabledCustomLeaf
+origami.graphics.widgets.CustomTabItem                  CustomTabItem.java      64      enabledLeaf
+origami.graphics.widgets.CustomTabFolder                CustomTabFolder.java    101     addTabItem
+origami.graphics.WindowWidgets                          WindowWidgets.java      91      addTabFolder
+origami.graphics.WindowWidgets                          WindowWidgets.java      78      createWidgets
+origami.graphics.MainWindow                             MainWindow.java         48      addWindowComponents
+origami.graphics.MainWindow                             MainWindow.java         40      <init>
+origami.graphics.MainWindow                             MainWindow.java         91      main
+
+
